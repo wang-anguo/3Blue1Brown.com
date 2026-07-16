@@ -13,4 +13,5 @@ cd 3Blue1Brown.com
 
 bun run build
 bun run preview
+
 这会在本地 31415 端口拉起编译优化后的版本，运行速度比开发模式（dev）更快、更省内存。
