@@ -1,1 +1,16 @@
-a
+* 安装 Bun（Linux / macOS）：
+
+curl -fsSL https://bun.sh/install | bash
+
+* git clone https://github.com/3b1b/3Blue1Brown.com.git
+cd 3Blue1Brown.com
+
+* bun install
+
+* bun run dev
+
+* 如果你想生成一份可以直接部署在内网服务器上的静态版本，可以将其编译打包：执行打包构建：
+
+bun run build
+bun run preview
+这会在本地 31415 端口拉起编译优化后的版本，运行速度比开发模式（dev）更快、更省内存。
