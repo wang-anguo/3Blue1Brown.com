@@ -1,6 +1,7 @@
 ---
-title: Vectors, what even are they?
-description: This lesson describes the multiple interpretations for what vectors are and the operations on vectors.
+title: Vectors, what even are they? 向量，究竟是什么?
+description: This lesson describes the multiple interpretations for what vectors are and the operations on vectors.  本课程将阐述向量的多种定义及其运算方式。。
+
 date: 2016-08-06
 chapter: 1
 video: fNk_zzaMoSs
@@ -18,33 +19,45 @@ import Question from "~/components/Question";
 
 <section>
 
-## Interpretations of Vectors
+## Interpretations of Vectors 解释向量
 
-> The introduction of numbers as coordinates is an act of violence.
+> The introduction of numbers as coordinates is an act of violence.  
+将数字作为坐标引入，实则是一种暴力行为。
 >
-> \- Hermann Weyl
+> \- Hermann Weyl 赫尔曼·魏尔
 
-The fundamental building block for linear algebra is the vector, so it's worth making sure we're all on the same page about _what_ exactly a vector _is_.
+The fundamental building block for linear algebra is the vector, so it's worth making sure we're all on the same page about _what_ exactly a vector _is_.  
+向量是线性代数的基本构成单元，
+因此我们有必要明确究竟什么是向量，确保大家对这一概念有相同的理解。
 
 <Figure image="$lesson/figures/introduction/VectorExample.svg" />
 
-You see, broadly speaking there are three distinct-but-related interpretations of vectors, which I'll call the physics student perspective, the computer science perspective, and the mathematician's perspective.
+You see, broadly speaking there are three distinct-but-related interpretations of vectors, which I'll call the physics student perspective, the computer science perspective, and the mathematician's perspective.  
+总体而言，向量存在三种截然不同却又相互关联的解释方式，
+我将其分别称为物理学视角、计算机科学视角以及数学家视角。
 
 <Figure image="$lesson/figures/introduction/perspectives.svg" />
 
-### Physics Perspective
+### Physics Perspective  物理学视角
 
-The physics student perspective is that vectors are arrows pointing in space. What defines a given vector is its length and the direction it's pointing, but as long as those two facts are the same you can move it around and it's still the same vector.
+The physics student perspective is that vectors are arrows pointing in space. What defines a given vector is its length and the direction it's pointing, but as long as those two facts are the same you can move it around and it's still the same vector.  
+物理专业学生的观点认为，向量是空间中的箭头。
+决定一个给定向量的因素是其长度与指向方向，
+只要这两个条件不变，即便移动该向量，它依然属于同一个向量。
 
 <Figure image="$lesson/figures/introduction/MagnitudeAndDirection.svg" />
 
-Vectors that live in a flat plane are two-dimensional, and those sitting in the broader space that we live in are three-dimensional.
+Vectors that live in a flat plane are two-dimensional, and those sitting in the broader space that we live in are three-dimensional.  
+位于平面内的向量属于二维向量，而位于我们所生存的更广阔空间中的向量则是三维向量。
 
 <Figure image="$lesson/figures/introduction/2dAnd3DVectors.jpg" />
 
-### CS Perspective
+### CS Perspective 计算机科学视角
 
-The computer science perspective is that vectors are ordered lists of numbers. For example, if you were doing some analytics about house prices, and the only features you cared about were square footage and price, you might model each house as a pair of numbers, the first indicating square footage, and the second indicating price.
+The computer science perspective is that vectors are ordered lists of numbers. For example, if you were doing some analytics about house prices, and the only features you cared about were square footage and price, you might model each house as a pair of numbers, the first indicating square footage, and the second indicating price.  
+从计算机科学的角度来看，向量是按顺序排列的数字序列。
+例如，若要对房价进行数据分析，且仅关注房屋面积和价格这两个特征，
+就可以将每套房子表示为一对数字，第一个数字代表面积，第二个数字代表价格。
 
 $$
 \left[\begin{array}{l}
@@ -53,50 +66,75 @@ $$
 \end{array}\right]
 $$
 
-Notice that order matters here. In the lingo, you'd be modeling houses as two-dimensional vectors, where "vector" is pretty much a fancy word for list, and what makes it two-dimensional is the fact that its length is two.
+Notice that order matters here. In the lingo, you'd be modeling houses as two-dimensional vectors, where "vector" is pretty much a fancy word for list, and what makes it two-dimensional is the fact that its length is two.  
+请注意，这里的顺序很重要。
+用专业术语来说，就是将房屋视为二维向量来建模，
+其中“向量”其实不过是“列表”的另一种说法，而其成为二维向量的原因在于它的维度数为二。
 
-### Mathematician's Perspective
+### Mathematician's Perspective 数学家的视角
 
-The mathematician generalizes both of these views, basically saying that a vector can be anything where there's a sensible notion of adding two vectors and multiplying a vector by a number, operations that we'll talk about later in this chapter.
+The mathematician generalizes both of these views, basically saying that a vector can be anything where there's a sensible notion of adding two vectors and multiplying a vector by a number, operations that we'll talk about later in this chapter.  
+数学家对这两种观点进行了概括，
+认为向量可以是任何具备合理加法与数乘运算意义的对象，
+而这些运算我们将在本章后文详细探讨。
 
 <Figure image="$lesson/figures/introduction/MathematiciansPerspective.svg" />
 
-The details of this view are rather abstract, and it can be healthy to ignore it until later in this series, favoring a more concrete setting in the interim. The reason we bring it up here is that it hints at the fact that the ideas of vector addition and multiplication by numbers will play an important role throughout these topics.
+The details of this view are rather abstract, and it can be healthy to ignore it until later in this series, favoring a more concrete setting in the interim. The reason we bring it up here is that it hints at the fact that the ideas of vector addition and multiplication by numbers will play an important role throughout these topics.  
+这种观点的细节相当抽象，在本系列后续内容出现之前暂且忽略它并无不妥，可以先采用更具体的情境来理解。
+我们在此提及它的原因在于，它暗示了向量加法与数乘的概念将在后续所有主题中发挥重要作用。
 
 </section>
 
 <section>
 
-## Thinking About Coordinate Systems
+## Thinking About Coordinate Systems 思考坐标系
 
-Now, while many of you are already familiar with coordinate systems, it's worth walking through them explicitly since this is where all the important back and forth between the two main perspectives of linear algebra happens. Focusing our attention on two dimensions for the moment, you have a horizontal line, called the _x-axis_, and a vertical line, called the _y-axis_.
+Now, while many of you are already familiar with coordinate systems, it's worth walking through them explicitly since this is where all the important back and forth between the two main perspectives of linear algebra happens. Focusing our attention on two dimensions for the moment, you have a horizontal line, called the _x-axis_, and a vertical line, called the _y-axis_.  
+虽然大家已经对坐标系较为熟悉，但仍有必要详细讲解一番，
+因为线性代数的两大核心视角之间的所有重要讨论都发生在这一框架之中。
+目前我们以二维为例，其中有一条水平线称为x轴，另一条垂直线则称为y轴。
 
 <Figure image="$lesson/figures/coordinate-systems/CoordinateSystemAxes.svg" />
 
-The place where they intersect is the _origin_, which you should think of as the center of space and the root of all vectors.
+The place where they intersect is the _origin_, which you should think of as the center of space and the root of all vectors.  
+两轴的交点即为原点，可将其视为空间的中心以及所有向量的起点
 
 <Figure image="$lesson/figures/coordinate-systems/CoordinateSystemOrigin.svg" />
 
-After choosing an arbitrary distance to represent a length of $1$, you make tick marks on each axis spaced out by this distance.
+After choosing an arbitrary distance to represent a length of $1$, you make tick marks on each axis spaced out by this distance.  
+在选定一个任意距离作为长度1的基准后，便会在每条坐标轴上以该距离为间隔标注刻度。
 
 <Figure image="$lesson/figures/coordinate-systems/CoordinateSystemTickMarks.svg" />
 
-When we want to convey the idea of 2d space as a whole, which comes up a lot in this text, we'll extend these tick marks to make grid lines, like so:
+When we want to convey the idea of 2d space as a whole, which comes up a lot in this text, we'll extend these tick marks to make grid lines, like so:  
+当我们需要表达作为整体的二维空间这一概念时——
+这在本文中出现频次很高——
+就会将这些刻度线延伸成网格线，如下所示：
 
 <Figure image="$lesson/figures/coordinate-systems/CoordinateSystemGrid.svg" />
 
-Let's settle on a specific thought to have in mind when we say the word _vector_. Given the geometric focus we're shooting for here, whenever we introduce a new topic involving vectors, we want you to first think about an arrow, and specifically think about an arrow inside a coordinate system, like the $xy$-plane, with its tail sitting at the origin.
+Let's settle on a specific thought to have in mind when we say the word _vector_. Given the geometric focus we're shooting for here, whenever we introduce a new topic involving vectors, we want you to first think about an arrow, and specifically think about an arrow inside a coordinate system, like the $xy$-plane, with its tail sitting at the origin.  
+在讨论向量这一概念时，让我们先明确一个具体的意象。
+鉴于此处所强调的几何视角，每当我们引入与向量相关的新主题时，希望大家首先想到箭头——
+更确切地说，是位于坐标系中的箭头，比如xy平面上的那种，其箭尾位于原点处。
 
 <Figure image="$lesson/figures/coordinate-systems/VectorAsArrow.svg" />
 
-The coordinates of a vector are a pair of numbers that basically give instructions for how to get from the tail of that vector at the origin, to its tip. The first number tells you how far to walk along the $x$-axis, with positive numbers indicating rightward motion and negative numbers indicating leftward motion, and the second number tells you how far to then walk parallel to the $y$-axis, with positive numbers indicating upward motion, and negative numbers indicating downward motion.
+The coordinates of a vector are a pair of numbers that basically give instructions for how to get from the tail of that vector at the origin, to its tip. The first number tells you how far to walk along the $x$-axis, with positive numbers indicating rightward motion and negative numbers indicating leftward motion, and the second number tells you how far to then walk parallel to the $y$-axis, with positive numbers indicating upward motion, and negative numbers indicating downward motion.  
+向量的坐标是一对数值，用于指示如何从位于原点的向量尾端到达其尖端。
+第一个数值表示沿x轴移动的距离，正数表示向右移动，负数表示向左移动；
+第二个数值则表示随后沿y轴移动的距离，正数表示向上移动，负数表示向下移动。
 
 <Figure image="$lesson/figures/coordinate-systems/VectorCoordinates.svg" />
 
-To distinguish vectors from points, the convention is to write this pair of numbers vertically with square brackets around them. Every pair of numbers gives you one _and only one_ vector, and every vector is associated with one _and only one_ pair of numbers.
+To distinguish vectors from points, the convention is to write this pair of numbers vertically with square brackets around them. Every pair of numbers gives you one _and only one_ vector, and every vector is associated with one _and only one_ pair of numbers.  
+为区分向量与点，人们习惯用方括号将这组数字竖着书写。
+每组数字唯一对应一个向量，而每个向量也仅与一组数字相对应。
 
 <Question
-  question="Which vector corresponds with walking $4$ units down and then $7$ units to the right?"
+  question="Which vector corresponds with walking $4$ units down and then $7$ units to the right?  
+  哪个向量对应于先向下移动4个单位，然后再向右移动若干单位的运动？"
   choice1="$\begin{bmatrix}-4 \\ 7\end{bmatrix}$"
   choice2="$\begin{bmatrix}-7 \\ 4\end{bmatrix}$"
   choice3="$\begin{bmatrix}7 \\ -4\end{bmatrix}$"
@@ -105,49 +143,79 @@ To distinguish vectors from points, the convention is to write this pair of numb
 
 <Figure image="$lesson/figures/coordinate-systems/VectorCoordinates2.svg" />
 
-The vector that corresponds with walking $4$ units down and then $7$ units to the right is $\left[\begin{array}{c}7 \\ -4\end{array}\right]$, because $4$ units down is negative four on the $y$-axis and $7$ units to the right is positive seven on the $x$-axis.
+The vector that corresponds with walking $4$ units down and then $7$ units to the right is $\left[\begin{array}{c}7 \\ -4\end{array}\right]$, because $4$ units down is negative four on the $y$-axis and $7$ units to the right is positive seven on the $x$-axis.  
+向下走 $4$ 个单位，然后向右走 $7$ 个单位所对应的向量是 $\left[\begin{array}{c}7 \\ -4\end{array}\right]$，因为向下走 $4$ 个单位在 $y$ 轴上对应负 $4$，向右走 $7$ 个单位在 $x$ 轴上对应正 $7$。
 
 </Question>
 
-In three-dimensions, you add a third axis, called the $z$-axis, which is perpendicular to both the $x$ and the $y$ axes. In this case, each vector is associated with an ordered triplet of numbers: the first number tells you how far to move along the $x$-axis, the second number tells you how far to move parallel to the $y$-axis, and the third number tells you how far to move parallel to the new $z$-axis.
+In three-dimensions, you add a third axis, called the $z$-axis, which is perpendicular to both the $x$ and the $y$ axes. In this case, each vector is associated with an ordered triplet of numbers: the first number tells you how far to move along the $x$-axis, the second number tells you how far to move parallel to the $y$-axis, and the third number tells you how far to move parallel to the new $z$-axis.  
+     在三维空间中，会加入一个称为z轴的第三轴，它与x轴和y轴都垂直。
+     在这种情况下，每个向量都与一个有序的数字三元组相关联：
+     第一个数字表示沿x轴移动的距离，
+     第二个数字表示沿y轴移动的距离，
+     第三个数字则表示沿新的z轴移动的距离。
 
 <Figure image="$lesson/figures/coordinate-systems/VectorCoordinates3d.svg" />
 
-Every triplet of numbers gives you one unique vector in space, and every vector in space gives you exactly one triplet of numbers.
+Every triplet of numbers gives you one unique vector in space, and every vector in space gives you exactly one triplet of numbers.  
+每一组三个数对应空间中的一个唯一向量，
+而空间中的每一个向量也恰好对应一组三个数。
 
 </section>
 
 <section>
 
-## Vector Operations
+## Vector Operations 向量运算
 
-So what about vector addition, and multiplying numbers by vectors? After all, every topic in linear algebra centers around these two operations. Luckily, these are both relatively straight-forward.
+So what about vector addition, and multiplying numbers by vectors? After all, every topic in linear algebra centers around these two operations. Luckily, these are both relatively straight-forward.  
+那么向量加法以及数与向量的乘法如何进行呢？
+毕竟，线性代数中的每一个主题都围绕这两种运算展开。幸运的是，这两者都相对简单直接。
 
-### Addition
+### Addition 加法
 
-Let's say we have two vectors, one pointing up and a little to the right, and another pointing to the right and a little bit down.
+Let's say we have two vectors, one pointing up and a little to the right, and another pointing to the right and a little bit down.  
+假设我们有两个向量，一个指向上方并略微向右，另一个指向右侧并略微向下。
 
 <Figure image="$lesson/figures/vector-operations/VectorAdditionPrep.svg" />
 
-To add these two vectors, move the second vector so that it's tail sits on the tip of the first one. Then if you draw a new vector from the tail of the first one to where the tip of the second now sits, that new vector is their sum.
+To add these two vectors, move the second vector so that it's tail sits on the tip of the first one. Then if you draw a new vector from the tail of the first one to where the tip of the second now sits, that new vector is their sum.  
+要计算这两个向量的和，需移动第二个向量，使其尾端位于第一个向量的尖端上。
+然后，从第一个向量的尾端画一条新向量到第二个向量当前尖端所在的位置，这条新向量就是它们的和。
 
 <Figure image="$lesson/figures/vector-operations/VectorAddition.svg" />
 
-Why is this a reasonable thing to do? Why this definition of addition and not some other? Well, one way to think about it is that each vector represents a certain movement; a step with a certain distance and direction. If you take a step along the first vector, then take a step in the direction and distance described by the second vector, the overall effect is the same as if it just moved along the sum of those two vectors.
+Why is this a reasonable thing to do? Why this definition of addition and not some other? Well, one way to think about it is that each vector represents a certain movement; a step with a certain distance and direction. If you take a step along the first vector, then take a step in the direction and distance described by the second vector, the overall effect is the same as if it just moved along the sum of those two vectors.  
+为什么这样做是合理的？为什么要采用这种加法定义而非其他定义呢？  
+其实，一种思考方式是：每个向量都代表某种移动，即具有特定距离和方向的一步。  
+如果你沿着第一个向量走一步，然后再沿着第二个向量所描述的距离和方向走一步，  
+其整体效果就相当于直接沿着这两个向量的和移动一样。  
 
-You could think of this as an extension of how we think about adding numbers on a number line. One of the ways we teach kids to think about addition, say $2+5$, is to think of moving $2$ steps to the right, followed by another $5$ steps to the right. The overall effect is the same as if you just took $7$ steps to the right.
+You could think of this as an extension of how we think about adding numbers on a number line. One of the ways we teach kids to think about addition, say $2+5$, is to think of moving $2$ steps to the right, followed by another $5$ steps to the right. The overall effect is the same as if you just took $7$ steps to the right.  
+你可以将这视为我们在数轴上理解数字加法的一种延伸。  
+我们教导孩子理解加法——比如2+5——的一种方法是，先向右走2步，然后再向右走5步。  
+其效果与直接向右走7步是一样的。
 
 <Figure image="$lesson/figures/vector-operations/NumberLine.svg" />
 
-In fact, let's see how vector addition looks numerically. The first vector here has coordinates $\left[\begin{array}{l}1 \\ 2\end{array}\right]$, and the second has coordinates $\left[\begin{array}{c}3 \\ -1\end{array}\right]$. When you take their vector sum using this tip to tail method, you can think of a four step path from the tail of the first to the tip of the second: Walk $1$ to the right, then $2$ up, then $3$ to the right, then $1$ down.
+In fact, let's see how vector addition looks numerically. The first vector here has coordinates $\left[\begin{array}{l}1 \\ 2\end{array}\right]$, and the second has coordinates $\left[\begin{array}{c}3 \\ -1\end{array}\right]$. When you take their vector sum using this tip to tail method, you can think of a four step path from the tail of the first to the tip of the second: Walk $1$ to the right, then $2$ up, then $3$ to the right, then $1$ down.  
+实际上，让我们来看看向量加法在数值上的表现。  
+这里的第一个向量的坐标为$\left[\begin{array}{l}1 \\ 2\end{array}\right]$，
+第二个向量的坐标为 $\left[\begin{array}{c}3 \\ -1\end{array}\right]$。
+使用头对尾的方法计算它们的向量和时，
+可以想象一条从第一个向量的尾部到第二个向量顶端的四步路径：
+先向右走1步，再向上走2步，然后向右走3步，最后向下走1步。
 
 <Figure image="$lesson/figures/vector-operations/VectorAdditionComponents.svg" />
 
-Reorganizing these steps so that you first do all the rightward motion, then all the vertical motion, you can read it as saying first move $1+3$ to the right, then move $2-1$ up. So the new vector has coordinates $4$ and $1$.
+Reorganizing these steps so that you first do all the rightward motion, then all the vertical motion, you can read it as saying first move $1+3$ to the right, then move $2-1$ up. So the new vector has coordinates $4$ and $1$.  
+重新安排这些步骤，先进行所有的向右移动，然后再进行所有的垂直移动，这样就可以理解为：  
+首先将$1+3$向右移动，然后将$2-1$向上移动。因此，新的向量坐标为$4$和$1$。
 
 <Figure image="$lesson/figures/vector-operations/VectorAdditionComponentsReorganizeSteps.svg" />
 
-In general, to add two vectors in the list-of-numbers conception of vectors, match up their terms and add them each together.
+In general, to add two vectors in the list-of-numbers conception of vectors, match up their terms and add them each together.  
+一般来说，在用数字列表表示向量的概念中，  
+要相加两个向量，就需要将对应的项对齐，然后分别将它们相加。
 
 $$
 \left[\begin{array}{l}
@@ -163,32 +231,53 @@ y_1+y_2
 $$
 
 <Question
-  question="We have two vectors being added together: $\begin{bmatrix}4\\-2\end{bmatrix}+\begin{bmatrix}6\\2\end{bmatrix}$. Describe how to walk from the origin to their sum."
-  choice1="Walk $10$ units along the positive $x$-axis and $4$ units along the positive $y$-axis."
-  choice2="Walk $10$ units along the positive $x$-axis and don't move on $y$-axis."
-  choice3="Don't move, the sum is at the origin."
-  choice4="Don't move on the $x$-axis and walk $10$ units along the positive $y$-axis."
+  question="We have two vectors being added together: $\begin{bmatrix}4\\-2\end{bmatrix}+\begin{bmatrix}6\\2\end{bmatrix}$. Describe how to walk from the origin to their sum.  
+  我们有两个向量需要相加：$\begin{bmatrix}4\\-2\end{bmatrix}+\begin{bmatrix}6\\2\end{bmatrix}$。
+  请描述如何从原点走到这两个向量的和所在点。"
+  choice1="Walk $10$ units along the positive $x$-axis and $4$ units along the positive $y$-axis.  
+           沿着正x轴移动10个单位，再沿着正y轴移动4个单位。"
+  choice2="Walk $10$ units along the positive $x$-axis and don't move on $y$-axis.  
+           沿正x轴方向移动10个单位，y轴方向不要移动。"
+  choice3="Don't move, the sum is at the origin.  
+           不要移动，和位于原点。"
+  choice4="Don't move on the $x$-axis and walk $10$ units along the positive $y$-axis.  
+           在x轴上不要移动，沿正y轴方向移动10个单位。"
   answer={2}>
 
-$\begin{bmatrix}4\\-2\end{bmatrix}+\begin{bmatrix}6\\2\end{bmatrix}=\begin{bmatrix}10\\0\end{bmatrix}$ so we only need to walk $10$ units along the positive $x$-axis.
+$\begin{bmatrix}4\\-2\end{bmatrix}+\begin{bmatrix}6\\2\end{bmatrix}=\begin{bmatrix}10\\0\end{bmatrix}$ so we only need to walk $10$ units along the positive $x$-axis.  
+$\begin{bmatrix}4\\-2\end{bmatrix}+\begin{bmatrix}6\\2\end{bmatrix}=\begin{bmatrix}10\\0\end{bmatrix}$，
+因此我们只需沿正$x$轴移动$10$个单位。
 
 </Question>
 
-### Scaling
+### Scaling 缩放
 
-The other fundamental vector operation is multiplication by a number. This is best understood by just looking at a few examples. If you take the number $2$, and multiply it by a given vector, you stretch out that vector so that it's two times as long as when you started.
+The other fundamental vector operation is multiplication by a number. This is best understood by just looking at a few examples. If you take the number $2$, and multiply it by a given vector, you stretch out that vector so that it's two times as long as when you started.  
+  另一个基本的向量运算是将向量与一个数相乘。  
+  通过看几个例子就能最好地理解这一点。
+  如果你取数字2，然后将其与某个给定的向量相乘，那么该向量的长度就会变为原来的两倍。
 
 <Figure image="$lesson/figures/vector-operations/VectorScalingByTwo.svg" />
 
-If you multiply a vector by $\frac13$, you squish it down so that it is one-third its original length.
+If you multiply a vector by $\frac13$, you squish it down so that it is one-third its original length.  
+如果将一个向量乘以$\frac13$，就会使其缩短为原来长度的三分之一。
 
 <Figure image="$lesson/figures/vector-operations/VectorScalingByOneOverThree.svg" />
 
-If you multiply it by a negative number, like $-1.5$, then the vector gets flipped around, then stretched out by a factor of $1.5$.
+If you multiply it by a negative number, like $-1.5$, then the vector gets flipped around, then stretched out by a factor of $1.5$.  
+如果用一个负数乘以它，比如-1.5，
+那么向量会反向，然后再按1.5的倍数被拉伸。
 
 <Figure image="$lesson/figures/vector-operations/VectorScalingByNegativeOnePointFive.svg" />
 
-This process of stretching, squishing, and sometimes reversing direction, is called "scaling." Whenever you catch a number like $2$, $\frac13$, or $-1.5$ acting like this, scaling some vector, you call it a "scalar". In fact, throughout linear algebra, one of the main things numbers do is scale vectors, so it's common to use the word _scalar_ interchangeably with the word _number_. Numerically, stretching out a vector by a factor of $2$ corresponds with multiplying each of its coordinates by $2$. So in the conception of vectors as lists of numbers, multiplying a given vector by a scalar means multiplying each one of its components by that scalar.
+This process of stretching, squishing, and sometimes reversing direction, is called "scaling." Whenever you catch a number like $2$, $\frac13$, or $-1.5$ acting like this, scaling some vector, you call it a "scalar". In fact, throughout linear algebra, one of the main things numbers do is scale vectors, so it's common to use the word _scalar_ interchangeably with the word _number_. Numerically, stretching out a vector by a factor of $2$ corresponds with multiplying each of its coordinates by $2$. So in the conception of vectors as lists of numbers, multiplying a given vector by a scalar means multiplying each one of its components by that scalar.  
+这种拉伸、压缩，有时还会改变方向的操作被称为“缩放”​。  
+每当看到像$2$、$\frac13$或$-1.5$这样的数以这种方式对某个向量进行缩放时，这类数就被称为“标量”​。  
+实际上，在线性代数中，数字的主要功能之一就是对向量进行缩放，  
+因此人们常常将“标量”与“数”这两个词互换使用。  
+从数值上来看，将一个向量按2的倍数拉伸，相当于将其各个坐标都乘以2。  
+所以在将向量视为数字列表的概念中，   
+用一个标量去乘以某个向量，意味着将其各个分量都乘以该标量。
 
 $$
 2 \vec{\mathbf{v}}=2 \cdot\left[\begin{array}{l}
@@ -222,14 +311,32 @@ $$
 
 <section>
 
-## Conclusion
+## Conclusion 结论
 
-You'll see in the following chapters what we mean when we say pretty much every linear algebra topic revolves around these two fundamental operations: vector addition and scalar multiplication. We'll also talk more in the last linear algebra chapter about how and why the mathematician thinks _only_ about these operations, independent and abstracted away from however you choose to represent vectors.
+You'll see in the following chapters what we mean when we say pretty much every linear algebra topic revolves around these two fundamental operations: vector addition and scalar multiplication. We'll also talk more in the last linear algebra chapter about how and why the mathematician thinks _only_ about these operations, independent and abstracted away from however you choose to represent vectors.  
+在接下来的章节中，您将会明白我们所说的  
+“几乎所有线性代数主题都围绕这两个基本运算：向量加法和标量乘法”是什么意思。  
+在最后一章关于线性代数的内容中，  
+我们还将进一步探讨为什么数学家只考虑这些运算，  
+以及他们为何会忽略向量表示方式的不同而仅关注这些运算本身。  
 
-In truth, it doesn't matter whether you think of vectors as fundamentally being arrows in space that happen to have a nice numerical representation, or fundamentally as lists of numbers that happen to have a nice geometric interpretation. The usefulness of linear algebra has less to do with either one of these views than it does with the ability to translate back and forth between them. It gives the data-analyst a nice way to conceptualize many lists of numbers in a visual way, which can seriously clarify patterns in the data and give a global view of what certain operations do.
+In truth, it doesn't matter whether you think of vectors as fundamentally being arrows in space that happen to have a nice numerical representation, or fundamentally as lists of numbers that happen to have a nice geometric interpretation. The usefulness of linear algebra has less to do with either one of these views than it does with the ability to translate back and forth between them. It gives the data-analyst a nice way to conceptualize many lists of numbers in a visual way, which can seriously clarify patterns in the data and give a global view of what certain operations do.  
+实际上，无论你将向量视为本质上是在空间中的箭头，只不过它们有便于计算的数值表示形式，  
+还是视为本质上是数字列表，只不过它们有便于理解的几何意义，
+这都并不重要。  
+线性代数的价值与其说在于这两种观点本身，不如说在于能够在二者之间进行转换的能力。
+它为数据分析师提供了一种直观的方式来理解各种数字列表，  
+从而有助于清晰地识别数据中的规律，并全面了解某些操作的效果。
 
-On the flip side, it gives people like physicists and computer graphics programmers a language to describe space, and the manipulation of space, using numbers that can be crunched and run through a computer. When one does mathy animations, for example, they start by thinking about what's going on in space, then get the computer to represent things numerically, and figure out where to place which pixels on the screen, and doing that often relies on an understanding of linear algebra.
+On the flip side, it gives people like physicists and computer graphics programmers a language to describe space, and the manipulation of space, using numbers that can be crunched and run through a computer. When one does mathy animations, for example, they start by thinking about what's going on in space, then get the computer to represent things numerically, and figure out where to place which pixels on the screen, and doing that often relies on an understanding of linear algebra.  
+另一方面，它为物理学家和计算机图形程序员提供了一种语言，  
+让他们能够用可在计算机上处理计算的数字来描述空间以及空间的操作。  
+例如，在制作数学动画时，人们首先会思考空间中正在发生什么，  
+然后让计算机以数值形式表示这些内容，并确定屏幕上各像素的位置，  
+而这一过程往往依赖于对线性代数的理解。
 
-In the <LessonLink id="span">next lesson</LessonLink>, we'll start getting into some neat concepts surrounding vectors, like span, bases and linear dependence.
+In the <LessonLink id="span">next lesson</LessonLink>, we'll start getting into some neat concepts surrounding vectors, like span, bases and linear dependence.  
+在下一课中，我们将开始探讨与向量相关的一些有趣概念，  
+比如张成、基以及线性相关性。
 
 </section>

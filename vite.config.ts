@@ -14,6 +14,10 @@ import svgr from "vite-plugin-svgr";
 import site from "./app/data/site.json";
 
 export default defineConfig(() => ({
+  ssr: {
+    // 告诉 Vite 强制把这些依赖当作客户端专有，不要在 SSR 阶段去打包解析它们
+    external: ['@vimeo/player'], 
+  },
   // uncomment if cold-start refresh gets annoying
   // https://github.com/vitejs/vite/discussions/14801
   // optimizeDeps: {
