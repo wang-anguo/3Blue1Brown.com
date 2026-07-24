@@ -1,13 +1,13 @@
 ---
-title: What's so special about Euler's number e?
-description: What is the derivative of a^x?  Why is e^x its own derivative?  This video shows how to think about the rule for differentiating exponential functions.
+title: What's so special about Euler's number e?  欧拉常数e有什么特别之处？
+description: What is the derivative of a^x?  Why is e^x its own derivative?  This video shows how to think about the rule for differentiating  exponential functions.  a^x的导数是什么？为什么e^x的导数就是它本身？本视频将讲解如何理解指数函数求导的规则。
 date: 2017-05-02
 chapter: 6
 video: m2MIpDrF7Es
 source: _2017/eoc/chapter5.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Figure from "~/components/Figure";
@@ -17,12 +17,18 @@ import Quote from "~/components/Quote";
 
 <section>
 
-<Quote name="Francois le Lionnais">
+<Quote name="Francois le Lionnais 弗朗索瓦·勒·利奥内">
   Who has not be amazed to learn that the function $y = e^x$, like a phoenix
-  rising again from its own ashes, is its own derivative?
+  rising again from its own ashes, is its own derivative?  
+    当得知函数 $y = e^x$ 如同凤凰从自己的灰烬中重生一般，  
+    竟然等于它自身的导数时，  
+    谁不会感到惊叹呢？
 </Quote>
 
-I've introduce a few derivative formulas, but a really important one I left out was exponentials. So here I want to talk about the derivatives of exponential functions like $2^x$, $7^x$, and to show why $e^x$ is arguably the most important exponential.
+I've introduce a few derivative formulas, but a really important one I left out was exponentials. So here I want to talk about the derivatives of exponential functions like $2^x$, $7^x$, and to show why $e^x$ is arguably the most important exponential.  
+我已介绍了一些导数公式，但有一个非常重要的却遗漏了，那就是指数函数。  
+因此在这里，我想谈谈像$2^x$、$7^x$这样的指数函数的导数，  
+并说明为何$e^x$堪称最重要的指数函数。
 
 <Figure image="$lesson/figures/different-exponentials/base-1-through-10-with-e.svg" />
 
@@ -30,60 +36,106 @@ I've introduce a few derivative formulas, but a really important one I left out 
 
 <section>
 
-## Population Mass
+## Population Mass  人口数量
 
-First of all, to get an intuition, let's focus on the exponential function $2^x$.
+First of all, to get an intuition, let's focus on the exponential function $2^x$.  
+首先，为了有个直观的认识，让我们先关注指数函数$2^x$。
 
 <Figure image="$lesson/figures/population-mass/base-2-plot.svg" />
 
-And let's think of that input as a time, $t$, in days, and the output $2^t$ as a population size, perhaps of a particularly fertile band of $\pi$ creatures, which doubles every day.
+And let's think of that input as a time, $t$, in days, and the output $2^t$ as a population size, perhaps of a particularly fertile band of $\pi$ creatures, which doubles every day.  
+让我们把输入视为以天为单位的时间$t$，  
+而输出$2^t$则视为某种特别适合繁衍的$\pi$生物群体的数量，  
+这类生物的种群数量每天都会翻一番。
 
 <Figure image="$lesson/figures/population-mass/pi-creatures.svg" />
 
-Actually, instead of population size, which grows in discrete little jumps with each new baby $\pi$ creature, maybe let's think of $2^t$ as the total mass of the population, which better reflects the continuity of this function $2^t$.
+Actually, instead of population size, which grows in discrete little jumps with each new baby $\pi$ creature, maybe let's think of $2^t$ as the total mass of the population, which better reflects the continuity of this function $2^t$.  
+实际上，与其用每次诞生新的π生物时才出现离散增长的种群数量来表示，  
+或许我们可以将$2^t$视为种群的总质量，这样更能体现函数$2^t$的连续性。
 
 <Figure image="$lesson/figures/population-mass/base-2-plot-labeled.svg" />
 
-For example, at time $t=0$, the total mass $2^0=1$, for the mass of one creature. At $t = 1$ day, the population has grown to $2^1 = 2$ creatures masses. And day $t = 2$, it's at $2^2 = 4$, and in general it keeps doubling every day.
+For example, at time $t=0$, the total mass $2^0=1$, for the mass of one creature. At $t = 1$ day, the population has grown to $2^1 = 2$ creatures masses. And day $t = 2$, it's at $2^2 = 4$, and in general it keeps doubling every day.  
+例如，在时间$t=0$时，总质量为$2^0=1$，即一个生物的质量。  
+到$t=1$天时，种群数量增长到相当于$2^1=2$个生物的质量。  
+到了$t=2$天，则为$2^2=4$，一般来说，种群数量每天都会翻一番。
 
-For the derivative, we want to find $\frac{dM}{dt}$, the rate at which this population mass is growing, thought of as a tiny change to mass divided by a tiny change in time. Let's start by thinking of the rate of change over a full day, say between day $2$ and day $3$. In that case, it grows from $4$ to $8$, so that's four creatures masses added over the course of that day.
+For the derivative, we want to find $\frac{dM}{dt}$, the rate at which this population mass is growing, thought of as a tiny change to mass divided by a tiny change in time. Let's start by thinking of the rate of change over a full day, say between day $2$ and day $3$. In that case, it grows from $4$ to $8$, so that's four creatures masses added over the course of that day.  
+对于导数，我们需要求出$\frac{dM}{dt}$，即种群质量的增长速率，  
+它可以理解为质量的一小部分变化除以时间的一小部分变化。  
+我们先考虑一整天的变化率，比如从第2天到第3天。  
+在这段时间内，质量从4增长到8，也就是说这一天内有4个生物的质量增加了。
 
 <Figure image="$lesson/figures/population-mass/base-2-plot-slope-between-2-and-3.svg">
-  Notice, the rate of growth equals the population mass at the start of the day.
+  Notice, the rate of growth equals the population mass at the start of the day.  
+  注意，生长速率等于当天开始时的种群质量。
 </Figure>
 
-Between day $3$ and day $4$, the mass grows from $8$ to $16$, so that's a rate of $8$ creature masses per day, which again, is equal to the population size at the start of the day. And in general, the rate of growth over a full day equals the population size at the start of that day.
+Between day $3$ and day $4$, the mass grows from $8$ to $16$, so that's a rate of $8$ creature masses per day, which again, is equal to the population size at the start of the day. And in general, the rate of growth over a full day equals the population size at the start of that day.  
+从第3天到第4天，种群数量从8增长到16，  
+因此增长速率为每天8个个体数量，这同样等于当天开始时的种群规模。  
+一般来说，一整天的增长速率都等于该天开始时的种群规模。
 
 <Figure image="$lesson/figures/population-mass/base-2-plot-slopes.svg">
-  Examples of the rate of change between days.
+  Examples of the rate of change between days.  
+  各天之间变化率的示例。
 </Figure>
 
-So it might be tempting to say that this means the derivative of $2^t$ equals itself; that the rate of change of $2^t$ at a given time $t$ equals the value of $2^t$ itself. On the day when $2^t$ is $8$, the number of new creature-masses added per day is also $8$; on the day when $2^t$ is $16$, the number of new creature-masses added per day is also $16$.
+So it might be tempting to say that this means the derivative of $2^t$ equals itself; that the rate of change of $2^t$ at a given time $t$ equals the value of $2^t$ itself. On the day when $2^t$ is $8$, the number of new creature-masses added per day is also $8$; on the day when $2^t$ is $16$, the number of new creature-masses added per day is also $16$.  
+因此，人们可能会倾向于认为这意味着$2^t$的导数等于其本身；  
+即在给定时间$t$时，$2^t$的变化率等于$2^t$本身的值。  
+当$2^t$为8时，每天新增的生物质量也为8；  
+当$2^t$为16时，每天新增的生物质量也为16。
 
-This is definitely in the right direction, but it's not quite correct. What we're doing here is making comparisons over the course of a full day, considering the difference between $2^{t+1}$ and $2^t$. But for the derivative, we need to ask about what happens for smaller and smaller changes. What's the growth rate over the course of a tenth of a day... a hundredth of a day... one one billionth of a day, etc.
+This is definitely in the right direction, but it's not quite correct. What we're doing here is making comparisons over the course of a full day, considering the difference between $2^{t+1}$ and $2^t$. But for the derivative, we need to ask about what happens for smaller and smaller changes. What's the growth rate over the course of a tenth of a day... a hundredth of a day... one one billionth of a day, etc.  
+这就是为什么我让你们将这个函数视为人口数量与时间的关系，  
+因为在一天中极短的时间里探讨质量上的微小变化是合理的，  
+但去探讨每秒离散人口数量的微小变化则没那么合理。
 
-This is why I had us think of the function as representing population mass vs. time, since it makes sense to ask about a tiny change in mass over a tiny fraction of a day, but it doesn't make as much sense to ask about the tiny change in the discrete population size per second.
+This is why I had us think of the function as representing population mass vs. time, since it makes sense to ask about a tiny change in mass over a tiny fraction of a day, but it doesn't make as much sense to ask about the tiny change in the discrete population size per second.  
+这就是为什么我让你们将这个函数视为人口数量与时间的关系，  
+因为在一天中极短的时间里探讨质量上的微小变化是合理的，  
+但去探讨每秒离散人口数量的微小变化则没那么合理。
 
 <Question
-  question="We know that the derivative of the exponential function $M(t) = 2^t$ is close-to, but not quite equal-to itself, suggesting that the derivative of an exponential function is another exponential function. Looking at any point on the plot, will the actual derivative be smaller or larger than the output of the function?"
-  choice1="The derivative at a point will be **smaller** than the output of the function."
-  choice2="The derivative at a point will be **larger** than the output of the function."
+  question="We know that the derivative of the exponential function $M(t) = 2^t$ is close-to, but not quite equal-to itself, suggesting that the derivative of an exponential function is another exponential function. Looking at any point on the plot, will the actual derivative be smaller or larger than the output of the function?  
+  我们知道指数函数$M(t) = 2^t$的导数与其本身相近但不完全相等，  
+  这说明指数函数的导数仍是另一个指数函数。  
+  观察曲线图上的任意一点，实际的导数会小于还是大于该函数的输出值？​"
+  choice1="The derivative at a point will be **smaller** than the output of the function.  
+     某一点处的导数将**小于**该函数的函数值。"
+  choice2="The derivative at a point will be **larger** than the output of the function.  
+  该点处的导数将**大于**函数的输出值。"
   answer={1}
 >
 
-Taking a look at the input of $t=1$ on the graph we can draw the slope between the first and the second day. Notice how the slope between two days, which is equal to the output of the function at $t=1$ intersects the graph.
+Taking a look at the input of $t=1$ on the graph we can draw the slope between the first and the second day. Notice how the slope between two days, which is equal to the output of the function at $t=1$ intersects the graph.  
+观察图中$t=1$时的输入值，我们可以画出第一天与第二天之间的斜率。  
+注意，这个等于函数在$t=1$时输出值的两天间斜率，会与图表相交。
 
 <Figure image="$lesson/figures/population-mass/base-2-plot-slope-between-1-and-2-detail.svg" />
 
-From past lessons, we know that the derivative is the same thing as the slope of the **tangent** line. Visually, imagining the change in time, $dt$, approaching zero, we know the slope of the tangent line must be smaller than the one drawn.
+From past lessons, we know that the derivative is the same thing as the slope of the **tangent** line. Visually, imagining the change in time, $dt$, approaching zero, we know the slope of the tangent line must be smaller than the one drawn.  
+从之前的课程中我们知道，导数其实就是**切线**的斜率。  
+从直观上来看，当时间变化量$dt$趋近于零时，切线的斜率必然小于所画的直线斜率。
 
 </Question>
 
-More abstractly, for some tiny change in time $dt$, we want to understand the difference between $2^{t+dt}$ and $2^t$, all divided by $dt$. The change in the function per unit time, but now we're looking very narrowly around a given point in time, rather than over the course of a full day.
+More abstractly, for some tiny change in time $dt$, we want to understand the difference between $2^{t+dt}$ and $2^t$, all divided by $dt$. The change in the function per unit time, but now we're looking very narrowly around a given point in time, rather than over the course of a full day.  
+更抽象地说，对于极小的时间变化量$dt$，  
+我们想要了解$\frac{2^{t+dt}-2^t}{dt}$的值。  
+这代表了函数每单位时间的变化率，  
+只不过现在我们是在某个特定时间点附近进行非常细微的观察，而非观察一整天的变化情况。
 
 <Figure image="$lesson/figures/finding-the-derivative/base-2-rate-of-change.svg" />
 
-Here's the thing. I would love if there was some clear geometric picture that made what's about to follow just pop out. Some diagram where you could point to one value and say "see that part, that is the derivative of $2^t$". If you know of one, please, let me know[^1]. And while the goal here, as with the rest of the series, is to maintain a spirit of playful discovery, the type of play that follows will have more to do with finding numerical patterns, rather than visual ones.
+Here's the thing. I would love if there was some clear geometric picture that made what's about to follow just pop out. Some diagram where you could point to one value and say "see that part, that is the derivative of $2^t$". If you know of one, please, let me know[^1]. And while the goal here, as with the rest of the series, is to maintain a spirit of playful discovery, the type of play that follows will have more to do with finding numerical patterns, rather than visual ones.  
+问题在于，我希望能有一个清晰的几何图示，让接下来的内容一目了然。  
+也就是那种可以指着某个数值说“看那一部分，那就是$2^t$的导数”的图表。  
+如果您知道这样的图示，请告诉我[^1]​。  
+虽然和本系列的其他内容一样，这里的目标也是保持一种趣味性的探索精神，  
+但接下来的探索更多是关于寻找数值规律，而非视觉规律。
 
 [^1]: [Contact Page](/contact#contact)
 
@@ -91,53 +143,79 @@ Here's the thing. I would love if there was some clear geometric picture that ma
 
 <section>
 
-## Finding the Derivative
+## Finding the Derivative  求导数
 
 <Figure image="$lesson/figures/finding-the-derivative/base-2-derivative-setup.svg" />
 
-Start by taking a close look at the exponent term $2^{t+dt}$ in the numerator. A core property of exponentials is that you can break this up as $2^{t} \cdot 2^{dt}$. That really is the most important property of exponents; if you add two values in the exponent, you can break up the output as a product of some kind. This is what lets you relate additive ideas, like tiny steps in time, to multiplicative ideas, like rates and ratios.
+Start by taking a close look at the exponent term $2^{t+dt}$ in the numerator. A core property of exponentials is that you can break this up as $2^{t} \cdot 2^{dt}$. That really is the most important property of exponents; if you add two values in the exponent, you can break up the output as a product of some kind. This is what lets you relate additive ideas, like tiny steps in time, to multiplicative ideas, like rates and ratios.  
+首先仔细观察分子中的指数项$2^{t+dt}$。  
+指数函数的一个核心性质是，它可以被拆分为$2^{t} \cdot 2^{dt}$的形式。  
+这确实是指数函数最重要的性质：当指数中包含两个数值时，其结果可以表示为某种乘积形式。  
+正是这一性质使得我们将加法概念——比如时间上的微小间隔——  
+____________________与乘法概念——比如速率和比例——联系起来。
 
-Applying this property gives us the expression below.
+Applying this property gives us the expression below.  
+应用这一性质后，我们得到了下面的表达式。
 
 <Figure image="$lesson/figures/finding-the-derivative/base-2-apply-exponential-property.svg" />
 
-Notice how both expressions in the numerator contain the term $2^t$, so we can factor out $2^t$, leaving us with the expression below. And remember, the derivative of $2^t$ is whatever this whole expression on the right approaches as $dt$ approaches $0$.
+Notice how both expressions in the numerator contain the term $2^t$, so we can factor out $2^t$, leaving us with the expression below. And remember, the derivative of $2^t$ is whatever this whole expression on the right approaches as $dt$ approaches $0$.  
+请注意，分子中的两个表达式都含有$2^t$这一项，  
+因此我们可以提取出$2^t$，从而得到下面的表达式。  
+另外要记住，$2^t$的导数就是当$dt$趋近于$0$时，右边整个表达式的极限值。
 
 <Figure image="$lesson/figures/finding-the-derivative/base-2-derivative-limit-alt.svg" />
 
-At first glance this might look like an unimportant manipulation, but a _tremendously_ important fact is that this term on the right in parentheses, where $dt$ lives, is completely separate from the $t$ term itself; it doesn't depend on the actual time where we started.
+At first glance this might look like an unimportant manipulation, but a _tremendously_ important fact is that this term on the right in parentheses, where $dt$ lives, is completely separate from the $t$ term itself; it doesn't depend on the actual time where we started.  
+乍看之下，这似乎只是个无关紧要的运算，但有一个极其重要的事实：  
+括号中右边、包含$dt$的那项与$t$项本身是完全独立的；  
+它并不取决于我们起始的实际时间。
 
-What happens if you plug in a very small value for $dt$ into a calculator to approximate this term in parentheses?
+What happens if you plug in a very small value for $dt$ into a calculator to approximate this term in parentheses?  
+如果在计算器中输入一个非常小的$dt$值来近似计算括号中的这一项，会发生什么？
 
 <FreeResponse>
 
-Substituting $0.001$ in for $dt$ we get the value.
+Substituting $0.001$ in for $dt$ we get the value.  
+将$dt$替换为$0.001$，即可得到该数值。
 
 $$
 \frac{2^{0.001}-1}{0.001} = \color{#4bb77e} 0.693 \color{grey} 387462581
 $$
 
-Substituting $0.0001$ in for $dt$ we get the value.
+Substituting $0.0001$ in for $dt$ we get the value.  
+将$0.0001$代入$dt$，即可得到该数值。
 
 $$
 \frac{2^{0.0001}-1}{0.0001} = \color{#4bb77e}  0.6931  \color{grey} 71203765
 $$
 
-And, Substituting $0.00001$ in for $dt$ we get the value.
+And, Substituting $0.00001$ in for $dt$ we get the value.  
+将$0.00001$代入$dt$，即可得到该数值。
 
 $$
 \frac{2^{0.00001}-1}{0.00001} = \color{#4bb77e} 0.69314 \color{grey} 958282
 $$
 
-You'll find that it for smaller and smaller choices of $dt$, this value approaches a specific number, around $0.693147...$ So the derivative of $2^t$ is itself multiplied by this value.
+You'll find that it for smaller and smaller choices of $dt$, this value approaches a specific number, around $0.693147...$ So the derivative of $2^t$ is itself multiplied by this value.  
+你会发现，当$dt$的取值越来越小时，这个数值会趋近于一个特定的数，  
+约为$0.693147...$。因此$2^t$的导数就是其本身乘以这个数值。
 
 <Figure image="$lesson/figures/finding-the-derivative/base-2-approximate-derivative.svg" />
 
-Don't worry if that number seems mysterious, the central point is that this is some kind of constant; unlike derivatives of other functions, all the stuff that depends on $dt$ is separate from the value of $t$ itself.
+Don't worry if that number seems mysterious, the central point is that this is some kind of constant; unlike derivatives of other functions, all the stuff that depends on $dt$ is separate from the value of $t$ itself.  
+如果这个数字看起来很神秘，不必担心，  
+关键在于它是一种常数；与其他函数的导数不同，  
+所有依赖于$dt$的要素都与$t$本身的值是分开的。
 
 </FreeResponse>
 
-So the derivative of $2^t$ is just itself, but multiplied by some constant. This should kind of make sense, because earlier it felt like the rate of growth for our population with size $2^t$, at least when we were looking at changes over the course a full day. Evidently, the rate of change for this function over much smaller time scales is not quite equal to itself, but it is proportional to itself, with this very peculiar proportionality constant of $0.6931...$
+So the derivative of $2^t$ is just itself, but multiplied by some constant. This should kind of make sense, because earlier it felt like the rate of growth for our population with size $2^t$, at least when we were looking at changes over the course a full day. Evidently, the rate of change for this function over much smaller time scales is not quite equal to itself, but it is proportional to itself, with this very peculiar proportionality constant of $0.6931...$  
+因此，$2^t$的导数其实就是它本身，只不过乘以了一个常数。  
+这其实是可以理解的，因为之前我们看到，当考虑一整天的变化时，  
+规模为$2^t$的种群的增长速率似乎就是它本身。  
+显然，在更短的时间尺度上，该函数的变化率并不完全等于它本身，  
+但它与自身成正比，且比例常数为$0.6931...$，这个常数相当特殊。
 
 {/* TODO: insert animation + figure of slope of 2^t at t=3 */}
 
@@ -145,11 +223,14 @@ So the derivative of $2^t$ is just itself, but multiplied by some constant. This
 
 <section>
 
-## Different Exponentials
+## Different Exponentials  不同指数函数
 
 <Figure image="$lesson/figures/different-exponentials/base-1-through-10.svg" />
 
-There's not much special to the number $2$ here. If instead had we dealt with the function $3^t$, the exponential property would also have led us to the conclusion that the derivative of $3^t$ is proportional to itself, but this time with a proportionality constant of about $1.0986$.
+There's not much special to the number $2$ here. If instead had we dealt with the function $3^t$, the exponential property would also have led us to the conclusion that the derivative of $3^t$ is proportional to itself, but this time with a proportionality constant of about $1.0986$.  
+这里的数字2并没有什么特别之处。  
+如果我们考虑函数$3^t$，指数法则同样会让我们得出$3^t$的导数与它本身成正比的结论，  
+只不过这次的比例常数约为$1.0986$。
 
 <Figure
   image="$lesson/figures/finding-the-derivative/base-3-approximate-derivative.svg"
@@ -158,140 +239,232 @@ There's not much special to the number $2$ here. If instead had we dealt with th
 
 {/* TODO: add animation with exponential property for the above */}
 
-For any other base to your exponent you can have fun seeing what the various proportionality constants are, maybe trying to find a pattern.
+For any other base to your exponent you can have fun seeing what the various proportionality constants are, maybe trying to find a pattern.  
+对于指数中的其他任何底数，你可以试着探究各种比例常数的数值，  
+或许还能寻找其中的规律。
 
 <Figure image="$lesson/figures/finding-the-derivative/example-exponentials.svg">
   Notice how the proportionality constant for the derivative changes from less
-  than $1$ for a base of $2$ to greater than $1$ for a base of $3$.
+  than $1$ for a base of $2$ to greater than $1$ for a base of $3$.  
+  请注意，导数的比例常数如何从以$2$为底时的小于$1$，  
+  变为以$3$为底时的大于$1$。
 </Figure>
 
-For example, if you plug in $8$ as the base of the exponential function, you can see the relevant proportionality constant is around $2.079$. And maybe, just maybe, you would notice that this number happens to be exactly $3$ times the constant associated with the base of $2$. So these numbers aren't random, there is some pattern. But what is the pattern? What does $2$ have to do with $0.6931$ and what does $8$ have to do with $2.079$.[^2]
+For example, if you plug in $8$ as the base of the exponential function, you can see the relevant proportionality constant is around $2.079$. And maybe, just maybe, you would notice that this number happens to be exactly $3$ times the constant associated with the base of $2$. So these numbers aren't random, there is some pattern. But what is the pattern? What does $2$ have to do with $0.6931$ and what does $8$ have to do with $2.079$.[^2]  
+例如，如果你将8作为指数函数的底数，就会发现相应的比例常数约为2.079。  
+或许你会注意到，这个数值恰好是2作为底数时对应常数的3倍。  
+所以这些数字并非随机出现，其中存在某种规律。  
+但这种规律是什么呢？2与0.6931有什么关系，8又与2.079有什么关系？​[^2]
 
 [^2]:
-    The important observation to make here is that these proportionality constants behave like a logarithm function. In fact, these constants are exactly the output of the natural logarithm function.
+    The important observation to make here is that these proportionality constants behave like a logarithm function. In fact, these constants are exactly the output of the natural logarithm function.  
+    这里需要指出的是，这些比例常数的行为类似于对数函数。  
+    实际上，这些常数正是自然对数函数的输出值。
 
-    If you are able to find a function that when given a base has the behavior of $f(1) = 0$, $f(2) = 0.6931$, $f(3) = 1.099$, etc. you would be inventing the natural logarithm function which is one of the paths of discovery for the exponential function and Euler's Number.
+    If you are able to find a function that when given a base has the behavior of $f(1) = 0$, $f(2) = 0.6931$, $f(3) = 1.099$, etc. you would be inventing the natural logarithm function which is one of the paths of discovery for the exponential function and Euler's Number.  
+    如果你能找到这样一个函数：  
+    对于给定的底数，其取值满足$f(1) = 0$、$f(2) =0.6931$、$f(3) = 1.099$等，  
+    那么你实际上就创造了自然对数函数，  
+    而这也是发现指数函数和欧拉常数的途径之一。
 
 <Figure image="$lesson/figures/different-exponentials/base-2-4-8-16.svg">
-  This figure illustrates different base 2 exponential functions.
+  This figure illustrates different base 2 exponential functions.  
+  该图展示了不同底数的2的指数函数。
 </Figure>
 
-A second question, which ultimately explains these mystery constants, is whether there is some base where that proportionality constant is $1$; where the derivative of $M(t) = a^t$ is not just proportional to itself, but equal to itself.
+A second question, which ultimately explains these mystery constants, is whether there is some base where that proportionality constant is $1$; where the derivative of $M(t) = a^t$ is not just proportional to itself, but equal to itself.  
+第二个问题能够最终解释这些神秘常数：  
+是否存在某个底数，使得该比例常数为$1$；  
+即使得$M(t) = a^t$的导数不仅与自身成正比，而且等于自身。
 
 </section>
 
 <section>
 
-## Euler's Number
+## Euler's Number  欧拉数
 
-As it turns out, there is a number. It's the special constant $e$, around $2.71828$, called Euler's number. In fact, it's not just that $e$ happens to show up here, this is, in a sense, what defines the number $e$ [^3]. This special exponential function with Euler's Number as the base is called _the exponential function_.
+As it turns out, there is a number. It's the special constant $e$, around $2.71828$, called Euler's number. In fact, it's not just that $e$ happens to show up here, this is, in a sense, what defines the number $e$ [^3]. This special exponential function with Euler's Number as the base is called _the exponential function_.  
+事实上，存在这样一个数。  
+它就是那个特殊的常数$e$，数值约为2.71828，被称为欧拉数。  
+实际上，不仅仅是$e$恰好出现在这里，  
+从某种意义上说，这正是定义$e$的关键[^3]​。  
+以欧拉数为底的这种特殊指数函数被称为_指数函数_。
 
 {/* TODO: footnote untangling euler's number from the exponential function */}
 
-[^3]: If you ask, why does $e$ of all numbers have this property? It's a little like asking why does $\pi$ of all numbers happen to be the ratio of the circumference of a circle to its diameter. This is, at its heart, what defines this value.
+[^3]: If you ask, why does $e$ of all numbers have this property? It's a little like asking why does $\pi$ of all numbers happen to be the ratio of the circumference of a circle to its diameter. This is, at its heart, what defines this value.  
+[^3]​：如果你问，为什么所有的数中偏偏是$e$具有这种性质？  
+这有点类似于问，为什么所有的数中偏偏是$\pi$等于圆的周长与直径的比值。  
+从本质上讲，这就是定义这个数值的原因。
 
 <Figure image="$lesson/figures/exponential-function/eulers-number-value-derivative.svg" />
 
-All exponential functions are proportional to their own derivative, but the _exponential function_ base $e$ alone is the special number so that the proportionality constant is $1$, meaning $e^t$ actually equals its own derivative.
+All exponential functions are proportional to their own derivative, but the _exponential function_ base $e$ alone is the special number so that the proportionality constant is $1$, meaning $e^t$ actually equals its own derivative.  
+所有的指数函数都与其自身的导数成正比，  
+但以$e$为底的指数函数是特殊的，其比例常数为$1$，  
+这意味着$e^t$实际上等于它自身的导数。
 
 $$
 \frac{d}{dt} \left ( e^{t} \right ) = e^{t}
 $$
 
-If you look at the graph of $e^t$, it has the peculiar property that the slope of a tangent line to any point on the graph equals the height of that point above the horizontal axis.
+If you look at the graph of $e^t$, it has the peculiar property that the slope of a tangent line to any point on the graph equals the height of that point above the horizontal axis.  
+如果你观察$e^t$的图像，会发现它有一个特殊的性质：  
+图像上任意一点处的切线斜率，都等于该点相对于水平轴的高度。
 
 <Figure image="$lesson/figures/exponential-function/slope-examples.svg">
-  Examples of the slope of the tangent line for the exponential function.
+  Examples of the slope of the tangent line for the exponential function.  
+  指数函数切线斜率的示例。
 </Figure>
 
 {/* TODO: possibly mention the function's defining properties are exp(0) = 1 and that d\dx [exp(x)] = exp(x) */}
 
-So how does the exponential function help us find the derivatives of other exponential functions? Well, maybe you noticed that different exponentials look like horizontally scaled versions of each other. This is true for all exponential functions, but best seen with exponential functions with related bases.
+So how does the exponential function help us find the derivatives of other exponential functions? Well, maybe you noticed that different exponentials look like horizontally scaled versions of each other. This is true for all exponential functions, but best seen with exponential functions with related bases.  
+那么，指数函数是如何帮助我们求其他指数函数的导数的呢？  
+也许你已经注意到，不同的指数函数看起来像是彼此的水平缩放版本。  
+这对所有指数函数都成立，但在底数相关的指数函数中表现得最为明显。
 
 <Figure image="$lesson/figures/different-exponentials/base-2-4-8-16.svg" />
 
-This means that you can re-write one exponential in terms of another's base. For example, if we have an exponential function of base $2$ and want to re-write the function in terms of base $4$, it can be written like this.
+This means that you can re-write one exponential in terms of another's base. For example, if we have an exponential function of base $2$ and want to re-write the function in terms of base $4$, it can be written like this.  
+这意味着你可以用另一个指数的底数来重写某个指数函数。  
+例如，如果我们有一个以2为底的指数函数，并希望用4为底来重写该函数，就可以这样表示。
 
 $$
 2^{x} = 4^{\frac{1}{2} \cdot x}
 $$
 
-One way to see how to convert between two bases is to zoom in on the graph between $0$ and $1$ to see how fast the first base grows to to the value of the second base. In this case, base $4$ grows twice as fast as base $2$ and reaches the output of $2$ in half the time. So to convert base $4$ to base $2$ we can multiply the input $t$ of the base $4$ function by the constant $\frac{1}{2}$, which is the same as scaling $4^x$ by a factor of $2$ in the horizontal direction.
+One way to see how to convert between two bases is to zoom in on the graph between $0$ and $1$ to see how fast the first base grows to to the value of the second base. In this case, base $4$ grows twice as fast as base $2$ and reaches the output of $2$ in half the time. So to convert base $4$ to base $2$ we can multiply the input $t$ of the base $4$ function by the constant $\frac{1}{2}$, which is the same as scaling $4^x$ by a factor of $2$ in the horizontal direction.  
+       了解如何在两种进制之间转换的一种方法，是放大$0$到$1$之间的图表，  
+    观察第一种进制的数值增长到与第二种进制相同数值的速度。  
+    在这种情况下，4进制的增长速度是2进制的两倍，且只需一半的时间就能达到2的输出值。  
+    因此，要将4进制转换为2进制，我们可以将4进制函数的输入值$t$乘以常数$\frac{1}{2}$，  
+    这相当于在横轴方向上将$4^x$按2的因子进行缩放。
 
 <Figure image="$lesson/figures/different-exponentials/base-2-4-8-16-detail.svg" />
 
-So we've found a function, _the exponential function_ of base $e$, with a really nice derivative property. Can we take any old exponential function and re-write it in terms of the exponential function? Or in other words, what constant do we multiply the input variable by to make the exponential function have the same output as another exponential function?
+So we've found a function, _the exponential function_ of base $e$, with a really nice derivative property. Can we take any old exponential function and re-write it in terms of the exponential function? Or in other words, what constant do we multiply the input variable by to make the exponential function have the same output as another exponential function?  
+因此我们找到了一个具有非常优良导数性质的函数——以$e$为底的指数函数。  
+那么，我们能否将任意指数函数重新表示为该指数函数的形式呢？  
+换句话说，我们需要将输入变量乘以哪个常数，  
+才能让这个指数函数产生与另一个指数函数相同的输出？
 
-For example, let's try to re-write $2^t$ in terms of the exponential function.
+For example, let's try to re-write $2^t$ in terms of the exponential function.  
+     例如，让我们试着用指数函数来重写$2^t$。
 
 $$
 e^{c \cdot t} = 2^{t}
 $$
 
-As before, we can zoom in on a plot of the two functions, and compare their behavior. Specifically, how long does it take the exponential function to grow to $2$?
+As before, we can zoom in on a plot of the two functions, and compare their behavior. Specifically, how long does it take the exponential function to grow to $2$?  
+与之前一样，我们可以放大这两个函数的图像来比较它们的行为。  
+具体来说，指数函数需要多长时间才能增长到2？
 
 <Figure image="$lesson/figures/different-exponentials/base-2-and-e.svg" />
 
-Well, looking at the graph, it takes about $t=0.693...$ units which is exactly equal to the same proportionality constant we found before! If we multiply the input variable $t$ in the exponential function by this constant, the exponential function has the same output as $2^t$.
+Well, looking at the graph, it takes about $t=0.693...$ units which is exactly equal to the same proportionality constant we found before! If we multiply the input variable $t$ in the exponential function by this constant, the exponential function has the same output as $2^t$.  
+从图表上看，指数函数增长到2所需的时间约为$t=0.693...$单位，  
+这一数值恰好与我们之前找到的比例常数相同！  
+如果将指数函数中的自变量$t$乘以这个常数，  
+那么该指数函数的输出就会与$2^t$相等。
 
 $$
 e^{(0.69314718056...) \cdot t} = 2^{t}
 $$
 
-This type of question we are asking leads us directly towards another function, the inverse of the _exponential function_, the natural logarithm function.
+This type of question we are asking leads us directly towards another function, the inverse of the _exponential function_, the natural logarithm function.  
+我们提出的这类问题会直接引导我们找到另一个函数，  
+即指数函数的逆函数——自然对数函数。
 
 </section>
 
 <section>
 
-## Natural logarithm
+## Natural logarithm  自然对数
 
 <Figure image="$lesson/figures/exponential-function/natural-logarithm-and-exponential-functions.svg" />
 
-The existence of a function like this can answer the question of the mystery constants, and it's because it gives a different way to think about functions that are proportional to their own derivative. There's nothing fancy here, this is simply the definition of the natural log, which asks the question "$e$ to the what equals $2$".
+The existence of a function like this can answer the question of the mystery constants, and it's because it gives a different way to think about functions that are proportional to their own derivative. There's nothing fancy here, this is simply the definition of the natural log, which asks the question "$e$ to the what equals $2$".  
+这样的函数的存在能够解答神秘常数的问题，  
+因为它为思考与自身导数成比例的函数提供了不同的视角。  
+这里并没有什么复杂的原理，这仅仅是自然对数的定义，  
+它所探讨的问题是“$e$ 的多少次方等于 $2$”​。
 
 $$
 e^{??} = 2
 $$
 
-And indeed, go plug in the natural log of $2$ to a calculator, and you'll find that it's $0.6931...$, the mystery constant we ran into earlier. And same goes for all the other bases, the mystery proportionality constant that pops up when taking derivatives and when re-writing exponential functions using $e$ is the natural log of the base; the answer to the question "$e$ to the what equals that base".
+And indeed, go plug in the natural log of $2$ to a calculator, and you'll find that it's $0.6931...$, the mystery constant we ran into earlier. And same goes for all the other bases, the mystery proportionality constant that pops up when taking derivatives and when re-writing exponential functions using $e$ is the natural log of the base; the answer to the question "$e$ to the what equals that base".  
+       实际上，只要在计算器上输入2的自然对数，就会发现其值为0.6931……，  
+       这就是我们之前遇到的那个神秘常数。  
+       对于其他所有底数也是如此，在求导以及用e表示指数函数时出现的那个神秘比例常数，  
+       其实就是该底数的自然对数；也就是“e的多少次方等于该底数”这个问题的答案。
 
-Importantly, the natural logarithm function gives us the missing tool we need to find the derivative of _any_ exponential function. The key is to re-write the function and then use the chain rule. For example, what is the derivative of the function $3^t$? Well, let's re-write this function in terms of the _exponential function_ using the natural logarithm to calculate the horizontally-scaling proportionality constant.
+Importantly, the natural logarithm function gives us the missing tool we need to find the derivative of _any_ exponential function. The key is to re-write the function and then use the chain rule. For example, what is the derivative of the function $3^t$? Well, let's re-write this function in terms of the _exponential function_ using the natural logarithm to calculate the horizontally-scaling proportionality constant.  
+重要的是，自然对数函数为我们提供了求任意指数函数导数所需的工具。  
+关键在于先将函数重新表示出来，再运用链式法则。  
+例如，函数$3^t$的导数是多少？  
+我们可以利用自然对数将这个函数用指数函数的形式重新表示，  
+从而计算出水平缩放的比例常数。
 
 $$
 3^{t} = e^{\ln(3)t}
 $$
 
-Then, we can calculate the derivative of $e^{\ln(3)t}$ using the chain rule by. First, take the derivative of the outermost function, which due to the special nature of the exponential function is itself. Then, second, multiply this by the derivative of the inner function $\ln(3)t$, which is the constant $\ln(3)$.
+Then, we can calculate the derivative of $e^{\ln(3)t}$ using the chain rule by. First, take the derivative of the outermost function, which due to the special nature of the exponential function is itself. Then, second, multiply this by the derivative of the inner function $\ln(3)t$, which is the constant $\ln(3)$.  
+然后，我们可以利用链式法则来计算$e^{\ln(3)t}$的导数。  
+首先，求最外层函数的导数，由于指数函数的特殊性质，其导数就是它本身。  
+其次，将这个结果乘以内层函数$\ln(3)t$的导数，而该导数为常数$\ln(3)$。$$
 
 $$
 \frac{d}{dt} \left( e^{\ln(3)t} \right) = e^{\ln(3)t} \cdot \ln(3)
 $$
 
-This is the same derivative we found using algebra above, since $\ln(3) = 1.09861228867...$
+This is the same derivative we found using algebra above, since $\ln(3) = 1.09861228867...$  
+    这就是我们上面用代数方法求得的同一个导数，  
+    因为$\ln(3) =1.09861228867...$
 
 $$
 \frac{d}{dt} \left( 3^t \right) = 3^t \cdot \ln(3)
 $$
 
-The same technique can be used to find the derivative of any exponential function.
+The same technique can be used to find the derivative of any exponential function.  
+同样的方法可以用来求任何指数函数的导数。
 
 $$
 \frac{d\left(a^{t}\right)}{d t}=a^{t} \ln (a)
 $$
 
-In fact, throughout applications of calculus, you rarely see exponentials written as some base to a power $t$. Instead you almost always write exponentials as $e$ raised to some constant multiplied by $t$. It's all equivalent; any function like $2^t$ or $3^t$ can be written as $e^{c \cdot t}$. The difference is that framing things in terms of the exponential function plays much more smoothly with the process of derivatives.
+In fact, throughout applications of calculus, you rarely see exponentials written as some base to a power $t$. Instead you almost always write exponentials as $e$ raised to some constant multiplied by $t$. It's all equivalent; any function like $2^t$ or $3^t$ can be written as $e^{c \cdot t}$. The difference is that framing things in terms of the exponential function plays much more smoothly with the process of derivatives.  
+实际上，在微积分的各种应用中，你很少看到指数函数以“某底数的t次方”的形式出现。  
+相反，几乎总是将指数函数表示为e的某个常数倍再乘以t的形式。  
+这两种表达方式其实是等价的；像 $2^t$ 或 $3^t$ 这样的函数都可以写成 $e^{c·t}$的形式。  
+其区别在于，用指数函数来表示各种量在处理导数问题时会更顺畅。
 
 </section>
 
 <section>
 
-## Why we care
+## Why we care  为何我们关注此点
 
-I know this is all pretty symbol heavy, but the reason we care is that all sorts of natural phenomena involve a certain rate of change being proportional to the thing changing.
+I know this is all pretty symbol heavy, but the reason we care is that all sorts of natural phenomena involve a certain rate of change being proportional to the thing changing.  
+我知道这一切都带有很强的象征意义，  
+但我们之所以在意，是因为各种自然现象都存在这样一种规律：  
+某种变化率与正在发生变化的事物成正比。
 
-For example, the rate of growth of a population actually does tend to be proportional to the size of the population itself, assuming there isn't some limited resource slowing that growth down. If you put a cup of hot water in a cool room, the rate at which the water cools is proportional to the difference in temperature between the room and the water. Or said differently, the rate at which that difference changes is proportional to itself. If you invest your money, the rate at which it grows is proportional to the amount of money there at any time.
+For example, the rate of growth of a population actually does tend to be proportional to the size of the population itself, assuming there isn't some limited resource slowing that growth down. If you put a cup of hot water in a cool room, the rate at which the water cools is proportional to the difference in temperature between the room and the water. Or said differently, the rate at which that difference changes is proportional to itself. If you invest your money, the rate at which it grows is proportional to the amount of money there at any time.  
+例如，在没有有限资源阻碍增长的前提下，  
+人口的增长速度实际上往往与人口规模本身成正比。  
+如果把一杯热水放在凉爽的房间里，水冷却的速度与房间和水的温度差成正比。  
+换言之，这种温度差的变化速度与它自身成正比。  
+而如果你投资资金，其增值速度则与任何时刻的资金数额成正比。
 
-In all these cases, where some variable's rate of change is proportional to itself, the function describing that variable over time will be some exponential. And even though there are lots of ways to write any exponential function, it's very natural to choose to express these functions as $e^{ct}$, since that constant $c$ in the exponent carries a very natural meaning: It's the same as the proportionality constant between the size of the changing variable and the rate of change.
+In all these cases, where some variable's rate of change is proportional to itself, the function describing that variable over time will be some exponential. And even though there are lots of ways to write any exponential function, it's very natural to choose to express these functions as $e^{ct}$, since that constant $c$ in the exponent carries a very natural meaning: It's the same as the proportionality constant between the size of the changing variable and the rate of change.  
+在所有这些变量变化率与其自身成正比的情况下，  
+描述该变量随时间变化的函数都将是某种指数函数。  
+尽管表示指数函数的方法有很多，  
+但将这类函数表示为$e^{ct}$是非常自然的，  
+因为指数中的常数$c$具有很直观的含义：  
+它恰好就是变化变量的大小与变化率之间的比例常数。
 
 </section>

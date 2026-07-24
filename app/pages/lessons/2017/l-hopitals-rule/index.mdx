@@ -1,13 +1,13 @@
 ---
-title: L'Hôpital's rule
-description: What is L'Hopital's rule and how does it help us evaluate limits?
+title: L'Hôpital's rule 洛必达法则
+description: What is L'Hopital's rule and how does it help us evaluate limits?  什么是洛必达法则？它如何帮助我们求极限？
 date: 2017-05-04
 chapter: 10
 thumbnail: $lesson/thumbnail.jpg
 source: _2017/eoc/chapter7.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Figure from "~/components/Figure";
@@ -16,118 +16,193 @@ import Question from "~/components/Question";
 
 <section>
 
-So far, the past two lessons have been pretty theory heavy; limits being used to formally define the derivative, then epsilons and deltas being used to rigorously define limits themselves. So, in this lesson, let's finish off our dive into limits with a trick for actually computing limits.
+So far, the past two lessons have been pretty theory heavy; limits being used to formally define the derivative, then epsilons and deltas being used to rigorously define limits themselves. So, in this lesson, let's finish off our dive into limits with a trick for actually computing limits.  
+到目前为止，前两节课的内容以理论为主：  
+先是用极限来正式定义导数，然后再用ε和δ来严格定义极限本身。  
+因此，在这一课中，让我们通过一种实际计算极限的技巧，来完成对极限知识的深入学习。
 
-For example, let's say for some reason you were studying the function:
+For example, let's say for some reason you were studying the function:  
+例如，假设由于某种原因你在研究这样一个函数：
 
 $$
 f(x) = \frac{\sin (\pi x)}{x^{2}-1}
 $$
 
-Maybe this models some kind of damped oscillation. When you plot a bunch of points to graph it, it looks continuous, but there's a problematic value, $x=1$.
+Maybe this models some kind of damped oscillation. When you plot a bunch of points to graph it, it looks continuous, but there's a problematic value, $x=1$.  
+也许这模拟了某种阻尼振荡。  
+当你绘制出一组点来表示它时，看起来是连续的，但存在一个有问题的值，即$x=1$。
 
 <Figure image="$lesson/figures/example-function.svg" />
 
-When you plug $x=1$ into the numerator $\sin(\pi x)$ becomes $0$, and similarly the denominator $x^{2}-1$ also becomes $0$, so the function is actually not defined at that input, and the graph should really have a hole there. This also happens at $-1$, but let's just focus our attention on a single one of these holes for now. Imagine zooming in on the point $x=1$.
+When you plug $x=1$ into the numerator $\sin(\pi x)$ becomes $0$, and similarly the denominator $x^{2}-1$ also becomes $0$, so the function is actually not defined at that input, and the graph should really have a hole there. This also happens at $-1$, but let's just focus our attention on a single one of these holes for now. Imagine zooming in on the point $x=1$.  
+当将$x=1$代入分子时，$\sin(\pi x)$的值为$0$；  同样地，分母$x^{2}-1$的值也为$0$。  
+因此该函数在$x=1$处实际上并不存在定义，图形上应该有一个孔洞。  
+在$x=-1$处也会出现这种情况，但目前我们先只关注其中一个孔洞。  
+想象一下将焦点放大到$x=1$这一点上。
 
 <Figure image="$lesson/figures/example-function-zoom-big.svg" />
 
-The graph of this function certainly does seem to approach some distinct value at that point, wouldn't you say? So you might ask, how do you figure out what output this approaches as $x$ approaches $1$, since you can't just plug in $1$?
+The graph of this function certainly does seem to approach some distinct value at that point, wouldn't you say? So you might ask, how do you figure out what output this approaches as $x$ approaches $1$, since you can't just plug in $1$?  
+这个函数的图像在这一点上似乎确实趋近于某个确定的值，你不这么认为吗？  
+那么你可能会问，既然不能直接代入1，要如何确定当x趋近于1时函数值趋近于多少呢？
 
-Well, one way to approximate it would be to plug in a number thats just very very close to $1$, like $1.00001$. Doing that, you'd find that this should be a number around $-1.57$. Translating this to the limit notation looks like this:
+Well, one way to approximate it would be to plug in a number thats just very very close to $1$, like $1.00001$. Doing that, you'd find that this should be a number around $-1.57$. Translating this to the limit notation looks like this:  
+嗯，一种近似的方法是代入一个与1非常非常接近的数，比如1.00001。  
+这样算出来的结果应该在-1.57左右。用极限符号表示就是：
 
 <Figure image="$lesson/figures/example-function-approximate-limit.svg">
   Plug a number really close to $1$ in for $x$ or zoom in on the graph of this
-  function and we can see this limit is approximately equal to $-1.57$.
+  function and we can see this limit is approximately equal to $-1.57$.  
+  将一个非常接近 $1$ 的数值代入 $x$，或者放大观察该函数的图像，  
+  我们就能发现这个极限值近似等于 $-1.57$。
 </Figure>
 
-But is there a way to know precisely what it is? Some systematic process to take an expression like this one, which looks like $0$ divided by $0$ at some input, and ask what its limit is as $x$ approaches that input? After limits so helpfully let us write the definition for a derivative, derivatives can come back to return the favor and help us evaluate limits. Let me show you what I mean.
+But is there a way to know precisely what it is? Some systematic process to take an expression like this one, which looks like $0$ divided by $0$ at some input, and ask what its limit is as $x$ approaches that input? After limits so helpfully let us write the definition for a derivative, derivatives can come back to return the favor and help us evaluate limits. Let me show you what I mean.  
+但是，有没有办法准确知道它的值呢？  
+是否存在某种系统化的方法，用来处理像这样在某个输入值处看起来像是“0除以0”的表达式，  
+并确定当x趋近于该输入值时它的极限是多少？  
+在极限让我们能够方便地写出导数的定义之后，导数也可以反过来帮助我们计算极限。  
+让我来向你们展示我的意思。
 
 </section>
 
 <section>
 
-## Plot numerator and denominator
+## Plot numerator and denominator  
+绘制分子与分母的图像
 
-Let's graph the numerator, $\sin(\pi x)$, and the denominator, $x^2-1$, of our original function and focus on what's happening at $x=1$.
+Let's graph the numerator, $\sin(\pi x)$, and the denominator, $x^2-1$, of our original function and focus on what's happening at $x=1$.  
+让我们绘制原函数中的分子$\sin(\pi x)$和分母$x^2-1$的图像，并重点观察$x=1$时的情况。
 
 <Figure image="$lesson/figures/example-function-numerator-and-denominator.svg" />
 
-The point here is that $\sin(\pi x)$ and $x^2-1$ are both $0$ at that point, so they cross the $x$-axis. In the same spirit as plugging in a specific value near $1$, like $1.00001$, let's zoom in on that point and consider what happens a tiny nudge $dx$ away.
+The point here is that $\sin(\pi x)$ and $x^2-1$ are both $0$ at that point, so they cross the $x$-axis. In the same spirit as plugging in a specific value near $1$, like $1.00001$, let's zoom in on that point and consider what happens a tiny nudge $dx$ away.  
+   关键在于，在该点处$\sin(\pi x)$与$x^2-1$的值均为0，因此它们会穿过x轴。  
+   与代入1附近的特定值（如1.00001）类似，让我们放大该点，  
+   看看在稍微偏离一小段距离$dx$后会发生什么。
 
 <Figure image="$lesson/figures/example-function-numerator-and-denominator-zoom.svg" />
 
-The value of $\sin(\pi x)$ is bumped down by some $d(\sin(\pi x))$ and the value of $x^2-1$ is bumped up by some $d(x^2-1)$.
+The value of $\sin(\pi x)$ is bumped down by some $d(\sin(\pi x))$ and the value of $x^2-1$ is bumped up by some $d(x^2-1)$.  
+$\sin(\pi x)$ 的值会下降 $d(\sin(\pi x))$，而 $x^2-1$ 的值则会上升$d(x^2-1)$。
 
-Take a moment to think about how the fraction $d(\sin (\pi x)) / d\left(x^{2}-1\right)$ reframes the initial problem which had previously looked like $0$ divided by $0$. Why might this lead us towards an exact answer rather than just an approximation?
+Take a moment to think about how the fraction $d(\sin (\pi x)) / d\left(x^{2}-1\right)$ reframes the initial problem which had previously looked like $0$ divided by $0$. Why might this lead us towards an exact answer rather than just an approximation?  
+花点时间思考一下，分数 $d(\sin (\pi x)) / d\left(x^{2}-1\right)$   
+是如何重新构建这个原本看似“0除以0”的问题的。  
+为什么这能让我们得到精确答案，而非仅仅是近似值呢？
 
 <FreeResponse>
 
-First, this fraction is the same as evaluating the original function at $f(1 + dx)$.
+First, this fraction is the same as evaluating the original function at $f(1 + dx)$.  
+   首先，这个分数等同于在 $f(1 + dx)$ 处计算原函数的值。
 
-And second, by looking at the ratio of these two tangent lines, whose approximations of the numerator and denominator get better and better as $dx$ approaches $0$, we are able to reason about the _exact_ value this limit approaches.
+And second, by looking at the ratio of these two tangent lines, whose approximations of the numerator and denominator get better and better as $dx$ approaches $0$, we are able to reason about the _exact_ value this limit approaches.  
+其次，通过观察这两条切线的比值——随着$dx$趋近于0，  
+它们对分子和分母的近似效果会越来越好——我们便能够推断出该极限所趋近的_精确_值。
 
 </FreeResponse>
 
-Since both of these changes are proportional to the small nudge $dx$, we can go ahead and apply our knowledge of derivatives. Using the chain rule, we know that the change to the function $d(\sin(\pi x))$ should be around $\cos(\pi x) \cdot \pi \cdot dx$. Similarly, using the power rule, we know that the change to the function $x^2-1$ should be around $2 x \cdot dx$.
+Since both of these changes are proportional to the small nudge $dx$, we can go ahead and apply our knowledge of derivatives. Using the chain rule, we know that the change to the function $d(\sin(\pi x))$ should be around $\cos(\pi x) \cdot \pi \cdot dx$. Similarly, using the power rule, we know that the change to the function $x^2-1$ should be around $2 x \cdot dx$.  
+由于这两种变化都与微小的增量$dx$成正比，因此我们可以运用导数的相关知识。  
+根据链式法则，函数$d(\sin(\pi x))$的变化量应约为$\cos(\pi x) \cdot\pi \cdot dx$。  
+同样地，根据幂函数求导法则，函数$x^2-1$的变化量应约为 $2x \cdot dx$。
 
 <Figure image="$lesson/figures/example-function-numerator-and-denominator-zoom-expanded.svg" />
 
-Since we are interested in the fraction of these two functions at the point at $x = 1$ we can substitute $x=1$ into both of these expressions and evaluate the fraction.
+Since we are interested in the fraction of these two functions at the point at $x = 1$ we can substitute $x=1$ into both of these expressions and evaluate the fraction.  
+由于我们关注的是在$x=1$点处这两个函数的比值，  
+因此可以将$x=1$代入这两个表达式中，进而计算出该比值。
 
 <Figure image="$lesson/figures/numerator-and-denominator-evaluated.svg" />
 
-What this means is that for values of $x$ which are some tiny value $dx$ away from $1$, the ratio $\sin(\pi x)/(x^2-1)$ is approximately $(-\pi \cdot dx) / (2 \cdot dx)$. The $dx$'s cancel, so that value is $-\pi/2$. Importantly, these approximations get more and more accurate for smaller and smaller choices of $dx$, this ratio $-\pi/2$ actually tells us the precise limiting value as $x$ approaches $1$.
+What this means is that for values of $x$ which are some tiny value $dx$ away from $1$, the ratio $\sin(\pi x)/(x^2-1)$ is approximately $(-\pi \cdot dx) / (2 \cdot dx)$. The $dx$'s cancel, so that value is $-\pi/2$. Importantly, these approximations get more and more accurate for smaller and smaller choices of $dx$, this ratio $-\pi/2$ actually tells us the precise limiting value as $x$ approaches $1$.  
+这意味着，当$x$偏离1的数值为很小的$dx$时，  
+$\sin(\pi x)/(x^2-1)$的比值近似为$(-\pi \cdot dx) / (2 \cdot dx)$。  
+由于$dx$可以相互抵消，该值即为$-\pi/2$。  
+重要的是，随着$dx$取值越来越小，这些近似值会越来越精确，  
+而这个比值$-\pi/2$实际上就给出了当$x$趋近于1时的精确极限值。
 
 <Figure image="$lesson/figures/example-function-limit-process.svg" />
 
-Remember, what that means is that the limiting height on our original graph is evidently exactly $-\pi/2$.
+Remember, what that means is that the limiting height on our original graph is evidently exactly $-\pi/2$.  
+请记住，这意味着我们原始图形中的极限高度显然恰好就是$-\pi/2$。
 
 </section>
 
 <section>
 
-## Generalize
+## Generalize  推广
 
-What happened there is a little subtle, so let me show it again, but this time a little more generally. Instead of these two specific functions, which both equal $0$ at $x=1$, think of any two functions $f(x)$ and $g(x)$, which are both $0$ at some common value $x = a$.
+What happened there is a little subtle, so let me show it again, but this time a little more generally. Instead of these two specific functions, which both equal $0$ at $x=1$, think of any two functions $f(x)$ and $g(x)$, which are both $0$ at some common value $x = a$.  
+那里发生的情况有点微妙，让我再演示一次，不过这次会更一般化一些。  
+不必考虑在$x=1$时都等于$0$的这两个特定函数，  
+而是可以考虑任意两个在某个共同值$x=a$处都等于$0$的函数$f(x)$和$g(x)$。
 
 <Figure image="$lesson/figures/general-case.svg" />
 
-The only constraint is that these have to be functions where you're able to take a derivative of them at $x = a$, meaning they each basically look like a line when you zoom in close enough to that value.
+The only constraint is that these have to be functions where you're able to take a derivative of them at $x = a$, meaning they each basically look like a line when you zoom in close enough to that value.  
+     唯一的限制是，这些函数必须是在$x = a$处可以求导的函数，  
+     也就是说，当足够接近该值时，它们各自看起来都像一条直线。
 
 <Figure image="$lesson/figures/general-case-criteria.svg" />
 
-Even though you can't compute $f$ divided by $g$ at this trouble point, since both equal zero, you can ask about this ratio for values of $x$ really really close to $a$, the limit as $x$ approach $a$. And it's helpful to think of those nearby inputs as a tiny nudge $dx$ away from $a$.
+Even though you can't compute $f$ divided by $g$ at this trouble point, since both equal zero, you can ask about this ratio for values of $x$ really really close to $a$, the limit as $x$ approach $a$. And it's helpful to think of those nearby inputs as a tiny nudge $dx$ away from $a$.  
+尽管在这一点上无法计算$f$除以$g$的值（因为两者都为零）​，  
+但你可以研究$x$非常接近$a$时的这个比值，也就是$x$趋近于$a$时的极限。  
+将那些接近的输入值视为从$a$处稍微偏离一点点$dx$的距离，这样思考会很有帮助。
 
 <Figure image="$lesson/figures/general-case-ratio.svg" />
 
-The value of $f$ at that nudged point is approximately its derivative, $df/dx$ evaluated at $a$, times $dx$. Likewise, the the value of $g$ at that nudged point is approximately the derivative of $g$, evaluated at $a$, times $dx$.
+The value of $f$ at that nudged point is approximately its derivative, $df/dx$ evaluated at $a$, times $dx$. Likewise, the the value of $g$ at that nudged point is approximately the derivative of $g$, evaluated at $a$, times $dx$.  
+函数$f$在那个微调点处的值近似等于其在$a$点的导数$df/dx$乘以$dx$。  
+同样地，函数$g$在那个微调点处的值也近似等于其在$a$点的导数乘以$dx$。
 
-So near this trouble point, the ratio between the outputs of $f$ and $g$ is actually about the same as the derivative of $f$ at $a$, times $dx$, divided by the derivative of $g$ at $a$, times $dx$. These $dx$'s cancel, so the ratio of $f$ and $g$ near $a$ is about the same as the ratio between their derivatives.
+So near this trouble point, the ratio between the outputs of $f$ and $g$ is actually about the same as the derivative of $f$ at $a$, times $dx$, divided by the derivative of $g$ at $a$, times $dx$. These $dx$'s cancel, so the ratio of $f$ and $g$ near $a$ is about the same as the ratio between their derivatives.  
+因此，在这个临界点附近，$f$与$g$的输出之比实际上大约等于$f$在$a$处的导数乘以$dx$，  
+再除以$g$在$a$处的导数乘以$dx$。  
+这些$dx$会相互抵消，所以$a$附近$f$与$g$的比值大约等于它们导数之比。
 
 <Figure image="$lesson/figures/l-hopitals-rule.svg">
   Because both approximations get more accurate for smaller nudges, this ratio
-  of derivatives gives the precise value for the limit.
+  of derivatives gives the precise value for the limit.  
+  由于这两种近似方法在微小扰动下精度都会提高，因此该导数比能给出极限的精确值。
 </Figure>
 
-This is a _really_ handy trick for computing a lot of limits. If you come across an expression that seems to equal $0/0$ when you plug in some input, just try taking the derivative of the top and bottom expressions, and plugging in that trouble input.
+This is a _really_ handy trick for computing a lot of limits. If you come across an expression that seems to equal $0/0$ when you plug in some input, just try taking the derivative of the top and bottom expressions, and plugging in that trouble input.  
+这是一个用于计算大量极限的_非常_实用的技巧。  
+如果你遇到的某个表达式在代入某些数值后似乎会变成$0/0$的形式，  
+只需对分子和分母分别求导，然后再代入那个有问题的数值即可。
 
-This clever trick is called "**L'Hôpital's rule**". Interestingly, it was actually discovered by Johann Bernoulli, but L'Hopital was this wealthy dude who essentially paid Bernoulli for the rights to some of his mathematical discoveries. Academia was weird back then, but in a very literal way, it pays to understand these tiny nudges.
+This clever trick is called "**L'Hôpital's rule**". Interestingly, it was actually discovered by Johann Bernoulli, but L'Hopital was this wealthy dude who essentially paid Bernoulli for the rights to some of his mathematical discoveries. Academia was weird back then, but in a very literal way, it pays to understand these tiny nudges.  
+这个巧妙的技巧被称为“**洛必达法则**”​。  
+有趣的是，它实际上是由约翰·伯努利发现的，  
+而洛必达则是个富商，他花钱从伯努利手中买下了其部分数学发现的所有权。  
+那时的学术界很奇怪，但了解这些细微的背景知识确实很有益处。
 
-Now, you might remember that the definition of a derivative for any given function comes down to computing the limit of a fraction that looks like $0/0$, so you might think L'Hopital's rule gives a handy way to discover new derivative formulas. But that would be cheating, since presumably you don't yet know what the derivative on the numerator here is.
+Now, you might remember that the definition of a derivative for any given function comes down to computing the limit of a fraction that looks like $0/0$, so you might think L'Hopital's rule gives a handy way to discover new derivative formulas. But that would be cheating, since presumably you don't yet know what the derivative on the numerator here is.  
+你可能还记得，对于任意函数而言，导数的定义归根结底就是计算形如$0/0$的分数的极限，  
+因此你可能会认为洛必达法则提供了一种简便的方法来推导新的导数公式。  
+但那其实属于作弊行为，因为通常你还不知道分子处的导数究竟是多少。
 
-When it comes to discovering derivative formulas, something we've been doing a fair amount this series, there is no systematic plug-and-chug method. But that's a good thing. When creativity is needed to solve problems like these, it's a good sign you're doing something real; something that might give you a powerful tool to solve future problems.
+When it comes to discovering derivative formulas, something we've been doing a fair amount this series, there is no systematic plug-and-chug method. But that's a good thing. When creativity is needed to solve problems like these, it's a good sign you're doing something real; something that might give you a powerful tool to solve future problems.  
+在探索导数公式方面——这也是本系列中我们经常做的事情——并不存在一种系统化的套用方法。  
+但这反而是件好事。当解决这类问题需要创造力时，  
+那就说明你正在做有意义的事情；  
+这些努力或许会为你带来解决未来问题的强大工具。
 
-In the next lesson, I'll talk about what an integral is, as well as the fundamental theorem of calculus, which is another example of where limits are used to help give a clear meaning to a fairly delicate idea that flirts with infinity.
+In the next lesson, I'll talk about what an integral is, as well as the fundamental theorem of calculus, which is another example of where limits are used to help give a clear meaning to a fairly delicate idea that flirts with infinity.  
+在下一课中，我将讲解什么是积分，以及微积分基本定理——  
+这又是另一个利用极限来为这个与无穷密切相关的复杂概念赋予明确意义的例子。
 
 </section>
 
 <section>
 
-## Exercises
+## Exercises 练习题
 
 <Question
-  question="What is the limit as $x$ approaches $0$ of the function $f(x) = \frac{\sin(x)}{x}$?"
+  question="What is the limit as $x$ approaches $0$ of the function $f(x) = \frac{\sin(x)}{x}$?  
+  当$x$趋近于$0$时，函数$f(x) = \frac{\sin(x)}{x}$的极限是多少？​"
   choice1="$-1$"
   choice2="$0$"
   choice3="$1$"
@@ -135,45 +210,59 @@ In the next lesson, I'll talk about what an integral is, as well as the fundamen
   answer={3}
 >
 
-Observe that when substituting $x=$ into the limit expression it looks like $0$ divided by $0$.
+Observe that when substituting $x=$ into the limit expression it looks like $0$ divided by $0$.  
+ 请注意，当将$x=$代入极限表达式时，它看起来像是$0$除以$0$。
 
 $$
 \lim _{x \rightarrow 0} \frac{\sin(x)}{x} = \frac{0}{0}
 $$
 
-Maybe your first thought is to graph the function and, right off the bat, the graph of the function looks like the value approaches $1$. But let's use what we've learned in this lesson to rigorously show that it really is $1$.
+Maybe your first thought is to graph the function and, right off the bat, the graph of the function looks like the value approaches $1$. But let's use what we've learned in this lesson to rigorously show that it really is $1$.  
+也许你的第一反应是画出该函数的图像，  
+显然从图像上看，当自变量趋近于某个值时，函数值似乎也趋近于1。  
+但让我们运用本课中学到的知识，严格证明它确实等于1。
 
 <Figure image="$lesson/figures/question-1.svg" />
 
-This looks like a good candidate for L'Hopital's rule - where we reframe the limit as the ratio of two function's, $g$ and $h$, tangent lines.
+This looks like a good candidate for L'Hopital's rule - where we reframe the limit as the ratio of two function's, $g$ and $h$, tangent lines.  
+这似乎很适合用洛必达法则来处理——  
+我们可以将这个极限重新表述为两个函数$g$和$h$的切线之比。
 
 $$
 \lim _{x \rightarrow 0} \frac{\sin(x)}{x} = \lim _{x \rightarrow 0} \frac{g(x)}{h(x)}
 $$
 
-Here, it's a good idea to check our constraint that we should be able to take the derivative of both of these function at the point the limit approaches.
+Here, it's a good idea to check our constraint that we should be able to take the derivative of both of these function at the point the limit approaches.  
+在这里，最好检查一下我们的约束条件：  
+即我们应当能够在极限趋近的点上对这两个函数求导。
 
 <Figure image="$lesson/figures/question-1-constraint.svg" />
 
-The further we zoom in the more these functions look like lines so our constraint checks out and we can go ahead and evaluate the ratio of the derivatives evaluated at the point $x=0$.
+The further we zoom in the more these functions look like lines so our constraint checks out and we can go ahead and evaluate the ratio of the derivatives evaluated at the point $x=0$.  
+我们放大得越多，这些函数就越看起来像直线，  
+因此我们的约束条件成立，我们可以继续计算在点$x=0$处导数之比。
 
 $$
 \lim _{x \rightarrow 0} \frac{\sin(x)}{x} = \frac{\frac{dg}{dx}(0)}{\frac{dh}{dx}(0)}
 $$
 
-- The derivative of $\sin(x)$ is equal to $\cos(x)$ which evaluated at $0$ is $\cos(0)=1$.
-- The derivative of $x$ is equal to $1$ which evaluated at $0$ will still be $1$.
+- The derivative of $\sin(x)$ is equal to $\cos(x)$ which evaluated at $0$ is $\cos(0)=1$.  
+- $\sin(x)$的导数等于$\cos(x)$，其在$0$处的值为$\cos(0)=1$。
+- The derivative of $x$ is equal to $1$ which evaluated at $0$ will still be $1$.  
+- $x$的导数等于$1$，在$0$处的值依然为$1$。
 
 $$
 \lim _{x \rightarrow 0} \frac{\sin(x)}{x} = \frac{\cos(0)}{1} = 1
 $$
 
-This rigorously verifies that the limit of this function is indeed $1$ as $x$ approaches $0$ .
+This rigorously verifies that the limit of this function is indeed $1$ as $x$ approaches $0$ .  
+这严格证明了当$x$趋近于$0$时，该函数的极限确实为$1$。
 
 </Question>
 
 <Question
-  question="What is the limit of the function $\displaystyle f(x) = \frac{x^3 - 1}{x-1}$ as $x$ approaches $1$?"
+  question="What is the limit of the function $\displaystyle f(x) = \frac{x^3 - 1}{x-1}$ as $x$ approaches $1$?  
+  当$x$趋近于1时，函数$\displaystyle f(x) = \frac{x^3 - 1}{x-1}$的极限是多少？​"
   choice1="1"
   choice2="-1"
   choice3="2"
@@ -181,21 +270,29 @@ This rigorously verifies that the limit of this function is indeed $1$ as $x$ ap
   answer={4}
 >
 
-Substituting $1$ in for $x$ in the expression we can see that the limit looks like $0$ divided by $0$.
+Substituting $1$ in for $x$ in the expression we can see that the limit looks like $0$ divided by $0$.  
+将$x$替换为$1$代入表达式后，我们可以看出该极限表现为$0$除以$0$的形式。
 
 $$
 \lim _{x \rightarrow 1} \frac{x^3 - 1}{x-1} = \frac{0}{0}
 $$
 
-Of course, in practice you can go ahead and apply L'Hopital's rule, but here let's follow the same logic we laid out in this lesson. If we graph the expression we can see that the point at $x-1$ is undefined and appears to approach the value $3$.
+Of course, in practice you can go ahead and apply L'Hopital's rule, but here let's follow the same logic we laid out in this lesson. If we graph the expression we can see that the point at $x-1$ is undefined and appears to approach the value $3$.  
+当然，在实际应用中可以直接使用洛必达法则，  
+但在这里我们还是遵循本课中阐述的逻辑。  
+如果我们将该表达式画成图形，就会发现$x-1$处的值是未定义的，且似乎趋近于3。
 
 <Figure image="$lesson/figures/exercise-2-plot.svg" />
 
-Since these are polynomial functions, we know their derivatives exist at zero and so our constraint is satisfied. We can also plot the graph of the tangent lines.
+Since these are polynomial functions, we know their derivatives exist at zero and so our constraint is satisfied. We can also plot the graph of the tangent lines.  
+由于这些都是多项式函数，我们知道它们在零点的导数存在，  
+因此我们的约束条件得到了满足。  
+我们还可以绘制出切线的图像。
 
 <Figure image="$lesson/figures/exercise-2-tangent-lines.svg" />
 
-We can express this limit as the ratio of these tangent lines.
+We can express this limit as the ratio of these tangent lines.  
+我们可以将这个极限表示为这些切线的比值。
 
 $$
 \lim _{x \rightarrow 1} \frac{x^3 - 1}{x-1} = \frac{\frac{dg}{dx}(1)}{\frac{dh}{dx}(1)}
@@ -205,7 +302,9 @@ $$
 \lim _{x \rightarrow 1} \frac{3x^2 dx}{1 \cdot dx} = \frac{3(1)^2}{1} = 3
 $$
 
-So the limit of this function $\displaystyle f(x) = \frac{x^3 - 1}{x-1}$ as $x$ approaches $1$ is $3$.
+So the limit of this function $\displaystyle f(x) = \frac{x^3 - 1}{x-1}$ as $x$ approaches $1$ is $3$.  
+因此，当$x$趋近于$1$时，  
+函数$\displaystyle f(x) = \frac{x^3 - 1}{x-1}$的极限为$3$。
 
 </Question>
 

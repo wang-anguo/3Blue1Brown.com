@@ -1,13 +1,13 @@
 ---
-title: Limits and the definition of derivatives
-description: What are limits? How are they defined? How are they used to define the derivative?
+title: Limits and the definition of derivatives 极限与导数的定义
+description: What are limits? How are they defined? How are they used to define the derivative? 什么是极限？如何定义极限？如何利用极限来定义导数？
 date: 2017-05-04
 chapter: 8
 video: kfF40MiS7zA
 source: _2017/eoc/chapter7.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Figure from "~/components/Figure";
@@ -15,94 +15,173 @@ import Quote from "~/components/Quote";
 
 <section>
 
-<Quote name="Anonymous Professor">
-  Calculus is all about making curvy things look straight
+<Quote name="Anonymous Professor 匿名教授 ">
+  Calculus is all about making curvy things look straight  
+  微积分就是让曲线看起来变直的学问
 </Quote>
 
-The last several lessons have been about the idea of a derivative, and before moving on to integrals, I want to take some time to talk about limits.
+The last several lessons have been about the idea of a derivative, and before moving on to integrals, I want to take some time to talk about limits.  
+前几节课都在讲解导数的概念，在进入积分的学习之前，我想花些时间谈谈极限。
 
-To be honest, the idea of a limit is not really anything new. If you know what the word "approach" means you pretty much already know what a limit is, you could say the rest is a matter of assigning fancy notation to the intuitive idea of one value that just gets closer to another. But there are a number of reasons to dive deeper into this topic.
+To be honest, the idea of a limit is not really anything new. If you know what the word "approach" means you pretty much already know what a limit is, you could say the rest is a matter of assigning fancy notation to the intuitive idea of one value that just gets closer to another. But there are a number of reasons to dive deeper into this topic.  
+说实话，极限的概念其实并非什么新鲜事物。  
+如果你知道“趋近”这个词的意思，那你就差不多已经理解了什么是极限。  
+可以说，剩下的工作不过是给“一个值不断接近另一个值”这一直观概念赋予一些复杂的符号罢了。  
+不过，还是有诸多理由让我们更深入地探讨这个主题。
 
-For one thing it's worth showing is how the way I've been describing derivatives so far lines up with the the formal definition of a derivative as it's typically presented in most courses and textbooks. I want to give you a little confidence that thinking of terms like $dx$ and $df$ as concrete non-zero nudges is not just some trick for building intuition; it's actually backed up by the formal definition of a derivative in all of its rigor.
+For one thing it's worth showing is how the way I've been describing derivatives so far lines up with the the formal definition of a derivative as it's typically presented in most courses and textbooks. I want to give you a little confidence that thinking of terms like $dx$ and $df$ as concrete non-zero nudges is not just some trick for building intuition; it's actually backed up by the formal definition of a derivative in all of its rigor.  
+首先，有必要说明一下我迄今为止所描述的导数概念  
+是如何与大多数课程和教材中通常给出的导数正式定义相一致的。  
+我希望让大家稍微放心一些：  
+将$dx$和$df$这类概念视为具体的非零微小变动，  
+并不仅仅是为了建立直观理解而用的技巧；  
+实际上，它有着严格的导数正式定义作为支撑。
 
 </section>
 
 <section>
 
-## Formal Definition of the derivative
+## Formal Definition of the derivative  导数的正式定义
 
-Let's take a look at the formal definition of the derivative. As a reminder, when you have some function $f(x)$, to think about the derivative at a particular input, maybe $x=2$, you start by imagining nudging that input by some tiny $dx$, and looking at the resulting change to the output, $df$.
+Let's take a look at the formal definition of the derivative. As a reminder, when you have some function $f(x)$, to think about the derivative at a particular input, maybe $x=2$, you start by imagining nudging that input by some tiny $dx$, and looking at the resulting change to the output, $df$.  
+让我们来看看导数的正式定义。  
+提醒一下，当有一个函数$f(x)$时，若要考虑在某个特定输入值处——比如$x=2$——的导数，  
+首先可以设想将该输入值微调一个极小的量$dx$，  
+然后观察输出值随之产生的变化$df$。
 
 <Figure image="$lesson/figures/derivative-dx-nudge.svg" />
 
 {/* Illustrate nudge df and dx for a generic function f(x) at 2 */}
+{/* 说明对于一般函数f(x)在x=2处的微小变化df与dx */}
 
-The ratio $df/dx$, which can nicely be thought of as the rise-over-run slope between the starting point on the graph and the nudged point, is almost what the derivative is. The actual derivative is whatever this ratio approaches as $dx$ approaches $0$.
+The ratio $df/dx$, which can nicely be thought of as the rise-over-run slope between the starting point on the graph and the nudged point, is almost what the derivative is. The actual derivative is whatever this ratio approaches as $dx$ approaches $0$.  
+比值$df/dx$可以很好地理解为图中起点与移动点之间的上升量与水平距离之比，  
+它几乎就相当于导数。  
+而真正的导数，则是当$dx$趋近于$0$时该比值所趋近的值。
 
 <Figure image="$lesson/figures/derivative-dx-smaller-nudge.svg" />
 
-Just to spell out what is meant here, that nudge to the output "$df$" is is the difference between $f$ at the starting-input plus $dx$ and $f$ at the starting-input; the change to the output caused by the nudge $dx$.
+Just to spell out what is meant here, that nudge to the output "$df$" is is the difference between $f$ at the starting-input plus $dx$ and $f$ at the starting-input; the change to the output caused by the nudge $dx$.  
+具体来说，这里所说的对输出“$df$”的微调，  
+指的是在输入增加$dx$后的$f$值与初始输入下的$f$值之差，  
+也就是由该微调$dx$所引起的输出变化。
 
 <Figure image="$lesson/figures/derivative-definition-underbrace.svg" />
 
-To express that you want to find what this ratio approaches as $dx$ approaches $0$, you write "lim", for limit, with "$dx$ arrow $0$" below it.
+To express that you want to find what this ratio approaches as $dx$ approaches $0$, you write "lim", for limit, with "$dx$ arrow $0$" below it.  
+要表示你想找出当$dx$趋近于0时该比值所趋近的值，  
+就需要写上“lim”表示极限，  
+并在下方标注“$dx$箭头指向$0$”​。
 
 <Figure image="$lesson/figures/derivative-definition-limit-dx.svg" />
 
-Now, you'll almost never see terms with a lowercase $d$, like $dx$, inside a limit like this. Instead the standard is to use a different variable, like $\Delta x$ (delta $x$), or commonly "$h$" for some reason.
+Now, you'll almost never see terms with a lowercase $d$, like $dx$, inside a limit like this. Instead the standard is to use a different variable, like $\Delta x$ (delta $x$), or commonly "$h$" for some reason.  
+现在，你几乎永远不会在这种极限表达式中看到像$dx$这样的小写$d$形式的项。  
+相反，标准做法是使用其他变量，比如$\Delta x$（德尔塔$x$）​，  
+或者出于某种原因通常用“$h$”来表示。
 
-{/* Maybe insert Let's also replace $x=2$ with $x$ to represent any input to the function. TODO: is there a way to think about generalizing this idea to all input? */}
+{/* Maybe insert Let's also replace $x=2$ with $x$ to represent any input to the function. TODO: is there a way to think about generalizing this idea to all input? */}  
+{/* 或许可以插入“我们还将用$x$来代替$x=2$，以表示该函数的任意输入值”​。待办：有没有办法将这一思路推广到所有输入情况？ */}
 
 <Figure image="$lesson/figures/derivative-definition-limit-h-at-x-equals-2.svg" />
 
-The way I like to think of it is that terms with this lowercase $d$ in the typical derivative expression have built into them the idea of a limit, the idea that $dx$ is supposed to eventually approach $0$.
+The way I like to think of it is that terms with this lowercase $d$ in the typical derivative expression have built into them the idea of a limit, the idea that $dx$ is supposed to eventually approach $0$.  
+我倾向于这样理解：在典型的导数表达式中，  
+带有小写$d$的项本身就蕴含了极限的概念，即$dx$最终应当趋近于$0$。
 
 <Figure image="$lesson/figures/derivative-definition-limit-d-meaning.svg" />
 
-So in a sense this lefthand side "$df/dx$", the ratio we've been thinking about in the past lessons, is just shorthand for what the righthand side spells out in more detail, writing out exactly what we mean by $df$, and writing out this limit process explicitly. And that righthand side is the formal definition of a derivative, as you'd commonly see it in any calculus textbook.
+So in a sense this lefthand side "$df/dx$", the ratio we've been thinking about in the past lessons, is just shorthand for what the righthand side spells out in more detail, writing out exactly what we mean by $df$, and writing out this limit process explicitly. And that righthand side is the formal definition of a derivative, as you'd commonly see it in any calculus textbook.  
+从某种意义上说，左侧的“$df/dx$”——也就是我们在前面课程中讨论过的那个比值——  
+其实只是右侧内容的一种简写形式。  
+右侧详细地阐述了我们所说的“$df$”的含义，并明确给出了极限过程。  
+而右侧的内容正是任何微积分教材中常见的导数的正式定义。
 
 <Figure image="$lesson/figures/formal-derivative-definition.svg">
   The formal derivative definition. Notice that nothing about this definition
-  references the idea of an &quot;infinitely small&quot; change.
+  references the idea of an &quot;infinitely small&quot; change.  
+  导数的正式定义。  
+  请注意，该定义中没有任何内容涉及“无限小”变化的概念。
 </Figure>
 
 </section>
 
 <section>
 
-## No infinitely small rant
+## No infinitely small rant  没有无限微小的抱怨
 
-Now, if you'll pardon me for a small rant here, I want to emphasize that nothing about this righthand side references the paradoxical idea of an "infinitely small" change. The point of limits is to avoid that.
 
-This value $h$ is the exact same thing as the "$dx$" I've been referencing throughout the series. It's a nudge to the input of $f$ with some non-zero, finitely small size, like $0.001$, that we're analyzing for arbitrarily small choices of $h$. In fact, the reason people introduce a new variable name into this formal definition, rather than just using $dx$, is to be clear that these changes to the input are ordinary numbers that have nothing to do with infinitesimals.[^1]
+Now, if you'll pardon me for a small rant here, I want to emphasize that nothing about this righthand side references the paradoxical idea of an "infinitely small" change. The point of limits is to avoid that.  
+现在，请允许我简短发泄一下情绪：我想强调的是，  
+右侧的任何内容都并未提及“无限小”变化的矛盾概念。  
+极限的意义就在于避免这种情况。
 
-[^1]: Infinitesimals are quantities formally defined in the hyperreal number system to solve calculus type problems. Defining the operations and properties of these infinitely small, but non-zero quantities, essentially treating them like entities, can be used to define the dual number system and evaluate the derivatives of functions programmatically.
+This value $h$ is the exact same thing as the "$dx$" I've been referencing throughout the series. It's a nudge to the input of $f$ with some non-zero, finitely small size, like $0.001$, that we're analyzing for arbitrarily small choices of $h$. In fact, the reason people introduce a new variable name into this formal definition, rather than just using $dx$, is to be clear that these changes to the input are ordinary numbers that have nothing to do with infinitesimals.[^1]  
+这个值$h$其实与我在整个推导过程中所提到的“$dx$”是完全相同的。  
+它指的是以某个非零的、有限小的数值（比如$0.001$）对函数$f$的输入进行微调，  
+而我们则是通过选取任意小的$h$值来分析这种情况。  
+事实上，人们之所以在这个正式定义中引入一个新的变量名，而不直接使用$dx$，  
+就是为了明确表明这些对输入的调整只是普通数值，与无穷小量毫无关系。​[^1]
 
-Rather than interpret $dx$ as an "infinitely small change", as others like to do, I think you can and _should_ interpret $dx$ as a concrete, finitely small nudge, just so long as you remember to ask what happens as it approaches $0$. This method helps build a stronger intuition for where the rules of calculus come from and, more than that, it's not just some trick for building intuitions. Everything I've been saying about derivatives with this concrete-finitely-small-nudge philosophy is a translation of the formal definition of derivatives.
+[^1]: Infinitesimals are quantities formally defined in the hyperreal number system to solve calculus type problems. Defining the operations and properties of these infinitely small, but non-zero quantities, essentially treating them like entities, can be used to define the dual number system and evaluate the derivatives of functions programmatically.  
+[^1]​：无穷小量是在超实数体系中为解决微积分类问题而正式定义的量。  
+通过定义这些极小但非零的量的运算与性质，将其视为实体来处理，  
+从而可以构建对偶数体系，并以编程方式计算函数的导数。
 
-Long story short, the big fuss about limits is that they let us _avoid_ talking about infinitely small changes by instead asking what happens as the size of some change to our variable approaches $0$.
+Rather than interpret $dx$ as an "infinitely small change", as others like to do, I think you can and _should_ interpret $dx$ as a concrete, finitely small nudge, just so long as you remember to ask what happens as it approaches $0$. This method helps build a stronger intuition for where the rules of calculus come from and, more than that, it's not just some trick for building intuitions. Everything I've been saying about derivatives with this concrete-finitely-small-nudge philosophy is a translation of the formal definition of derivatives.  
+与那些喜欢将$dx$理解为“无限小的变化”不同，  
+我认为你可以而且_应该_将$dx$视为一种具体的、有限小的微小位移，  
+只要记住去思考当它趋近于$0$时会发生什么。  
+这种方法有助于更深入地理解微积分规则的由来，  
+而且它并非仅仅是为了建立直觉的技巧。  
+我基于这种具体有限小位移的理念所阐述的关于导数的所有内容，  
+其实都是导数正式定义的体现。
+
+Long story short, the big fuss about limits is that they let us _avoid_ talking about infinitely small changes by instead asking what happens as the size of some change to our variable approaches $0$.  
+简而言之，极限之所以备受重视，是因为它让我们不必谈论“无限小的变化”​，  
+而是通过探讨变量某项变化的量趋近于0时会发生什么来替代。
 
 </section>
 
 <section>
 
-## Why we care
+## Why we care  为何我们在意
 
-So why do we teach the limit notation and how does it help us formalize what it means for one value to approach another?
+So why do we teach the limit notation and how does it help us formalize what it means for one value to approach another?  
+那么，我们为什么要教授极限符号？  
+它又如何帮助我们形式化“一个值趋近于另一个值”的含义呢？
 
-Maybe you are convinced that, on an intuitive level, the language and tools we have invented so far give us what we need to solve these types of problems. When thinking about small nudges to a function's input, as long as we imagine that nudge approaching zero, things usually work out. In the same way, we can zoom in on a point on a curve and convince ourselves that if we zoom in far enough the curve really starts to look straight.
+Maybe you are convinced that, on an intuitive level, the language and tools we have invented so far give us what we need to solve these types of problems. When thinking about small nudges to a function's input, as long as we imagine that nudge approaching zero, things usually work out. In the same way, we can zoom in on a point on a curve and convince ourselves that if we zoom in far enough the curve really starts to look straight.  
+也许你认为，在直觉层面上，我们迄今所创造的表述方式与工具已经足以帮助我们解决这类问题。  
+当考虑对函数输入进行微小调整时，只要设想这种调整逐渐趋近于零，通常就能得到正确的结果。  
+同样地，我们也可以放大曲线上某一点，让自己相信：  
+如果放大得足够多，这条曲线确实会看起来像直线。
 
 <Figure image="$lesson/figures/exponential-function-zoom.svg">
   Zoom in on the exponential function $e^x$ at $x=0$ and the rate of change
-  (slope) starts to look a whole lot like $1$.
+  (slope) starts to look a whole lot like $1$.  
+  将指数函数 $e^x$ 在 $x=0$ 处的图象放大观察，  
+  会发现其变化率（斜率）开始非常接近 $1$。
 </Figure>
 
-But, you may still have doubts and questions, as certainly some of the creators of calculus did. For example, just how far do we have to zoom in on a point before a function starts to look like its tangent line at that point?
+But, you may still have doubts and questions, as certainly some of the creators of calculus did. For example, just how far do we have to zoom in on a point before a function starts to look like its tangent line at that point?  
+但是，你可能仍然会存在疑虑和问题，正如微积分的一些创立者所面临的那样。  
+例如，我们需要在某一点上放大到多大的程度，该函数的图像才会开始看起来像它在该点的切线？
 
-If you are applying calculus, your primary concern is probably the accuracy of the approximation and you might play a cat and mouse game to choose a small enough $dx$ so that the approximation is is accurate enough to calculate a useful result. A mathematician, on the other hand, is playing a different game; they are interested in whether they can rig the cat and mouse game of choosing smaller and smaller values and getting a more accurate result so that they will _always win_.
+If you are applying calculus, your primary concern is probably the accuracy of the approximation and you might play a cat and mouse game to choose a small enough $dx$ so that the approximation is is accurate enough to calculate a useful result. A mathematician, on the other hand, is playing a different game; they are interested in whether they can rig the cat and mouse game of choosing smaller and smaller values and getting a more accurate result so that they will _always win_.  
+如果你在应用微积分，你最关心的可能是近似的精度，  
+因此可能会不断尝试找到足够小的$dx$，使得近似值足够精确，从而得到有用的结果。  
+而数学家则玩着不同的游戏：  
+他们感兴趣的是能否通过不断选取更小的数值来让近似结果越来越精确，从而做到“永远获胜”​。
 
-Even more than this, mathematicians care about ensuring all their statements have a precise and airtight meaning, which does not rest on visual intuition. As sensible as it might seem to say that this ratio approaches a certain value, and to draw a line through the graph whose slope approaches that of a tangent line, those seeking rigor insist on something better. In the next chapter, we'll take a look the epsilon-delta definition of limits, which finally puts this idea of "approaching" onto a firm foundation.
+Even more than this, mathematicians care about ensuring all their statements have a precise and airtight meaning, which does not rest on visual intuition. As sensible as it might seem to say that this ratio approaches a certain value, and to draw a line through the graph whose slope approaches that of a tangent line, those seeking rigor insist on something better. In the next chapter, we'll take a look the epsilon-delta definition of limits, which finally puts this idea of "approaching" onto a firm foundation.  
+不仅如此，数学家们更注重确保他们所有的陈述都具有精确且无懈可击的含义，  
+而这种含义并非基于直观感受。  
+尽管说某个比值趋近于某个特定值，或在图形上画一条斜率趋近于切线斜率的直线看似合理，  
+但那些追求严密性的人则要求有更完善的表达方式。  
+在下一章中，我们将探讨极限的ε-δ定义，它最终为“趋近”这一概念奠定了坚实的基础。
 
-{/* TODO: possibly mention how we used the idea of limits in finding the derivative of exponentials */}
+{/* TODO: possibly mention how we used the idea of limits in finding the derivative of exponentials */}  
+{/* 待办：可提及我们在求指数函数导数时是如何运用极限概念的 */}
 
 </section>

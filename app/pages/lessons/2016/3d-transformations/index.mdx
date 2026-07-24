@@ -1,14 +1,14 @@
 ---
-title: Three-dimensional linear transformations
-description: How to think of 3x3 matrices as transforming 3d space
+title: Three-dimensional linear transformations 三维线性变换 
+description: How to think of 3x3 matrices as transforming 3d space 如何将3×3矩阵视为对三维空间的变换
 date: 2016-08-09
 chapter: 5
 video: rHLEWRxRGiM
 source: _2016/eola/footnote.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
-  - Text adaptation by James Schloss
+  - Lesson by Grant Sanderson 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
+  - Text adaptation by James Schloss 詹姆斯·施洛斯
 ---
 
 import Collapsible from "~/components/Collapsible";
@@ -19,73 +19,102 @@ import Question from "~/components/Question";
 
 <section>
 
-> Lisa: Well, where's my dad?
+> Lisa: Well, where's my dad?   
+丽莎：那我的爸爸在哪儿？
 >
-> Frink: Well, it should be obvious to even the most dimwitted individual who holds an advanced degree in hyperbolic topology that Homer Simpson has stumbled into... _dramatic pause_... the third dimension.
+> Frink: Well, it should be obvious to even the most dimwitted individual who holds an advanced degree in hyperbolic topology that Homer Simpson has stumbled into... _dramatic pause_... the third dimension.  
+弗林克：嗯，哪怕是那些拥有双曲拓扑学高级学位的最笨的人，也应该能明白霍默·辛普森已经误入了……_戏剧性停顿_……第三维度。
 
-In the last two chapters, we talked about linear transformations and matrices, but only showed the specific case of transformations that take two-dimensional vectors to other two-dimensional vectors. Throughout this series we will work mainly in two-dimensions, mostly because it's easier to actually see on the screen and wrap your mind around. And more importantly, once you get all the core ideas in two dimensions, they carry over pretty seamlessly to higher dimensions.
+In the last two chapters, we talked about linear transformations and matrices, but only showed the specific case of transformations that take two-dimensional vectors to other two-dimensional vectors. Throughout this series we will work mainly in two-dimensions, mostly because it's easier to actually see on the screen and wrap your mind around. And more importantly, once you get all the core ideas in two dimensions, they carry over pretty seamlessly to higher dimensions.  
+在之前的两章中，我们讨论了线性变换和矩阵，  
+但仅展示了将二维向量转换为另一组二维向量的特定情况。  
+在整个系列中，我们主要在二维空间中进行研究，  
+主要是因为这样在屏幕上更易于呈现，也更容易让人理解。  
+更重要的是，一旦你掌握了二维空间中的所有核心概念，它们就能很自然地延伸到更高维度。
 
-Nevertheless it's good to peek our head outside of flatland now and then to see what it means to apply these ideas to more dimensions.
+Nevertheless it's good to peek our head outside of flatland now and then to see what it means to apply these ideas to more dimensions.  
+不过，偶尔也该把目光从平面世界中移开，看看将这些理念应用到更高维度时意味着什么。
 
 </section>
 
 <section>
 
-## Three-dimensions
+## Three-dimensions 三维空间
 
-For example, consider a linear transformation with three-dimensional vectors as inputs and three-dimensional vectors as outputs.
+For example, consider a linear transformation with three-dimensional vectors as inputs and three-dimensional vectors as outputs.  
+例如，考虑一个以三维向量为输入、以三维向量为输出的线性变换。
 
 <Figure image="$lesson/figures/three-dimensions/TransformationFunction.svg" />
 
-Just like in two dimensions, we can visualize the transformation as the input vector _moving_ to the output vector.
+Just like in two dimensions, we can visualize the transformation as the input vector _moving_ to the output vector.  
+就像在二维中一样，我们可以将这种变换想象为输入向量“移动”成输出向量。
 
 <Figure
   image="$lesson/figures/three-dimensions/Transform3dVector.svg"
   video="$lesson/figures/three-dimensions/Transform3dVector.mp4"
 />
 
-To understand the transformation as a whole, we imagine every possible vector move to its corresponding output vector.
+To understand the transformation as a whole, we imagine every possible vector move to its corresponding output vector.  
+为了全面理解这一变换，我们设想每一个可能的向量移动及其对应的输出向量。
 
 <Figure
   image="$lesson/figures/three-dimensions/TransformManyVectors.svg"
   video="$lesson/figures/three-dimensions/TransformManyVectors.mp4"
 />
 
-It gets very crowded to think about all the vectors as arrows all at once. Instead, we can get a sense for the behavior of the function by transforming the grid in a way that keeps grid lines parallel and evenly spaced.
+It gets very crowded to think about all the vectors as arrows all at once. Instead, we can get a sense for the behavior of the function by transforming the grid in a way that keeps grid lines parallel and evenly spaced.  
+如果一次性将所有向量都视为箭头，情况会变得非常混乱。  
+相反，我们可以通过以保持网格线平行且等距的方式对网格进行变换，  
+从而了解该函数的行为特征。
 
 <Figure
   image="$lesson/figures/three-dimensions/TransformGrid.svg"
   video="$lesson/figures/three-dimensions/TransformGrid.mp4"
 />
 
-Just as with two dimensions, one of these transformations is completely determined by where the basis vectors go. But now, there are three basis vectors: The unit vector in the $x$-direction, $\hat{\imath}$, the unit vector in the $y$-direction, $\hat{\jmath}$, and the unit vector in the $z$-direction, called $\hat{k}$.
+Just as with two dimensions, one of these transformations is completely determined by where the basis vectors go. But now, there are three basis vectors: The unit vector in the $x$-direction, $\hat{\imath}$, the unit vector in the $y$-direction, $\hat{\jmath}$, and the unit vector in the $z$-direction, called $\hat{k}$.  
+正如二维情况，这些变换中的一种完全由基向量的位置决定。但现在有三个基向量：  
+$x$方向上的单位向量$\hat{\imath}$、  
+$y$方向上的单位向量$\hat{\jmath}$，  
+以及$z$方向上的单位向量，记为$\hat{k}$。
 
 <Figure image="$lesson/figures/three-dimensions/BasisVectors.svg" />
 
-In fact it's easier to think about these transformations by only following the basis vectors, since the full 3d grid representing all points can get messy. By leaving a copy of the original axes in the background, we can think about the coordinates where each of the three basis vectors lands.
+In fact it's easier to think about these transformations by only following the basis vectors, since the full 3d grid representing all points can get messy. By leaving a copy of the original axes in the background, we can think about the coordinates where each of the three basis vectors lands.  
+实际上，只需追踪基向量就能更轻松地理解这些变换，  
+因为用来表示所有点的完整三维网格可能会显得很复杂。  
+通过在背景中保留原始坐标轴的副本，我们就可以思考每个基向量最终落在哪个坐标位置上。
 
 <Figure
   image="$lesson/figures/three-dimensions/FollowBasisVectors.svg"
   video="$lesson/figures/three-dimensions/FollowBasisVectors.mp4"
 />
 
-Record the coordinates of these three resulting vectors as the columns of a 3x3 matrix. This gives a matrix that completely describes your transformation using nine numbers.
+Record the coordinates of these three resulting vectors as the columns of a 3x3 matrix. This gives a matrix that completely describes your transformation using nine numbers.  
+将这三个结果向量的坐标记录为3×3矩阵的列。这样就能用9个数字完全描述你的变换。
 
 <Figure image="$lesson/figures/three-dimensions/TransformMatrix.svg" />
 
-To see where a vector with coordinates $x$, $y$ and $z$ lands, the reasoning is almost identical to what it was for two dimensions: Each of those coordinates can be thought of as instructions for how to scale each basis vector, so that they add together to get your vector.
+To see where a vector with coordinates $x$, $y$ and $z$ lands, the reasoning is almost identical to what it was for two dimensions: Each of those coordinates can be thought of as instructions for how to scale each basis vector, so that they add together to get your vector.  
+要确定坐标为$x$、$y$和$z$的向量最终会落在何处，其推理方式与二维情况几乎相同：  
+这些坐标中的每一个都可以被视为对各个基向量的缩放指令，通过将这些缩放后的向量相加即可得到原来的向量。
 
 <Figure image="$lesson/figures/three-dimensions/VectorAsTransformationBefore.svg" />
 
-The important part, just like the 2d case, is that this scaling and adding process works both before and after the transformation. Note how the axis are tilted in the following image:
+The important part, just like the 2d case, is that this scaling and adding process works both before and after the transformation. Note how the axis are tilted in the following image:  
+与二维情况类似，关键在于这种缩放与相加的过程在变换前后都适用。  
+请注意下图中坐标轴的倾斜情况：
 
 <Figure image="$lesson/figures/three-dimensions/VectorAsTransformationAfter.svg" />
 
-To see where your vector lands, you multiply those coordinates by the corresponding column of the matrix, and add together the three results.
+To see where your vector lands, you multiply those coordinates by the corresponding column of the matrix, and add together the three results.  
+要确定向量落点所在的位置，需将那些坐标与矩阵中对应的列相乘，然后将三个结果相加。
 
 <Figure image="$lesson/figures/three-dimensions/TransformationMatrix.svg" />
 
-**Given the transformation function defined by the matrix $\left[\begin{array}{ccc} 0 & 0.5 & -0.5 \\ 0 & 0.5 & 1 \\ 1 & 0 & 0.5\end{array}\right]$ and the vector $\left[\begin{array}{c} 1 \\ 0 \\ -2 \end{array}\right]$ as input what is the resulting output vector? For reference, here is the corresponding visualization of where the basis vectors land.**
+**Given the transformation function defined by the matrix $\left[\begin{array}{ccc} 0 & 0.5 & -0.5 \\ 0 & 0.5 & 1 \\ 1 & 0 & 0.5\end{array}\right]$ and the vector $\left[\begin{array}{c} 1 \\ 0 \\ -2 \end{array}\right]$ as input what is the resulting output vector? For reference, here is the corresponding visualization of where the basis vectors land.  
+给定由矩阵$\left[\begin{array}{ccc} 0 & 0.5 & -0.5 \\ 0 & 0.5 & 1 \\ 1 & 0 &0.5\end{array}\right]$和向量$\left[\begin{array}{c} 1 \\ 0 \\ -2\end{array}\right]$定义的变换函数，其输出向量是什么？  
+作为参考，以下是基向量对应位置的可视化图示。**
 
 <Figure
   image="$lesson/figures/three-dimensions/Question1Transformation3d.svg"
@@ -155,14 +184,18 @@ $$
 
 ## Examples
 
-Consider the transformation here that rotates space $90$ degrees around the $y$-axis.
+Consider the transformation here that rotates space $90$ degrees around the $y$-axis.  
+考虑此处将空间绕$y$轴旋转$90$度的变换。
 
 <Figure
   image="$lesson/figures/examples/Rotate90DegreesAroundYAxis.svg"
   video="$lesson/figures/examples/Rotate90DegreesAroundYAxis.mp4"
 />
 
-It takes $\hat{\imath}$ to the coordinates $\left[\begin{array}{c} 0 \\ 0 \\ -1 \end{array}\right]$, so that's the first column of our matrix. It doesn't move $\hat{\jmath}$, so the second column is $\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]$. And it moves $\hat{k}$ onto the $x$-axis at $\left[\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right]$, so that becomes the third column of our matrix.
+It takes $\hat{\imath}$ to the coordinates $\left[\begin{array}{c} 0 \\ 0 \\ -1 \end{array}\right]$, so that's the first column of our matrix. It doesn't move $\hat{\jmath}$, so the second column is $\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]$. And it moves $\hat{k}$ onto the $x$-axis at $\left[\begin{array}{c} 1 \\ 0 \\ 0 \end{array}\right]$, so that becomes the third column of our matrix.  
+它将$\hat{\imath}$带到坐标$\left[\begin{array}{c} 0 \\ 0 \\ -1\end{array}\right]$处，这就是矩阵的第一列。  
+它不会移动$\hat{\jmath}$，因此第二列为$\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]$。  
+它还将$\hat{k}$移到$x$轴上的点$\left[\begin{array}{c} 1 \\ 0 \\ 0\end{array}\right]$，这就成了矩阵的第三列。
 
 $$
 \hat{\imath} \rightarrow\left[\begin{array}{c}
@@ -181,7 +214,9 @@ $$
 $$
 
 <Question
-  question="What is the transformation matrix that rotates space $90$ degrees counterclockwise around the $z$-axis? To differentiate clockwise from counterclockwise, imagine a clock lying flat in the $xy$-plane that is facing the positive $z$ direction."
+  question="What is the transformation matrix that rotates space $90$ degrees counterclockwise around the $z$-axis? To differentiate clockwise from counterclockwise, imagine a clock lying flat in the $xy$-plane that is facing the positive $z$ direction.  
+  使空间绕z轴逆时针旋转90度的变换矩阵是什么？  
+  为了区分顺时针与逆时针方向，可以想象一个平放在xy平面内、面朝正z方向的时钟"
   choice1="$\left[\begin{array}{ccc} 0 & 1 & 0 \\ -1 & 0 & 0 \\ 0 & 0 & -1 \end{array}\right]$"
   choice2="$\left[\begin{array}{ccc} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 1 \end{array}\right]$"
   choice3="$\left[\begin{array}{ccc} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{array}\right]$"
@@ -189,7 +224,10 @@ $$
   answer={2}
 >
 
-The transformation that rotates space $90$ degrees counterclockwise around the $z$-axis takes $\hat{\imath}$ to the coordinates $\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]$, $\hat{\jmath}$ to the coordinates $\left[\begin{array}{c} -1 \\ 0 \\ 0 \end{array}\right]$, and doesn't move $\hat{k}$.
+The transformation that rotates space $90$ degrees counterclockwise around the $z$-axis takes $\hat{\imath}$ to the coordinates $\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]$, $\hat{\jmath}$ to the coordinates $\left[\begin{array}{c} -1 \\ 0 \\ 0 \end{array}\right]$, and doesn't move $\hat{k}$.  
+将空间绕z轴逆时针旋转90度的变换会使$\hat{\imath}$变为坐标$\left[\begin{array}{c} 0 \\ 1 \\ 0 \end{array}\right]$，  
+使$\hat{\jmath}$变为坐标$\left[\begin{array}{c} -1 \\ 0 \\ 0 \end{array}\right]$，  
+而不会改变$\hat{k}$的位置。
 
 <Figure video="$lesson/figures/examples/Rotate90DegreesAroundZAxis.mp4" />
 
@@ -199,34 +237,46 @@ The transformation that rotates space $90$ degrees counterclockwise around the $
 
 <section>
 
-## Combining Transformations
+## Combining Transformations  变换的组合
 
-Multiplying two matrices is also similar to what we did for two dimensions: Whenever you see two 3x3 matrices getting multiplied together, you should imagine first applying the transformation encoded by the right one, then applying the transformation encoded by the left one.
+Multiplying two matrices is also similar to what we did for two dimensions: Whenever you see two 3x3 matrices getting multiplied together, you should imagine first applying the transformation encoded by the right one, then applying the transformation encoded by the left one.  
+两个矩阵的乘法也与我们在二维情况下的做法类似：  
+每当看到两个3×3矩阵相乘时，  
+你应该先想象应用右侧矩阵所编码的变换，然后再应用左侧矩阵所编码的变换。
 
 <Figure image="$lesson/figures/combining-transformations/MatrixMultiplication.svg" />
 
-The resulting transformation is the combination of applying the two matrices one after the other.
+The resulting transformation is the combination of applying the two matrices one after the other.  
+最终的变换是依次应用这两个矩阵的结果。
 
 <Figure
   image="$lesson/figures/combining-transformations/ComposingTransformations.svg"
   video="$lesson/figures/combining-transformations/ComposingTransformations.mp4"
 />
 
-Three dimension matrix multiplication turns out to be very important for computer graphics and robotics, since things like rotations in three-dimensions can be very hard to describe, but are easier to wrap your mind around if you break them down as the composition of different transformations.
+Three dimension matrix multiplication turns out to be very important for computer graphics and robotics, since things like rotations in three-dimensions can be very hard to describe, but are easier to wrap your mind around if you break them down as the composition of different transformations.  
+三维矩阵乘法对计算机图形学和机器人技术而言非常重要，  
+因为诸如三维空间中的旋转之类的现象很难描述，  
+但如果将其分解为不同变换的组合，就更容易理解了。
 
-Performing this matrix multiplication numerically is, once again, very analogous to the two-dimensional case. In fact, a good way to test your understanding of the last chapter would be to reason through what specifically it should look like, thinking closely about how it relates to the idea of applying two successive transformations of space.
+Performing this matrix multiplication numerically is, once again, very analogous to the two-dimensional case. In fact, a good way to test your understanding of the last chapter would be to reason through what specifically it should look like, thinking closely about how it relates to the idea of applying two successive transformations of space.  
+从数值上执行这种矩阵乘法，与二维情况极为相似。  
+实际上，检验你对上一章理解程度的一个好方法，  
+就是仔细思考其具体形式，深入理解它与依次应用两次空间变换这一概念之间的关联。
 
 <FreeResponse>
 
-<Collapsible title="Reveal">
+<Collapsible title="Reveal 揭秘">
 
-Given two transformations $M_1$ and $M_2$, we need to follow where the basis vectors $\hat{\imath}$, $\hat{\jmath}$, and $\hat{k}$ land after applying one transformation and then the other to each basis vector. This will give us the columns of the resulting matrix.
+Given two transformations $M_1$ and $M_2$, we need to follow where the basis vectors $\hat{\imath}$, $\hat{\jmath}$, and $\hat{k}$ land after applying one transformation and then the other to each basis vector. This will give us the columns of the resulting matrix.  
+给定两个变换$M_1$和$M_2$，我们需要追踪基向量$\hat{\imath}$、$\hat{\jmath}$和$\hat{k}$在依次经过这两个变换后的最终位置。这些位置将构成结果矩阵的各列。
 
 $$
 M_2 M_1 = M_3
 $$
 
-Using the two transformations from above:
+Using the two transformations from above:  
+使用上述两个变换：
 
 $$
 M_1 = \left[\begin{array}{ccc}
@@ -244,7 +294,8 @@ M_2 = \left[\begin{array}{ccc}
 \end{array}\right]
 $$
 
-Let's reason through where $\hat{\imath}$ ends up.
+Let's reason through where $\hat{\imath}$ ends up.  
+让我们推理一下$\hat{\imath}$最终会落在何处。
 
 $$
 \begin{aligned}
@@ -279,7 +330,9 @@ M_2\left(M_1(\hat{\imath})\right) &=
 \end{aligned}
 $$
 
-This result gives us the first column of the composed matrix. Next, let's follow the same logic to reasons where $\hat{\jmath}$ lands.
+This result gives us the first column of the composed matrix. Next, let's follow the same logic to reasons where $\hat{\jmath}$ lands.  
+这个结果给出了复合矩阵的第一列。  
+接下来，让我们用同样的逻辑来推导$\hat{\jmath}$会落在何处。
 
 $$
 \begin{aligned}
@@ -314,7 +367,8 @@ M_2\left(M_1(\hat{\jmath})\right) & =\left[\begin{array}{ccc}
 \end{aligned}
 $$
 
-This result gives us the second column of the composed matrix. Finally, let's reason where $\hat{k}$ lands.
+This result gives us the second column of the composed matrix. Finally, let's reason where $\hat{k}$ lands.  
+这个结果给出了复合矩阵的第二列。最后，我们来分析$\hat{k}$会落在何处。
 
 $$
 \begin{aligned}
@@ -348,7 +402,8 @@ M_2\left(M_1(\hat{k})\right) & =\left[\begin{array}{ccc}
 \end{aligned}
 $$
 
-This result gives us the third column of the composed matrix, so the product of the two matrices is:
+This result gives us the third column of the composed matrix, so the product of the two matrices is:  
+这个结果给出了复合矩阵的第三列，因此两个矩阵的乘积为：
 
 $$
 M_3=\left[\begin{array}{ccc}
@@ -358,7 +413,10 @@ M_3=\left[\begin{array}{ccc}
 \end{array}\right]
 $$
 
-Of course, we could generalize this into a formula, but the nice thing about sending the standard basis vectors through the composition of two matrices is that not only are you able to calculate the resulting matrix, but it also leverages your existing understanding of a transformation.
+Of course, we could generalize this into a formula, but the nice thing about sending the standard basis vectors through the composition of two matrices is that not only are you able to calculate the resulting matrix, but it also leverages your existing understanding of a transformation.  
+当然，我们可以将其概括为一个公式，  
+但将标准基向量通过两个矩阵的复合来处理的优点在于：  
+不仅能够计算出结果矩阵，还能利用我们已有的关于变换的理解。
 
 </Collapsible>
 
@@ -368,15 +426,27 @@ Of course, we could generalize this into a formula, but the nice thing about sen
 
 <section>
 
-## Puzzle
+## Puzzle 谜题
 
-Here's another puzzle for you: It's also meaningful to talk about a linear transformation from two-dimensional space to three-dimensional space, or from three-dimensions down to two. Can you visualize such a transformation? And can you represent them with matrices? How many rows and columns for each one? When is it meaningful to talk about multiplying such matrices, and why?
+Here's another puzzle for you: It's also meaningful to talk about a linear transformation from two-dimensional space to three-dimensional space, or from three-dimensions down to two. Can you visualize such a transformation? And can you represent them with matrices? How many rows and columns for each one? When is it meaningful to talk about multiplying such matrices, and why?  
+       这里还有另一个谜题给你：  
+       讨论从二维空间到三维空间的线性变换，  
+       或者从三维空间到二维空间的线性变换，这也是有意义的。  
+       你能想象出这样的变换吗？  
+       能用矩阵来表示它们吗？  
+       每种矩阵各有几行几列？  
+       在什么情况下讨论这样的矩阵相乘才有意义，为什么？
 
 <FreeResponse>
 
-A simple example from 3d to 2d would be the shadow cast by a 3d object onto a 2d plane. Although, in order for the transformation to be linear, the light rays should be considered parallel to each other to simplify the problem. If you consider the light source to be something really far away, like the sun, then this is a reasonable choice to make.
+A simple example from 3d to 2d would be the shadow cast by a 3d object onto a 2d plane. Although, in order for the transformation to be linear, the light rays should be considered parallel to each other to simplify the problem. If you consider the light source to be something really far away, like the sun, then this is a reasonable choice to make.  
+一个从3维到2维的简单例子就是3维物体在2维平面上投下的阴影。  
+不过，为了使该变换为线性变换，需要将光线视为彼此平行，以此简化问题。  
+如果将光源视为非常遥远的东西，比如太阳，那么这种假设是合理的。
 
-You can represent these transformations with matrices. The number of columns corresponds to the dimension of the input and the number of rows corresponds to the dimension of the output. For example, a matrix that maps coordinates in 3d to 2d would have three columns and two rows.
+You can represent these transformations with matrices. The number of columns corresponds to the dimension of the input and the number of rows corresponds to the dimension of the output. For example, a matrix that maps coordinates in 3d to 2d would have three columns and two rows.  
+可以用矩阵来表示这些变换。列数对应输入的维度，行数对应输出的维度。  
+例如，一个将3D坐标映射到2D坐标的矩阵会有三列两行。
 
 $$
 A = \left[\begin{array}{ccc}
@@ -385,7 +455,10 @@ a_4 & a_5 & a_6
 \end{array}\right]
 $$
 
-It's meaningful to talk about multiplying these matrices when the number of columns on the left matrix is equal to the number of rows on the right matrix. That way, when we apply these matrices to a vector, reading right to left, the dimensions of the input and output are as we expect.
+It's meaningful to talk about multiplying these matrices when the number of columns on the left matrix is equal to the number of rows on the right matrix. That way, when we apply these matrices to a vector, reading right to left, the dimensions of the input and output are as we expect.  
+当左矩阵的列数等于右矩阵的行数时，讨论这些矩阵的乘法是有意义的。  
+这样一来，当我们把这些矩阵作用于向量并从右向左读取时，  
+输入和输出的维度就会如我们所期望的那样。
 
 $$
 \left[\begin{array}{cc}
@@ -398,10 +471,11 @@ a_4 & a_5 & a_6
 \end{array}\right]
 $$
 
-We'll cover nonsquare matrices in more detail in a <LessonLink id="nonsquare-matrices">following chapter</LessonLink>.
-
+We'll cover nonsquare matrices in more detail in a <LessonLink id="nonsquare-matrices">following chapter</LessonLink>.  
+我们将在后续章节中更详细地介绍非方阵。
 </FreeResponse>
 
-In the next chapter, we'll get into the determinant.
+In the next chapter, we'll get into the determinant.  
+在下一章中，我们将深入探讨行列式
 
 </section>

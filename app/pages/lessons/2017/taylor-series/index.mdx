@@ -1,14 +1,14 @@
 ---
-title: Taylor series
-description: Taylor series are extremely useful in engineering and math, but what are they?  This video shows why they're useful, and how to make sense of the formula.
+title: Taylor series 泰勒级数
+description: Taylor series are extremely useful in engineering and math, but what are they?  This video shows why they're useful, and how to make sense of the formula. 泰勒级数在工程和数学领域极为有用，但它们究竟是什么？本视频将说明其为何有用，以及如何理解相关公式。
 date: 2017-05-07
 chapter: 14
 thumbnail: $lesson/thumbnail.jpg
 video: 3d6DsjIBzJ4
 source: _2017/eoc/chapter10.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Collapsible from "~/components/Collapsible";
@@ -18,44 +18,74 @@ import Quote from "~/components/Quote";
 
 <section>
 
-<Quote name="John B. Conway">
-  To many, mathematics is a collection of theorems. For me, mathematics is a
+<Quote name="John B. Conway 约翰·B·康威">
+  To many, mathematics is a collection of theorems. For me, mathematics is a 
   collection of examples; a theorem is a statement about a collection of
   examples and the purpose of proving theorems is to classify and explain the
-  examples.
+  examples.  
+  对许多人来说，数学是一系列定理的集合。  
+  对我而言，数学是一系列例子的集合；  
+  定理是对一组例子的陈述，而证明定理的目的正是为了对这些例子进行分类和解释。
+   
 </Quote>
 
 </section>
 
 <section>
 
-## Introduction
+## Introduction  引言
 
-When I first learned about Taylor series, I definitely didn't appreciate how important they are. But time and time again they come up in math, physics, and many fields of engineering because they're one of the most powerful tools that math has to offer for approximating functions.
+When I first learned about Taylor series, I definitely didn't appreciate how important they are. But time and time again they come up in math, physics, and many fields of engineering because they're one of the most powerful tools that math has to offer for approximating functions.  
+当我第一次接触泰勒级数时，确实没有意识到它们的重要性。  
+但在数学、物理以及许多工程领域中，  
+泰勒级数屡次出现，因为它是数学用来近似函数的最强大工具之一。
 
-One of the first times this clicked for me as a student was not in a calculus class, but in a physics class. We were studying some problem that had to do with the potential energy of a pendulum, and for that you need an expression for how high the weight of the pendulum is above its lowest point, which works out to be proportional to one minus the cosine of the angle between the pendulum and the vertical.
+One of the first times this clicked for me as a student was not in a calculus class, but in a physics class. We were studying some problem that had to do with the potential energy of a pendulum, and for that you need an expression for how high the weight of the pendulum is above its lowest point, which works out to be proportional to one minus the cosine of the angle between the pendulum and the vertical.  
+作为学生时，我第一次真正理解这一点的场合并非在微积分课上，而是在物理课上。  
+我们当时正在研究一个与摆的势能相关的问题，  
+而要解决这个问题，就需要一个表示摆的重心偏离最低点高度的表达式，  
+该表达式与摆与竖直方向夹角的余弦值的相反数成正比。
 
 <Figure image="$lesson/figures/pendulum-setup.jpg" />
 
-The specifics of the problem we were trying to solve are beyond the point here, but I'll just say that this cosine function made the problem awkward and unwieldy. But by approximating $\cos(\theta)$ as $1 - \frac{\theta^2}{2}$, of all things, everything fell into place much more easily. If you've never seen anything like this before, an approximation like that might seem completely out of left field.
+The specifics of the problem we were trying to solve are beyond the point here, but I'll just say that this cosine function made the problem awkward and unwieldy. But by approximating $\cos(\theta)$   as $1 - \frac{\theta^2}{2}$, of all things, everything fell into place much more easily. If you've never seen anything like this before, an approximation like that might seem completely out of left field.  
+我们当时试图解决的那个问题的具体细节在此就不赘述了，但我可以这么说：  
+正是余弦函数让这个问题变得复杂且难以处理。  
+而通过将$\cos(\theta)$近似为$1 - \frac{\theta^2}{2}$，一切问题都变得容易解决了许多。  
+如果你以前从未见过这样的处理方式，这样的近似方法可能会让你觉得十分意外。
 
-If you graph $\cos(\theta)$ along with this function $1 - \frac{\theta^2}{2}$, they do seem rather close to each other for small angles near 0, but how would you even think to make this approximation? And how would you find this particular quadratic?
+If you graph $\cos(\theta)$ along with this function $1 - \frac{\theta^2}{2}$, they do seem rather close to each other for small angles near 0, but how would you even think to make this approximation? And how would you find this particular quadratic?  
+      如果你将$\cos(\theta)$与函数$1 - \frac{\theta^2}{2}$画在同一个图上，  
+      可以发现当角度接近0时两者确实相当接近，  
+      但你是如何想到要做出这样的近似的呢？  
+      又是如何找到这个特定的二次函数的呢？
 
 <Figure image="$lesson/figures/cosine-and-second-order-approximation.svg" />
 
-The study of Taylor series is largely about taking non-polynomial functions, and finding polynomials that approximate them near some input. The motive is that polynomials tend to be much easier to deal with than other functions: They're easier to compute, easier to take derivatives, easier to integrate... they're just all around friendly.
+The study of Taylor series is largely about taking non-polynomial functions, and finding polynomials that approximate them near some input. The motive is that polynomials tend to be much easier to deal with than other functions: They're easier to compute, easier to take derivatives, easier to integrate... they're just all around friendly.  
+泰勒级数的研究主要在于将非多项式函数转化为在某个输入值附近能够近似表示它们的多项式。  
+这样做的原因是多项式通常比其他函数更易于处理：  
+它们更便于计算、求导和积分……总之处处都更加方便。
 
 </section>
 
 <section>
 
-## Approximating $\cos(x)$
+## Approximating $\cos(x)$   对$\cos(x)$的近似
 
 <Figure image="$lesson/figures/cosine.svg" />
 
-Let's look at the function $\cos(x)$, and take a moment to think about how you might find a quadratic approximation near $x = 0$. That is, among all the polynomials that look $c_0 + c_1x + c_2x_2$ for some choice of the constants $c_0$, $c_1$ and $c_2$, find the one that most resembles $\cos(x)$ near $x=0$.
+Let's look at the function $\cos(x)$, and take a moment to think about how you might find a quadratic approximation near $x = 0$. That is, among all the polynomials that look $c_0 + c_1x + c_2x_2$ for some choice of the constants $c_0$, $c_1$ and $c_2$, find the one that most resembles $\cos(x)$ near $x=0$.  
+让我们来看看函数$\cos(x)$，花点时间思考一下  
+如何找到在$x=0$附近的双项式近似。  
+也就是说，在所有形如$c_0 + c_1x + c_2x^2$的多项式中——  
+其中$c_0$、$c_1$和$c_2$是任意选定的常数——  
+找出在$x=0$附近与$\cos(x)$最为相似的那个多项式。
 
-First of all, at the input $0$ the value of $\cos(x)$ is $1$, so if our approximation is going to be any good at all, it should also equal $1$ when you plug in $0$.
+First of all, at the input $0$ the value of $\cos(x)$ is $1$, so if our approximation is going to be any good at all, it should also equal $1$ when you plug in $0$.  
+首先，在输入值 $0$ 处，$\cos(x)$ 的值为 $1$，  
+因此如果我们的近似值要想有一定的准确性，  
+那么当输入 $0$ 时它也应当等于 $1$。
 
 $$
 \begin{aligned}
@@ -65,21 +95,32 @@ c_0 & = 1 \\
 \end{aligned}
 $$
 
-Plugging in $0$ just results in whatever $c_0$ is, so we can set that equal to $1$.
+Plugging in $0$ just results in whatever $c_0$ is, so we can set that equal to $1$.  
+将$0$代入后得到的结果就是$c_0$本身的值，  
+因此我们可以将其设为$1$。
 
 <Figure image="$lesson/figures/cosine-approximation-0-annotated.svg" />
 
-This leaves us free to choose constant $c_1$ and $c_2$ to make this approximation as good as we can, but nothing we do to them will change the fact that the output of our approximation at $0$ is equal to $1$.
+This leaves us free to choose constant $c_1$ and $c_2$ to make this approximation as good as we can, but nothing we do to them will change the fact that the output of our approximation at $0$ is equal to $1$.  
+这样我们就可以自由选择常数$c_1$和$c_2$，使得这种近似尽可能精确，  
+但无论我们对它们做什么调整，  
+都不会改变我们的近似在$0$处的输出等于$1$这一事实。
 
 <Figure image="$lesson/figures/cosine-approximation-1-different-choices.svg">
-  Different choices for $c_1$ now that $c_0$ is locked in place.
+  Different choices for $c_1$ now that $c_0$ is locked in place.  
+     既然$c_0$已确定，现在可以自由选择$c_1$的值。
 </Figure>
 
-It would also be good if our approximation had the same tangent slope as $\cos(x)$ at $x=0$. Otherwise, the approximation drifts away from the cosine graph faster than it needs to as $x$ tends away from $0$. The derivative of $\cos(x)$ is $-\sin(x)$, and at $x=0$ that equals $0$, meaning its tangent line is flat.
+It would also be good if our approximation had the same tangent slope as $\cos(x)$ at $x=0$. Otherwise, the approximation drifts away from the cosine graph faster than it needs to as $x$ tends away from $0$. The derivative of $\cos(x)$ is $-\sin(x)$, and at $x=0$ that equals $0$, meaning its tangent line is flat.  
+如果我们的近似值在$x=0$处具有与$\cos(x)$相同的切线斜率，那也会很好。  
+否则，当$x$远离0时，该近似值会比应有的速度更快地偏离余弦函数曲线。  
+$\cos(x)$的导数是$-\sin(x)$，在$x=0$时其值为0，  
+这意味着它的切线是水平的。
 
 <Figure image="$lesson/figures/cosine-approximation-1-tangent-line.svg" />
 
-This is the same as making the derivative of our approximation as close as we can to the derivative of our original function $\cos(x)$.
+This is the same as making the derivative of our approximation as close as we can to the derivative of our original function $\cos(x)$.  
+这相当于让我们的近似函数的导数尽可能接近原函数$\cos(x)$的导数。
 
 $$
 \begin{aligned}
@@ -90,27 +131,42 @@ c_1 & =0
 \end{aligned}
 $$
 
-Setting $c_1$ equal to $0$ ensures that our approximation matches the tangent slope of $\cos(x)$ at this point.
+Setting $c_1$ equal to $0$ ensures that our approximation matches the tangent slope of $\cos(x)$ at this point.  
+将$c_1$设为$0$可确保我们的近似值与该点上$\cos(x)$的切线斜率一致。
 
 <Figure image="$lesson/figures/cosine-approximation-1.svg" />
 
-This is the same approximation we just had! But we should feel confident that the process is working, because our approximation now equals the **value** and **slope** of $\cos(x)$ a $x=0$, leaving us free to change $c_2$.
+This is the same approximation we just had! But we should feel confident that the process is working, because our approximation now equals the **value** and **slope** of $\cos(x)$ a $x=0$, leaving us free to change $c_2$.  
+这就是我们刚才得到的相同近似值！  
+不过我们可以确信这个方法是有效的，因为现在的近似值  
+既等于$\cos(x)$在$x=0$时的**函数值**，  
+也等于其**导数（斜率）**，  
+这样我们就可以自由地调整$c_2$了。
 
 <Figure image="$lesson/figures/cosine-approximation-2-different-choices.svg">
-  Different choices for $c_2$ now that $c_0$ and $c_1$ are locked in place.
+  Different choices for $c_2$ now that $c_0$ and $c_1$ are locked in place.  
+  既然$c_0$和$c_1$已经确定，现在可以自由选择$c_2$的值了。
 </Figure>
 
-We can take advantage of the fact that the cosine graph curves downward above $x=0$, it has a negative second derivative. Or in other words, even though the rate of change is $0$ at that point, the rate of change itself is decreasing around that point.
+We can take advantage of the fact that the cosine graph curves downward above $x=0$, it has a negative second derivative. Or in other words, even though the rate of change is $0$ at that point, the rate of change itself is decreasing around that point.  
+我们可以利用余弦函数在$x=0$以上呈下降趋势这一特点，其二阶导数为负。  
+换句话说，尽管在该点处的变化率为$0$，但变化率本身在该点附近是递减的。
 
 <Figure image="$lesson/figures/cosine-approximation-2-curvature.svg" />
 
-Specifically, since its derivative is $-\sin(x)$ its second derivative is $-\cos(x)$, so at $x=0$ its second derivative is $-1$.
+Specifically, since its derivative is $-\sin(x)$ its second derivative is $-\cos(x)$, so at $x=0$ its second derivative is $-1$.  
+具体来说，由于其导数为$-\sin(x)$，其二阶导数为$-\cos(x)$，  
+因此在$x=0$时其二阶导数为$-1$。
 
 $$
 \frac{d^2(\cos )}{d x^2}(0)=-\cos (0)=-1
 $$
 
-Just as we wanted the derivative of our approximation to match that of cosine, we'll also make sure that their second derivatives match so as to ensure that they curve at the same rate. The slope of our polynomial shouldn't drift away from the slope of $\cos(x)$ any more quickly than it needs to.
+Just as we wanted the derivative of our approximation to match that of cosine, we'll also make sure that their second derivatives match so as to ensure that they curve at the same rate. The slope of our polynomial shouldn't drift away from the slope of $\cos(x)$ any more quickly than it needs to.  
+正如我们希望近似值的导数与余弦函数的导数相匹配一样，  
+我们还会确保它们的二阶导数也相等，  
+从而保证两者的弯曲速率一致。  
+我们的多项式斜率偏离$\cos(x)$的斜率的速度不应超过必要的程度。
 
 $$
 \begin{aligned}
@@ -123,7 +179,11 @@ c_2 & =-\frac{1}{2}
 $$
 
 We can compute that at $x=0$, the second derivative of our polynomial is $2c_2$. In fact, that's its second derivative everywhere, it is a constant. To make sure this second derivative matches that of $\cos(x)$, we want it to equal $-1$, which means $c_2 = -\frac{1}{2}$.
-This locks in a final value for our approximation:
+This locks in a final value for our approximation:  
+我们可以计算出，在$x=0$时，该多项式的二阶导数为$2c_2$。  
+实际上，它在任何地方的二阶导数都是常数。  
+为使这个二阶导数与$\cos(x)$的二阶导数一致，我们需要它等于$-1$，  
+这意味着$c_2 = -\frac{1}{2}$。
 
 $$
 \cos(x) \approx 1 + 0x + \left(-\frac{1}{2}\right) x^2
@@ -131,7 +191,8 @@ $$
 
 <Figure image="$lesson/figures/cosine-approximation-2.svg" />
 
-To get a feel for how good this is, let's try it out for $x = 0.1$
+To get a feel for how good this is, let's try it out for $x = 0.1$  
+为了了解它的效果如何，我们试试用$x = 0.1$来运行一下。
 
 $$
 \begin{align*}
@@ -140,29 +201,45 @@ P(0.1) = 1-\frac{1}{2}(0.1)^2 &= \underbrace{0.995}_{\text{approximation}} \\
 \end{align*}
 $$
 
-That's pretty good!
+That's pretty good!  
+相当不错！
 
-Take a moment to reflect on what just happened. You had three degrees of freedom with a quadratic approximation, the coefficients in the expression $c_0 + c_1 x + c_2 x^2$.
+Take a moment to reflect on what just happened. You had three degrees of freedom with a quadratic approximation, the coefficients in the expression $c_0 + c_1 x + c_2 x^2$.  
+花点时间思考一下刚刚发生的事情。  
+在二次近似中，你有三个自由度，  
+也就是表达式$c_0 + c_1 x + c_2 x^2$中的系数。
 
-- $c_0$ was responsible for making sure that the output of the approximation matches that of $\cos(x)$ at $x=0$.
-- $c_1$ was in charge of making sure the derivatives match at that point.
-- $c_2$ was responsible for making sure the second derivatives match up.
+- $c_0$ was responsible for making sure that the output of the approximation matches that of $\cos(x)$ at $x=0$.  
+- $c_0$负责确保近似的输出与 $\cos（x）$ 在 $x=0$ 时的输出匹配。  
+- $c_1$ was in charge of making sure the derivatives match at that point.  
+- $c_1$负责确保在该点处导数相等。  
+- $c_2$ was responsible for making sure the second derivatives match up.  
+- $c_2$负责确保二阶导数相符。
 
-This ensures that the way your approximation changes as you move away from $x=0$, and the way that the rate of change itself changes, is as similar as possible to behavior of $\cos(x)$, given the amount of control you have.
+This ensures that the way your approximation changes as you move away from $x=0$, and the way that the rate of change itself changes, is as similar as possible to behavior of $\cos(x)$, given the amount of control you have.  
+这样就能确保，在你远离$x=0$时，  
+你的近似值的变化方式以及变化率本身的变化方式，  
+尽可能地接近$\cos(x)$的行为，  
+当然这是在你所能控制的范围内。
 
 </section>
 
 <section>
 
-## Better Approximations
+## Better Approximations 更好的近似值
 
-You could give yourself more control by allowing more terms in your polynomial and matching higher-order derivatives of $\cos(x)$. For example, let's say we add on the term $c_3 x^3$ for some constant $c_3$.
+You could give yourself more control by allowing more terms in your polynomial and matching higher-order derivatives of $\cos(x)$. For example, let's say we add on the term $c_3 x^3$ for some constant $c_3$.  
+     你可以通过在多项式中加入更多项，并匹配$\cos(x)$的高阶导数，  
+     从而获得更大的控制力。  
+     例如，我们可以加入项$c_3 x^3$，其中$c_3$为某个常数。
 
 $$
 \cos(x) \approx 1 - \frac{1}{2} x^2 + c_3 x^3
 $$
 
-If you take the third derivative of a cubic polynomial, anything quadratic or smaller goes to $0$. As for that last term, after three iterations of the power rule it looks like $1 \cdot 2 \cdot 3 \cdot c_3$.
+If you take the third derivative of a cubic polynomial, anything quadratic or smaller goes to $0$. As for that last term, after three iterations of the power rule it looks like $1 \cdot 2 \cdot 3 \cdot c_3$.  
+如果对一个三次多项式求三阶导数，所有二次或更低次项的系数都会变为$0$。  
+至于最后一项，经过三次幂规则运算后，其形式为$1 \cdot 2 \cdot 3\cdot c_3$。
 
 $$
 \begin{aligned}
@@ -172,15 +249,24 @@ $$
 \end{aligned}
 $$
 
-On the other hand, the third derivative of $\cos(x)$ is $\sin(x)$, which equals $0$ at $x=0$, so to make the third derivatives match, the constant $c_3$ should be $0$.
+On the other hand, the third derivative of $\cos(x)$ is $\sin(x)$, which equals $0$ at $x=0$, so to make the third derivatives match, the constant $c_3$ should be $0$.  
+另一方面，$\cos(x)$的三阶导数是$\sin(x)$，而在$x=0$时其值为$0$，  
+因此为了使三阶导数相等，常数$c_3$应为$0$。
 
 <Figure image="$lesson/figures/cosine-approximation-3.svg" />
 
-In other words, not only is $1 - \frac{1}{2}x^2$ the best possible quadratic approximation of $\cos(x)$ around $x=0$, it's also the best possible cubic approximation.
+In other words, not only is $1 - \frac{1}{2}x^2$ the best possible quadratic approximation of $\cos(x)$ around $x=0$, it's also the best possible cubic approximation.  
+换句话说，$1 - \frac{1}{2}x^2$ 不仅是 $\cos(x)$ 在 $x=0$ 附近的最佳二次近似，  
+也是其最佳三次近似。
 
-You can actually make an improvement by adding a fourth order term, $c_4x^4$. The fourth derivative of $\cos(x)$ is also $\cos(x)$, which equals $1$ at $x=0$. And what's the fourth derivative of our polynomial with this new term?
+You can actually make an improvement by adding a fourth order term, $c_4x^4$. The fourth derivative of $\cos(x)$ is also $\cos(x)$, which equals $1$ at $x=0$. And what's the fourth derivative of our polynomial with this new term?  
+实际上，通过加入四阶项$c_4x^4$可以进一步改进。  
+$\cos(x)$的四阶导数依然是$\cos(x)$，在$x=0$时其值为$1$。  
+那么加上这个新项后的多项式的四阶导数是多少呢？
 
-When you keep applying the power rule over and over, with those exponents all hopping down to the front, you end up with $1 \cdot 2 \cdot 3 \cdot 4 \cdot c_4$, which is $24c_4$.
+When you keep applying the power rule over and over, with those exponents all hopping down to the front, you end up with $1 \cdot 2 \cdot 3 \cdot 4 \cdot c_4$, which is $24c_4$.  
+当你不断应用幂函数求导法则，那些指数不断移到最前面时，  
+最终会得到 $1\cdot 2 \cdot 3 \cdot 4 \cdot c_4$，也就是 $24c_4$。
 
 $$
 \begin{aligned}
@@ -191,33 +277,53 @@ $$
 \end{aligned}
 $$
 
-So if we want this to match the fourth derivative of $\cos(x)$, which at $x=0$ is $1$, then we must set $c_4 = \frac{1}{24}$.
+So if we want this to match the fourth derivative of $\cos(x)$, which at $x=0$ is $1$, then we must set $c_4 = \frac{1}{24}$.  
+因此，如果我们要让它与$\cos(x)$的四阶导数相匹配，  
+而该导数在$x=0$时的值为$1$，那么我们必须设定$c_4 = \frac{1}{24}$。
 
 <Figure image="$lesson/figures/cosine-approximation-4.svg" />
 
-This polynomial $1 - \frac{1}{2}x^2 + \frac{1}{24}x^4$ is a very close approximation for $\cos(x)$ around $x = 0$ and for any physics problem involving the cosine of some small angle, for example, predictions would be almost unnoticeably different if you substituted this polynomial for $\cos(x)$.
+This polynomial $1 - \frac{1}{2}x^2 + \frac{1}{24}x^4$ is a very close approximation for $\cos(x)$ around $x = 0$ and for any physics problem involving the cosine of some small angle, for example, predictions would be almost unnoticeably different if you substituted this polynomial for $\cos(x)$.  
+多项式 $1 - \frac{1}{2}x^2 + \frac{1}{24}x^4$ 是在 $x = 0$ 附近对 $\cos(x)$ 的非常接近的近似值；  
+对于任何涉及小角度余弦值的物理问题而言，  
+如果用该多项式代替 $\cos(x)$，  
+其预测结果几乎不会产生可察觉的差异。
 
 </section>
 
 <section>
 
-## Generalizing
+## Generalizing  推广
 
-It's worth stepping back to notice a few things about this process. First, factorial terms naturally come up in this process. When you take $n$ derivatives of $x_n$, letting the power rule just keep cascading, what you're left with is $1 \cdot 2 \cdot 3$ and on up to $n$.
+It's worth stepping back to notice a few things about this process. First, factorial terms naturally come up in this process. When you take $n$ derivatives of $x_n$, letting the power rule just keep cascading, what you're left with is $1 \cdot 2 \cdot 3$ and on up to $n$.  
+值得退一步来观察一下这一过程中的几个特点。  
+首先，阶乘项会自然地出现在这个过程中。  
+当你对$x_n$求$n$次导数，并让幂规则不断延续应用时，  
+最终得到的就是从$1 \cdot 2 \cdot 3$一直到$n$的连乘积。
 
 $$
 \frac{d^8}{d x^8}\left(c_8 x^8\right)=\underbrace{1 \cdot 2 \cdot 3 \cdot 4 \cdot 5 \cdot 6 \cdot 7 \cdot 8}_{8 !} \cdot c_8
 $$
 
-So you don't simply set the coefficients of the polynomial equal to whatever derivative value you want, you have to divide by the appropriate factorial to cancel out this effect. For example, in the approximation for $\cos(x)$, the $x_4$ coefficient is the fourth derivative of cosine, $1$, divided by $4! = 24$.
+So you don't simply set the coefficients of the polynomial equal to whatever derivative value you want, you have to divide by the appropriate factorial to cancel out this effect. For example, in the approximation for $\cos(x)$, the $x_4$ coefficient is the fourth derivative of cosine, $1$, divided by $4! = 24$.  
+因此，你不能简单地将多项式的系数设为你想要的导数值，  
+而必须除以相应的阶乘来消除这种影响。  
+例如，在$\cos(x)$的近似表达式中，  
+$x_4$的系数是余弦函数的四阶导数1，再除以$4! = 24$。
 
 <Figure image="$lesson/figures/cosine-approximation-math-4.svg" />
 
-The second thing to notice is that adding new terms, like this $c_4x^4$, doesn't mess up what old terms should be, and that's important. For example, the second derivative of this polynomial at $x = 0$ is still equal to $2$ times the second coefficient, even after introducing higher order terms to the polynomial.
+The second thing to notice is that adding new terms, like this $c_4x^4$, doesn't mess up what old terms should be, and that's important. For example, the second derivative of this polynomial at $x = 0$ is still equal to $2$ times the second coefficient, even after introducing higher order terms to the polynomial.  
+第二点需要注意的是，像加上$c_4x^4$这样的新项并不会影响原有项的值，这一点很重要。  
+例如，即使在多项式中加入了更高阶的项，  
+该多项式在$x=0$处的二阶导数仍然等于二倍的第二系数。
 
 <Figure image="$lesson/figures/cosine-approximation-math-2-annotated.svg" />
 
-This is because we're plugging in $x=0$, so the second derivative of any higher order terms, which all include an $x$, will wash away. The same goes for any other derivative, which is why each derivative of a polynomial at $x=0$ is controlled by one and only one coefficient.
+This is because we're plugging in $x=0$, so the second derivative of any higher order terms, which all include an $x$, will wash away. The same goes for any other derivative, which is why each derivative of a polynomial at $x=0$ is controlled by one and only one coefficient.  
+这是因为我们代入的是$x=0$，所以所有含有$x$的高阶项的二阶导数都会消失。  
+其他阶数的导数也是如此，  
+正因如此，多项式在$x=0$处的每一阶导数都仅由一个系数决定。
 
 <Figure image="$lesson/figures/approximation-coeffecients-and-derivatives.svg">
   $c_0$ controls $P(0)$, $c_1$ controls $\frac{d}
@@ -225,14 +331,20 @@ This is because we're plugging in $x=0$, so the second derivative of any higher 
   {dx ^ 2}P(0)$ and so on.
 </Figure>
 
-### Comprehension Question
+### Comprehension Question  理解题
 
-Just like $\cos(x)$, the function $\sin(x)$ is a situation where we know its derivative and its value at $x=0$. Let's apply the same process to find the third degree taylor polynomial of $\sin(x)$.
+
+Just like $\cos(x)$, the function $\sin(x)$ is a situation where we know its derivative and its value at $x=0$. Let's apply the same process to find the third degree taylor polynomial of $\sin(x)$.  
+与$\cos(x)$一样，对于函数$\sin(x)$，我们也已知其在$x=0$处的导数和函数值。  
+让我们运用相同的方法来求出$\sin(x)$的三阶泰勒多项式。
 
 <Figure image="$lesson/figures/sine-approximation-3-setup.svg" />
 
 <Question
-  question="Using what we know about the derivatives of the function $\sin(x)$, what are the best possible choices for the coefficients $c_0$, $c_1$, $c_2$ and $c_3$ to approximate the function as a third degree polynomial around the point $x=0$?"
+  question="Using what we know about the derivatives of the function $\sin(x)$, what are the best possible choices for the coefficients $c_0$, $c_1$, $c_2$ and $c_3$ to approximate the function as a third degree polynomial around the point $x=0$?  
+  利用我们已知的函数$\sin(x)$的导数信息，  
+  为了在$x=0$点附近将该函数用三阶多项式近似，  
+  $c_0$、$c_1$、$c_2$和$c_3$这些系数的最佳取值是什么？​"  
   choice1="$x - \frac{1}{3} x^3$"
   choice2="$1 - \frac{1}{2} x^2$"
   choice3="$x - \frac{1}{6} x^3$"
@@ -240,49 +352,79 @@ Just like $\cos(x)$, the function $\sin(x)$ is a situation where we know its der
   answer={3}
 >
 
-You are correct! The coefficient values for the third degree polynomial that approximates $\sin(x)$ are $c_0 = 0$, $c_1 = 1$, $c_2 = 0$, and $c_3 = -\frac{1}{6}$. See the explanation below for how to find the values.
+You are correct! The coefficient values for the third degree polynomial that approximates $\sin(x)$ are $c_0 = 0$, $c_1 = 1$, $c_2 = 0$, and $c_3 = -\frac{1}{6}$. See the explanation below for how to find the values.  
+你答对了！用于近似$\sin(x)$的三次多项式的系数值为  
+$c_0 = 0$、$c_1 =1$、$c_2 = 0$，以及$c_3 = -\frac{1}{6}$。  
+关于如何求出这些数值的说明见下文。
 
 <Collapsible title="Explanation">
 
-To start, here is the graph of $\sin(x)$.
+To start, here is the graph of $\sin(x)$.  
+首先，这是$\sin(x)$的图像。
 
 <Figure image="$lesson/figures/sine-function.svg" />
 
-If our approximation is going to be any good at all, it should pass through the value of $\sin(x)$ at $x=0$. This means setting our $\sin(x)$ and our polynomial equal to eachother, substituting in $x=0$ and solving for $c_0$.
+If our approximation is going to be any good at all, it should pass through the value of $\sin(x)$ at $x=0$. This means setting our $\sin(x)$ and our polynomial equal to eachother, substituting in $x=0$ and solving for $c_0$.  
+如果我们的近似值要想有一定准确性，  
+它就必须通过$x=0$时$\sin(x)$的数值。  
+这意味着要令我们的$\sin(x)$表达式与多项式表达式相等，  
+将$x=0$代入，然后求解$c_0$的值。
 
 <Figure image="$lesson/figures/sine-approximation-math-0.svg" />
 
-As we can see, the rest of the terms go to zero and we are left with this constant approxation of the function shown below.
+As we can see, the rest of the terms go to zero and we are left with this constant approxation of the function shown below.  
+如图所示，其余项都趋于零，最终我们得到如下面所示的该函数的常数近似值。
 
 <Figure image="$lesson/figures/sine-approximation-0.svg" />
 
-This is not a very good approximation of $\sin(x)$, so let's solve for the next coefficient value. Set the first derivative of $\sin(x)$ equal to the first derivative of our polynomial $c_0+c_1 x+c_2 x^2+c_3 x^3$, take the derivative of both sides, substitute $x=0$ into the equation, and solve for $c_1$.
+This is not a very good approximation of $\sin(x)$, so let's solve for the next coefficient value. Set the first derivative of $\sin(x)$ equal to the first derivative of our polynomial $c_0+c_1 x+c_2 x^2+c_3 x^3$, take the derivative of both sides, substitute $x=0$ into the equation, and solve for $c_1$.  
+这不是对$\sin(x)$的一个很好近似，因此让我们来求解下一个系数值。  
+令$\sin(x)$的一阶导数等于多项式$c_0+c_1 x+c_2 x^2+c_3 x^3$的一阶导数，  
+对等式两边求导，将$x=0$代入方程，进而求解$c_1$。
 
 <Figure image="$lesson/figures/sine-approximation-math-1.svg" />
 
-There are two things to notice about this process: 1) as we take higher order derivatives, the coefficients associated with lower order terms go to zero like in the case of $c_0$ and 2) when we substitute $x=0$ the higher order terms go to zero, leaving only the coefficient we are interested in!
+There are two things to notice about this process: 1) as we take higher order derivatives, the coefficients associated with lower order terms go to zero like in the case of $c_0$ and 2) when we substitute $x=0$ the higher order terms go to zero, leaving only the coefficient we are interested in!  
+关于这个过程有两点需要注意：  
+1）随着求导阶数增加，低阶项对应的系数会趋于零，就像$c_0$的情况一样；  
+2）当$x=0$时，高阶项也会趋于零，最终只剩下我们感兴趣的系数！
 
-Using this new information about $c_1$, this makes our approximation of $\sin(x)$ is equal to $0 + (1)x$, as shown below.
+Using this new information about $c_1$, this makes our approximation of $\sin(x)$ is equal to $0 + (1)x$, as shown below.  
+利用关于$c_1$的这一新信息，  
+我们对$\sin(x)$的近似值就等于$0 + (1)x$，如下所示。
 
 <Figure image="$lesson/figures/sine-approximation-1.svg" />
 
-Next, let's repeat this same process again. Set the second derivative of $\sin(x)$ equal to the second derivative of our polynomial $c_0+c_1 x+c_2 x^2+c_3 x^3$, evaluate the derivatives, substitute $x=0$ into the equation, and solve for $c_2$.
+Next, let's repeat this same process again. Set the second derivative of $\sin(x)$ equal to the second derivative of our polynomial $c_0+c_1 x+c_2 x^2+c_3 x^3$, evaluate the derivatives, substitute $x=0$ into the equation, and solve for $c_2$.  
+接下来，我们再重复这个过程。  
+将$\sin(x)$的二阶导数设为多项式$c_0+c_1x+c_2 x^2+c_3 x^3$的二阶导数，  
+求出各阶导数，将$x=0$代入方程，进而求解$c_2$。
 
 <Figure image="$lesson/figures/sine-approximation-math-2.svg" />
 
-Since $c_2 = 0$ this means that the approximation doesn't get any better, just as we saw with $\sin(x)$. To be explicit, I've substituted the values $c_0 = 0$, $c_1 = 1$, and $c_2 = 0$ into the polynomial graphed below.
+Since $c_2 = 0$ this means that the approximation doesn't get any better, just as we saw with $\sin(x)$. To be explicit, I've substituted the values $c_0 = 0$, $c_1 = 1$, and $c_2 = 0$ into the polynomial graphed below.  
+   由于$c_2 = 0$，这意味着近似效果不会有所改善，  
+   正如我们在处理$\sin(x)$时所看到的那样。  
+   具体来说，我已经将$c_0 = 0$、$c_1 = 1$和$c_2 =0$这些值  
+   代入了下图所示的多项式曲线中。
 
 <Figure image="$lesson/figures/sine-approximation-2.svg" />
 
-Finally, set the third derivative of $\sin(x)$ equal to the third derivative of our polynomial and calculate the derivatives. Then, substitute $x=0$ into both sides and solve for $c_3$.
+Finally, set the third derivative of $\sin(x)$ equal to the third derivative of our polynomial and calculate the derivatives. Then, substitute $x=0$ into both sides and solve for $c_3$.  
+最后，将$\sin(x)$的三阶导数与我们所求多项式的三阶导数相等，  
+然后计算各自的导数。  
+接着，将$x=0$代入等式两边，求解$c_3$的值。
 
 <Figure image="$lesson/figures/sine-approximation-math-3.svg" />
 
-This gives us the answer to our question, $\sin(x) \approx x-\frac{x^3}{6}$. Hopefully, you can see by expanding around the point $x=0$ the higher order terms go to zero.
+This gives us the answer to our question, $\sin(x) \approx x-\frac{x^3}{6}$. Hopefully, you can see by expanding around the point $x=0$ the higher order terms go to zero.  
+这就给出了我们问题的答案：$\sin(x) \approx x-\frac{x^3}{6}$。  
+希望你能看出，通过以$x=0$为点展开，高阶项都会趋于零。
 
 <Figure image="$lesson/figures/sine-approximation-3.svg" />
 
-So, the third degree taylor polynomial of $\sin(x)$ is equal to:
+So, the third degree taylor polynomial of $\sin(x)$ is equal to:  
+因此，$\sin(x)$的三阶泰勒多项式等于：
 
 $$
 P(x) = x-\frac{x^3}{6}
@@ -296,97 +438,161 @@ $$
 
 <section>
 
-## Approximating around other points
+## Approximating around other points  在其他点附近近似
 
-If instead, you were approximating near an input other than $0$, like $x=\pi$, to get the same effect you would have to write your polynomial in terms of powers of $(x - \pi)$. Or more generally, powers of $(x - a)$ for some constant $a$.
+If instead, you were approximating near an input other than $0$, like $x=\pi$, to get the same effect you would have to write your polynomial in terms of powers of $(x - \pi)$. Or more generally, powers of $(x - a)$ for some constant $a$.  
+如果要在非$0$的输入值附近进行近似，比如$x=\pi$，  
+要获得相同的效果，就必须用$(x - \pi)$的幂次来表示多项式。  
+或者更一般地，用某个常数$a$的$(x -a)$的幂次来表示。
 
 <Figure image="$lesson/figures/cosine-approximation-at-pi-general.svg" />
 
-This makes it look notably more complicated, but it's all to make sure plugging in $x=\pi$ results in a lot of nice cancelation so that the value of each higher-order derivative is controlled by one and only one coefficient.
+This makes it look notably more complicated, but it's all to make sure plugging in $x=\pi$ results in a lot of nice cancelation so that the value of each higher-order derivative is controlled by one and only one coefficient.  
+这虽然让表达式看起来明显更为复杂，  
+但这样做是为了确保当代入$x=\pi$时能产生大量漂亮的抵消现象，  
+从而使每一阶高阶导数的值都仅由一个系数决定。
 
 <Collapsible title="See cancelation.">
 
-Start by setting the approximation equal to the output of the function at $a= \pi$ and solve for the first coefficient $c_0$.
+Start by setting the approximation equal to the output of the function at $a= \pi$ and solve for the first coefficient $c_0$.  
+首先将近似值设为函数在$a=\pi$处的输出值，  
+然后求解第一个系数$c_0$。
 
 <Figure image="$lesson/figures/cosine-approximation-at-pi-math-0.svg" />
 
-In this new form, higher order terms still cancel. This gives us the approximation $\cos(x) \approx = -1$ at the point $a=\pi$.
+In this new form, higher order terms still cancel. This gives us the approximation $\cos(x) \approx = -1$ at the point $a=\pi$.  
+在这种新形式下，高阶项依然会相互抵消。  
+由此我们得到在点$a=\pi$处$\cos(x) \approx -1$的近似值。
 
 <Figure image="$lesson/figures/cosine-approximation-at-pi-0.svg" />
 
-Solve for the second coeffecient $c_1$. Note, when we apply the chain rule to an expression like $c_2(x-\pi)^2$ the derivative of the inside will always be $1$.
+Solve for the second coeffecient $c_1$. Note, when we apply the chain rule to an expression like $c_2(x-\pi)^2$ the derivative of the inside will always be $1$.  
+    求解第二个系数$c_1$。  
+    注意，当我们对像$c_2(x-\pi)^2$这样的表达式应用链式法则时，  
+    其内部函数的导数始终为$1$。
 
 <Figure image="$lesson/figures/cosine-approximation-at-pi-math-1.svg" />
 
-This still gives us the same approximation $\cos(x) \approx = -1$ which should come as no surprise because the slope of the tangent line at $x=\pi$ is equal to $0$.
+This still gives us the same approximation $\cos(x) \approx = -1$ which should come as no surprise because the slope of the tangent line at $x=\pi$ is equal to $0$.  
+这仍然给出了相同的近似值 $\cos(x) \approx -1$，  
+这并不奇怪，因为在$x=\pi$ 处切线的斜率等于 $0$。
 
 <Figure image="$lesson/figures/cosine-approximation-at-pi-1.svg" />
 
-Solve for the second coeffecient $c_2$. Again, applying the chain rule multiple times always results in multiplying by one.
+Solve for the second coeffecient $c_2$. Again, applying the chain rule multiple times always results in multiplying by one.  
+求解第二个系数$c_2$。  
+同样，多次应用链式法则最终都会得到乘以1的结果。
 
 <Figure image="$lesson/figures/cosine-approximation-at-pi-math-2.svg" />
 
-This us the approximation of $\cos(x)$ around the point $a=\pi$. Of course, we could still keep applying this process to solve for better and better approximations.
+This us the approximation of $\cos(x)$ around the point $a=\pi$. Of course, we could still keep applying this process to solve for better and better approximations.  
+这是$\cos(x)$在点$a=\pi$附近的近似值。  
+当然，我们仍可以不断应用这一过程来获得越来越精确的近似值。
+
 
 <Figure image="$lesson/figures/cosine-approximation-at-pi-2.svg" />
 
 </Collapsible>
 
-Finally, on a more philosophical level, notice how we're taking information about the higher-order derivatives of a function at a single point, and translating it into information (or at least approximate information) about the value of that function _near_ that point. This is the major takeaway for Taylor series: **Differential information about a function at one value tells you something about an entire neighborhood around that value**.
+Finally, on a more philosophical level, notice how we're taking information about the higher-order derivatives of a function at a single point, and translating it into information (or at least approximate information) about the value of that function _near_ that point. This is the major takeaway for Taylor series: **Differential information about a function at one value tells you something about an entire neighborhood around that value**.  
+最后，从更哲学的角度来看，  
+注意我们是如何利用函数在某一点处的高阶导数信息，  
+将其转化为关于该点附近函数值的信息（或至少是近似信息）​。  
+这正是泰勒级数的核心要点：  
+**函数在某一数值处的微分信息能够揭示该数值周围整个邻域的情况**。
 
 <Figure image="$lesson/figures/cosine-approximation-derivative-output-information.svg" />
 
-We can take as many derivatives of $\cos(x)$ as we want, it follows this nice cyclic pattern $\cos(x)$, $-\sin(x)$, $-\cos(x)$, $\sin(x)$, and repeat.
+We can take as many derivatives of $\cos(x)$ as we want, it follows this nice cyclic pattern $\cos(x)$, $-\sin(x)$, $-\cos(x)$, $\sin(x)$, and repeat.  
+我们可以对$\cos(x)$求任意多次导数，  
+其结果会遵循这样一个优美的循环规律：  
+$\cos(x)$、$-\sin(x)$、$-\cos(x)$、$\sin(x)$，如此循环往复。
 
 <Figure image="$lesson/figures/cosine-approximation-cyclic-pattern.svg" />
 
-So the value of these derivative of $x=0$ have the cyclic pattern $1$, $0$, $-1$, $0$, and repeat. And knowing the values of all those higher-order derivatives is a lot of information about $\cos(x)$, even though it only involved plugging in a single input, $x=0$.
+So the value of these derivative of $x=0$ have the cyclic pattern $1$, $0$, $-1$, $0$, and repeat. And knowing the values of all those higher-order derivatives is a lot of information about $\cos(x)$, even though it only involved plugging in a single input, $x=0$.  
+因此，当$x=0$时，这些导数的值呈现出$1$、$0$、$-1$、$0$的循环规律，并不断重复。  
+尽管只是代入了单一的输入值$x=0$，  
+但知晓所有高阶导数的数值就能获得关于$\cos(x)$的大量信息。
 
-That information is leveraged to get an approximation around this input by creating a polynomial whose higher order derivatives, match up with those of $\cos(x)$, following this same $1$, $0$, $-1$, $0$ cyclic pattern.
+That information is leveraged to get an approximation around this input by creating a polynomial whose higher order derivatives, match up with those of $\cos(x)$, following this same $1$, $0$, $-1$, $0$ cyclic pattern.  
+利用这些信息，可以通过构造一个多项式来得到该输入点附近的近似值，  
+该多项式的各阶导数会与$\cos(x)$的导数保持一致，  
+且同样遵循$1$、$0$、$-1$、$0$的循环模式。
 
 <Figure image="$lesson/figures/cosine-approximation-cyclic-pattern-values-at-0.svg" />
 
-To do that, make each coefficient of this polynomial follow this same pattern, but divide each one by the appropriate factorial which cancels out the cascading effects of many power rule applications. The polynomials you get by stopping this process at any point are called "Taylor polynomials" for $\cos(x)$.
+To do that, make each coefficient of this polynomial follow this same pattern, but divide each one by the appropriate factorial which cancels out the cascading effects of many power rule applications. The polynomials you get by stopping this process at any point are called "Taylor polynomials" for $\cos(x)$.  
+为此，需让该多项式的每个系数都遵循相同的模式，  
+但要将每个系数除以相应的阶乘，  
+以此抵消多次运用幂规则所带来的连锁效应。  
+在任意步骤停止该过程所得到的多项式，被称为$\cos(x)$的“泰勒多项式”​。
 
 </section>
 
 <section>
 
-## Other Functions
+## Other Functions  其他函数
 
-More generally, if we were dealing with some function other than cosine, you would compute its derivative, second derivative, and so on, getting as many terms as you'd like, and you'd evaluate each one at $x=0$.
+More generally, if we were dealing with some function other than cosine, you would compute its derivative, second derivative, and so on, getting as many terms as you'd like, and you'd evaluate each one at $x=0$.  
+更一般地，如果我们处理的函数不是余弦函数，  
+就需要计算它的导数、二阶导数等等，  
+根据需要得到尽可能多的项，然后在这些点上将$x=0$代入进行求值。
 
 <Figure image="$lesson/figures/alternative-example.svg" />
 
-Then for your polynomial approximation, the coefficient of each $x^n$ term should be the value of the $n$-th derivative of the function at $0$, divided by $(n!)$.
+Then for your polynomial approximation, the coefficient of each $x^n$ term should be the value of the $n$-th derivative of the function at $0$, divided by $(n!)$.  
+那么对于多项式近似，  
+每一项$x^n$的系数应当是该函数在$0$处的第$n$阶导数值除以$(n!)$。
 
 $$
 P(x)=f(0)+\frac{d f}{d x}(0) \frac{x^1}{1 !}+\frac{d^2 f}{d x^2}(0) \frac{x^2}{2 !}+\frac{d^3 f}{d x^3}(0) \frac{x^3}{3 !}+\cdots
 $$
 
-When you see this, think to yourself that the constant term ensures that the value of the polynomial matches that of $f(x)$ at $x=0$, the next term ensures that the slope of the polynomial matches that of the function, the next term ensure the rate at which that slope changes is the same, and so on, depending on how many terms you want.
+When you see this, think to yourself that the constant term ensures that the value of the polynomial matches that of $f(x)$ at $x=0$, the next term ensures that the slope of the polynomial matches that of the function, the next term ensure the rate at which that slope changes is the same, and so on, depending on how many terms you want.  
+看到这个时，要在心里想到：  
+常数项确保多项式在$x=0$时的值与$f(x)$的值相等，  
+下一项确保多项式的斜率与该函数的斜率相等，  
+再下一项确保该斜率的变化率也相同，  
+以此类推，具体取决于你想要多少项。
 
-The more terms you choose, the closer the approximation, but the tradeoff is that your polynomial is more complicated. And if you want to approximate near some input $a$ other than $0$, you write the polynomial in terms of $(x-a)$ instead, and evaluate all the derivatives of $f$ at that input $a$.
+The more terms you choose, the closer the approximation, but the tradeoff is that your polynomial is more complicated. And if you want to approximate near some input $a$ other than $0$, you write the polynomial in terms of $(x-a)$ instead, and evaluate all the derivatives of $f$ at that input $a$.  
+选择的项越多，近似效果就越好，但代价是多项式会变得更加复杂。  
+如果想在除0之外的某个输入值$a$附近进行近似，  
+就需要用$(x-a)$来表示多项式，  
+并计算函数$f$在该输入值$a$处的所有导数。
 
 $$
 P(x)=f(a)+\frac{d f}{d x}(a) \frac{(x-a)^1}{1 !}+\frac{d^2 f}{d x^2}(a) \frac{(x-a)^2}{2 !}+\cdots
 $$
 
-This is what Taylor series look like in their fullest generality. Changing the value of $a$ changes where the approximation is hugging the original function; where its higher order derivatives will be equal to those of the original function.
+This is what Taylor series look like in their fullest generality. Changing the value of $a$ changes where the approximation is hugging the original function; where its higher order derivatives will be equal to those of the original function.  
+       这就是泰勒级数在最一般形式下的样子。  
+       改变$a$的值会改变近似值与原函数贴合的位置，  
+       以及其高阶导数等于原函数高阶导数的位置。
 
-{/* TODO: add another comprehension question of taylor polynomial of cosine at pi/2 or sine at pi applying the general form? */}
+{/* TODO: add another comprehension question of taylor polynomial of cosine at pi/2 or sine at pi applying the general form? */}  
+{/* 待办：根据通用形式，添加关于余弦在π/2处或正弦在π处的泰勒多项式的另一道理解题？ */}
 
 </section>
 
 <section>
 
-## A meaningful example
+## A meaningful example  一个有意义的例子
 
-One of the simplest meaningful examples is to approximate the function $f(x) = e^x$, around the input $x=0$. Computing its derivatives is nice since the derivative of $e^x$ is also $e^x$, so its second derivative is also $e^x$, as is its third, and so on.
+
+One of the simplest meaningful examples is to approximate the function $f(x) = e^x$, around the input $x=0$. Computing its derivatives is nice since the derivative of $e^x$ is also $e^x$, so its second derivative is also $e^x$, as is its third, and so on.  
+最简单的有意义的例子之一，就是对函数$f(x) = e^x$在输入值$x=0$附近进行近似。  
+计算它的导数相当简单，因为$e^x$的导数仍然是$e^x$，  
+其二阶导数也是$e^x$，三阶导数同样如此，依此类推。
 
 <Figure image="$lesson/figures/exponential-function-approximation-general.svg" />
 
-So at the point $x=0$, all of the derivatives are equal to $1$. This means our polynomial approximation looks like $(1) + (1)x + (1)\frac{x^2}{2!} + (1)\frac{x^3}{3!} + (1)\frac{x^4}{4!}$, and so on, depending on how many terms you want. These are the Taylor polynomials for $e^x$.
+So at the point $x=0$, all of the derivatives are equal to $1$. This means our polynomial approximation looks like $(1) + (1)x + (1)\frac{x^2}{2!} + (1)\frac{x^3}{3!} + (1)\frac{x^4}{4!}$, and so on, depending on how many terms you want. These are the Taylor polynomials for $e^x$.  
+因此在$x=0$点处，所有的导数都等于$1$。  
+这意味着我们的多项式近似形式为  
+$(1) + (1)x + (1)\frac{x^2}{2!} + (1)\frac{x^3}{3!} + (1)\frac{x^4}{4!}$，  
+依此类推，具体项数取决于你的需求。这些就是$e^x$的泰勒多项式。
 
 <Figure image="$lesson/figures/exponential-function-approximation.svg" />
 
@@ -394,23 +600,38 @@ So at the point $x=0$, all of the derivatives are equal to $1$. This means our p
 
 <section>
 
-## Infinity and convergence
+## Infinity and convergence  无穷与收敛性
 
-We could call it an end here, and you'd have a phenomenally useful tool for approximations with these Taylor polynomials. But if you're thinking like a mathematician, one question you might ask is if it makes sense to never stop, and add up infinitely many terms.
+We could call it an end here, and you'd have a phenomenally useful tool for approximations with these Taylor polynomials. But if you're thinking like a mathematician, one question you might ask is if it makes sense to never stop, and add up infinitely many terms.  
+我们可以就此结束，这样你就拥有了一个用于用泰勒多项式进行近似计算的极其有用的工具。  
+但如果你以数学家的思维方式来思考，你可能会问这样一个问题：  
+是否有可能永远不停止，继续累加无限多的项呢？
 
 <Figure image="$lesson/figures/infinity-and-convergence-many-terms.svg" />
 
-In math, an infinite sum is called a "series", so even though one of the approximations with finitely many terms is called a "Taylor polynomial" for your function, adding all infinitely many terms gives what's called a "Taylor series".
+In math, an infinite sum is called a "series", so even though one of the approximations with finitely many terms is called a "Taylor polynomial" for your function, adding all infinitely many terms gives what's called a "Taylor series".  
+在数学中，无穷级数被称为“级数”​，  
+因此，虽然用有限项得到的近似值被称为该函数的“泰勒多项式”​，  
+但将所有无限项相加后所得的则称为“泰勒级数”​。
 
 <Figure image="$lesson/figures/infinity-and-convergence-taylor-series-vs-polynomial.svg" />
 
-You have to be careful with the idea of an infinite sum because one can never truly add infinitely many things; you can only hit the plus button on the calculator so many times. The more precise way to think about a series is to ask what happens as you add more and more terms. If the partial sums you get by adding more terms one at a time approach some specific value, you say the series converges to that value.
+You have to be careful with the idea of an infinite sum because one can never truly add infinitely many things; you can only hit the plus button on the calculator so many times. The more precise way to think about a series is to ask what happens as you add more and more terms. If the partial sums you get by adding more terms one at a time approach some specific value, you say the series converges to that value.  
+在处理无穷和的概念时必须谨慎，因为人永远无法真正将无限多的数相加；  
+计算器上的加号也只能按那么多次。  
+更准确的思考方式是探讨随着项数不断增加会发生什么。  
+如果逐次添加更多项所得到的部分和会趋近于某个特定值，  
+那么就说该级数收敛于该值。
 
 <Figure image="$lesson/figures/infinity-and-convergence-example.svg" />
 
-It's a mouthful to always say "The partial sums of the series converge to such and such value", so instead mathematicians often think about it more compactly by extending the definition of equality to include this kind of series convergence. That is, you'd say this infinite sum _equals_ the value its partial sums converge to.
+It's a mouthful to always say "The partial sums of the series converge to such and such value", so instead mathematicians often think about it more compactly by extending the definition of equality to include this kind of series convergence. That is, you'd say this infinite sum _equals_ the value its partial sums converge to.  
+一直说“该级数的部分和收敛于某个特定值”实在有些拗口，  
+因此数学家们通常通过扩展等式的定义来更简洁地表达这种级数收敛的情况。  
+也就是说，他们会认为这个无穷和等于其部分和所收敛的那个值。
 
-For example, look at the Taylor polynomials for $e^x$, and plug in some input like $x = 1$.
+For example, look at the Taylor polynomials for $e^x$, and plug in some input like $x = 1$.  
+例如，看看$e^x$的泰勒多项式，然后代入某个值，比如$x=1$。
 
 $$
 \begin{align*}
@@ -419,75 +640,110 @@ e^1 &\rightarrow \underbrace{1+\frac{1^1}{1 !}+\frac{1^2}{2 !}+\frac{1^3}{3 !}+\
 \end{align*}
 $$
 
-As you add more and more polynomial terms, the total sum gets closer and closer to the value $e$. The precise-but-verbose way to say this is "the partial sums of the series on the right converge to $e$." More briefly, most people would abbreviate this by simply saying "the series equals $e$."
+As you add more and more polynomial terms, the total sum gets closer and closer to the value $e$. The precise-but-verbose way to say this is "the partial sums of the series on the right converge to $e$." More briefly, most people would abbreviate this by simply saying "the series equals $e$."  
+随着多项式项的不断增加，其总和会越来越接近数值$e$。  
+更精确但较为冗长的表述是“右侧级数的部分和收敛于$e$”​。  
+简而言之，大多数人会直接简化为“该级数等于$e$”​。
 
-In fact, it turns out that if you plug in any other value of $x$, like $x=2$, and look at the value of higher and higher order Taylor polynomials at this value, they will converge towards $e^x$, in this case $e^2$.
+In fact, it turns out that if you plug in any other value of $x$, like $x=2$, and look at the value of higher and higher order Taylor polynomials at this value, they will converge towards $e^x$, in this case $e^2$.  
+    事实上，如果代入其他任何$x$值，比如$x=2$，  
+    并观察该值下阶数越来越高的泰勒多项式的值，  
+    它们都会趋近于$e^x$，在本题中即为$e^2$。
 
 <Figure image="$lesson/figures/infinity-and-convergence-exp-of-2.svg" />
 
-This is true for any input, no matter how far away from $0$ it is, even though these Taylor polynomials are constructed only from derivative information gathered at the input $0$.
-In a case like this, we say $e^x$ equals its Taylor series at all inputs $x$. This is a somewhat magical fact! It means all of the information about the function is somehow captured purely by higher-order derivatives at a single input, namely $x=0$.
+This is true for any input, no matter how far away from $0$ it is, even though these Taylor polynomials are constructed only from derivative information gathered at the input $0$.  
+
+对于任何输入值都是如此，无论它与0的距离有多远，  
+尽管这些泰勒多项式仅是由在输入点0处获取的导数信息构建而成的。
+
+In a case like this, we say $e^x$ equals its Taylor series at all inputs $x$. This is a somewhat magical fact! It means all of the information about the function is somehow captured purely by higher-order derivatives at a single input, namely $x=0$.  
+在这样一种情况下，我们说对于所有的输入值$x$，$e^x$都等于其在该点的泰勒级数。这真是一个奇妙的现象！这意味着关于该函数的所有信息，竟然仅仅通过在单个输入点$x=0$处的高阶导数就能被完全体现出来。
 
 </section>
 
 <section>
 
-## Limitations for $\ln(x)$
+## Limitations for $\ln(x)$  $\ln(x)$的局限性
 
-Although this is also true for some other important functions, like sine and cosine, sometimes these series only converge within a certain range around the input whose derivative information you're using. If you work out the Taylor series for $\ln(x)$ around the input $x = 1$, which is built from evaluating the higher order derivatives of $\ln(x)$ at $x=1$, this is what it looks like.
+
+Although this is also true for some other important functions, like sine and cosine, sometimes these series only converge within a certain range around the input whose derivative information you're using. If you work out the Taylor series for $\ln(x)$ around the input $x = 1$, which is built from evaluating the higher order derivatives of $\ln(x)$ at $x=1$, this is what it looks like.  
+尽管对于正弦和余弦等其他一些重要函数也是如此，  
+但有时这些级数仅在所使用的导数信息对应的输入值附近的某个范围内收敛。  
+如果你在输入值 $x = 1$处计算 $\ln(x)$ 的泰勒级数，  
+该级数是通过在 $x=1$ 处求 $\ln(x)$ 的高阶导数得到的，其形式如下所示。
 
 <Figure image="$lesson/figures/natural-logarithm-taylor-series.svg" />
 
-When you plug in an input between $0$ and $2$, adding more and more terms of this series will indeed get you closer and closer to the natural log of that input.
+When you plug in an input between $0$ and $2$, adding more and more terms of this series will indeed get you closer and closer to the natural log of that input.  
+当输入值在$0$和$2$之间时，不断增加该级数的项数，  
+确实能越来越接近该输入值的自然对数。
 
 <Figure image="$lesson/figures/natural-logarithm-taylor-series-input-between-0-and-2.svg" />
 
-But outside that range, even by just a bit, the series fails to approach anything. As you add more and more terms the sum bounces back and forth wildly. The partial sums do not approach the natural log of that value, even though the $\ln(x)$ is perfectly well defined for $x > 2$.
+But outside that range, even by just a bit, the series fails to approach anything. As you add more and more terms the sum bounces back and forth wildly. The partial sums do not approach the natural log of that value, even though the $\ln(x)$ is perfectly well defined for $x > 2$.  
+但一旦超出这个范围，哪怕只是稍有偏离，该级数也无法趋近于任何值。  
+随着项数不断增加，其和会剧烈地来回波动。  
+尽管对于$x>2$而言$\ln(x)$有明确的定义，  
+但这些部分和仍不会趋近于该值的自然对数。
 
 <Figure image="$lesson/figures/natural-logarithm-erratic-behavior.svg" />
 
-In some sense, the derivative information of $\ln(x)$ at $x=1$ doesn't propagate out that far. In a case like this, where adding more terms of the series doesn't approach anything, you say the series **diverges**.
+In some sense, the derivative information of $\ln(x)$ at $x=1$ doesn't propagate out that far. In a case like this, where adding more terms of the series doesn't approach anything, you say the series **diverges**.  
+从某种意义上说，$\ln(x)$在$x=1$处的导数信息并不会传播那么远。  
+在像这样添加更多级数项也无法趋近于某个值的情形下，  
+就称该级数**发散**了。
 
-That maximum distance between the input you're approximating near, and points where the outputs of these polynomials actually do converge, is called the "radius of convergence" for the Taylor series.
+That maximum distance between the input you're approximating near, and points where the outputs of these polynomials actually do converge, is called the "radius of convergence" for the Taylor series.  
+你试图逼近的输入点与这些多项式输出真正收敛的点之间的最大距离，  
+被称为泰勒级数的“收敛半径”​。
 
 <Figure image="$lesson/figures/natural-logarithm-radius-of-convergence.svg" />
 
 <Question
-  question="What is the Taylor Series expansion of the function $-\ln (1-x)$ around the point $x=0$?"
+  question="What is the Taylor Series expansion of the function $-\ln (1-x)$ around the point $x=0$?  
+  函数 $-\ln (1-x)$ 在点 $x=0$ 处的泰勒级数展开式是什么？​" 
   choice1="$x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \dots$"
   choice2="$x + \frac{x^2}{2} + \frac{x^3}{3} + \frac{x^4}{4} + \dots$"
   choice3="$x + x^2 + x^3 + x^4 + x^5 + \dots$"
   answer={2}
 >
   
-Here is the function plotted on the range from $-2$ to $2$.
+Here is the function plotted on the range from $-2$ to $2$.  
+这是绘制在$-2$到$2$区间上的函数图。
 
 <Figure image="$lesson/figures/infinity-and-divergence-comprehensive-question-plot.svg" />
 
-Find the higher order derivatives of the function.
+Find the higher order derivatives of the function.  
+求该函数的更高阶导数。
 
 <Figure image="$lesson/figures/infinity-and-divergence-comprehensive-question-derivatives.svg" />
 
-Evaluate the derivatives at the point $x=0$.
+Evaluate the derivatives at the point $x=0$.  
+在点$x=0$处计算导数。
 
 <Figure image="$lesson/figures/infinity-and-divergence-comprehensive-question-derivatives-evaluated.svg" />
 
-Substitute the values into the generic formula.
+Substitute the values into the generic formula.  
+将数值代入通用公式中。
 
 $$
 f(0)+\frac{d f}{d x}(0) \frac{x^1}{1 !}+\frac{d^2 f}{d x^2}(0) \frac{x^2}{2 !}+\frac{d^3 f}{d x^3}(0) \frac{x^3}{3 !}+\cdots
 $$
 
-This gives us the following taylor series shown below.
+This gives us the following taylor series shown below.  
+这就得到了下面所示的泰勒级数。
 
 <Figure image="$lesson/figures/infinity-and-divergence-comprehensive-question-taylor-series.svg" />
 
-For extra credit, what is the radius of convergence for this series?
+For extra credit, what is the radius of convergence for this series?  
+作为额外加分题，该级数的收敛半径是多少？
 
 <Collapsible title="Hint">
 
 <Figure image="$lesson/figures/infinity-and-divergence-comprehensive-question-radius-of-convergence.svg">
-  High order taylor polynomials plotted to show erratic behavior.
+  High order taylor polynomials plotted to show erratic behavior.  
+  通过绘制高阶泰勒多项式来展示其不规则行为。
 </Figure>
 
 </Collapsible>
@@ -498,10 +754,19 @@ For extra credit, what is the radius of convergence for this series?
 
 <section>
 
-## Summary
+## Summary  总结
 
-There remains more to learn about Taylor series, their many use cases, tactics for placing bounds on the error of these approximations, tests for understanding when these series do and don't converge. For that matter there remains more to learn about calculus as a whole, and the countless topics not touched by this series.
+There remains more to learn about Taylor series, their many use cases, tactics for placing bounds on the error of these approximations, tests for understanding when these series do and don't converge. For that matter there remains more to learn about calculus as a whole, and the countless topics not touched by this series.  
+关于泰勒级数，还有许多需要了解的内容，  
+包括它们的各种应用场景、确定这些近似值误差范围的技巧，  
+以及判断这些级数何时收敛、何时不收敛的检验方法。  
+实际上，对于微积分整体而言，也有许多有待学习的知识，  
+还有无数本系列内容未曾涉及的主题。
 
-The goal with these videos is to give you the fundamental intuitions that make you feel confident and efficient learning more on your own, and potentially even rediscovering more of the topic for yourself. In the case of Taylor series, the fundamental intuition to keep in mind as you explore more is that they translate derivative information at a single point to approximation information around that point.
+The goal with these videos is to give you the fundamental intuitions that make you feel confident and efficient learning more on your own, and potentially even rediscovering more of the topic for yourself. In the case of Taylor series, the fundamental intuition to keep in mind as you explore more is that they translate derivative information at a single point to approximation information around that point.  
+这些视频的目的是让你掌握基本的直觉理解，  
+从而更有信心、更高效地自主学习，甚至有可能自行深入探索这一主题。  
+就泰勒级数而言，在进一步研究时需要牢记的基本直觉是：  
+它们将某一点处的导数信息转化为该点周围的近似信息。
 
 </section>

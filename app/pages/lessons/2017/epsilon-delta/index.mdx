@@ -1,13 +1,13 @@
 ---
-title: (ε, δ) "epsilon delta" definitions of limits
-description: How does (ε, δ) "epsilon delta" help us formalize what exactly it means for one value to approach another?
+title: (ε, δ) "epsilon delta" definitions of limits 极限的(ε, δ)“艾普西龙-德尔塔”定义
+description: How does (ε, δ) "epsilon delta" help us formalize what exactly it means for one value to approach another?  (ε, δ)“艾普西龙-德尔塔”定义如何帮助我们明确一个数值趋近于另一个数值的确切含义？
 date: 2017-05-04
 chapter: 9
 thumbnail: $lesson/thumbnail.jpg
 source: _2017/eoc/chapter7.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Figure from "~/components/Figure";
@@ -17,88 +17,121 @@ import Quote from "~/components/Quote";
 
 <section>
 
-<Quote name="Bertrand Russell">
+<Quote name="Bertrand Russell 伯特兰·罗素 ">
   Calculus required continuity, and continuity was supposed to require the
   infinitely little; but nobody could discover what the infinitely little might
-  be.
+  be.  
+  微积分要求连续性，而连续性理应需要“无限小”的概念；  
+  但没有人能弄清楚“无限小”究竟是什么。
 </Quote>
 
-In the previous lesson, I introduced limits and how they are used to formalize the definition of the derivative. In this lesson our goal is to understand exactly what it means for one value to approach another. For example, consider the function:
+In the previous lesson, I introduced limits and how they are used to formalize the definition of the derivative. In this lesson our goal is to understand exactly what it means for one value to approach another. For example, consider the function:  
+在上一课中，我介绍了极限以及如何利用它们来形式化导数的定义。  
+在本课中，我们的目标是准确理解一个值趋近于另一个值的含义。例如，考虑这样一个函数：
 
 <Figure image="$lesson/figures/example-function-algebra.svg" />
 
-This happens to be the expression that pops out if you unravel the formal definition of the derivative of $x^3$ at $x=2$.
+This happens to be the expression that pops out if you unravel the formal definition of the derivative of $x^3$ at $x=2$.  
+这恰好就是当你推导出$x=2$处$x^3$的导数正式定义时所得到的表达式。
 
 <Figure image="$lesson/figures/derivative-of-x-cubed-at-2-limit.svg" />
 
-However, let's just think of it as any old function with an input $h$. Its graph is this nice continuous looking parabola. Which makes sense because the function has a cubic term divided by a linear term.
+However, let's just think of it as any old function with an input $h$. Its graph is this nice continuous looking parabola. Which makes sense because the function has a cubic term divided by a linear term.  
+不过，我们可以把它看作是一个带有输入参数$h$的普通函数。  
+它的图像是一条看起来很平滑的连续抛物线。  
+这也很合理，因为该函数是由一个三次项除以一个一次项构成的。
 
 <Figure image="$lesson/figures/example-limit.svg" />
 
-But actually, if you think about what's going at $h=0$, plugging that in you'd get $0/0$, which is not defined. So really, this graph has a hole at that point.
+But actually, if you think about what's going at $h=0$, plugging that in you'd get $0/0$, which is not defined. So really, this graph has a hole at that point.  
+但实际上，如果你考虑$h=0$时的情况，代入后会得到$0/0$，这是没有定义的。  
+所以实际上，该图在这一点上存在一个空洞。
 
 <Figure image="$lesson/figures/example-limit-hole.svg" />
 
-You have to exaggerate to draw that hole, often with a little empty circle like this, but keep in mind the function is perfectly well-defined for inputs as close to $0$ as you want.
+You have to exaggerate to draw that hole, often with a little empty circle like this, but keep in mind the function is perfectly well-defined for inputs as close to $0$ as you want.  
+为了画出那个孔，你必须加以夸张处理，  
+通常会用这样一个小空心圆来表示，但请记住，对于任意接近$0$的输入值，该函数都是完全有定义的。
 
 <Figure image="$lesson/figures/example-limit-detail.svg" />
 
-And wouldn't you agree that as $h$ approaches $0$, the corresponding output, the height of this graph, approaches $12$? And it doesn't matter which side you come at it from. That the limit of this ratio as $h$ goes to $0$ equals $12$.
+And wouldn't you agree that as $h$ approaches $0$, the corresponding output, the height of this graph, approaches $12$? And it doesn't matter which side you come at it from. That the limit of this ratio as $h$ goes to $0$ equals $12$.  
+你难道不认为，当$h$趋近于$0$时，对应的输出，也就是这条图线的高度，也会趋近于$12$吗？  
+而且从哪一侧接近都没有关系。这个比值在$h$趋于$0$时的极限值就是$12$。
 
 <Figure
   image="$lesson/figures/example-limit-detail-approaches.svg"
   video="$lesson/figures/5.52-6.08.mp4"
 />
 
-Imagine you're a mathematician inventing calculus, and someone skeptically asks "well what exactly do you mean by approach?" That would be an annoying question. I mean, come on, we all know what it means for one value to get closer to another. But let's start thinking about ways you might be able to answer that person completely unambiguously.
+Imagine you're a mathematician inventing calculus, and someone skeptically asks "well what exactly do you mean by approach?" That would be an annoying question. I mean, come on, we all know what it means for one value to get closer to another. But let's start thinking about ways you might be able to answer that person completely unambiguously.  
+想象你是一名正在创造微积分的数学家，有人怀疑地问道：  
+​“那么，你所说的‘趋近’到底是什么意思？​”这真是个烦人的问题。  
+拜托，我们都知道一个数值越来越接近另一个数值意味着什么。  
+不过，让我们开始思考一些能够彻底、明确地回答那个问题的方法吧。
 
-For a given range of inputs within some distance of $0$, excluding the forbidden point $0$, look at the corresponding outputs, all possible heights of the graph above that range.
+For a given range of inputs within some distance of $0$, excluding the forbidden point $0$, look at the corresponding outputs, all possible heights of the graph above that range.  
+对于在$0$一定距离范围内、且不包括禁止点$0$的给定输入值，  
+观察对应的输出值，即该范围内图形可能出现的所有高度。
 
 <Figure
   image="$lesson/figures/example-limit-input-ranges.svg"
   video="$lesson/figures/6.22-6.26.mp4"
 >
   This figure shows the possible output ranges for $0$ plus or minus $0.1$,
-  $0.01$ and $0.001$
+  $0.01$ and $0.001$  
+  该图显示了$0$加减$0.1$、$0.01$和$0.001$的可能输出范围。
 </Figure>
 
-{/* TODO: definitely include the animation for the figure above. Also maybe consider redrawing because the similarity between all of them sometimes isn't doing it for me */}
+{/* TODO: definitely include the animation for the figure above. Also maybe consider redrawing because the similarity between all of them sometimes isn't doing it for me */}  
+{/* 待办：务必为上图添加动画效果。另外或许可以考虑重新绘制，因为这些图形之间的相似度有时会导致效果不佳 */}
 
-As that range of input values closes in more and more tightly around $0$, the range of output values closes in more and more closely around $12$. Importantly, the size of that range of outputs can be made as small as you want.
+As that range of input values closes in more and more tightly around $0$, the range of output values closes in more and more closely around $12$. Importantly, the size of that range of outputs can be made as small as you want.  
+随着输入值的范围越来越紧密地聚集在$0$附近，  
+输出值的范围也会越来越紧密地聚集在$12$附近。  
+重要的是，该输出值范围的大小可以根据需要缩小到任意程度。
 
 <Figure image="$lesson/figures/example-function-exact-limit.svg" />
 
-Can you verify this result using algebra?
+Can you verify this result using algebra?  
+你能用代数方法验证这个结果吗？
 
 <FreeResponse>
 
-Most definitely and it's worthwhile to check that two different ways to think about the same problem come to the same conclusion.
+Most definitely and it's worthwhile to check that two different ways to think about the same problem come to the same conclusion.  
+当然可以，而且值得验证：  
+用两种不同的思路去思考同一个问题，是否能得到相同的结论。
 
-Start by setting up the limit expression.
+Start by setting up the limit expression.  
+首先建立极限表达式。
 
 $$
 \lim _{h \rightarrow 0} \frac{(2+h)^{3}-2^{3}}{h}
 $$
 
-Expand the first term in the numerator.
+Expand the first term in the numerator.  
+展开分子中的第一项。
 
 $$
 \lim _{h \rightarrow 0} \frac{2^3 + 3 \cdot 2^2 \cdot h + 3 \cdot 2 \cdot h^2 + h^3 - 2^{3}}{h}
 $$
 
-Notice the first and last terms in the numerator cancel each other out.
+Notice the first and last terms in the numerator cancel each other out.  
+注意分子中的首项和末项相互抵消了。
 
 $$
 \lim _{h \rightarrow 0} \frac{12 h + 6 h^2 + h^3}{h}
 $$
 
-Since all of the terms in the numerator share the factor $h$, the fraction simplifies.
+Since all of the terms in the numerator share the factor $h$, the fraction simplifies.  
+由于分子中的所有项都有公因数$h$，因此该分数可以化简。
 
 $$
 \lim _{h \rightarrow 0} 12 + 6 h + h^2
 $$
 
-Now as $h$ approaches $0$ the terms containing $h$ will become negligible, giving us the same result.
+Now as $h$ approaches $0$ the terms containing $h$ will become negligible, giving us the same result.  
+现在当$h$趋近于$0$时，含有$h$的项将变得可以忽略，从而得到相同的结果。
 
 $$
 \lim _{h \rightarrow 0} 12 + 6 h + h^2 = 12
@@ -110,45 +143,71 @@ $$
 
 <section>
 
-## Counter example
+## Counter example  反例
 
-As a counter example, consider a function that looks like the one shown below, which is also not defined at $0$, but kind of jumps at that point.
+As a counter example, consider a function that looks like the one shown below, which is also not defined at $0$, but kind of jumps at that point.  
+作为反例，考虑一个如下所示的函数，它在$0$处同样未定义，且在这一点处会有某种跳跃现象。
 
 <Figure image="$lesson/figures/counter-example.svg" />
 
-As you approach $h = 0$ from the right, the function approaches $2$, but as you come at $0$ from the left, it approaches $1$. Since there's not a clear, unambiguous value that this function approaches as $h$ approaches $0$, the limit is simply not defined at that point.
+As you approach $h = 0$ from the right, the function approaches $2$, but as you come at $0$ from the left, it approaches $1$. Since there's not a clear, unambiguous value that this function approaches as $h$ approaches $0$, the limit is simply not defined at that point.  
+当从右侧趋近于$h=0$时，该函数的值趋近于$2$；  
+而当从左侧趋近于$0$时，其值则趋近于$1$。  
+由于当$h$趋近于$0$时，该函数并没有一个明确且无歧义的极限值，  
+因此在该点极限是不存在的。
 
 <Figure image="$lesson/figures/counter-example-not-defined.svg" />
 
-One way to think of this is that when you look at any range of inputs around $0$, and the corresponding range of outputs, as you shrink that input range the corresponding outputs don't narrow in on any specific value. Instead those outputs straddle a range that never even shrinks smaller than $1$, no matter how small your input range.
+One way to think of this is that when you look at any range of inputs around $0$, and the corresponding range of outputs, as you shrink that input range the corresponding outputs don't narrow in on any specific value. Instead those outputs straddle a range that never even shrinks smaller than $1$, no matter how small your input range.  
+可以这样理解：当观察围绕0的任意输入范围及其对应的输出范围时，  
+随着输入范围的缩小，对应的输出并不会收敛到某个特定值。  
+相反，无论输入范围有多小，这些输出始终处于一个永远不会小于1的范围之内。
 
 <Figure
   image="$lesson/figures/counter-example-straddle.svg"
   video="$lesson/figures/7.27-7.40.mp4"
 />
 
-This perspective of shrinking an input range around the limiting point, and seeing whether or not you're restricted in how much that shrinks the output range, leads to something called the "**epsilon delta**" definition of limits.
+This perspective of shrinking an input range around the limiting point, and seeing whether or not you're restricted in how much that shrinks the output range, leads to something called the "**epsilon delta**" definition of limits.  
+这种将输入范围向极限点收缩，并观察输出范围的收缩程度是否受到限制的视角，  
+引出了所谓的极限的“**ε-δ**”定义。
 
-You've already seen the main idea: when a limit exists, you can make this output range as small as you want; but when the limit doesn't exist, that output range can't get smaller than some value, no matter how much you shrink the input range around the limiting input.
+You've already seen the main idea: when a limit exists, you can make this output range as small as you want; but when the limit doesn't exist, that output range can't get smaller than some value, no matter how much you shrink the input range around the limiting input.  
+你已经了解了核心思想：当极限存在时，你可以让输出范围变得任意小；  
+但当极限不存在时，无论怎样缩小输入范围，该输出范围都无法小于某个特定值。
 
 <Figure
   image="$lesson/figures/epsilon-delta.svg"
 >
-  The limit $\displaystyle \lim _{h \rightarrow a} f(h)$ exists when the output range defined by $\epsilon$ (epsilon) can be made as small as you want and you can still find some $\delta$ (delta) which corresponds to the output range.
+  The limit $\displaystyle \lim _{h \rightarrow a} f(h)$ exists when the output range defined by $\epsilon$ (epsilon) can be made as small as you want and you can still find some $\delta$ (delta) which corresponds to the output range.  
+  当由$\epsilon$定义的输出范围可以任意缩小，  
+  且仍然存在某个与该输出范围相对应的$\delta$时，  
+  极限$\displaystyle \lim _{h \rightarrow a} f(h)$就存在。
 </Figure>
 
-Let's phrase that same idea, but a little more precisely. In the context of this example where the limiting value was $12$, think of any distance away from $12$, where it's common to use the greek letter $\epsilon$ "epsilon" to denote that distance. And the intent here is going to be that this distance $\epsilon$ can be as small as you want.
+Let's phrase that same idea, but a little more precisely. In the context of this example where the limiting value was $12$, think of any distance away from $12$, where it's common to use the greek letter $\epsilon$ "epsilon" to denote that distance. And the intent here is going to be that this distance $\epsilon$ can be as small as you want.  
+让我们用更精确的方式表述同一个概念。  
+在这个极限值为12的例子中，设想任意偏离12的距离，  
+通常会用希腊字母“ε”来表示这个距离。  
+这里的含义是，这个距离ε可以任意小。
 
 <Figure image="$lesson/figures/epsilon-delta-example-epsilon.svg" />
 
-What it means for the limit to exist is that you will always be able to find a range of inputs around our limiting input, some distance delta away from $0$, so that any input within a distance delta of $0$ corresponds to an output within a distance epsilon of $12$.
+What it means for the limit to exist is that you will always be able to find a range of inputs around our limiting input, some distance delta away from $0$, so that any input within a distance delta of $0$ corresponds to an output within a distance epsilon of $12$.  
+极限存在的含义是：总存在这样一组输入值，  
+它们位于极限输入值的附近，  
+与$0$相距某个距离$\delta$，  
+使得所有与$0$相距不超过$\delta$的输入值，  
+对应的输出值都与$12$相距不超过$\epsilon$。
 
 <Figure image="$lesson/figures/epsilon-delta-example-delta.svg" />
 
-They key point is that this is true for any epsilon, no matter how small, you will always be able to find the corresponding delta.
+They key point is that this is true for any epsilon, no matter how small, you will always be able to find the corresponding delta.  
+关键在于，对于任何ε值，无论它有多小，你总能够找到相应的δ。
 
 <Question
-  question="What is the $\delta$ (delta) value corresponding to the output range $[11.994, 12.006]$ where $\epsilon$ (epsilon) is equal to $0.006$?"
+  question="What is the $\delta$ (delta) value corresponding to the output range $[11.994, 12.006]$ where $\epsilon$ (epsilon) is equal to $0.006$?  
+      当$\epsilon$等于$0.006$时，对应于输出范围$[11.994, 12.006]$的$\delta$值是多少？​"
   choice1="1"
   choice2="0.1"
   choice3="0.01"
@@ -156,11 +215,14 @@ They key point is that this is true for any epsilon, no matter how small, you wi
   answer={4}
 >
 
-The output range of $[11.994, 12.006]$ is visually shown in the graph below.
+The output range of $[11.994, 12.006]$ is visually shown in the graph below.  
+输出范围$[11.994, 12.006]$在下图中有直观显示。
 
 <Figure image="$lesson/figures/epsilon-delta-example-epsilon-smaller.svg" />
 
-Then we can see that an input range of $[-0.001, 0.001]$ corresponds to our output range of $[11.994, 12.006]$. Substituting $0$ plus or minus $\delta = 0.001$ into the function gives us the output.
+Then we can see that an input range of $[-0.001, 0.001]$ corresponds to our output range of $[11.994, 12.006]$. Substituting $0$ plus or minus $\delta = 0.001$ into the function gives us the output.  
+由此我们可以看出，输入范围$[-0.001, 0.001]$对应着输出范围$[11.994,12.006]$。  
+将$0$加上或减去$\delta = 0.001$代入该函数，即可得到对应的输出值。
 
 $$
 f(-0.001) < f(0) < f(0.001)
@@ -174,34 +236,45 @@ $$
 11.994 < 12 < 12.006
 $$
 
-Which graphically corresponds to the green input range highlighted below.
+Which graphically corresponds to the green input range highlighted below.  
+这在图形上对应于下方标出的绿色输入范围。
 
 <Figure image="$lesson/figures/epsilon-delta-example-delta-smaller.svg" />
 
 </Question>
 
-In contrast, when a limit does _not_ exist, as in the example before, you can find a sufficiently small epsilon, like $0.4$, so that no matter how small you make your range around $0$, no matter how tiny delta is, the corresponding range of outputs is just always too big.
+In contrast, when a limit does _not_ exist, as in the example before, you can find a sufficiently small epsilon, like $0.4$, so that no matter how small you make your range around $0$, no matter how tiny delta is, the corresponding range of outputs is just always too big.  
+相比之下，当极限不存在时，就像之前的例子那样，  
+你可以找到一个足够小的ε值，比如$0.4$，  
+这样无论你将围绕$0$的范围取得多小，无论δ有多微小，  
+对应的输出范围始终都会过大。
 
 <Figure image="$lesson/figures/epsilon-delta-limit-not-defined.svg" />
 
-There is no limiting output where everything is within a distance epsilon from that output.
+There is no limiting output where everything is within a distance epsilon from that output.  
+不存在这样的极限输出：使得所有值都与该输出处于距离为ε的范围内。
 
 </section>
 
 <section>
 
-## Summary
+## Summary  总结
 
-In this lesson we established the epsilon delta definition of limits to formalize what we mean when we say one value approaches another. This gives us a strong foundation to build upon and makes our argument air-tight when we talk about such tools as the derivative. In the next lesson I talk about a neat trick for computing limits.
+In this lesson we established the epsilon delta definition of limits to formalize what we mean when we say one value approaches another. This gives us a strong foundation to build upon and makes our argument air-tight when we talk about such tools as the derivative. In the next lesson I talk about a neat trick for computing limits.  
+在本课中，我们建立了极限的ε-δ定义，以此明确“一个值趋近于另一个值”这一表述的含义。  
+这为我们后续的学习打下了坚实的基础，  
+也使得我们在讨论导数等概念时能够进行严谨的推导。  
+在下一课中，我将介绍一种计算极限的巧妙方法。
 
 </section>
 
 <section>
 
-## Exercises
+## Exercises  练习题
 
 <Question
-  question="Using the epsilon delta definition, is the limit expression $\displaystyle \lim _{x \rightarrow 0} \frac{1}{x} + x$ defined?"
+  question="Using the epsilon delta definition, is the limit expression $\displaystyle \lim _{x \rightarrow 0} \frac{1}{x} + x$ defined?  
+  利用ε-δ定义，极限表达式$\displaystyle \lim _{x \rightarrow 0}\frac{1}{x} + x$有意义吗？​"
   choice1="Yes"
   choice2="No"
   answer={2}
@@ -212,13 +285,15 @@ In this lesson we established the epsilon delta definition of limits to formaliz
 </Question>
 
 <Question
-  question="Using the epsilon delta definition, is the limit expression $\displaystyle \lim _{x \rightarrow 1} \frac{x-1}{x^3 - 1}$ defined?"
+  question="Using the epsilon delta definition, is the limit expression $\displaystyle \lim _{x \rightarrow 1} \frac{x-1}{x^3 - 1}$ defined?  
+  根据ε-δ定义，极限表达式$\displaystyle \lim _{x \rightarrow 1}\frac{x-1}{x^3 - 1}$有意义吗？"
   choice1="Yes"
   choice2="No"
   answer={1}
 >
 
-Here we can graph the function and see that it does appear to approach a value.
+Here we can graph the function and see that it does appear to approach a value.  
+在这里我们可以绘制该函数的图像，可以看出它确实似乎在趋近于某个值。
 
 <Figure image="$lesson/figures/exercise-2.svg" />
 

@@ -1,14 +1,14 @@
 ---
-title: Abstract vector spaces
-description: What is a vector space?  Even though they are initial taught in the context of arrows in space, or with vectors being lists of numbers, the idea is much more general and far-reaching.
+title: Abstract vector spaces 抽象向量空间
+description: What is a vector space?  Even though they are initial taught in the context of arrows in space, or with vectors being lists of numbers, the idea is much more general and far-reaching.什么是向量空间？尽管向量最初是在空间中的箭头或数字列表的形式下被介绍的，但其概念其实更为通用且意义深远。
 date: 2016-09-24
 chapter: 16
 video: TgKwz5Ikpc8
 source: _2016/eola/chapter11.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
-  - Text adaptation by James Schloss
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
+  - Text adaptation by James Schloss ：詹姆斯·施洛斯
 ---
 
 import Figure from "~/components/Figure";
@@ -16,157 +16,261 @@ import LessonLink from "~/components/LessonLink";
 
 <section>
 
-> Such axioms, together with other unmotivated definitions, serve mathematicians mainly by making it difficult for the uninitiated to master their subject, thereby elevating its authority
+> Such axioms, together with other unmotivated definitions, serve mathematicians mainly by making it difficult for the uninitiated to master their subject, thereby elevating its authority  
+这些公理，连同其他缺乏合理依据的定义，  
+对数学家而言主要作用在于让外行难以掌握这门学科，从而提升了其权威性。
 >
-> $\qquad$ — Vladmir Arnold
+> $\qquad$ — Vladmir Arnold 弗拉基米尔·阿诺德
 
-We'd like to revisit a deceptively simple question posed in the very first video of this series: What are vectors?
+We'd like to revisit a deceptively simple question posed in the very first video of this series: What are vectors?  
+我们想重新探讨本系列第一个视频中提出的一个看似简单却颇具深度的问题：什么是向量？
 
-Is a two-dimensional vector, for example, fundamentally an arrow on a flat plane that we describe with coordinates for convenience, or is it fundamentally that pair of real numbers, which is just nicely visualized as an arrow on a flat plane. Or are both of these just manifestations of something deeper?
+Is a two-dimensional vector, for example, fundamentally an arrow on a flat plane that we describe with coordinates for convenience, or is it fundamentally that pair of real numbers, which is just nicely visualized as an arrow on a flat plane. Or are both of these just manifestations of something deeper?  
+例如，二维向量本质上究竟是我们在平面上用坐标来描述的箭头，  
+还是说它本质上是那对实数，只不过被形象地表现为平面上的箭头？  
+又或者，这两种说法都只是某种更深层次事物的表现形式而已？
 
-On the one hand, defining vectors as primarily being lists of numbers feels very clear-cut and unambiguous. It makes things like 4-dimensional vectors or 100-dimensional vectors sound like real concrete ideas that you can work with.
+On the one hand, defining vectors as primarily being lists of numbers feels very clear-cut and unambiguous. It makes things like 4-dimensional vectors or 100-dimensional vectors sound like real concrete ideas that you can work with.  
+一方面，将向量定义为主要是数字列表的方式显得非常清晰明确，没有歧义。  
+这使得四维向量或百维向量之类的概念听起来像是真正可操作的具体事物。
 
 <Figure image="$lesson/figures/introduction/4d5d100dVectors.light.svg" />
 
-Otherwise they're only vague geometric notions that are pretty difficult to describe without waving your hands a bit.
+Otherwise they're only vague geometric notions that are pretty difficult to describe without waving your hands a bit.  
+否则，它们就只是模糊的几何概念，不借助一些手势说明就很难描述清楚。
 
 <Figure image="$lesson/figures/introduction/DimensionsWavingHands.light.svg" />
 
-On the other hand, a common sensation for those actually doing linear algebra, especially as you get more fluent with changing your basis, is that you're dealing with a space that exists independently from the coordinates you give it and that the coordinates are actually somewhat arbitrary, depending on what you happen to choose as basis vectors.
+On the other hand, a common sensation for those actually doing linear algebra, especially as you get more fluent with changing your basis, is that you're dealing with a space that exists independently from the coordinates you give it and that the coordinates are actually somewhat arbitrary, depending on what you happen to choose as basis vectors.  
+另一方面，对于那些真正学习过线性代数的人来说，尤其是当他们越来越熟练地变换基向量时，  
+通常会有一种感觉：他们所处理的是一个独立于所给坐标而存在的空间，  
+而这些坐标实际上具有一定的任意性，取决于他们选择哪些向量作为基向量。
 
-Core topics in linear algebra like determinants and eigenvectors seem indifferent to your choice of coordinate system. The determinant tells you how much a transformation scales areas, and eigenvectors are the ones that stay on their own span during a transformation.
+Core topics in linear algebra like determinants and eigenvectors seem indifferent to your choice of coordinate system. The determinant tells you how much a transformation scales areas, and eigenvectors are the ones that stay on their own span during a transformation.  
+线性代数中的核心概念，如行列式和特征向量，似乎并不受坐标系选择的影响。  
+行列式用于表明变换对面积的缩放程度，  
+而特征向量则是在变换过程中仍保持在其自身张成空间内的向量。
 
 <Figure image="$lesson/figures/introduction/StandardCoordinateSystem.light.svg" />
 
-Both of those properties are inherently spatial, and you can freely change your coordinate system without changing the value of either one. For example, the figure below demonstrates the same transformation as the one above and has the same determinant and eigenvectors, but is expressed in a different coordinate system.
+Both of those properties are inherently spatial, and you can freely change your coordinate system without changing the value of either one. For example, the figure below demonstrates the same transformation as the one above and has the same determinant and eigenvectors, but is expressed in a different coordinate system.  
+这两个性质本质上都是与空间相关的，你可以自由改变坐标系，而不会改变它们的数值。  
+例如，下图展示了与上图相同的变换，具有相同的行列式和特征向量，  
+但是在不同的坐标系中表示的。
 
 <Figure image="$lesson/figures/introduction/DifferentCoordinateSystem.light.svg" />
 
-If vectors are not fundamentally lists of real numbers, and if their underlying essence is something more spatial, this raises the question of what mathematicians mean when they use the word "space".
+If vectors are not fundamentally lists of real numbers, and if their underlying essence is something more spatial, this raises the question of what mathematicians mean when they use the word "space".  
+如果向量本质上并非实数列表，而其内在本质更具空间性，那么这就引出了一个问题：  
+数学家在使用“空间”一词时究竟指的是什么。
 
 </section>
 
 <section>
-## Functions as vectors
+## Functions as vectors  作为向量的函数
 
-To build up to where this is going, let's spend the bulk of this lesson talking about something which is neither an arrow nor a list of numbers but also has vector-ish qualities: Functions.
+To build up to where this is going, let's spend the bulk of this lesson talking about something which is neither an arrow nor a list of numbers but also has vector-ish qualities: Functions.  
+为了引出后面的内容，我们将在本课的大部分时间里  
+讨论一种既不是箭头也不是数字列表、却具有类似向量特性的事物：函数。
 
-You see, there's a sense in which functions are just another type of vector. In the same way that we can add two vectors together, there's also a sensible notion for adding two functions $f$ and $g$ to get a new function, $f+g$.
+You see, there's a sense in which functions are just another type of vector. In the same way that we can add two vectors together, there's also a sensible notion for adding two functions $f$ and $g$ to get a new function, $f+g$.  
+你看，从某种意义上说，函数其实只是另一种类型的向量。  
+就像我们可以将两个向量相加一样，将两个函数 $f$ 和 $g$ 相加以得到一个新函数 $f+g$ ，  
+这一操作也是有合理意义的。
 
 $$(f + g)(x) = f(x) + g(x)$$
 
-This is one of those expressions that take a moment to parse. The output of the new function $(f + g)$ at any given input $x$, say $x = -4$, is the sum of the outputs of $f$ and $g$ when you evaluate them each at that same input.
+This is one of those expressions that take a moment to parse. The output of the new function $(f + g)$ at any given input $x$, say $x = -4$, is the sum of the outputs of $f$ and $g$ when you evaluate them each at that same input.  
+这是一种需要稍作理解的表达式。  
+对于任意给定的输入 $x$ ，比如 $x = -4$ ，  
+新函数 $(f + g)$ 的输出值，就是 $f$ 和 $g$ 在该相同输入下各自输出值的总和。
 
 <Figure image="$lesson/figures/functions-as-vectors/AddingTwoFunctions.light.svg" />
 
 <Figure image="$lesson/figures/functions-as-vectors/AddingTwoFunctionsResult.light.svg" />
 
-More generally, the value of the sum function at any input $x$ is the sum of the values of $f$ and $g$ at that input $x$. This is very similar to adding vectors coordinate-by-coordinate. It's just that there are, in a sense, infinitely many coordinates to deal with.
+More generally, the value of the sum function at any input $x$ is the sum of the values of $f$ and $g$ at that input $x$. This is very similar to adding vectors coordinate-by-coordinate. It's just that there are, in a sense, infinitely many coordinates to deal with.  
+更一般地，和函数在任意输入$x$处的值，就是$f$和$g$在该输入$x$处的值之和。  
+这与逐坐标相加向量非常相似，只不过从某种意义上说，需要处理的坐标有无限多个。
 
 <Figure image="$lesson/figures/functions-as-vectors/AddingTwoFunctionsGeneral.light.svg">
-  Very similar to adding vectors: $\left[\begin{array}
+  Very similar to adding vectors:   
+  与向量相加非常相似：$\left[\begin{array}
   {l}x_1 \\ y_1 \\ z_1\end{array}\right]+\left[\begin{array}
   {l}x_2 \\ y_2 \\ z_2\end{array}\right]=\left[\begin{array}
   {l}x_1+x_2 \\ y_1+y_2 \\ z_1+z_2\end{array}\right]$
 </Figure>
 
-Similarly, there's a sensible notion for scaling a function by a real number: Just scale all of its outputs by that number. Again, this is very analogous to scaling a vector coordinate-by-coordinate.
+Similarly, there's a sensible notion for scaling a function by a real number: Just scale all of its outputs by that number. Again, this is very analogous to scaling a vector coordinate-by-coordinate.  
+类似地，存在一种合理的将函数按实数缩放的方法：  
+只需将其所有输出都乘以该实数即可。这同样与逐坐标缩放向量非常相似。
 
 <Figure image="$lesson/figures/functions-as-vectors/ScalingAFunction.light.svg">
-  Very similar to scaling a vector: $2 \cdot\left[\begin{array}
+  Very similar to scaling a vector:   
+  这与对向量进行缩放非常相似：$2 \cdot\left[\begin{array}
   {l}x \\ y \\ z\end{array}\right]=\left[\begin{array}
   {l}2 x \\ 2 y \\ 2 z\end{array}\right]$
 </Figure>
 
-Now, given that the only thing vectors can really do is get added together or scaled, it feels like we should be able to take all the same useful constructs and problem-solving techniques of linear algebra that we originally thought of in terms of arrows in space, and apply them to functions as well.
+Now, given that the only thing vectors can really do is get added together or scaled, it feels like we should be able to take all the same useful constructs and problem-solving techniques of linear algebra that we originally thought of in terms of arrows in space, and apply them to functions as well.  
+既然向量真正能做的只有相加或缩放，  
+那么似乎我们应该能够将原本为空间中的箭头所设计的  
+线性代数中所有有用的构造和问题解决技巧  
+应用到函数上。
 
-For example, there's a perfectly reasonable notion of a linear transformation for functions. One familiar example comes from calculus: The derivative. It's something that transforms one function into another function.
+For example, there's a perfectly reasonable notion of a linear transformation for functions. One familiar example comes from calculus: The derivative. It's something that transforms one function into another function.  
+例如，对于函数而言，也存在完全合理的线性变换概念。  
+一个常见的例子来自微积分：导数。  
+它就是一种将一个函数转换为另一个函数的东西。
 
 <Figure image="$lesson/figures/functions-as-vectors/DerivativeAsTransformation.light.svg">
-  The derivative can be expressed as a linear transformation: $L\left(\frac{1}
+  The derivative can be expressed as a linear transformation:   
+  导数可以表示为一种线性变换：
+  $L\left(\frac{1}
   {9} x^3-x\right)=\frac{1}
   {3} x^2-1$
 </Figure>
 
-Sometimes in this context of functions you'll hear these called "operators" instead of "transformations", but the meaning is the same. A natural question you might ask is what it means for a transformation of functions to be "linear".
+Sometimes in this context of functions you'll hear these called "operators" instead of "transformations", but the meaning is the same. A natural question you might ask is what it means for a transformation of functions to be "linear".  
+在函数的相关语境中，有时你会听到这些被称作“运算符”而非“变换”​，但含义是一样的。  
+你可能会问的一个自然问题是：函数的变换为何要称为“线性”的。
 
-### Standard definition of linear
+### Standard definition of linear 线性的标准定义
 
-In <LessonLink id="linear-transformations">chapter 3</LessonLink> we offered a geometric constraint that characterizes linear transformations: They transform lines into lines, keep grid lines evenly spaced, and fix the origin in place.
+In <LessonLink id="linear-transformations">chapter 3</LessonLink> we offered a geometric constraint that characterizes linear transformations: They transform lines into lines, keep grid lines evenly spaced, and fix the origin in place.  
+在第三章中，我们提出了一个描述线性变换的几何约束：  
+它们将直线映射为直线，保持网格线等距分布，并使原点位置不变。
 
-The true formal definition of linearity is more abstract, but the reward of the abstract definition is that we'll get something general enough to apply to functions as well as arrows, and ultimately to a much broader set of mathematical objects that deserve to be called vectors.
+The true formal definition of linearity is more abstract, but the reward of the abstract definition is that we'll get something general enough to apply to functions as well as arrows, and ultimately to a much broader set of mathematical objects that deserve to be called vectors.  
+线性性的真正正式定义更为抽象，  
+但这种抽象定义的好处在于，我们能够得到一个足够通用的概念，  
+它既可应用于函数和箭头，最终也可应用于更广泛的、值得被称为向量的数学对象。
 
-A transformation $L$ is _linear_ if for any two vectors $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, and any scalar $s$, the following two equations are true:
+A transformation $L$ is _linear_ if for any two vectors $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, and any scalar $s$, the following two equations are true:  
+如果对于任意两个向量 $\vec{\mathbf{v}}$ 和 $\vec{\mathbf{w}}$ ，以及任意标量 $s$ ，以下两个等式都成立，  
+则变换$L$是_线性_的：
 
 $$L(\vec{\mathbf{v}} + \vec{\mathbf{w}}) = L(\vec{\mathbf{v}}) + L(\vec{\mathbf{w}})$$
 
 $$L(s\vec{\mathbf{v}}) = sL(\vec{\mathbf{v}})$$
 
-The first equation says that when you add any two vectors $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, then apply the transformation to their sum, you get the same result as if you add the transformed versions of $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$.
+The first equation says that when you add any two vectors $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, then apply the transformation to their sum, you get the same result as if you add the transformed versions of $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$.  
+第一个方程表明，当将任意两个向量 $\vec{\mathbf{v}}$ 和 $\vec{\mathbf{w}}$ 相加后，再对它们的和应用该变换，  
+得到的结果与直接将$\vec{\mathbf{v}}$和$\vec{\mathbf{w}}$的变换后的版本相加得到的结果相同。
 
 <Figure image="$lesson/figures/standard-definition-of-linear/AdditivityProperty.light.svg" />
 
-The second property says that when you scale a vector $\vec{\mathbf{v}}$ by some number $s$, then apply the transformation to the result, you get the same ultimate vector as if you scale the transformed version of $\vec{\mathbf{v}}$ by that same amount $s$.
+The second property says that when you scale a vector $\vec{\mathbf{v}}$ by some number $s$, then apply the transformation to the result, you get the same ultimate vector as if you scale the transformed version of $\vec{\mathbf{v}}$ by that same amount $s$.  
+第二个性质指出，当用某个数$s$对向量$\vec{\mathbf{v}}$进行缩放，然后对该结果应用该变换时，  
+得到的最终向量与先用相同数值$s$对已变换过的$\vec{\mathbf{v}}$进行缩放后再应用该变换所得到的向量相同。
 
 <Figure image="$lesson/figures/standard-definition-of-linear/ScalingProperty.light.svg" />
 
-The way you'll often hear this described is that linear transformations "preserve" the operations of vector addition and scalar-vector multiplication. The idea of grid lines remaining parallel and evenly spaced that we've talked about before is really just an illustration of what these two properties mean in the specific case of points in 2d space.
+The way you'll often hear this described is that linear transformations "preserve" the operations of vector addition and scalar-vector multiplication. The idea of grid lines remaining parallel and evenly spaced that we've talked about before is really just an illustration of what these two properties mean in the specific case of points in 2d space.  
+人们通常这样描述：线性变换“保持”了向量加法和标量-向量乘法这两种运算。  
+我们之前谈过的网格线保持平行且等距这一现象，  
+实际上只是说明了在二维空间中点的情况下，这两个性质的具体含义。
 
-One of the most important consequences of these properties, which makes matrix-vector multiplication possible, is that a linear transformation is completely described by where it takes the basis vectors. Since any vector can be expressed by scaling and adding the basis vectors in some way, finding the transformed version of a vector comes down to scaling and adding the transformed basis vectors in that same way. As you'll see in just a moment, this is as true for functions as it is for arrows.
+One of the most important consequences of these properties, which makes matrix-vector multiplication possible, is that a linear transformation is completely described by where it takes the basis vectors. Since any vector can be expressed by scaling and adding the basis vectors in some way, finding the transformed version of a vector comes down to scaling and adding the transformed basis vectors in that same way. As you'll see in just a moment, this is as true for functions as it is for arrows.  
+这些性质最重要的后果之一——也正是矩阵-向量乘法得以实现的基础——  
+就是线性变换完全可以通过它对基向量的作用来描述。  
+由于任何向量都可以通过以某种方式缩放并组合基向量来表示，  
+因此求出一个向量的变换后的形式，  
+归根结底就是以同样的方式对变换后的基向量进行缩放和组合。  
+正如你马上会看到的，这一点对于函数而言同样成立。
 
-### Derivative as linear transformation
+### Derivative as linear transformation  导数作为线性变换
 
-Calculus students are always using the fact that the derivative is additive and has the scaling property, even if they've never heard it phrased that way. If you add two functions, then take the derivative, it's the same as first taking the derivative of each separately and adding the results.
+Calculus students are always using the fact that the derivative is additive and has the scaling property, even if they've never heard it phrased that way. If you add two functions, then take the derivative, it's the same as first taking the derivative of each separately and adding the results.  
+微积分专业的学生总是运用导数具有可加性和缩放性这一性质，即便他们从未听过这样的表述。  
+如果先将两个函数相加，再求导数，  
+其结果等同于先分别对每个函数求导，再将导数结果相加。
 
 <Figure image="$lesson/figures/derivative-as-linear-transformation/DerivativeIsLinearAdditivity.light.svg" />
 
-Similarly, if you scale a function then take the derivative, it's the same as first taking the derivative then scaling the result.
+Similarly, if you scale a function then take the derivative, it's the same as first taking the derivative then scaling the result.  
+    同样地，如果先对函数进行缩放再求导，也与先求导后再对结果进行缩放的结果相同。
 
 <Figure image="$lesson/figures/derivative-as-linear-transformation/DerivativeIsLinearScaling.light.svg" />
 
-To really drill in the parallel, let's show one way to describe the derivative with a matrix. This will be a little tricky, since function-spaces have a tendency to be infinite-dimensional, but the exercise is actually quite satisfying.
+To really drill in the parallel, let's show one way to describe the derivative with a matrix. This will be a little tricky, since function-spaces have a tendency to be infinite-dimensional, but the exercise is actually quite satisfying.  
+为了进一步强化这种对应关系，让我们展示一种用矩阵来表示导数的方法。  
+这会有点棘手，因为函数空间往往具有无限维的特性，但这个练习实际上相当令人满意。
 
-Let's limit ourselves to polynomials, things like $x^2+3x+5$ or $4x^7-5x^2$. Each polynomial can only have finitely many terms, but our full space of polynomials will include polynomials with arbitrarily large degrees.
+Let's limit ourselves to polynomials, things like $x^2+3x+5$ or $4x^7-5x^2$. Each polynomial can only have finitely many terms, but our full space of polynomials will include polynomials with arbitrarily large degrees.  
+我们仅考虑多项式，比如$x^2+3x+5$或$4x^7-5x^2$这类。  
+每个多项式都只有有限项，但整个多项式空间则包含次数可以任意大的多项式。
 
 <Figure image="$lesson/figures/derivative-as-linear-transformation/AllPolynomialsSpace.light.svg" />
 
-The first thing we need to do is give coordinates to this space, which requires choosing a basis. Since polynomials are already expressed as the sum of scaled powers of $x$, it's pretty natural to choose pure powers of $x$ as basis functions. In other words, the first basis function is the constant function $b_0(x) = 1$, the second basis function is $b_1(x) = x$, then $b_2(x) = x^2$, then $b_3(x) = x^3$, and so on.
+The first thing we need to do is give coordinates to this space, which requires choosing a basis. Since polynomials are already expressed as the sum of scaled powers of $x$, it's pretty natural to choose pure powers of $x$ as basis functions. In other words, the first basis function is the constant function $b_0(x) = 1$, the second basis function is $b_1(x) = x$, then $b_2(x) = x^2$, then $b_3(x) = x^3$, and so on.  
+我们首先要为这个空间赋予坐标，这就需要选择一个基。  
+由于多项式本身已表示为$x$的各次幂的线性组合，因此选择纯$x$的幂作为基函数是相当自然的。  
+换句话说，  
+第一个基函数是常数函数 $b_0(x) = 1$ ，  
+第二个基函数是 $b_1(x) =x$ ，  
+接着是 $b_2(x) = x^2$ ，  
+再然后是 $b_3(x) = x^3$ ，以此类推。
 
 <Figure image="$lesson/figures/derivative-as-linear-transformation/BasisFunctions.light.svg" />
 
-The role these functions serve will be similar to the roles of $\hat{\imath}$, $\hat{\jmath}$ and $\hat{k}$ in the world of vectors as arrows. Since our polynomials can have arbitrarily large degrees, this set of basis functions is infinite, but that's okay, it just means vectors have infinitely many coordinates. A polynomial like $x^2+3x+5$ would be described with the coordinates $\left[\begin{array}{c} 5 \\ 3 \\ 1 \\ \vdots \end{array}\right]$, then infinitely many zeros.
+The role these functions serve will be similar to the roles of $\hat{\imath}$, $\hat{\jmath}$ and $\hat{k}$ in the world of vectors as arrows. Since our polynomials can have arbitrarily large degrees, this set of basis functions is infinite, but that's okay, it just means vectors have infinitely many coordinates. A polynomial like $x^2+3x+5$ would be described with the coordinates $\left[\begin{array}{c} 5 \\ 3 \\ 1 \\ \vdots \end{array}\right]$, then infinitely many zeros.  
+这些函数所起的作用，类似于向量世界中作为箭头的 $\hat{\imath}$ 、 $\hat{\jmath}$和$\hat{k}$所起的作用。  
+由于多项式的次数可以任意大，因此这组基函数是无穷多的，  
+但这没有关系，只意味着向量具有无限多个坐标。  
+像 $x^2+3x+5$ 这样的多项式可以用坐标 $\left[\begin{array}{c} 5 \\ 3 \\ 1 \\\vdots \end{array}\right]$ 来表示，此外还有无限多个零点。
 
 <Figure image="$lesson/figures/derivative-as-linear-transformation/AllPolynomialSpaceExampleVector.light.svg" />
 
-You'd read this as saying it's $5$ times the first basis function, plus $3$ times the second basis function plus $1$ times the third basis function, then none of the other basis functions should be added from that point on.
+You'd read this as saying it's $5$ times the first basis function, plus $3$ times the second basis function plus $1$ times the third basis function, then none of the other basis functions should be added from that point on.  
+这可以理解为：它是第一个基函数的5倍，加上第二个基函数的3倍，再加上第三个基函数的1倍，  
+从那之后就不再需要加入其他任何基函数了。
 
-The polynomial $4x^7-5x^2$ would have coordinates:
+The polynomial $4x^7-5x^2$ would have coordinates:  
+多项式$4x^7-5x^2$的坐标为：
 
 $$
 \left[\begin{array}{c} 0 \\ 0 \\ -5 \\ 0 \\ 0 \\ 0 \\ 0 \\ 4 \\ \vdots \end{array}\right]
 $$
 
-then infinitely many zeros to follow. In general, since every individual polynomial has only finitely many terms, its coordinates will be some finite string of numbers with an infinite tail of zeros.
+then infinitely many zeros to follow. In general, since every individual polynomial has only finitely many terms, its coordinates will be some finite string of numbers with an infinite tail of zeros.  
+接着是无限多个零。一般来说，由于每个多项式只有有限项，  
+其坐标将是一串有限的数字，后面跟着无限多的零。
 
 <Figure image="$lesson/figures/derivative-as-linear-transformation/AllPolynomialSpaceGeneralVector.light.svg" />
 
-### The matrix of a derivative
+### The matrix of a derivative 导数的矩阵
 
-In this coordinate system, the derivative is described with an infinite matrix that's mostly full of zeros, but which has the positive integers counting down on the offset diagonal.
+In this coordinate system, the derivative is described with an infinite matrix that's mostly full of zeros, but which has the positive integers counting down on the offset diagonal.  
+在这个坐标系中，导数由一个无穷矩阵来表示，  
+该矩阵大部分为零，但在偏移对角线上依次排列着递减的正整数。
 
 <Figure image="$lesson/figures/the-matrix-of-a-derivative/DerivativeMatrix.light.svg" />
 
-We'll talk about how you could find this matrix in just a moment, but the best way to get a feel for it is to just watch it in action. Take the coordinates representing the polynomial $x^3 + 5x^2 + 4x + 5$, then put them on the right of the matrix.
+We'll talk about how you could find this matrix in just a moment, but the best way to get a feel for it is to just watch it in action. Take the coordinates representing the polynomial $x^3 + 5x^2 + 4x + 5$, then put them on the right of the matrix.  
+我们稍后会讨论如何找到这个矩阵，但最直观的方式就是直接观察它实际的应用。  
+取表示多项式 $x^3 + 5x^2 + 4x + 5$ 的坐标，然后将它们放在矩阵的右侧。
 
 <Figure image="$lesson/figures/the-matrix-of-a-derivative/DerivativeMatrixVectorMultiplication.light.svg" />
 
-The only term that contributes to the first coordinate of the result is $1\cdot4$, which means the constant term in the result will be $4$. This corresponds to the derivative of $4x$. The only term contributing to the second coordinate of our result is $2\cdot5$, which means the coefficient in front of $x$ in our derivative is $10$. This corresponds to the derivative of $5x^2$ being $10x$. Similarly, the third coordinate of the result comes down to taking $3\cdot1$, which corresponds to the derivative of $x^3$ being $3x^2$. And after that, it will be nothing but $0$'s.
+The only term that contributes to the first coordinate of the result is $1\cdot4$, which means the constant term in the result will be $4$. This corresponds to the derivative of $4x$. The only term contributing to the second coordinate of our result is $2\cdot5$, which means the coefficient in front of $x$ in our derivative is $10$. This corresponds to the derivative of $5x^2$ being $10x$. Similarly, the third coordinate of the result comes down to taking $3\cdot1$, which corresponds to the derivative of $x^3$ being $3x^2$. And after that, it will be nothing but $0$'s.  
+结果中第一个坐标仅由 $1\cdot4$ 决定，因此结果的常数项为 $4$ 。这对应于$4x$的导数。  
+结果中第二个坐标仅由 $2\cdot5$ 决定，因此导数中 $x$ 前的系数为 $10$。这对应于$5x^2$的导数$10x$。  
+同样地，结果的第三个坐标由 $3\cdot1$ 决定，这对应于 $x^3$ 的导数 $3x^2$ 。之后则全是 $0$。
 
-What makes this possible is that the derivative is linear, and for those of you who like to pause and ponder, you can construct this matrix by taking the derivative of each basis function, and putting the coordinates of the results in each column.
+What makes this possible is that the derivative is linear, and for those of you who like to pause and ponder, you can construct this matrix by taking the derivative of each basis function, and putting the coordinates of the results in each column.  
+使这成为可能的是导数是线性的，  
+对于那些喜欢停下来思考的人，可以通过对每个基函数求导，  
+然后将结果的坐标放在每一列中来构造这个矩阵。
 
 <Figure image="$lesson/figures/the-matrix-of-a-derivative/CalculateMatrix.light.svg" />
 
-The upshot here is that matrix-vector multiplication and taking a derivative, which at first seem like completely different animals, are really members of the same family. In fact, most of the concepts we've talked about in this series with respect to vectors as arrows in space, things like the dot product of eigenvectors, have direct analogs in the world of functions, though you might see them go by different names like inner product and eigenfunction.
+The upshot here is that matrix-vector multiplication and taking a derivative, which at first seem like completely different animals, are really members of the same family. In fact, most of the concepts we've talked about in this series with respect to vectors as arrows in space, things like the dot product of eigenvectors, have direct analogs in the world of functions, though you might see them go by different names like inner product and eigenfunction.  
+归根结底，矩阵-向量乘法与求导运算，  
+尽管乍看之下似乎是完全不同的概念，但实际上属于同一类。  
+事实上，我们在本系列中讨论的关于空间中箭头状向量的大多数概念，  
+比如特征向量的点积，在函数领域也有直接的对应物，  
+只不过它们可能被赋予不同的名称，如内积和特征函数。
 
 <Figure image="$lesson/figures/the-matrix-of-a-derivative/AlternateNames.light.svg" />
 
@@ -174,54 +278,106 @@ The upshot here is that matrix-vector multiplication and taking a derivative, wh
 
 <section>
 
-## Abstract vector space
+## Abstract vector space  抽象向量空间
 
-To return to the question of what is a vector, the point is that there are other vector-ish things in math. As long as you're dealing with a set of objects where there's a reasonable notion of scaling and adding, whether that's a set of arrows in space, lists of numbers, functions, or some other crazy thing you choose to define, all the tools developed in linear algebra regarding vectors, linear transformation and all that stuff, should be able to apply.
+To return to the question of what is a vector, the point is that there are other vector-ish things in math. As long as you're dealing with a set of objects where there's a reasonable notion of scaling and adding, whether that's a set of arrows in space, lists of numbers, functions, or some other crazy thing you choose to define, all the tools developed in linear algebra regarding vectors, linear transformation and all that stuff, should be able to apply.  
+回到“什么是向量”这个问题上，关键在于数学中还存在其他类似向量的概念。  
+只要你处理的是一组具有合理缩放与相加概念的对象，  
+无论是空间中的箭头集合、数字列表、函数，  
+还是你自己定义的其他奇特结构，  
+线性代数中关于向量、线性变换等相关的一切工具都应该能够应用。
 
 <Figure image="$lesson/figures/abstract-vector-spaces/VectorSpaces.light.svg">
-  Tools: Linear transformations, Null space, Eigenvectors, Dot products
+  Tools: Linear transformations, Null space, Eigenvectors, Dot products  
+  工具：线性变换、零空间、特征向量、点积
 </Figure>
 
-Take a moment to imagine yourself as a mathematician developing the theory of linear algebra, you want all your definitions and discoveries to work for all of these vector-ish things in full generality.
+Take a moment to imagine yourself as a mathematician developing the theory of linear algebra, you want all your definitions and discoveries to work for all of these vector-ish things in full generality.  
+花点时间想象自己是一名正在发展线性代数理论的数学家，  
+你希望所有的定义和发现都能普遍适用于所有这类类向量的对象。
 
 <Figure image="$lesson/figures/abstract-vector-spaces/YouAsAMathematician.light.svg" />
 
-A set of vector-ish objects, like the set of all points in 3d space, the set of all lists of 4 numbers, the set of all finite polynomial functions, etc., is called a "vector space". What you as the mathematician might do is say "Hey everyone, I don't want to think about all the different types of crazy vector spaces that y'all might come up with", so you establish a list of rules that vector addition and scaling have to abide by in order for the results that you-the-mathematician discover to apply to someone's chosen definition of vectors.
+A set of vector-ish objects, like the set of all points in 3d space, the set of all lists of 4 numbers, the set of all finite polynomial functions, etc., is called a "vector space". What you as the mathematician might do is say "Hey everyone, I don't want to think about all the different types of crazy vector spaces that y'all might come up with", so you establish a list of rules that vector addition and scaling have to abide by in order for the results that you-the-mathematician discover to apply to someone's chosen definition of vectors.  
+一类类似向量的对象，  
+比如三维空间中的所有点构成的集合、所有由4个数字组成的列表构成的集合、  
+所有有限多项式函数构成的集合等等，  
+被称为“向量空间”​。  
+作为数学家的你可能会这样想：  
+​“嘿，大家，我不想去考虑你们可能会想出的各种奇怪类型的向量空间”​，  
+于是你就制定出一套规则，规定向量加法和标量乘法必须遵循这些规则，  
+这样才能让你所发现的结论适用于某人所定义的向量。
 
 <Figure image="$lesson/figures/abstract-vector-spaces/Axioms.light.svg" />
 
-These rules are called "axioms", and in the modern theory of linear algebra there are 8 axioms that any vector space must satisfy. They are all shown in the image above for anyone who wants to pause and ponder, but basically it's a checklist to be sure the notions of vector addition and scalar multiplication are reasonable.
+These rules are called "axioms", and in the modern theory of linear algebra there are 8 axioms that any vector space must satisfy. They are all shown in the image above for anyone who wants to pause and ponder, but basically it's a checklist to be sure the notions of vector addition and scalar multiplication are reasonable.  
+这些规则被称为“公理”​，在现代线性代数理论中，任何向量空间都必须满足8条公理。  
+上述图片展示了所有这些公理，供有兴趣的人仔细思考；  
+本质上，这是一份清单，用以确保向量加法和标量乘法的概念是合理的。
 
-These axioms are not so much fundamental rules of nature as they are an interface between you, the mathematician discovering results, and other people who may want to apply those results to new sorts of vector spaces.
+These axioms are not so much fundamental rules of nature as they are an interface between you, the mathematician discovering results, and other people who may want to apply those results to new sorts of vector spaces.  
+      这些公理并非自然界的基本法则，  
+      而是连接发现结果的数学家与那些希望将这些结果应用于新型向量空间的人之间的桥梁。
 
 <Figure image="$lesson/figures/abstract-vector-spaces/AxiomsAreAnInterface.light.svg" />
 
-If, for example, someone defines some crazy type of vector space, like the set of all pi creatures with some definitions of adding and scaling pi creatures, these axioms are like a checklist of things they need to verify about those definitions before they can start applying the results of linear algebra.
+If, for example, someone defines some crazy type of vector space, like the set of all pi creatures with some definitions of adding and scaling pi creatures, these axioms are like a checklist of things they need to verify about those definitions before they can start applying the results of linear algebra.  
+例如，如果有人定义了一种极其特殊的向量空间，比如所有“π生物”的集合，  
+并为这些“π生物”规定了加法和缩放运算的规则，  
+那么这些公理就如同一份清单，列出了在开始运用线性代数的结果之前需要验证的那些定义内容。
 
 <Figure image="$lesson/figures/abstract-vector-spaces/PiCreatureSpace.light.svg" />
 
-You as the mathematician never have to think about all the possible crazy vector spaces people might define; you just have to prove your results in terms of these axioms, so anyone whose definitions satisfy these axioms can happily apply your results. As a consequence, you'd tend to phrase all your results abstractly, which is to say only in terms of these axioms, rather than centering on a specific type of vector like arrows in space or functions.
+You as the mathematician never have to think about all the possible crazy vector spaces people might define; you just have to prove your results in terms of these axioms, so anyone whose definitions satisfy these axioms can happily apply your results. As a consequence, you'd tend to phrase all your results abstractly, which is to say only in terms of these axioms, rather than centering on a specific type of vector like arrows in space or functions.  
+         作为数学家，你无需去考虑人们可能定义的所有奇怪向量空间；  
+         只需根据这些公理来证明你的结果，这样任何满足这些公理的定义都可以顺利应用你的成果。  
+         因此，你往往会以抽象的方式表述所有结果，也就是说只用这些公理来表达，  
+         而非围绕空间中的箭头或函数这类特定类型的向量来阐述。
 
-For example, this is why every textbook you find will define linear transformations in terms of additivity and scaling, rather than talking about grid lines remaining parallel and evenly spaced, even though the latter is more intuitive and, at least in my view, more helpful for first-time learners.
+For example, this is why every textbook you find will define linear transformations in terms of additivity and scaling, rather than talking about grid lines remaining parallel and evenly spaced, even though the latter is more intuitive and, at least in my view, more helpful for first-time learners.  
+例如，这就是为什么你找到的每一本教科书都会用加法和数乘来定义线性变换，  
+而不是谈论网格线保持平行且等距——尽管后者更直观，  
+而且至少在我看来，对初学者更有帮助。
 
-So the mathematician's answer to "what are vectors?" is to ignore the question. In modern theory, the form they take doesn't matter: arrows, lists of numbers, functions, pi creatures, really they can be _anything_, so long as there is some notion of adding and scaling vectors that follows these rules.
+So the mathematician's answer to "what are vectors?" is to ignore the question. In modern theory, the form they take doesn't matter: arrows, lists of numbers, functions, pi creatures, really they can be _anything_, so long as there is some notion of adding and scaling vectors that follows these rules.  
+       因此，数学家对“什么是向量？​”的回答就是忽略这个问题。  
+       在现代理论中，向量的表现形式并不重要：  
+       箭头、数字列表、函数，甚至是奇特的构造物，  
+       只要存在遵循特定规则的向量加法与缩放运算，  
+       它们就可以是_任何东西_。
 
-It's like asking what the number 3 really is. Whenever it comes up concretely, it's in the context of some triplet of things. But in math it's treated as an abstraction of all possible triplets of things that lets you reason about all those triplets using a single idea.
+It's like asking what the number 3 really is. Whenever it comes up concretely, it's in the context of some triplet of things. But in math it's treated as an abstraction of all possible triplets of things that lets you reason about all those triplets using a single idea.  
+这就好比问数字3究竟是什么。  
+每当它以具体的形式出现时，总是在某组三个对象的背景下。  
+但在数学中，它被视作所有可能的三元素组的抽象概念，  
+使得人们能够用一个统一的理念来思考所有这类三元素组。
 
 <Figure image="$lesson/figures/abstract-vector-spaces/Triplets.light.svg" />
 
-It's the same with vectors, which have many embodiments, but math abstracts them all into a single intangible notion of a vector space. As anyone reading this series knows, we think it's better to begin reasoning about vectors in a concrete, visualizable setting like 2d space with arrows rooted at the origin. But as you learn more linear algebra, know that these tools apply much more generally and that this is the underlying reason why textbooks and lectures tend to be phrased, well, abstractly.
+It's the same with vectors, which have many embodiments, but math abstracts them all into a single intangible notion of a vector space. As anyone reading this series knows, we think it's better to begin reasoning about vectors in a concrete, visualizable setting like 2d space with arrows rooted at the origin. But as you learn more linear algebra, know that these tools apply much more generally and that this is the underlying reason why textbooks and lectures tend to be phrased, well, abstractly.  
+         向量也是如此，它有多种具体表现形式，  
+         但数学将其全部抽象为“向量空间”这一不可捉摸的概念。  
+         正如阅读本系列内容的人所知，  
+         我们认为最好在以原点为起点的二维空间这类具体且可可视化的环境中来理解向量。  
+         但随着你对线性代数了解得更多，就会明白这些工具的适用范围要广泛得多，  
+         而这也正是为什么教科书和课程讲解往往采用较为抽象的方式。
 
 </section>
 
 <section>
 
-## Conclusion
+## Conclusion  结论
 
-With that, folks, we'll call it an end to this "Essence of linear algebra" series.
+With that, folks, we'll call it an end to this "Essence of linear algebra" series.  
+好了，各位，这期“线性代数精要”系列到这里就告一段落了。
 
-If you've read and understood the chapters in this series, we really do believe you have a solid foundation in the underlying intuitions of linear algebra. If you've also taken the time to answer the practice problems for each lesson then you're well on your way to learning the full topic and the learning you do moving forward can be substantially more efficient with the right intuitions in place.
+If you've read and understood the chapters in this series, we really do believe you have a solid foundation in the underlying intuitions of linear algebra. If you've also taken the time to answer the practice problems for each lesson then you're well on your way to learning the full topic and the learning you do moving forward can be substantially more efficient with the right intuitions in place.  
+     如果你们已经读完并理解了本系列的所有章节，  我们确实认为你们已经掌握了线性代数背后核心概念的扎实基础。  
+     如果还抽时间完成了每节课后的练习题，  
+     那么你们在学习整个主题的道路上已经取得了很大进展；  
+     有了这些正确的概念作为支撑，后续的学习效率将会大幅提升。
 
-Have fun applying those intuitions, and keep loving math.
+Have fun applying those intuitions, and keep loving math.  
+愉快地运用这些直觉吧，也请继续热爱数学。
 
 </section>

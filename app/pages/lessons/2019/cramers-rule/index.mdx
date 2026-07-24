@@ -1,14 +1,14 @@
 ---
-title: Cramer's rule, explained geometrically
-description: What Cramer's rule is, and a geometric reason it's true
+title: Cramer's rule, explained geometrically 克莱姆法则, 从几何角度解释
+description: What Cramer's rule is, and a geometric reason it's true 什么是克莱姆法则，以及它成立的几何原因
 date: 2019-03-17
 chapter: 12
 video: jBsC34PxzoM
 source: _2018/cramer.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
-  - Text adaptation by James Schloss
+  - Lesson by Grant Sanderson 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
+  - Text adaptation by James Schloss 詹姆斯·施洛斯
 ---
 
 import Figure from "~/components/Figure";
@@ -20,30 +20,57 @@ import Quote from "~/components/Quote";
 <section>
 
 <Quote>
-  Jerry: Ah, you're crazy! Kramer: Am I? Or am I so sane that you just blew your
-  mind? Jerry: It's impossible! Kramer: Is it?! Or is it so possible your head
-  is spinning like a top?
+  Jerry: Ah, you're crazy!   
+  Kramer: Am I? Or am I so sane that you just blew your mind?   
+  Jerry: It's impossible!   
+  Kramer: Is it?! Or is it so possible your head is spinning like a top?  
+  杰瑞：啊，你疯了！   
+  克莱姆：是吗？还是说我太理智了，以至于让你大吃一惊？   
+  杰瑞：这不可能！   
+  克莱姆：是吗？！还是说这太可能了，以至于你的脑袋像陀螺一样转个不停？ 
 </Quote>
 
-In a previous chapter, we talked about linear systems of equations, and sort of brushed aside the discussion of actually computing solutions to these systems. While it's true that number-crunching is something we typically leave to the computers, digging into some of these computational methods is a good test for whether or not you understand what's going on since this is where the rubber meets the road.
+In a previous chapter, we talked about linear systems of equations, and sort of brushed aside the discussion of actually computing solutions to these systems. While it's true that number-crunching is something we typically leave to the computers, digging into some of these computational methods is a good test for whether or not you understand what's going on since this is where the rubber meets the road.  
+在上一章中，我们讨论了线性方程组，但大致略过了如何实际求解这些方程组的问题。  
+虽然数值计算通常是由计算机来完成的，  
+但深入研究一些具体的计算方法，是检验你是否真正理解相关原理的好办法，  
+因为这正是理论付诸实践的地方。
 
 <Figure image="$lesson/figures/introduction/ComputingSolutions.light.svg" />
 
-Here we want to describe the geometry behind a certain method for computing solutions to these systems, known as Cramer's rule. The relevant background needed here is an understanding of <LessonLink id="determinant">determinants</LessonLink>, <LessonLink id="dot-products">dot products</LessonLink>, and of <LessonLink id="inverse-matrices">linear systems of equations</LessonLink>, so be sure to read the relevant chapters on those topics if you're unfamiliar or rusty.
+Here we want to describe the geometry behind a certain method for computing solutions to these systems, known as Cramer's rule. The relevant background needed here is an understanding of <LessonLink id="determinant">determinants</LessonLink>, <LessonLink id="dot-products">dot products</LessonLink>, and of <LessonLink id="inverse-matrices">linear systems of equations</LessonLink>, so be sure to read the relevant chapters on those topics if you're unfamiliar or rusty.  
+在这里，我们想要阐述一种用于求解这类方程组的计算方法——克莱姆法则——背后的几何原理。  
+为此所需的背景知识包括对行列式、点积以及线性方程组的理解，  
+因此如果你对这些内容不熟悉或已生疏，务必阅读相关章节的讲解。
 
-But first! We should say up front that Cramer's rule is not the best way to compute solutions to linear systems of equations. Gaussian elimination, for example, will generally be faster, especially for larger matrices. So why learn it?
+But first! We should say up front that Cramer's rule is not the best way to compute solutions to linear systems of equations. Gaussian elimination, for example, will generally be faster, especially for larger matrices. So why learn it?  
+但首先！我们应当提前说明，克莱姆法则并非计算线性方程组解的最佳方法。  
+例如，高斯消元法通常速度更快，尤其是对于较大的矩阵而言。那么为何还要学习它呢？
 
-Think of this as a sort of cultural excursion; it's a helpful exercise in deepening your knowledge of the _theory_ of these systems. Wrapping your mind around this concept will help consolidate ideas from linear algebra, like the determinant and linear systems, by seeing how they relate to each other. Also, from a purely artistic standpoint, the ultimate result is just really pretty to think about, much more so than Gaussian elimination.
+Think of this as a sort of cultural excursion; it's a helpful exercise in deepening your knowledge of the _theory_ of these systems. Wrapping your mind around this concept will help consolidate ideas from linear algebra, like the determinant and linear systems, by seeing how they relate to each other. Also, from a purely artistic standpoint, the ultimate result is just really pretty to think about, much more so than Gaussian elimination.  
+可以把这看作是一种文化之旅；它是加深你对这类方程组_理论_理解的有益练习。  
+理解这一概念有助于通过了解它们之间的关联，巩固线性代数中的相关知识，  
+比如行列式和线性方程组。  
+此外，从纯粹的审美角度而言，其最终结果实在十分美妙，远比高斯消元法更令人赞叹。
 
-The setup here will be some linear system of equations, say with two unknowns, $x$ and $y$, and two equations. In principle, everything we're talking about will work systems with a larger number of unknowns, and the same number of equations. But for simplicity, a smaller example is nicer to hold in our heads.
+The setup here will be some linear system of equations, say with two unknowns, $x$ and $y$, and two equations. In principle, everything we're talking about will work systems with a larger number of unknowns, and the same number of equations. But for simplicity, a smaller example is nicer to hold in our heads.  
+这里的模型将是一些线性方程组，比如含有两个未知数 $x$ 和 $y$ ，以及两个方程。  
+原则上，我们所讨论的一切方法都适用于未知数更多而方程数相同的系统，  
+但为简单起见，用较小的例子来理解会更好。
 
 <Figure image="$lesson/figures/introduction/SystemOfEquations.light.svg" />
 
-As we talked about in a previous chapter, you can think of this setup geometrically as a certain known matrix transforming an unknown vector, $\left[\begin{array}{c} x \\ y \end{array}\right]$, where you know what the output is going to be, in this case $\left[\begin{array}{c} -4 \\ -2 \end{array}\right]$. Remember, the columns of this matrix tell you how the matrix acts as a transform, each one telling you where the basis vectors of the input space land.
+As we talked about in a previous chapter, you can think of this setup geometrically as a certain known matrix transforming an unknown vector, $\left[\begin{array}{c} x \\ y \end{array}\right]$, where you know what the output is going to be, in this case $\left[\begin{array}{c} -4 \\ -2 \end{array}\right]$. Remember, the columns of this matrix tell you how the matrix acts as a transform, each one telling you where the basis vectors of the input space land.  
+正如我们在前一章中讨论的，从几何角度来看，  
+这种结构可以理解为某个已知矩阵在变换一个未知向量 $\left[\begin{array}{c} x \\ y \end{array}\right]$，  
+而我们已知该变换后的结果为 $\left[\begin{array}{c} -4 \\ -2\end{array}\right]$ 。  
+请记住，这个矩阵的各列决定了它作为变换器的作用方式，  
+每一列都表明了输入空间中的基向量会被映射到何处。
 
 <Figure image="$lesson/figures/introduction/GeometricSetup.light.svg" />
 
-This is a puzzle. What input $\left[\begin{array}{c} x \\ y \end{array}\right]$, is going to give you this output $\left[\begin{array}{c} -4 \\ -2 \end{array}\right]$?
+This is a puzzle. What input $\left[\begin{array}{c} x \\ y \end{array}\right]$, is going to give you this output $\left[\begin{array}{c} -4 \\ -2 \end{array}\right]$?  
+这是一个谜题。什么样的输入 $\left[\begin{array}{c} x \\ y\end{array}\right]$ 会得到这个输出 $\left[\begin{array}{c}-4 \\ -2 \end{array}\right]$？
 
 <Figure image="$lesson/figures/introduction/SystemOfEquationsPuzzle.light.svg" />
 
@@ -51,21 +78,30 @@ This is a puzzle. What input $\left[\begin{array}{c} x \\ y \end{array}\right]$,
 
 <section>
 
-## Assume Determinant is Nonzero
+## Assume Determinant is Nonzero 假设行列式非零
 
-Remember, the type of answer you get here can depend on whether or not the transformation squishes all of space into a lower dimension. That is, if it has zero determinant. In that case, either none of the inputs land on our given output, or there are a whole bunch of inputs landing on that output.
+Remember, the type of answer you get here can depend on whether or not the transformation squishes all of space into a lower dimension. That is, if it has zero determinant. In that case, either none of the inputs land on our given output, or there are a whole bunch of inputs landing on that output.  
+请记住，此处得到的答案类型可能取决于该变换是否将整个空间压缩到更低维度，  
+也就是说，取决于其行列式是否为零。  
+若是如此，要么没有输入会对应到给定的输出，要么会有大量输入对应到该输出。
 
 <Figure image="$lesson/figures/assume-determinant-is-nonzero/DeterminantIsZeroNoInputLandsHere.light.svg" />
 
 <Figure image="$lesson/figures/assume-determinant-is-nonzero/DeterminantIsZeroManyInputsLandHere.light.svg" />
 
-For this chapter, we'll limit our view to the case of a non-zero determinant, meaning the output of this transformation still spans the full $n$-dimensional space it started in; every input lands on one and only one output, and every output has one and only one input.
+For this chapter, we'll limit our view to the case of a non-zero determinant, meaning the output of this transformation still spans the full $n$-dimensional space it started in; every input lands on one and only one output, and every output has one and only one input.  
+在本章中，我们仅考虑行列式非零的情况，  
+也就是说该变换的输出仍然覆盖其起始的整个 $n$ 维空间；  
+每个输入都对应唯一一个输出，而每个输出也对应唯一一个输入。
 
 <Figure image="$lesson/figures/assume-determinant-is-nonzero/DeterminantIsNonzeroInput.light.svg" />
 
 <Figure image="$lesson/figures/assume-determinant-is-nonzero/DeterminantIsNonzeroOutput.light.svg" />
 
-One way to think about our puzzle is that we know the given output vector is some linear combination of the columns of the matrix; $x\cdot\text{(the vector where }\hat{\imath}\text{ lands)} + y\cdot\text{(the vector where }\hat{\jmath}\text{ lands)}$, but we wish to compute what exactly $x$ and y are.
+One way to think about our puzzle is that we know the given output vector is some linear combination of the columns of the matrix; $x\cdot\text{(the vector where }\hat{\imath}\text{ lands)} + y\cdot\text{(the vector where }\hat{\jmath}\text{ lands)}$, but we wish to compute what exactly $x$ and y are.  
+思考这个问题的一个方法是：我们知道给定的输出向量是矩阵各列的某种线性组合；  
+即  $x\cdot\text{（}\hat{\imath}\text{对应的向量）} +y\cdot\text{（}\hat{\jmath}\text{对应的向量）}$，  
+但我们希望算出$x$和$y$的具体值。
 
 <Figure image="$lesson/figures/assume-determinant-is-nonzero/LinearCombinationPuzzle.light.svg" />
 
@@ -73,49 +109,70 @@ One way to think about our puzzle is that we know the given output vector is som
 
 <section>
 
-### What about dot products with basis vectors?
+### What about dot products with basis vectors? 与基向量的点积?
 
-As a first pass, let's show an idea that is wrong, but in the right direction.
+As a first pass, let's show an idea that is wrong, but in the right direction.  
+首先，让我们展示一个虽然有误但方向正确的观点。
 
-The $x$-coordinate of this mystery input vector is what you get by taking its dot product with $\hat{\imath}$. Likewise the $y$-coordinate is what you get by dotting it with $\hat{\jmath}$.
+The $x$-coordinate of this mystery input vector is what you get by taking its dot product with $\hat{\imath}$. Likewise the $y$-coordinate is what you get by dotting it with $\hat{\jmath}$.  
+这个神秘输入向量的$x$坐标是其与$\hat{\imath}$做点积所得的结果。  
+同样地，$y$坐标则是其与$\hat{\jmath}$做点积所得的结果。
 
 <Figure image="$lesson/figures/wrong-but-helpful-approach/DotProductsWithBasisVectorsBefore.light.svg" />
 
-Maybe you hope that after the transformation, the dot products with the transformed version of the mystery vector with the transformed versions of the basis vectors will also be these coordinates $x$ and $y$.
+Maybe you hope that after the transformation, the dot products with the transformed version of the mystery vector with the transformed versions of the basis vectors will also be these coordinates $x$ and $y$.  
+也许你希望，在变换之后，  
+该神秘向量经变换后的版本与基向量经变换后的版本之间的点积也会是这两个坐标 $x$ 和 $y$ 。
 
 <Figure
   image="$lesson/figures/wrong-but-helpful-approach/DotProductsWithBasisVectorsAfter.light.svg"
   video="$lesson/figures/wrong-but-helpful-approach/DotProductsWithBasisVectors.light.mp4"
 />
 
-That'd be fantastic, because we know the transformed versions of each of these vectors. There's just one problem with this: it's not at all true! For most linear transformations, the dot product before and after the transformation will be very different.
+That'd be fantastic, because we know the transformed versions of each of these vectors. There's just one problem with this: it's not at all true! For most linear transformations, the dot product before and after the transformation will be very different.  
+那太棒了，因为我们知道这些向量经过变换后的形式。  
+不过这里有个问题：这根本不对！  
+对于大多数线性变换而言，变换前后向量的点积会有很大差异。
 
-For example, you could have two vectors generally pointing in the same direction, with a positive dot product, which get pulled away from each other during the transformation, in such a way that they then have a negative dot product.
+For example, you could have two vectors generally pointing in the same direction, with a positive dot product, which get pulled away from each other during the transformation, in such a way that they then have a negative dot product.  
+例如，可以有两个通常指向同一方向的向量，它们的点积为正，  
+但在变换过程中会彼此远离，从而导致它们的点积变为负值。
 
 <Figure
   image="$lesson/figures/wrong-but-helpful-approach/SameDirection.light.svg"
   video="$lesson/figures/wrong-but-helpful-approach/SameDirection.light.mp4"
 />
 
-Likewise, if things start off perpendicular, with dot product zero, like the two basis vectors, there's no guarantee that they will stay perpendicular after the transformation, preserving that zero dot product.
+Likewise, if things start off perpendicular, with dot product zero, like the two basis vectors, there's no guarantee that they will stay perpendicular after the transformation, preserving that zero dot product.  
+同样地，如果初始时两个向量垂直，点积为零，  
+比如两个基向量，也无法保证它们在变换后仍然保持垂直，从而维持零点积的状态。
 
 <Figure
   image="$lesson/figures/wrong-but-helpful-approach/Perpendicular.light.svg"
   video="$lesson/figures/wrong-but-helpful-approach/Perpendicular.light.mp4"
 />
 
-In the example we were looking at, dot products certainly aren't preserved. They tend to get bigger, since most vectors are getting stretched. In fact, transformations which do preserve dot products are special enough to have their own name: Orthonormal transformations. These are the ones which leave all the basis vectors perpendicular to each other with unit lengths.
+In the example we were looking at, dot products certainly aren't preserved. They tend to get bigger, since most vectors are getting stretched. In fact, transformations which do preserve dot products are special enough to have their own name: Orthonormal transformations. These are the ones which leave all the basis vectors perpendicular to each other with unit lengths.  
+在我们研究的例子中，点积显然不会保持不变。  
+由于大多数向量都会被拉伸，点积往往会变大。  
+实际上，那些能够保持点积不变的变换十分特殊，有专门的名称：正交归一变换。  
+这类变换能使所有基向量彼此垂直且长度均为1。
 
 <Figure
   image="$lesson/figures/wrong-but-helpful-approach/Orthonormal.light.svg"
   video="$lesson/figures/wrong-but-helpful-approach/Orthonormal.light.mp4"
 />
 
-You often think of these as rotation matrices. They correspond to rigid motion, with no stretching, squishing or morphing.
+You often think of these as rotation matrices. They correspond to rigid motion, with no stretching, squishing or morphing.  
+你通常会把这些视为旋转矩阵。它们对应于刚性运动，没有拉伸、挤压或变形。
 
-Solving a linear system with an orthonormal matrix is very easy: Since dot products are preserved, taking the dot product between the output vector and all the columns of your matrix will be the same as taking the dot products between the input vector and all the basis vectors, which is the same as finding the coordinates of the input vector.
+Solving a linear system with an orthonormal matrix is very easy: Since dot products are preserved, taking the dot product between the output vector and all the columns of your matrix will be the same as taking the dot products between the input vector and all the basis vectors, which is the same as finding the coordinates of the input vector.  
+使用正交矩阵求解线性方程组非常简单：  
+由于点积保持不变，将输出向量与矩阵的所有列作点积，  
+结果等同于将输入向量与所有基向量作点积，而这正是求输入向量坐标的方法。
 
-In that very special case, $x$ would be the dot product of the first column with the output vector, and $y$ would be the dot product of the second column with the output vector.
+In that very special case, $x$ would be the dot product of the first column with the output vector, and $y$ would be the dot product of the second column with the output vector.  
+在那种特殊情况下， $x$ 就是第一列与输出向量的点积，而 $y$ 则是第二列与输出向量的点积。
 
 <Figure image="$lesson/figures/wrong-but-helpful-approach/OrthonormalZoomed.light.svg" />
 
@@ -123,91 +180,145 @@ In that very special case, $x$ would be the dot product of the first column with
 
 <section>
 
-### A Better Approach
+### A Better Approach 更好的方法
 
-Now, even though this idea breaks down for most linear systems, it points us in the direction of something to look for: Is there an alternate geometric understanding for the coordinates of our input vector which remains unchanged after the transformation?
+Now, even though this idea breaks down for most linear systems, it points us in the direction of something to look for: Is there an alternate geometric understanding for the coordinates of our input vector which remains unchanged after the transformation?  
+现在，尽管这一思路在大多数线性系统中行不通，但它为我们指明了探索的方向：  
+是否存在一种关于输入向量坐标的另一种几何理解，使得这些坐标在变换后依然保持不变？
 
-If your mind has been mulling over determinants, you might think of this clever idea: Take the parallelogram defined by the first basis vector, $\hat{\imath}$, and the mystery input vector $\left[\begin{array}{c} x \\ y \end{array}\right]$. The area of this parallelogram is its base, $1$, times the height perpendicular to that base, which is the $y$-coordinate of our input vector.
+If your mind has been mulling over determinants, you might think of this clever idea: Take the parallelogram defined by the first basis vector, $\hat{\imath}$, and the mystery input vector $\left[\begin{array}{c} x \\ y \end{array}\right]$. The area of this parallelogram is its base, $1$, times the height perpendicular to that base, which is the $y$-coordinate of our input vector.  
+如果你一直在思考行列式的问题，或许会想到这个巧妙的思路：  
+以第一个基向量$\hat{\imath}$和未知输入向量$\left[\begin{array}{c} x \\y\end{array}\right]$为边构成一个平行四边形。  
+该平行四边形的面积等于其底边长度$1$乘以垂直于该底边的高，而这个高正是输入向量的$y$坐标。
 
 <Figure image="$lesson/figures/a-better-approach/ParallelogramIhatAndInputVector.light.svg" />
 
-The area of this parallelogram is sort of a screwy roundabout way to describe the vector's $y$-coordinate; it's a wacky way to talk about coordinates, but run with us.
+The area of this parallelogram is sort of a screwy roundabout way to describe the vector's $y$-coordinate; it's a wacky way to talk about coordinates, but run with us.  
+这个平行四边形的面积其实是一种颇为绕弯的方式来描述向量的$y$坐标；  
+这是一种奇怪的坐标表述方式，但请跟随我们的思路继续看下去。
 
-Actually, to be more accurate, you should think of the signed area of this parallelogram, in the sense described by the determinant video. That way, a vector with negative $y$-coordinate would correspond to a negative area for this parallelogram.
+Actually, to be more accurate, you should think of the signed area of this parallelogram, in the sense described by the determinant video. That way, a vector with negative $y$-coordinate would correspond to a negative area for this parallelogram.  
+实际上，更准确地说，你应该按照行列式视频中描述的方式来考虑这个平行四边形的带符号面积。  
+这样一来，具有负$y$坐标的向量就会对应这个平行四边形的负面积。
 
 <Figure image="$lesson/figures/a-better-approach/ParallelogramIhatAndInputVectorSignedArea.light.svg" />
 
-Symmetrically, if you look at the parallelogram spanned by the vector and the second basis vector, $\hat{\jmath}$, its area will be the $x$-coordinate of the vector. Again, it's a strange way to represent the $x$-coordinate, but you'll see what it buys us in a moment.
+Symmetrically, if you look at the parallelogram spanned by the vector and the second basis vector, $\hat{\jmath}$, its area will be the $x$-coordinate of the vector. Again, it's a strange way to represent the $x$-coordinate, but you'll see what it buys us in a moment.  
+对称地，如果你考虑由该向量与第二个基向量 $\hat{\jmath}$ 所张成的平行四边形，  
+其面积将等于该向量的 $x$ 坐标。  
+同样，这是一种表示 $x$ 坐标的奇特方式，但稍后你就会明白它带来的好处。
 
 <Figure image="$lesson/figures/a-better-approach/ParallelogramJhatAndInputVector.light.svg" />
 
-Here's what this would look like in three-dimensions: Ordinarily the way you might think of one of a vector's coordinates, say its $z$-coordinate, would be to take its dot product with the third standard basis vector, $\hat{k}$. But instead, consider the parallelepiped it creates with the other two basis vectors, $\hat{\imath}$ and $\hat{\jmath}$.
+Here's what this would look like in three-dimensions: Ordinarily the way you might think of one of a vector's coordinates, say its $z$-coordinate, would be to take its dot product with the third standard basis vector, $\hat{k}$. But instead, consider the parallelepiped it creates with the other two basis vectors, $\hat{\imath}$ and $\hat{\jmath}$.  
+这在三维空间中的样子如下：  
+通常，人们会通过向量与第三个标准基向量 $\hat{k}$ 的点积来获取向量的某个坐标，比如其 $z$ 坐标。  
+但这里，我们可以考虑该向量与另外两个基向量 $\hat{\imath}$ 和 $\hat{\jmath}$ 共同构成的平行六面体。
 
 <Figure image="$lesson/figures/a-better-approach/ParallelepipedVIJSetup.light.svg" />
 
-If you think of the square with area $1$ spanned by $\hat{\imath}$ and $\hat{\jmath}$ as the base of this guy, its volume is the same as its height, which is the third coordinate of our vector.
+If you think of the square with area $1$ spanned by $\hat{\imath}$ and $\hat{\jmath}$ as the base of this guy, its volume is the same as its height, which is the third coordinate of our vector.  
+如果将由 $\hat{\imath}$ 和 $\hat{\jmath}$ 张成的面积为 $1$ 的正方形视为这个几何体的底面，  
+那么它的体积就等于它的高，也就是我们向量的第三个坐标。
 
 <Figure image="$lesson/figures/a-better-approach/ParallelepipedVIJ.light.svg" />
 
-Likewise, the wacky way to think about any other coordinate of this vector is to form the parallelepiped between this vector and all the basis vectors other than the one you're looking for, and get its volume.
+Likewise, the wacky way to think about any other coordinate of this vector is to form the parallelepiped between this vector and all the basis vectors other than the one you're looking for, and get its volume.  
+同样地，思考该向量中任意其他坐标的一种奇特方法，  
+就是用该向量与除所求坐标对应的基向量之外的所有基向量构成平行六面体，然后计算其体积。
 
 <Figure image="$lesson/figures/a-better-approach/ParallelepipedVIK.light.svg" />
 
 <Figure image="$lesson/figures/a-better-approach/ParallelepipedVJK.light.svg" />
 
-Or, rather, we should talk about the signed volume of these parallelepipeds, in the sense described in the determinant video, where the order in which you list the three vectors matters and you're using the right-hand rule. That way negative coordinates still make sense.
+Or, rather, we should talk about the signed volume of these parallelepipeds, in the sense described in the determinant video, where the order in which you list the three vectors matters and you're using the right-hand rule. That way negative coordinates still make sense.  
+或者更准确地说，我们应该讨论这些平行六面体的有符号体积，  
+即按照行列式视频中所述的方式——列出三个向量的顺序很重要，并且需要使用右手定则。  
+这样负坐标依然有意义。
 
 </section>
 
 <section>
 
-### Follow this into the output space.
+### Follow this into the output space.  沿此进入输出空间
 
-Okay, so why think of coordinates as areas and volumes like this? As you apply some matrix transformation, the areas of the parallelograms don't stay the same, they may get scaled up or down. **But**, and this is a key idea of determinants, all these areas get scaled by the same amount. Namely, the determinant of our transformation matrix.
+Okay, so why think of coordinates as areas and volumes like this? As you apply some matrix transformation, the areas of the parallelograms don't stay the same, they may get scaled up or down. **But**, and this is a key idea of determinants, all these areas get scaled by the same amount. Namely, the determinant of our transformation matrix.  
+好吧，那为什么要把坐标看作面积和体积呢？  
+当你应用某种矩阵变换时，平行四边形的面积不会保持不变，它们可能会被放大或缩小。  
+**但是**，这也是行列式的一个关键点：  
+所有这些面积都会以相同的比例变化，这个比例就是我们变换矩阵的行列式。
 
 <Figure
   image="$lesson/figures/output-space/AreaGetsScaledByDeterminant.light.svg"
   video="$lesson/figures/output-space/AreaGetsScaledByDeterminant.light.mp4"
 />
 
-For example, if you look the parallelogram spanned by the vector where your first basis vector lands, which is the first column of the matrix, and the transformed version of $\left[\begin{array}{c} x \\ y \end{array}\right]$, what is its area?
+For example, if you look the parallelogram spanned by the vector where your first basis vector lands, which is the first column of the matrix, and the transformed version of $\left[\begin{array}{c} x \\ y \end{array}\right]$, what is its area?  
+例如，如果你考虑由第一个基向量所在的向量——  
+即矩阵的第一列——以及 $\left[\begin{array}{c} x \\ y \end{array}\right]$ 的变换后的向量所张成的平行四边形，  
+它的面积是多少？
 
-Well, this is the transformed version of that parallelogram we were looking at earlier, whose area was the $y$-coordinate of the mystery input vector. So its area will be the determinant of the transformation multiplied by that value.
+Well, this is the transformed version of that parallelogram we were looking at earlier, whose area was the $y$-coordinate of the mystery input vector. So its area will be the determinant of the transformation multiplied by that value.  
+嗯，这就是我们之前看的那个平行四边形的变换后的形式，  
+而它的面积就是那个未知输入向量的$y$坐标。  
+所以它的面积将会是该变换的行列式乘以那个数值。
 
 <Figure image="$lesson/figures/output-space/AreaGetsScaledByDeterminantSignedArea.light.svg" />
 
-The $y$-coordinate of our mystery input vector is the area of this parallelogram, spanned by the first column of the matrix and the output vector, divided by the determinant of the full transformation.
+The $y$-coordinate of our mystery input vector is the area of this parallelogram, spanned by the first column of the matrix and the output vector, divided by the determinant of the full transformation.  
+我们这个未知输入向量的 $y$ 坐标， 
+等于由矩阵的第一列与输出向量所构成的平行四边形的面积，再除以整个变换的行列式。
 
 $$
 y=\frac{\text { Area }}{\operatorname{det}(A)}
 $$
 
-And how do you get this area? Well we know the coordinates for where the mystery input vector lands, that's the whole point of a linear system of equations. So create a matrix whose first column is the same as that of our matrix, and whose second column is the output vector, and take its determinant.
+And how do you get this area? Well we know the coordinates for where the mystery input vector lands, that's the whole point of a linear system of equations. So create a matrix whose first column is the same as that of our matrix, and whose second column is the output vector, and take its determinant.  
+那要如何得到这个区域呢？  
+其实我们已知那个神秘输入向量落点的坐标，这正是线性方程组的意义所在。  
+因此，构造一个矩阵，其  
+第一列与原矩阵相同，  
+第二列则为输出向量，  
+然后计算该矩阵的行列式。
 
 <Figure image="$lesson/figures/output-space/SolveForY.light.svg" />
 
-Look at that; just using data from the output of the transformation, namely the columns of the matrix and the coordinates of our output vector, we can recover the $y$-coordinate of our mystery input vector.
+Look at that; just using data from the output of the transformation, namely the columns of the matrix and the coordinates of our output vector, we can recover the $y$-coordinate of our mystery input vector.  
+看看吧；只需利用变换输出的数据，也就是矩阵的各列以及输出向量的坐标，  
+我们就能求出那个未知输入向量的 $y$ 坐标。
 
-Likewise, the same idea can get you the $x$-coordinate. Look at that parallelogram we defined early which encodes the $x$-coordinate of the mystery input vector, spanned by the input vector and $\hat{\jmath}$. The transformed version of this guy is spanned by the output vector and the second column of the matrix, and its area will have been multiplied by the determinant of the matrix.
+Likewise, the same idea can get you the $x$-coordinate. Look at that parallelogram we defined early which encodes the $x$-coordinate of the mystery input vector, spanned by the input vector and $\hat{\jmath}$. The transformed version of this guy is spanned by the output vector and the second column of the matrix, and its area will have been multiplied by the determinant of the matrix.  
+同样地，用同样的方法也可以得到 $x$ 坐标。  
+看看我们早先定义的那个平行四边形，它由输入向量与 $\hat{\jmath}$ 张成，  
+用来表示神秘输入向量的 $x$ 坐标。  
+而它的变换后的版本则由输出向量与矩阵的第二列张成，其面积会乘以矩阵的行列式。
 
 <Figure
   image="$lesson/figures/output-space/AreaGetsScaledByDeterminantX.light.svg"
   video="$lesson/figures/output-space/AreaGetsScaledByDeterminantX.light.mp4"
 />
 
-The $x$-coordinate of our mystery input vector is this area divided by the determinant of the transformation. Similar to what we did before, you can compute the area of that output parallelogram by creating a new matrix whose first column is the output vector, and whose second column is the same as the original matrix.
+The $x$-coordinate of our mystery input vector is this area divided by the determinant of the transformation. Similar to what we did before, you can compute the area of that output parallelogram by creating a new matrix whose first column is the output vector, and whose second column is the same as the original matrix.  
+我们这个未知输入向量的 $x$ 坐标，就是该面积除以变换的行列式。  
+与之前所做的类似，你可以通过构造一个新矩阵来计算该输出平行四边形的面积：  
+该矩阵的第一列是输出向量，第二列与原始矩阵相同。
 
 <Figure image="$lesson/figures/output-space/SolveForX.light.svg" />
 
-Again, just using data from the output space, the numbers we see in our original linear system, we can recover the $x$-coordinate of our mystery input vector. This formula for finding the solutions to a linear system of equations is known as Cramer's rule.
+Again, just using data from the output space, the numbers we see in our original linear system, we can recover the $x$-coordinate of our mystery input vector. This formula for finding the solutions to a linear system of equations is known as Cramer's rule.  
+同样，只需利用输出空间中的数据，也就是我们原始线性系统中出现的那些数值，  
+就能求出那个神秘输入向量的 $x$ 坐标。  
+用于求解线性方程组解的这一公式被称为克莱姆法则。
 
 </section>
 
 <section>
 
-### Sanity check
+### Sanity check  合理性检验
 
-Here, just to sanity check ourselves, plug in the numbers here. The determinant of that top altered matrix is $4+2=6$ and the bottom determinant is $2$, so the $x$-coordinate should be $3$.
+Here, just to sanity check ourselves, plug in the numbers here. The determinant of that top altered matrix is $4+2=6$ and the bottom determinant is $2$, so the $x$-coordinate should be $3$.  
+这里，为了自我验证，把数值代入看看。  
+上方修改后矩阵的行列式为 $4+2=6$ ，下方矩阵的行列式为 $2$ ，因此 $x$ 坐标应为 $3$ 。
 
 $$
 x=\frac{\text { Area }}{\operatorname{det}(A)}=\frac{\operatorname{det}\left(\left[\begin{array}{rr}
@@ -219,14 +330,16 @@ x=\frac{\text { Area }}{\operatorname{det}(A)}=\frac{\operatorname{det}\left(\le
 \end{array}\right]\right)}=\frac{(4)(1)-(-1)(2)}{(2)(1)-(-1)(0)}=\frac{6}{2}=3
 $$
 
-And indeed, looking back at that input vector we started with, it's $x$-coordinate is $3$.
-
+And indeed, looking back at that input vector we started with, it's $x$-coordinate is $3$.  
+的确，回顾我们最初使用的那个输入向量，它的 $x$ 坐标为 $3$ 。
 <Figure
   image="$lesson/figures/sanity-check/SanityCheck.light.svg"
   video="$lesson/figures/sanity-check/SanityCheck.light.mp4"
 />
 
-Likewise, Cramer's rule suggests the $y$-coordinate should be $\frac{4}{2} = 2$ and that is indeed the $y$-coordinate of the input vector we started with here.
+Likewise, Cramer's rule suggests the $y$-coordinate should be $\frac{4}{2} = 2$ and that is indeed the $y$-coordinate of the input vector we started with here.  
+同样，克莱姆法则表明 $y$ 坐标应为 $\frac{4}{2} = 2$ ，  
+而这确实就是我们最初所使用的输入向量的 $y$ 坐标。
 
 $$
 y=\frac{\text { Area }}{\operatorname{det}(A)}=\frac{\operatorname{det}\left(\left[\begin{array}{ll}
@@ -242,10 +355,11 @@ $$
 
 <section>
 
-### Two Dimension Questions
+### Two Dimension Questions 二维问题
 
 <Question
-  question="What is the vector that satisfies the linear system of equations described by $\left[\begin{array}{cc}1 & 3 \\ -2 & 0\end{array}\right]\left[\begin{array}{l}x \\ y\end{array}\right]=\left[\begin{array}{l}5 \\ 2\end{array}\right]$?"
+  question="What is the vector that satisfies the linear system of equations described by $\left[\begin{array}{cc}1 & 3 \\ -2 & 0\end{array}\right]\left[\begin{array}{l}x \\ y\end{array}\right]=\left[\begin{array}{l}5 \\ 2\end{array}\right]$?  
+   满足方程组 $\left[\begin{array}{cc}1 & 3 \\ -2 &0\end{array}\right]\left[\begin{array}{l}x \\y\end{array}\right]=\left[\begin{array}{l}5 \\ 2\end{array}\right]$ 的向量是什么？​"
   choice1="$\left[\begin{array}{c} 2 \\ -1 \end{array}\right]$"
   choice2="$\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$"
   choice3="$\left[\begin{array}{c} 1 \\ 3 \end{array}\right]$"
@@ -253,7 +367,9 @@ $$
   answer={4}
 >
 
-Solve for the $x$-coordinate of the vector by calculating the area of the parallelogram formed by the transformed $\hat{\imath}$ and output vector and then dividing by the determinant of the matrix.
+Solve for the $x$-coordinate of the vector by calculating the area of the parallelogram formed by the transformed $\hat{\imath}$ and output vector and then dividing by the determinant of the matrix.  
+通过计算变换后的 $\hat{\imath}$ 向量与输出向量所构成的平行四边形的面积，  
+再除以该矩阵的行列式，从而求出向量的$x$坐标。
 
 $$
 \begin{aligned}
@@ -271,7 +387,9 @@ x & =\frac{\text { Area }}{\operatorname{det}(A)} \\ \rule{0pt}{3.5em}
 \end{aligned}
 $$
 
-Solve for the $y$-coordinate of the vector by calculating the area of the parallelogram formed by the transformed $\hat{\jmath}$ and output vector and then dividing by the determinant of the matrix.
+Solve for the $y$-coordinate of the vector by calculating the area of the parallelogram formed by the transformed $\hat{\jmath}$ and output vector and then dividing by the determinant of the matrix.  
+通过计算变换后的 $\hat{\jmath}$ 与输出向量所构成的平行四边形的面积，  
+再除以该矩阵的行列式，从而求出向量的 $y$ 坐标。
 
 $$
 \begin{aligned}
@@ -288,12 +406,17 @@ y & =\frac{\text{Area}}{\operatorname{det}(A)} \\ \rule{0pt}{3.5em}
 \end{aligned}
 $$
 
-The input vector that satisfies the linear system described by $\left[\begin{array}{cc}1 & 3 \\ -2 & 0\end{array}\right]\left[\begin{array}{l}x \\ y\end{array}\right]=\left[\begin{array}{l}5 \\ 2\end{array}\right]$ is $\left[\begin{array}{c} -1 \\ 2 \end{array}\right]$.
+The input vector that satisfies the linear system described by $\left[\begin{array}{cc}1 & 3 \\ -2 & 0\end{array}\right]\left[\begin{array}{l}x \\ y\end{array}\right]=\left[\begin{array}{l}5 \\ 2\end{array}\right]$ is $\left[\begin{array}{c} -1 \\ 2 \end{array}\right]$.  
+满足由 $\left[\begin{array}{cc}1 & 3 \\ -2 & 0\end{array}\right]\left[\begin{array}{l}x \\ y\end{array}\right]=\left[\begin{array}{l}5 \\ 2\end{array}\right]$线性系统描述的输入向量是   
+$\left[\begin{array}{c} -1 \\ 2 \end{array}\right]$。
+
+
 
 </Question>
 
 <Question
-  question="What is the vector that satisfies the linear system of equations described by $\left[\begin{array}{cc}1 & 2 \\ -1 & 1\end{array}\right]\left[\begin{array}{l}x \\ y\end{array}\right]=\left[\begin{array}{l}8 \\ 1\end{array}\right]$ ?"
+  question="What is the vector that satisfies the linear system of equations described by $\left[\begin{array}{cc}1 & 2 \\ -1 & 1\end{array}\right]\left[\begin{array}{l}x \\ y\end{array}\right]=\left[\begin{array}{l}8 \\ 1\end{array}\right]$ ?  
+ 满足方程组 $\left[\begin{array}{cc}1 & 2 \\ -1 &1\end{array}\right]\left[\begin{array}{l}x \\y\end{array}\right]=\left[\begin{array}{l}8 \\ 1\end{array}\right]$ 的向量是什么？​"
   choice1="$\left[\begin{array}{c} 3 \\ -3 \end{array}\right]$"
   choice2="$\left[\begin{array}{c} 2 \\ 1 \end{array}\right]$"
   choice3="$\left[\begin{array}{c} 1 \\ 3 \end{array}\right]$"
@@ -301,7 +424,9 @@ The input vector that satisfies the linear system described by $\left[\begin{arr
   answer={4}
 >
 
-Solve for the $x$-coordinate of the vector by calculating the area of the parallelogram formed by the transformed $\hat{\imath}$ and output vector and then dividing by the determinant of the matrix.
+Solve for the $x$-coordinate of the vector by calculating the area of the parallelogram formed by the transformed $\hat{\imath}$ and output vector and then dividing by the determinant of the matrix.  
+通过计算变换后的 $\hat{\imath}$ 向量与输出向量所构成的平行四边形的面积，  
+再除以该矩阵的行列式，从而求出向量的 $x$ 坐标。
 
 $$
 \begin{aligned}
@@ -318,7 +443,9 @@ x & =\frac{\text { Area }}{\operatorname{det}(A)} \\ \rule{0pt}{3.5em}
 \end{aligned}
 $$
 
-Solve for the $y$-coordinate of the vector by calculating the area of the parallelogram formed by the transformed $\hat{\jmath}$ and output vector and then dividing by the determinant of the matrix.
+Solve for the $y$-coordinate of the vector by calculating the area of the parallelogram formed by the transformed $\hat{\jmath}$ and output vector and then dividing by the determinant of the matrix.  
+通过计算变换后的 $\hat{\jmath}$ 与输出向量所构成的平行四边形的面积，  
+再除以该矩阵的行列式，从而求出向量的 $y$ 坐标。
 
 $$
 \begin{aligned}
@@ -335,7 +462,8 @@ y & =\frac{\text { Area }}{\operatorname{det}(A)} \\ \rule{0pt}{3.5em}
 \end{aligned}
 $$
 
-The vector $\left[\begin{array}{l}2 \\ 3\end{array}\right]$ satisfies the system of equations $\left[\begin{array}{cc}1 & 2 \\ -1 & 1\end{array}\right]\left[\begin{array}{l}2 \\ 3\end{array}\right]=\left[\begin{array}{l}8 \\ 1\end{array}\right]$.
+The vector $\left[\begin{array}{l}2 \\ 3\end{array}\right]$ satisfies the system of equations $\left[\begin{array}{cc}1 & 2 \\ -1 & 1\end{array}\right]\left[\begin{array}{l}2 \\ 3\end{array}\right]=\left[\begin{array}{l}8 \\ 1\end{array}\right]$.  
+向量  $\left[\begin{array}{l}2 \\ 3\end{array}\right]$  满足下列方程组： $\left[\begin{array}{cc}1 & 2 \\ -1 & 1\end{array}\right]\left[\begin{array}{l}2 \\ 3\end{array}\right]=\left[\begin{array}{l}8 \\ 1\end{array}\right]$。
 
 </Question>
 
@@ -343,25 +471,39 @@ The vector $\left[\begin{array}{l}2 \\ 3\end{array}\right]$ satisfies the system
 
 <section>
 
-### In three dimensions
+### In three dimensions 在三维空间中
 
 <Figure image="$lesson/figures/three-dimensions/SystemOfEquations3d.light.svg" />
 
-The case with three dimensions is similar, and we highly recommend you pause to think it through yourself. Here, we'll even give you a little momentum.
+The case with three dimensions is similar, and we highly recommend you pause to think it through yourself. Here, we'll even give you a little momentum.  
+三维情况下的情况类似，我们强烈建议您暂停一下，自己仔细思考。  
+在此，我们甚至会为您提供一些思路提示。
 
 <Figure image="$lesson/figures/three-dimensions/MysteryInput3d.light.svg" />
 
-We have this known transformation, given by a 3x3 matrix, and a known output vector, given by the right side of our linear system, and we want to know what input vector lands on this output vector.
+We have this known transformation, given by a 3x3 matrix, and a known output vector, given by the right side of our linear system, and we want to know what input vector lands on this output vector.  
+我们已知一个由 $3×3$ 矩阵表示的变换，以及线性方程组右侧给出的已知输出向量，  
+我们想要知道是哪个输入向量能产生这个输出向量。
 
-If you think of, say, the $z$-coordinate of the input vector as the volume of this parallelepiped spanned by $\hat{\imath}$, $\hat{\jmath}$, and the mystery input vector, what happens to the volume of this parallelepiped after the transformation? How can you compute that new volume?
+If you think of, say, the $z$-coordinate of the input vector as the volume of this parallelepiped spanned by $\hat{\imath}$, $\hat{\jmath}$, and the mystery input vector, what happens to the volume of this parallelepiped after the transformation? How can you compute that new volume?  
+比如，如果你将输入向量的 $z$ 坐标  
+视为由 $\hat{\imath}$ 、 $\hat{\jmath}$ 以及那个未知的输入向量所张成的平行六面体的体积，  
+那么经过变换后这个平行六面体的体积会如何变化？  
+又该如何计算出新的体积呢？
 
 <Figure image="$lesson/figures/three-dimensions/VolumeOfParallelepiped.light.svg" />
 
-Really, pause and take a moment to think through the details of generalizing this to higher dimensions; finding an expression for each coordinate of the solution to larger linear systems. Thinking through more general cases and convincing yourself that it works is where all the learning will happen, much more so than passively consuming the lesson again.
+Really, pause and take a moment to think through the details of generalizing this to higher dimensions; finding an expression for each coordinate of the solution to larger linear systems. Thinking through more general cases and convincing yourself that it works is where all the learning will happen, much more so than passively consuming the lesson again.  
+其实，不妨暂停片刻，仔细思考如何将这一方法推广到更高维度；  
+如何为更大规模线性方程组的每个解坐标找到表达式。  
+通过思考更一般的情况并让自己确信其有效性，才是真正获得知识的过程，  
+远比被动地再次学习课程要有意义得多。
 
 <FreeResponse>
 
-Solve for the $x$-coordinate of the mystery vector by calculating the volume of the parallelogram formed by transformed $\hat{\jmath}$, transformed $\hat{k}$, and output vector and then dividing by the determinant of the matrix.
+Solve for the $x$-coordinate of the mystery vector by calculating the volume of the parallelogram formed by transformed $\hat{\jmath}$, transformed $\hat{k}$, and output vector and then dividing by the determinant of the matrix.  
+通过计算变换后的 $\hat{\jmath}$ 、变换后的 $\hat{k}$ 与输出向量所构成的平行四边形的体积，  
+再除以该矩阵的行列式，从而求出该未知向量的 $x$ 坐标。
 
 $$
 x =\frac{\operatorname{Area}}{\operatorname{det}(A)}
@@ -378,7 +520,10 @@ x =\frac{\operatorname{Area}}{\operatorname{det}(A)}
 =\frac{17}{14}
 $$
 
-Solve for the $y$-coordinate of the mystery vector by calculating the volume of the parallelogram formed by transformed $\hat{\imath}$, transformed $\hat{k}$, and output vector and then dividing by the determinant of the matrix.
+Solve for the $y$-coordinate of the mystery vector by calculating the volume of the parallelogram formed by transformed $\hat{\imath}$, transformed $\hat{k}$, and output vector and then dividing by the determinant of the matrix.  
+通过计算变换后的 $\hat{\imath}$ 、变换后的 $\hat{k}$ 与输出向量所构成的平行四边形的体积，  
+再除以该矩阵的行列式，从而求出该未知向量的 $y$ 坐标。
+
 
 $$
 y =\frac{\operatorname{Area}}{\operatorname{det}(A)}
@@ -394,7 +539,9 @@ y =\frac{\operatorname{Area}}{\operatorname{det}(A)}
 =\frac{19}{28}
 $$
 
-Solve for the $z$-coordinate of the mystery vector by calculating the volume of the parallelogram formed by transformed $\hat{\imath}$, transformed $\hat{\jmath}$, and output vector and then dividing by the determinant of the matrix.
+Solve for the $z$-coordinate of the mystery vector by calculating the volume of the parallelogram formed by transformed $\hat{\imath}$, transformed $\hat{\jmath}$, and output vector and then dividing by the determinant of the matrix.  
+通过计算变换后的 $\hat{\imath}$ 、变换后的 $\hat{\jmath}$ 与输出向量所构成的平行四边形的体积，  
+再除以该矩阵的行列式，从而求出该未知向量的 $z$ 坐标。
 
 $$
 z =\frac{\operatorname{Area}}{\operatorname{det}(A)}
@@ -411,7 +558,8 @@ z =\frac{\operatorname{Area}}{\operatorname{det}(A)}
 =\frac{1}{7}
 $$
 
-The mystery vector that satisfies this linear system of equations is $\left[\begin{array}{c} 17/14 \\ 19/28 \\ 1/7 \end{array}\right]$.
+The mystery vector that satisfies this linear system of equations is $\left[\begin{array}{c} 17/14 \\ 19/28 \\ 1/7 \end{array}\right]$.  
+满足该线性方程组的神秘向量是 $\left[\begin{array}{c} 17/14 \\ 19/28 \\ 1/7\end{array}\right]$ 。
 
 $$
 \left[\begin{array}{ccc}

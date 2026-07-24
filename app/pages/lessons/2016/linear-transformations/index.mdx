@@ -1,14 +1,14 @@
 ---
-title: Linear transformations and matrices
-description: When you think of matrices as transforming space, rather than as grids of numbers, so much of linear algebra starts to make sense.
+title: Linear transformations and matrices 线性变换与矩阵
+description: When you think of matrices as transforming space, rather than as grids of numbers, so much of linear algebra starts to make sense. 当你将矩阵视为对空间进行变换的工具，而非单纯的数字网格时，线性代数的许多内容就会变得容易理解。
 date: 2016-08-07
 chapter: 3
 video: kYB8IZa5AuE
 source: _2016/eola/chapter3.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
-  - Text adaptation by James Schloss
+  - Lesson by Grant Sanderson 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
+  - Text adaptation by James Schloss 詹姆斯·施洛斯
   - Text adaptation by River Way
 ---
 
@@ -20,38 +20,57 @@ import Question from "~/components/Question";
 
 <section>
 
-> Unfortunately, no one can be told what the Matrix is. You have to see it for yourself.
+> Unfortunately, no one can be told what the Matrix is. You have to see it for yourself.  
+> 不幸的是，没人能告诉你“矩阵”究竟是什么。你必须亲自去看看。
 >
-> \- Morpheus
+> \- Morpheus 莫菲斯
 
 </section>
 
 <section>
 
-If there was one topic that makes all of the others in linear algebra start to click, it might be this one. We'll be learning about the idea of a linear transformation and its relation to matrices. For this chapter, the focus will simply be on what these linear transformations look like in the case of two dimensions, and how they relate to the idea of matrix-vector multiplication. In particular, we want to show you a way to think about matrix multiplication that doesn't rely on memorization.
+If there was one topic that makes all of the others in linear algebra start to click, it might be this one. We'll be learning about the idea of a linear transformation and its relation to matrices. For this chapter, the focus will simply be on what these linear transformations look like in the case of two dimensions, and how they relate to the idea of matrix-vector multiplication. In particular, we want to show you a way to think about matrix multiplication that doesn't rely on memorization.  
+如果说有一个主题能让线性代数中的其他所有内容都变得清晰易懂，那可能就是这个了。  
+我们将学习线性变换的概念及其与矩阵的关系。  
+在本章中，重点将放在二维情况下这些线性变换的表现形式，  
+以及它们与矩阵-向量乘法概念之间的联系。  
+特别是，我们想向大家展示一种无需死记硬背就能理解矩阵乘法的方法。
 
 </section>
 
 <section>
 
-## Transformations Are Functions
+## Transformations Are Functions 变换即函数
 
-To start, let's parse this term: "Linear transformation". _Transformation_ is essentially a fancy word for function; it's something that takes in inputs, and spits out some output for each one. Specifically, in the context of linear algebra, we think about transformations that take in some vector and spit out another vector.
+To start, let's parse this term: "Linear transformation". _Transformation_ is essentially a fancy word for function; it's something that takes in inputs, and spits out some output for each one. Specifically, in the context of linear algebra, we think about transformations that take in some vector and spit out another vector.  
+首先，我们来解析这个术语：​“线性变换”​。  
+_变换_本质上就是函数的一个花哨说法；  
+它是一种接收输入，并为每个输入输出相应结果的东西。  
+具体到线性代数的语境中，我们讨论的是那种接收某个向量并输出另一个向量的变换。
 
 <Figure image="$lesson/figures/transformations-are-functions/InputOutput.svg" />
 
-So why use the word "transformation" instead of "function" if they mean the same thing? It's to be suggestive of a certain way to visualize this input-output relation. Rather than trying to use something like a graph, which really only works in the case of functions that take in one or two numbers and output a number, a great way to understand functions of vectors is to use _movement_.
+So why use the word "transformation" instead of "function" if they mean the same thing? It's to be suggestive of a certain way to visualize this input-output relation. Rather than trying to use something like a graph, which really only works in the case of functions that take in one or two numbers and output a number, a great way to understand functions of vectors is to use _movement_.  
+那么，既然“函数”和“变换”意思相同，为何还要使用“变换”这个词呢？  
+这是为了暗示一种可视化这种输入输出关系的特定方式。  
+与其试图用图表之类的工具——  
+而图表其实只适用于那些输入一两个数并输出一个数的函数——  
+来理解向量函数，不如用“运动”来加以理解。
 
-<PiCreature emotion="speaking">Transformation" suggests movement!</PiCreature>
+<PiCreature emotion="speaking">Transformation" suggests movement!  
+“Transformation”意味着运动！</PiCreature>
 
-If a transformation takes some input vector to some output vector, we imagine that input vector _moving_ to the output vector.
+If a transformation takes some input vector to some output vector, we imagine that input vector _moving_ to the output vector.  
+如果某种变换将某个输入向量转换为某个输出向量，  
+我们就会想象该输入向量正在_移动_到输出向量所在的位置。
 
 <Figure
   image="$lesson/figures/transformations-are-functions/VectorTransformation.svg"
   video="$lesson/figures/transformations-are-functions/VectorTransformation.mp4"
 />
 
-To understand the transformation as a whole, we imagine every possible vector move to its corresponding output vector.
+To understand the transformation as a whole, we imagine every possible vector move to its corresponding output vector.  
+为了整体理解这一变换，我们设想每一个可能的向量移动到其对应的输出向量。
 
 <Figure
   image="$lesson/figures/transformations-are-functions/TransformVectors.svg"
@@ -59,7 +78,11 @@ To understand the transformation as a whole, we imagine every possible vector mo
   show="video"
 />
 
-It gets very crowded to think about all vectors all at once, each as an arrow. So let's think of each vector not as an arrow, but as a single point: the point where its tip sits. That way, to think about a transformation taking every possible input vector to its corresponding output vector, we watch every point in space move to some other point.
+It gets very crowded to think about all vectors all at once, each as an arrow. So let's think of each vector not as an arrow, but as a single point: the point where its tip sits. That way, to think about a transformation taking every possible input vector to its corresponding output vector, we watch every point in space move to some other point.  
+如果同时将所有向量都视为箭头来考虑，情况会变得非常复杂。  
+因此，我们不要把每个向量看作箭头，而是看作一个点——即其箭头的尖端所在的位置。  
+这样，当考虑将每一个可能的输入向量转换为对应的输出向量时，  
+我们只需观察空间中的每个点移动到另一个点的过程即可。
 
 <Figure
   image="$lesson/figures/transformations-are-functions/ManyPointsTransformation.svg"
@@ -67,7 +90,10 @@ It gets very crowded to think about all vectors all at once, each as an arrow. S
   show="video"
 />
 
-In the case of transformations in two dimensions, to get a better feel for the shape of a transformation, we can do this with all the points on an infinite grid. It can also be helpful to keep a static copy of the grid in the background, just to help keep track of where everything ends up relative to where it starts.
+In the case of transformations in two dimensions, to get a better feel for the shape of a transformation, we can do this with all the points on an infinite grid. It can also be helpful to keep a static copy of the grid in the background, just to help keep track of where everything ends up relative to where it starts.  
+在二维变换中，为了更直观地了解变换后的形状，我们可以对无限网格上的所有点进行操作。  
+在背景中保留一个静态的网格副本也很有帮助，  
+这样就能方便地追踪每个点相对于起始位置最终所在的位置。
 
 <Figure
   image="$lesson/figures/transformations-are-functions/TransformGrid.svg"
@@ -75,7 +101,9 @@ In the case of transformations in two dimensions, to get a better feel for the s
   show="video"
 />
 
-Visualizing functions with 2d inputs and 2d outputs like this can be beautiful, and it's often difficult to communicate the idea on a static medium like a blackboard. Here are a couple more particularly pretty examples of such functions.
+Visualizing functions with 2d inputs and 2d outputs like this can be beautiful, and it's often difficult to communicate the idea on a static medium like a blackboard. Here are a couple more particularly pretty examples of such functions.  
+以这种方式可视化具有二维输入和二维输出的函数，会显得非常美观，  
+而在黑板这样的静态媒介上往往很难表达出这种概念。以下是更多特别漂亮的此类函数示例。
 
 <Figure
   image="$lesson/figures/transformations-are-functions/ex_parabola.jpg"
@@ -89,37 +117,53 @@ Visualizing functions with 2d inputs and 2d outputs like this can be beautiful, 
 </section>
 
 <section>
-## What makes a transformation "linear"?
+## What makes a transformation "linear"? 什么让一个变换成为“线性”的?
 
-As you can imagine, though, arbitrary transformations can look pretty complicated, but luckily linear algebra limits itself to a special type of transformation that's easier to understand called _Linear_ transformations. Visually speaking, a transformation is "linear" if it has two properties: all lines must remain lines, without getting curved, and the origin must remain fixed in place.
+As you can imagine, though, arbitrary transformations can look pretty complicated, but luckily linear algebra limits itself to a special type of transformation that's easier to understand called _Linear_ transformations. Visually speaking, a transformation is "linear" if it has two properties: all lines must remain lines, without getting curved, and the origin must remain fixed in place.  
+正如可以想象的，任意的变换可能看起来相当复杂，  
+但幸运的是，线性代数仅研究一种更易于理解的特殊类型的变换，即**线性**变换。  
+从直观上看，如果一个变换具备两个特性：  
+所有直线都保持直线形态而不发生弯曲，  
+且原点始终固定在同一位置，  
+那么它就是“线性”的。
 
 <Figure image="$lesson/figures/what-makes-a-transformation-linear/LinesRemainLinesAndOriginRemainsFixed.jpg" />
 
-For example, this right here would not be a linear transform, since the lines get all curvy.
+For example, this right here would not be a linear transform, since the lines get all curvy.  
+例如，这里的变换就不是线性变换，因为所有的直线都变弯曲了。
 
 <Figure image="$lesson/figures/what-makes-a-transformation-linear/NonLinearTransformationCurvedLines.jpg" />
 
-And this one would not be a linear transformation because the origin moves.
+And this one would not be a linear transformation because the origin moves.  
+这个也不属于线性变换，因为原点会移动。
 
 <Figure image="$lesson/figures/what-makes-a-transformation-linear/NonLinearTransformationOriginMoves.jpg" />
 
-This one here fixes the origin, and it might look like it keeps lines straight, but that's just because we're only showing horizontal and vertical grid lines.
+This one here fixes the origin, and it might look like it keeps lines straight, but that's just because we're only showing horizontal and vertical grid lines.  
+这个保持原点不变，虽然看起来它能让线条保持直线状态，但那只是因为我们只展示了水平和垂直的网格线。
 
 <Figure image="$lesson/figures/what-makes-a-transformation-linear/NonLinearTransformationDiagonalLines.jpg" />
 
-When you see what it does to a diagonal line, it becomes clear that it's not a linear transformation at all, since it turns that line all curvy.
+When you see what it does to a diagonal line, it becomes clear that it's not a linear transformation at all, since it turns that line all curvy.  
+当你看到它对斜线的作用时，就会明白这根本不是线性变换，因为它把那条线弄得全是曲线。
 
 <Figure image="$lesson/figures/what-makes-a-transformation-linear/NonLinearTransformationDiagonalLinesGetCurved.jpg" />
 
-In general, you should think of linear transformations as keeping grid lines parallel and evenly spaced, although they might change the angles between perpendicular grid lines. Some linear transformations are simple to think about, like rotations about the origin.
+In general, you should think of linear transformations as keeping grid lines parallel and evenly spaced, although they might change the angles between perpendicular grid lines. Some linear transformations are simple to think about, like rotations about the origin.  
+一般来说，你应该将线性变换理解为保持网格线平行且间距均匀，  
+尽管它们可能会改变垂直网格线之间的角度。  
+有些线性变换很容易理解，比如绕原点的旋转。  
 
 <Figure image="$lesson/figures/what-makes-a-transformation-linear/GridLinesRemainParallelAndEvenlySpaced.jpg" />
 
 <Figure image="$lesson/figures/what-makes-a-transformation-linear/ExampleRotateAboutOrigin.jpg" />
 
-Others, as we will see later, are a little trickier to describe with words.
+Others, as we will see later, are a little trickier to describe with words.  
+正如我们稍后将看到的，其他一些则用语言来描述要稍微复杂一些。
 
-**Which of the transformations in the image below are linear?**
+**Which of the transformations in the image below are linear?  
+下图中的哪些变换是线性的？**
+
 
 <Figure image="$lesson/figures/what-makes-a-transformation-linear/question1.jpg" />
 
@@ -131,7 +175,8 @@ Others, as we will see later, are a little trickier to describe with words.
   choice4="$D$"
   answer={3} >
   
-C is the only transformation where the lines are parallel and evenly spaced.
+C is the only transformation where the lines are parallel and evenly spaced.  
+C是唯一一种线条平行且间距均匀的变换
 
 </Question>
 
@@ -139,13 +184,18 @@ C is the only transformation where the lines are parallel and evenly spaced.
 
 <section>
 
-## Matrices
+## Matrices  矩阵
 
-How do you think you could do these transformations numerically? If you were, say, programming some animations to make a video teaching the topic, what formula do you give the computer so that if you give it the coordinates of a vector, it can tell you the coordinates of where that vector lands?
+How do you think you could do these transformations numerically? If you were, say, programming some animations to make a video teaching the topic, what formula do you give the computer so that if you give it the coordinates of a vector, it can tell you the coordinates of where that vector lands?  
+你认为如何用数值方法实现这些变换？  
+比如，如果你要编写一些动画来制作讲解该主题的视频，你会给计算机什么公式，  
+这样当输入向量的坐标后，它就能算出该向量最终落点的坐标？
 
 <Figure image="$lesson/figures/matrices/HowToDescribeTransformation.svg" />
 
-It turns out, you only need to record where the two basis vectors $\hat{\imath}$ and $\hat{\jmath}$ go, and everything else will follow.
+It turns out, you only need to record where the two basis vectors $\hat{\imath}$ and $\hat{\jmath}$ go, and everything else will follow.  
+原来，你只需要记录两个基向量$\hat{\imath}$和$\hat{\jmath}$的移动路径，  
+其余的一切都会随之确定。
 
 <Figure
   image="$lesson/figures/matrices/RecordWhereBasisVectorsLand.svg"
@@ -153,40 +203,58 @@ It turns out, you only need to record where the two basis vectors $\hat{\imath}$
   show="video"
 />
 
-For example, consider the vector $\vec{\mathbf{v}}$ with coordinates $\begin{bmatrix}-1\\2\end{bmatrix}$, meaning it is equal to $-1\hat{\imath} + 2\hat{\jmath}$.
+For example, consider the vector $\vec{\mathbf{v}}$ with coordinates $\begin{bmatrix}-1\\2\end{bmatrix}$, meaning it is equal to $-1\hat{\imath} + 2\hat{\jmath}$.  
+例如，考虑坐标为$\begin{bmatrix}-1\\2\end{bmatrix}$的向量$\vec{\mathbf{v}}$，
+它等于$-1\hat{\imath} + 2\hat{\jmath}$。
 
 <Figure image="$lesson/figures/matrices/LinearTransformationSetup.svg" />
 
-If we play some transformation and follow where all three of these vectors go, the property that grid lines remain parallel and evenly spaced has a really important consequence: the place where $\vec{\mathbf{v}}$ lands will be $(-1)$ times the vector where $\hat{\imath}$ landed, plus $2$ times the vector where $\hat{\jmath}$ landed.
+If we play some transformation and follow where all three of these vectors go, the property that grid lines remain parallel and evenly spaced has a really important consequence: the place where $\vec{\mathbf{v}}$ lands will be $(-1)$ times the vector where $\hat{\imath}$ landed, plus $2$ times the vector where $\hat{\jmath}$ landed.  
+如果我们进行某种变换并追踪这三个向量的去向，  
+网格线保持平行且等距这一性质会带来一个非常重要的结论：  
+向量$\vec{\mathbf{v}}$的终点位置将是$\hat{\imath}$终点位置的$(-1)$倍，再加上$\hat{\jmath}$终点位置的$2$倍。
 
 <Figure
   image="$lesson/figures/matrices/LinearTransformation.svg"
   video="$lesson/figures/matrices/LinearTransformation.mp4"
 />
 
-In other words, it started off as a certain linear combination of $\hat{\imath}$ and $\hat{\jmath}$, and it ended up at that same linear combination of where those two vectors landed.
+In other words, it started off as a certain linear combination of $\hat{\imath}$ and $\hat{\jmath}$, and it ended up at that same linear combination of where those two vectors landed.  
+换句话说，它最初是$\hat{\imath}$和$\hat{\jmath}$的某种线性组合，  
+最终则变成了这两个向量所落点的相同线性组合。
 
 <Figure image="$lesson/figures/matrices/LinearTransformationCombination.svg" />
 
-Now, given that we're actually showing you the full transformation, you could have just looked to see that $\vec{\mathbf{v}}$ has coordinates $\left[\begin{array}{c} 5 \\ 2 \end{array}\right]$, but the cool part here is that this gives us a technique to deduce where the vector lands without needing to watch the transformation.
+Now, given that we're actually showing you the full transformation, you could have just looked to see that $\vec{\mathbf{v}}$ has coordinates $\left[\begin{array}{c} 5 \\ 2 \end{array}\right]$, but the cool part here is that this gives us a technique to deduce where the vector lands without needing to watch the transformation.  
+现在，既然我们实际上是在向您展示完整的变换过程，  
+您本可以直接看出$\vec{\mathbf{v}}$的坐标为$\left[\begin{array}{c} 5 \\ 2\end{array}\right]$，  
+但有趣的是，这为我们提供了一种无需观察变换过程就能推断出向量最终位置的方法。
 
 <Figure image="$lesson/figures/matrices/LinearTransformationTechnique.svg" />
 
-This is a good point to pause and ponder because it's pretty important.
+This is a good point to pause and ponder because it's pretty important.  
+这是一个值得暂停思考的好时机，因为它非常重要。
 
 <Question
-  question="Given a transformation with the effect $\hat{\imath}\to\begin{bmatrix}-1\\1\end{bmatrix}$ and $\hat{\jmath}\to\begin{bmatrix}-2\\-1\end{bmatrix}$, how will it transform the input vector $\begin{bmatrix}-3\\-1\end{bmatrix}$?"
+  question="Given a transformation with the effect $\hat{\imath}\to\begin{bmatrix}-1\\1\end{bmatrix}$ and $\hat{\jmath}\to\begin{bmatrix}-2\\-1\end{bmatrix}$, how will it transform the input vector $\begin{bmatrix}-3\\-1\end{bmatrix}$?  
+     给定一个变换，其作用为 $\hat{\imath}\to\begin{bmatrix}-1\\1\end{bmatrix}$ 和 $\hat{\jmath}\to\begin{bmatrix}-2\\-1\end{bmatrix}$，  
+     它将如何变换输入向量 $\begin{bmatrix}-3\\-1\end{bmatrix}$？"
   choice1="$\begin{bmatrix}5\\-2\end{bmatrix}$"
   choice2="$\begin{bmatrix}4\\-1\end{bmatrix}$"
   choice3="$\begin{bmatrix}-5\\2\end{bmatrix}$"
   choice4="$\begin{bmatrix}5\\1\end{bmatrix}$"
   answer={1} >
 
-Using the technique from above, write the vector $\left[\begin{array}{c} -3 \\ -1 \end{array}\right]$ in terms of the standard basis as $(-3)\hat{\imath} + (-1)\hat{\jmath}$. Then, transform $\hat{\imath}$ and $\hat{\jmath}$ to their destinations and compute the new linear combination.
+Using the technique from above, write the vector $\left[\begin{array}{c} -3 \\ -1 \end{array}\right]$ in terms of the standard basis as $(-3)\hat{\imath} + (-1)\hat{\jmath}$. Then, transform $\hat{\imath}$ and $\hat{\jmath}$ to their destinations and compute the new linear combination.  
+利用上述方法，将向量$\left[\begin{array}{c} -3 \\ -1 \end{array}\right]$用标准基表示为$(-3)\hat{\imath} + (-1)\hat{\jmath}$。  
+然后，将$\hat{\imath}$和$\hat{\jmath}$变换到目标位置，并计算新的线性组合。
 
 <Figure image="$lesson/figures/matrices/Question1Answer.svg" />
 
-So given the transformation described by $\hat{\imath}\to\begin{bmatrix}-1\\1\end{bmatrix}$ and $\hat{\jmath}\to\begin{bmatrix}-2\\-1\end{bmatrix}$, the vector $\left[\begin{array}{c} -3 \\ -1 \end{array}\right]$ is transformed to $\left[\begin{array}{c} 5 \\ -2 \end{array}\right]$. Of course, we can double check our work by visualizing where the standard basis vectors go.
+So given the transformation described by $\hat{\imath}\to\begin{bmatrix}-1\\1\end{bmatrix}$ and $\hat{\jmath}\to\begin{bmatrix}-2\\-1\end{bmatrix}$, the vector $\left[\begin{array}{c} -3 \\ -1 \end{array}\right]$ is transformed to $\left[\begin{array}{c} 5 \\ -2 \end{array}\right]$. Of course, we can double check our work by visualizing where the standard basis vectors go.  
+因此，根据$\hat{\imath}\to\begin{bmatrix}-1\\1\end{bmatrix}$和$\hat{\jmath}\to\begin{bmatrix}-2\\-1\end{bmatrix}$所描述的变换，  
+向量$\left[\begin{array}{c} -3 \\ -1 \end{array}\right]$会被变换为$\left[\begin{array}{c} 5 \\ -2 \end{array}\right]$。  
+当然，我们也可以通过直观观察标准基向量的变化来再次验证我们的结果。
 
 <Figure
   image="$lesson/figures/matrices/Question1LinearTransformationAfter.svg"
@@ -196,7 +264,9 @@ So given the transformation described by $\hat{\imath}\to\begin{bmatrix}-1\\1\en
 
 </Question>
 
-So long as we have a record of where $\hat{\imath}$ and $\hat{\jmath}$ land, this technique works for any vector that is passed to the transformation function.
+So long as we have a record of where $\hat{\imath}$ and $\hat{\jmath}$ land, this technique works for any vector that is passed to the transformation function.  
+只要我们有$\hat{\imath}$和$\hat{\jmath}$落点的记录，  
+这项技术就适用于传递给变换函数的任何向量。
 
 <Figure
   image="$lesson/figures/matrices/LinearTransformationManyVectors.svg"
@@ -204,46 +274,71 @@ So long as we have a record of where $\hat{\imath}$ and $\hat{\jmath}$ land, thi
   show="video"
 />
 
-Writing the vector with more general coordinates, $x$ and $y$: It will land on $x$ times the vector where $\hat{\imath}$ lands, $\left[\begin{array}{c} 1  \\ -2 \end{array}\right]$, plus $y$ time the vector where $\hat{\jmath}$ lands, $\left[\begin{array}{c} 3 \\ 0 \end{array}\right]$.
+Writing the vector with more general coordinates, $x$ and $y$: It will land on $x$ times the vector where $\hat{\imath}$ lands, $\left[\begin{array}{c} 1  \\ -2 \end{array}\right]$, plus $y$ time the vector where $\hat{\jmath}$ lands, $\left[\begin{array}{c} 3 \\ 0 \end{array}\right]$.  
+用更一般的坐标$x$和$y$来表示该向量：  
+它等于$x$倍$\hat{\imath}$所指向的向量$\left[\begin{array}{c} 1 \\ -2 \end{array}\right]$，  
+再加上$y$倍$\hat{\jmath}$所指向的向量$\left[\begin{array}{c} 3 \\ 0\end{array}\right]$。
 
 $$
 L(\vec{\mathbf{v}}) = x\left[\begin{array}{c}1 \\-2\end{array}\right]+y\begin{bmatrix}\:3\:\\0\end{bmatrix}
 $$
 
-Carrying out that sum, we see that it lands on $\left[\begin{array}{c} 1 x+3 y \\ -2 x+0 y \end{array}\right]$. Given any vector you can tell where it lands using this formula.
+Carrying out that sum, we see that it lands on $\left[\begin{array}{c} 1 x+3 y \\ -2 x+0 y \end{array}\right]$. Given any vector you can tell where it lands using this formula.  
+计算该和后，我们会得到结果为$\left[\begin{array}{c} 1 x+3 y \\ -2 x+0 y\end{array}\right]$。  
+给定任意向量，都可以用这个公式来确定它的最终位置。
 
 $$
 L(\vec{\mathbf{v}}) = \begin{bmatrix}1x + 3y \\ -2x + 0y \: \end{bmatrix}
 $$
 
-What all of this is saying is that the two-dimensional linear transformation is completely described by just four numbers: The two coordinates for where $\hat{\imath}$ lands, and the two coordinates for where $\hat{\jmath}$ lands. Isn't that cool?
+What all of this is saying is that the two-dimensional linear transformation is completely described by just four numbers: The two coordinates for where $\hat{\imath}$ lands, and the two coordinates for where $\hat{\jmath}$ lands. Isn't that cool?  
+这一切都在说明：  
+二维线性变换完全可以由四个数字来完全描述——即$\hat{\imath}$落点的两个坐标，以及$\hat{\jmath}$落点的两个坐标。  
+是不是很棒？
 
 <Figure image="$lesson/figures/matrices/LinearTransformationFormula.svg" />
 
-It's common to package these four numbers into a 2x2 grid of numbers, called a "2x2 matrix", where you can interpret the columns as the two special vectors where $\hat{\imath}$ and $\hat{\jmath}$ land.
+It's common to package these four numbers into a 2x2 grid of numbers, called a "2x2 matrix", where you can interpret the columns as the two special vectors where $\hat{\imath}$ and $\hat{\jmath}$ land.  
+人们通常会将这四个数整理成一个2×2的数值矩阵，即“2×2矩阵”​，  
+其中各列可理解为$\hat{\imath}$和$\hat{\jmath}$所对应的两个特殊向量。
 
 <Figure image="$lesson/figures/matrices/MatrixNotation2x2.svg" />
 
-If you're given a 2x2 matrix describing a linear transformation, and a specific vector, and you want to know where the linear transformation takes that vector, you take the coordinates of that vector, multiply them by the corresponding column of the matrix, then add together what you get. This corresponds with the idea of adding scaled versions of our new basis vectors.
+If you're given a 2x2 matrix describing a linear transformation, and a specific vector, and you want to know where the linear transformation takes that vector, you take the coordinates of that vector, multiply them by the corresponding column of the matrix, then add together what you get. This corresponds with the idea of adding scaled versions of our new basis vectors.  
+如果给定一个描述线性变换的2x2矩阵以及一个特定的向量，  
+而你想知道该线性变换会将这个向量映射到何处，  
+那么就需要取该向量的坐标，将其乘以矩阵中对应的列，再将得到的结果相加。  
+这实际上就相当于将新基向量的缩放版本相加。
 
 <Figure image="$lesson/figures/matrices/MatrixNotation2x2InputOutput.svg" />
 
-When you do this super generally, with a matrix that has entries $\left[\begin{array}{cc}a & b \\c & d\end{array}\right]$, and a vector $\left[\begin{array}{c} x \\ y \end{array}\right]$, what's the resulting vector? Remember here that the first column $\left[\begin{array}{c} a \\ c \end{array}\right]$ corresponds to the place where the first basis vector lands, and the second column $\left[\begin{array}{c} b \\ d \end{array}\right]$ is the place where the second basis vector lands.
+When you do this super generally, with a matrix that has entries $\left[\begin{array}{cc}a & b \\c & d\end{array}\right]$, and a vector $\left[\begin{array}{c} x \\ y \end{array}\right]$, what's the resulting vector? Remember here that the first column $\left[\begin{array}{c} a \\ c \end{array}\right]$ corresponds to the place where the first basis vector lands, and the second column $\left[\begin{array}{c} b \\ d \end{array}\right]$ is the place where the second basis vector lands.  
+当以非常一般的方式处理时，  
+即用矩阵$\left[\begin{array}{cc}a & b \\c &d\end{array}\right]$和向量$\left[\begin{array}{c} x \\ y\end{array}\right]$，得到的向量会是什么？请记住，  
+第一列$\left[\begin{array}{c} a \\ c \end{array}\right]$对应第一个基向量的落点，  
+第二列$\left[\begin{array}{c} b \\ d \end{array}\right]$则是第二个基向量的落点。
 
-Well, it will be $x \left[\begin{array}{c} a \\ c \end{array}\right] + y \left[\begin{array}{c} b \\ d \end{array}\right]$ and, putting this together, you get a vector $\left[\begin{array}{c} ax + by \\ cx + dy \end{array}\right]$.
-
+Well, it will be $x \left[\begin{array}{c} a \\ c \end{array}\right] + y \left[\begin{array}{c} b \\ d \end{array}\right]$ and, putting this together, you get a vector $\left[\begin{array}{c} ax + by \\ cx + dy \end{array}\right]$.  
+那么，它将是 $x \left[\begin{array}{c} a \\ c \end{array}\right] + y \left[\begin{array}{c} b \\ d \end{array}\right]$，  
+将它们组合起来，就得到向量 $\left[\begin{array}{c} ax + by \\ cx + dy \end{array}\right]$。 
 <Figure image="$lesson/figures/matrices/MatrixNotation2x2InputOutputGeneral.svg" />
 
-You could even define this as "matrix vector multiplication" when you put the matrix to the left of the vector, like a function. Then you could make high schoolers memorize this formula for no apparent reason.
+You could even define this as "matrix vector multiplication" when you put the matrix to the left of the vector, like a function. Then you could make high schoolers memorize this formula for no apparent reason.  
+你甚至可以将其定义为“矩阵向量乘法”​，即把矩阵放在向量的左侧，就像一个函数一样。
+这样一来，你就可以让高中生毫无理由地背诵这个公式了。
 
 <Figure image="$lesson/figures/matrices/MatrixNotationIntuition.svg" />
 
-But isn't it more fun to think about the columns as the transformed versions of your basis vectors, and to think of the result as the appropriate linear combination of those vectors?
+But isn't it more fun to think about the columns as the transformed versions of your basis vectors, and to think of the result as the appropriate linear combination of those vectors?  
+但把列看作基向量的变换形式，把结果看作这些向量的适当线性组合，这样想不是更有趣吗？
 
 <Figure image="$lesson/figures/matrices/MatrixIntuitionVisual.svg" />
 
 <Question
-  question="Given the input $\left[\begin{array}{c} 3 \\ -4 \end{array}\right]$ to the linear transformation described by the matrix $\left[\begin {array}{cc} 1 & -6 \\ 4 & 2 \end{array}\right]$ what vector will the transformation produce?"
+  question="Given the input $\left[\begin{array}{c} 3 \\ -4 \end{array}\right]$ to the linear transformation described by the matrix $\left[\begin {array}{cc} 1 & -6 \\ 4 & 2 \end{array}\right]$ what vector will the transformation produce?  
+  给定输入向量$\left[\begin{array}{c} 3 \\ -4 \end{array}\right]$，  
+  经过由矩阵$\left[\begin {array}{cc} 1 & -6 \\ 4 & 2 \end{array}\right]$ 所描述的线性变换后，会得到哪个向量？
+  "
   choice1="$\left[\begin{array}{c} 28 \\ 8 \end{array}\right]$"
   choice2="$\left[\begin{array}{c} -22 \\ 10 \end{array}\right]$"
   choice3="$\left[\begin{array}{c} 27 \\ 4 \end{array}\right]$"
@@ -251,11 +346,15 @@ But isn't it more fun to think about the columns as the transformed versions of 
   answer={3}
 >
 
-The linear transformation $L$ described my the matrix $\left[\begin {array}{cc} 1 & -6 \\ 4 & 2 \end{array}\right]$ transforms the vector $\vec{\mathbf{v}} = \left[\begin{array}{c} 3 \\ -4 \end{array}\right]$ so that it becomes $L\left(\vec{\mathbf{v}}\right) = \left[\begin{array}{c} 27 \\ 4 \end{array}\right]$. You can work out the transformed vector by hand like so:
+The linear transformation $L$ described my the matrix $\left[\begin {array}{cc} 1 & -6 \\ 4 & 2 \end{array}\right]$ transforms the vector $\vec{\mathbf{v}} = \left[\begin{array}{c} 3 \\ -4 \end{array}\right]$ so that it becomes $L\left(\vec{\mathbf{v}}\right) = \left[\begin{array}{c} 27 \\ 4 \end{array}\right]$. You can work out the transformed vector by hand like so:  
+由矩阵$\left[\begin {array}{cc} 1 & -6 \\ 4 & 2 \end{array}\right]$所表示的线性变换$L$，  
+会将向量$\vec{\mathbf{v}} = \left[\begin{array}{c} 3 \\ -4\end{array}\right]$变换为$L\left(\vec{\mathbf{v}}\right) =\left[\begin{array}{c} 27 \\ 4 \end{array}\right]$。  
+你可以像这样手动计算出变换后的向量：
 
 <Figure image="$lesson/figures/matrices/MatrixIntutionTexQuestion.svg" />
 
-Or, visually, interpret the transformed coordinate system and reading off where the vector $\left[\begin{array}{c} 3 \\ -4 \end{array}\right]$ is transformed to.
+Or, visually, interpret the transformed coordinate system and reading off where the vector $\left[\begin{array}{c} 3 \\ -4 \end{array}\right]$ is transformed to.  
+或者，从直观上理解变换后的坐标系，从而确定向量$\left[\begin{array}{c} 3\\ -4 \end{array}\right]$被变换到了何处xs。
 
 <Figure image="$lesson/figures/matrices/MatrixIntuitionVisualQuestion1.svg" />
 
@@ -267,11 +366,17 @@ Or, visually, interpret the transformed coordinate system and reading off where 
 
 ## Examples
 
-Let's practice describing a few linear transformations with matrices.
+Let's practice describing a few linear transformations with matrices.  
+让我们练习用矩阵来描述一些线性变换。
 
-### Rotation
+### Rotation 旋转
 
-For example, if we rotate all of space $90$ degrees counterclockwise, then $\hat{\imath}$ lands at the coordinates $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$, and $\hat{\jmath}$ lands at the coordinates $\left[\begin{array}{c} -1 \\ 0 \end{array}\right]$, so the matrix we end up with has columns $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$ and $\left[\begin{array}{c} -1 \\ 0 \end{array}\right]$.
+For example, if we rotate all of space $90$ degrees counterclockwise, then $\hat{\imath}$ lands at the coordinates $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$, and $\hat{\jmath}$ lands at the coordinates $\left[\begin{array}{c} -1 \\ 0 \end{array}\right]$, so the matrix we end up with has columns $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$ and $\left[\begin{array}{c} -1 \\ 0 \end{array}\right]$.  
+例如，如果我们将整个空间逆时针旋转 $90$ 度，  
+那么 $\hat{\imath}$ 将位于坐标 $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$，  
+而 $\hat{\jmath}$ 将位于坐标 $\left[\begin{array} {c} -1 \\ 0 \end{array}\right]$，  
+因此最终得到的矩阵的列为 $\left[\begin{array}{c} 0 \\ 1 \end{array}\right]$ 和 $\left[\begin{array}{c} -1 \\ 0 \end{array}\right]$。 
+
 
 <Figure
   image="$lesson/figures/examples/Rotation.svg"
@@ -279,12 +384,14 @@ For example, if we rotate all of space $90$ degrees counterclockwise, then $\hat
   show="video"
 />
 
-To figure out what happens to any vector after a $90$ degree counterclockwise rotation, you can multiply its coordinates by this matrix.
+To figure out what happens to any vector after a $90$ degree counterclockwise rotation, you can multiply its coordinates by this matrix.  
+要弄清楚任意向量顺时针旋转$90$度后会变成什么，可以将它的坐标乘以这个矩阵。
 
 <Figure image="$lesson/figures/examples/RotationMatrix.svg" />
 
 <Question
-  question="What is the result of multiplying the vector $\left[\begin{array}{c} 2 \\ 3 \end{array}\right]$ by the rotation matrix $\left[\begin{array}{cc}0 & -1 \\ 1 & 0\end{array}\right]$?"
+  question="What is the result of multiplying the vector $\left[\begin{array}{c} 2 \\ 3 \end{array}\right]$ by the rotation matrix $\left[\begin{array}{cc}0 & -1 \\ 1 & 0\end{array}\right]$?  
+  ​“将向量$\left[\begin{array}{c} 2 \\ 3 \end{array}\right]$与旋转矩阵$\left[\begin{array}{cc}0 & -1 \\ 1 & 0\end{array}\right]$相乘的结果是什么？​”"
   choice1="$\left[\begin{array}{c} -3 \\ 2 \end{array}\right]$"
   choice2="$\left[\begin{array}{c} -2 \\ 3 \end{array}\right]$"
   choice3="$\left[\begin{array}{c} 3 \\ 2 \end{array}\right]$"
@@ -292,11 +399,13 @@ To figure out what happens to any vector after a $90$ degree counterclockwise ro
   answer={1}
 >
 
-We can work it out by hand by applying the matrix to the vector:
+We can work it out by hand by applying the matrix to the vector:  
+我们可以通过将矩阵作用于向量来手动计算出来：
 
 <Figure image="$lesson/figures/examples/RotationMatrixTex.svg" />
 
-We can also double check our work by visualizing the transformation:
+We can also double check our work by visualizing the transformation:  
+我们还可以通过可视化变换来再次验证我们的计算结果。
 
 <Figure
   image="$lesson/figures/examples/RotationQuestion1.svg"
@@ -306,9 +415,10 @@ We can also double check our work by visualizing the transformation:
 
 </Question>
 
-### Shear
+### Shear 剪切
 
-Here's a fun transformation with a special name, called a "shear".
+Here's a fun transformation with a special name, called a "shear".  
+这里有一个有趣且带有特殊名称的变换，被称为“剪切”​。
 
 <Figure
   image="$lesson/figures/examples/Shear.svg"
@@ -316,21 +426,30 @@ Here's a fun transformation with a special name, called a "shear".
   show="video"
 />
 
-In it, $\hat{\imath}$ remains fixed, so the first column of the matrix is $\left[\begin{array}{c} 1 \\ 0 \end{array}\right]$, but $\hat{\jmath}$ moves over to the coordinates $\left[\begin{array}{c} 1 \\ 1 \end{array}\right]$, which becomes the second column of the matrix.
+In it, $\hat{\imath}$ remains fixed, so the first column of the matrix is $\left[\begin{array}{c} 1 \\ 0 \end{array}\right]$, but $\hat{\jmath}$ moves over to the coordinates $\left[\begin{array}{c} 1 \\ 1 \end{array}\right]$, which becomes the second column of the matrix.  
+在此情况下，  
+$\hat{\imath}$保持不变，因此矩阵的第一列是$\left[\begin{array}{c} 1 \\ 0 \end{array}\right]$，  
+$\hat{\jmath}$则移动到坐标$\left[\begin{array}{c} 1 \\ 1 \end{array}\right]$处，该坐标成为矩阵的第二列。
 
 <Figure image="$lesson/figures/examples/ShearMatrix.svg" />
 
-And at the risk of being redundant, figuring out how a shear transforms a given vector comes down to multiplying this matrix by that vector.
+And at the risk of being redundant, figuring out how a shear transforms a given vector comes down to multiplying this matrix by that vector.  
+虽然可能有重复之风险，但要弄清楚剪切变换如何作用于某个给定向量，  
+归根结底就是将这个矩阵与该向量相乘。
 
 <Figure image="$lesson/figures/examples/ShearMatrixTex.svg" />
 
 ### Transformation from a Matrix
 
-What about the other way around? If we are given a matrix, say with columns $\left[\begin{array}{c} 1 \\ 2 \end{array}\right]$ and $\left[\begin{array}{c} 3 \\ 1 \end{array}\right]$, can you deduce what it's transformation looks like? Pause and take a moment to see if you can imagine it.
+What about the other way around? If we are given a matrix, say with columns $\left[\begin{array}{c} 1 \\ 2 \end{array}\right]$ and $\left[\begin{array}{c} 3 \\ 1 \end{array}\right]$, can you deduce what it's transformation looks like? Pause and take a moment to see if you can imagine it.  
+反过来呢？如果我们给定一个矩阵，其列分别为$\left[\begin{array}{c} 1 \\ 2\end{array}\right]$和$\left[\begin{array}{c} 3 \\ 1 \end{array}\right]$，你能推断出它的变换形式吗？  
+暂停片刻，想想看是否能够想象出来。
 
 <FreeResponse>
 
-One way to imagine it is to first move $\hat{\imath}$ to $\left[\begin{array}{c} 1 \\ 2 \end{array}\right]$, then move $\hat{\jmath}$ to $\left[\begin{array}{c} 3 \\ 1 \end{array}\right]$, always moving the rest of space in such a way that keeps the grid lines parallel and evenly spaced.
+One way to imagine it is to first move $\hat{\imath}$ to $\left[\begin{array}{c} 1 \\ 2 \end{array}\right]$, then move $\hat{\jmath}$ to $\left[\begin{array}{c} 3 \\ 1 \end{array}\right]$, always moving the rest of space in such a way that keeps the grid lines parallel and evenly spaced.  
+一种想象方式是：先将$\hat{\imath}$移动到$\left[\begin{array}{c} 1 \\ 2\end{array}\right]$，再将$\hat{\jmath}$移动到$\left[\begin{array}{c} 3 \\1 \end{array}\right]$，  
+同时始终以保持网格线平行且间距均匀的方式移动其余空间。
 
 <Figure
   image="$lesson/figures/examples/TransformationFromMatrixAlt.svg"
@@ -340,9 +459,13 @@ One way to imagine it is to first move $\hat{\imath}$ to $\left[\begin{array}{c}
 
 </FreeResponse>
 
-### Linearly Dependent Columns
+### Linearly Dependent Columns 线性相关的列
 
-If the vectors that $\hat{\imath}$ and $\hat{\jmath}$ land on are linearly dependent, which if you recall from the last chapter means one is a scaled version of the other, it means the linear transformation squishes all of 2d space onto the line where those vectors sit, also known as the one-dimensional span of these two linearly dependent vectors.
+If the vectors that $\hat{\imath}$ and $\hat{\jmath}$ land on are linearly dependent, which if you recall from the last chapter means one is a scaled version of the other, it means the linear transformation squishes all of 2d space onto the line where those vectors sit, also known as the one-dimensional span of these two linearly dependent vectors.  
+如果$\hat{\imath}$和$\hat{\jmath}$所指向的向量线性相关——回想上一章的内容，  
+这意味着其中一个向量是另一个向量的缩放版本——  
+那么就意味着该线性变换会将整个二维空间压缩到这两个向量所在的直线上，  
+也就是由这两个线性相关向量所张成的的一维空间。
 
 <Figure
   image="$lesson/figures/examples/LinearlyDependentColumns.svg" 
@@ -352,31 +475,48 @@ If the vectors that $\hat{\imath}$ and $\hat{\jmath}$ land on are linearly depen
 </section>
 
 <section>
-## Formal Properties
+## Formal Properties  形式化属性
 
-There's an unimaginably large number of possible transformations, many of which are rather complicated to think about. As we discussed, linear algebra limits itself to a special type of transformation called a _linear_ transformation which we defined as a transformation where grid lines remain parallel and evenly spaced. In addition to the geometric notion of "linearity," we can also express that a function is linear if it satisfies the following two properties:
+There's an unimaginably large number of possible transformations, many of which are rather complicated to think about. As we discussed, linear algebra limits itself to a special type of transformation called a _linear_ transformation which we defined as a transformation where grid lines remain parallel and evenly spaced. In addition to the geometric notion of "linearity," we can also express that a function is linear if it satisfies the following two properties:  
+可能的变换数量多到难以想象，其中许多变换的思路相当复杂。  
+正如我们所讨论的，线性代数仅研究一种特殊类型的变换，  
+即我们定义为“线性变换”的那种变换——在这种变换中，网格线保持平行且等距分布。  
+除了“线性”这一几何概念之外，如果一个函数满足以下两个性质，我们也可以认为它是线性的：
 
 <Figure image="$lesson/figures/formal-properties/AlgebraicProperties.svg" />
 
-To help appreciate just how constraining these two properties are, and to reason about what this implies a linear transformation must _look_ like, consider the important fact from the <LessonLink id="span">last chapter</LessonLink> that when you write down a vector with coordinates, say $\vec{\mathbf{v}} = \begin{bmatrix}-1\\2\end{bmatrix}$, you are effectively writing it as a linear combination of two basis vectors.
+To help appreciate just how constraining these two properties are, and to reason about what this implies a linear transformation must _look_ like, consider the important fact from the <LessonLink id="span">last chapter</LessonLink> that when you write down a vector with coordinates, say $\vec{\mathbf{v}} = \begin{bmatrix}-1\\2\end{bmatrix}$, you are effectively writing it as a linear combination of two basis vectors.  
+为帮助大家理解这两个性质的限制性有多强，  
+以及由此可以推断出线性变换必须“呈现”为何种形态，  
+可以回顾上一章中的一个重要事实：  
+当用坐标表示一个向量，比如 $\vec{\mathbf{v}} = \begin{bmatrix}-1\\2\end{bmatrix}$时，  
+实际上就是将其写成两个基向量的线性组合。
 
 <Figure image="$lesson/figures/formal-properties/LinearCombinationOfBasisVectorsBefore.svg" />
 
-If you consider how the transformation acts separately on the two vectors that make up the linear combination, respectively $-1\hat{\imath}$ and ${2\hat{\jmath}}$, then the consequence of the transformation preserving sums is that $L(\vec{\mathbf{v}}) =  L(-1 \hat{\imath})+L(2 \hat{\jmath})$.
+If you consider how the transformation acts separately on the two vectors that make up the linear combination, respectively $-1\hat{\imath}$ and ${2\hat{\jmath}}$, then the consequence of the transformation preserving sums is that $L(\vec{\mathbf{v}}) =  L(-1 \hat{\imath})+L(2 \hat{\jmath})$.  
+如果考虑该变换分别如何作用于构成该线性组合的两个向量，即$-1\hat{\imath}$和${2\hat{\jmath}}$，  
+那么由于变换保持向量和的性质，就必有$L(\vec{\mathbf{v}}) = L(-1 \hat{\imath})+L(2 \hat{\jmath})$。
 
 <Figure
   image="$lesson/figures/formal-properties/LinearCombinationOfBasisVectorsAfter.svg"
   video="$lesson/figures/formal-properties/LinearCombinationOfBasisVectors.mp4"
 />
 
-Since the transformation preserves scaling, we can rewrite the linear combination as the transformed basis vectors multiplied by the coordinates of the input vector.
+Since the transformation preserves scaling, we can rewrite the linear combination as the transformed basis vectors multiplied by the coordinates of the input vector.  
+由于该变换保持了缩放性，我们可以将线性组合重写为变换后的基向量与输入向量坐标的乘积。
 
 <Figure image="$lesson/figures/formal-properties/ApplyingTheTransformation.svg" />
 
-This is why if you know where the two basis vectors $\hat{\imath}$ and $\hat{\jmath}$ go, everything else follows. For that matter, if you have any other pair of vectors spanning 2d space, knowing where they land will determine where everything else goes, but because $\hat{\imath}$ and $\hat{\jmath}$ are the standard choice for a basis we write matrices in terms of them.
+This is why if you know where the two basis vectors $\hat{\imath}$ and $\hat{\jmath}$ go, everything else follows. For that matter, if you have any other pair of vectors spanning 2d space, knowing where they land will determine where everything else goes, but because $\hat{\imath}$ and $\hat{\jmath}$ are the standard choice for a basis we write matrices in terms of them.  
+这就是为什么只要知道两个基向量$\hat{\imath}$和$\hat{\jmath}$的变化方向，其他一切就能确定下来。  
+实际上，只要有一对能够张成二维空间的向量，  
+知道它们的变化方向就能确定其他所有向量的变化方向，  
+但由于$\hat{\imath}$和$\hat{\jmath}$是基向量的标准选择，我们便用它们来表示矩阵。
 
 <Question
-  question="What is the transformation matrix that is described by the behavior $\left[\begin{array}{c} 2 \\ 3 \end{array}\right] \to \left[\begin{array}{c} 8 \\ 1 \end{array}\right]$ and $\left[\begin{array}{c} -2 \\ 1 \end{array}\right] \to \left[\begin{array}{c} 0 \\ 3 \end{array}\right]$?"
+  question="What is the transformation matrix that is described by the behavior $\left[\begin{array}{c} 2 \\ 3 \end{array}\right] \to \left[\begin{array}{c} 8 \\ 1 \end{array}\right]$ and $\left[\begin{array}{c} -2 \\ 1 \end{array}\right] \to \left[\begin{array}{c} 0 \\ 3 \end{array}\right]$?  
+  由行为 $\left[\begin{array}{c} 2 \\ 3 \end{array}\right] \to\left[\begin{array}{c} 8 \\ 1 \end{array}\right]$ 和 $\left[\begin{array}{c}-2 \\ 1 \end{array}\right] \to \left[\begin{array}{c} 0 \\ 3\end{array}\right]$ 所描述的变换矩阵是什么？"
   choice1="$\left[\begin{array}{cc}1 & 2 \\ -1 & 1\end{array}\right]$"
   choice2="$\left[\begin{array}{cc}2 & 1 \\ 1 & 1\end{array}\right]$"
   choice3="$\left[\begin{array}{cc}1 & -2 \\ -1 & 1\end{array}\right]$"
@@ -384,7 +524,8 @@ This is why if you know where the two basis vectors $\hat{\imath}$ and $\hat{\jm
   answer={1}
 >
 
-We know the input and output of the transformation for two inputs.
+We know the input and output of the transformation for two inputs.  
+我们知道两个输入对应的变换的输入和输出。
 
 $$
 \begin{aligned}
@@ -411,7 +552,8 @@ c & d
 \end{aligned}
 $$
 
-Apply the transformation to the vectors to get the linear combinations.
+Apply the transformation to the vectors to get the linear combinations.  
+将变换应用于向量以得到线性组合。
 
 $$
 \begin{aligned}
@@ -438,7 +580,8 @@ d
 \end{aligned}
 $$
 
-Equate the components of the vectors together, giving us the following system of equations.
+Equate the components of the vectors together, giving us the following system of equations.  
+将向量的各分量相等联立，得到以下方程组。
 
 $$
 \begin{aligned}
@@ -449,7 +592,8 @@ $$
 \end{aligned}
 $$
 
-Solve for $a$ in the first equation.
+Solve for $a$ in the first equation.  
+求解第一个方程中的$a$。
 
 $$
 \begin{aligned}
@@ -459,7 +603,8 @@ a & =\frac{b}{2}
 \end{aligned}
 $$
 
-Substitute this expression for $a$ into the third equation and solve for $b$.
+Substitute this expression for $a$ into the third equation and solve for $b$.  
+将此表达式代入$a$的第三个方程中，然后求解$b$。
 
 $$
 \begin{aligned}
@@ -469,7 +614,8 @@ b & =2
 \end{aligned}
 $$
 
-Using this value for $b$ solve for the value of $a$.
+Using this value for $b$ solve for the value of $a$.  
+利用这个$b$的值来求解$a$的值。
 
 $$
 \begin{aligned}
@@ -478,7 +624,8 @@ $$
 \end{aligned}
 $$
 
-Solve for $c$ in the second equation.
+Solve for $c$ in the second equation.  
+求解第二个方程中的$c$。
 
 $$
 \begin{aligned}
@@ -488,7 +635,8 @@ c & =\frac{d-3}{2}
 \end{aligned}
 $$
 
-Substitute this expression in for $d$ in the fourth equation.
+Substitute this expression in for $d$ in the fourth equation.  
+将此表达式代入第四个方程中的$d$。
 
 $$
 \begin{aligned}
@@ -499,7 +647,8 @@ d & =1
 \end{aligned}
 $$
 
-Using this value for $d$ solve for the value of $c$.
+Using this value for $d$ solve for the value of $c$.  
+利用这个$d$的值来求解$c$的值。
 
 $$
 \begin{aligned}
@@ -508,9 +657,14 @@ c&=-1
 \end{aligned}
 $$
 
-In conclusion,, the transformation matrix that is described by $\left[\begin{array}{c} -2 \\ 1 \end{array}\right] \to \left[\begin{array}{c} 0 \\ 3 \end{array}\right]$ and $\left[\begin{array}{c} 2 \\ 3 \end{array}\right] \to \left[\begin{array}{c} 8 \\ 1 \end{array}\right]$ is defined as $\left[\begin{array}{cc}1 & 2 \\ -1 & 1\end{array}\right]$.
+In conclusion,, the transformation matrix that is described by $\left[\begin{array}{c} -2 \\ 1 \end{array}\right] \to \left[\begin{array}{c} 0 \\ 3 \end{array}\right]$ and $\left[\begin{array}{c} 2 \\ 3 \end{array}\right] \to \left[\begin{array}{c} 8 \\ 1 \end{array}\right]$ is defined as $\left[\begin{array}{cc}1 & 2 \\ -1 & 1\end{array}\right]$.  
 
-We can also double check our work visually by tracking where the basis vectors go.
+综上所述，由 $\left[\begin{array}{c} -2 \\ 1 \end{array}\right] \to \left[\begin{array}{c} 0 \\ 3 \end{array}\right]$ 和 $\left[\begin{array}{c} 2 \\ 3 \end{array}\right] \to \left[\begin{array} {c} 8 \\ 1 \end{array}\right]$  
+ 
+所描述的变换矩阵定义为 $\left[\begin{array}{cc}1 & 2 \\ -1 & 1\end{array}\right]$。
+
+We can also double check our work visually by tracking where the basis vectors go.  
+我们还可以通过追踪基向量的变化轨迹来直观地再次验证我们的结果。
 
 <Figure
   image="$lesson/figures/formal-properties/MatrixFromTwoVectors.svg"
@@ -520,11 +674,15 @@ We can also double check our work visually by tracking where the basis vectors g
 
 </Question>
 
-**Why do we know the origin must remain fixed in place using these formal properties?**
+**Why do we know the origin must remain fixed in place using these formal properties?  
+为什么我们能根据这些形式性质知道起源必须保持固定不动？**
 
 <FreeResponse>
 
-A consequence of the scaling property is that $L(0 \cdot \vec{\mathbf{v}}) = \mathbf{0}$, meaning the given the zero vector the function returns the zero vector back. In other words, the origin remains fixed in place for the transformation.
+A consequence of the scaling property is that $L(0 \cdot \vec{\mathbf{v}}) = \mathbf{0}$, meaning the given the zero vector the function returns the zero vector back. In other words, the origin remains fixed in place for the transformation.  
+缩放性质的一个结果是$L(0 \cdot \vec{\mathbf{v}}) = \mathbf{0}$，  
+这意味着给定零向量时，该函数会返回零向量。  
+换言之，在这种变换下原点始终保持固定不变。
 
 </FreeResponse>
 
@@ -532,10 +690,18 @@ A consequence of the scaling property is that $L(0 \cdot \vec{\mathbf{v}}) = \ma
 
 <section>
 
-## Conclusion
+## Conclusion 结论
 
-Understanding how matrices can be thought of as transformation is a powerful mental tool for understanding the various constructs and definitions concerning matrices, which we'll explore as the series continues. This includes the ideas of matrix multiplication, determinants, how to solve systems of equations, what eigenvalues are, and much more. In all these cases, holding the picture of a linear transformation in your head can make the computations much more understandable.
+Understanding how matrices can be thought of as transformation is a powerful mental tool for understanding the various constructs and definitions concerning matrices, which we'll explore as the series continues. This includes the ideas of matrix multiplication, determinants, how to solve systems of equations, what eigenvalues are, and much more. In all these cases, holding the picture of a linear transformation in your head can make the computations much more understandable.  
+理解如何将矩阵视为一种变换，是一种强大的思维工具，  
+有助于我们理解与矩阵相关的各种概念和定义。  
+在后续的内容中，我们将进一步探讨这些主题，  
+包括矩阵乘法、行列式、如何求解方程组、特征值是什么等等。  
+在所有这些情况下，如果在脑海中保持线性变换的概念，就能让相关计算更加容易理解。
 
-On the flip side, there are cases where you may want to actually describe manipulations of space; again graphics programming offers a wealth of examples. In those cases, knowing that matrices give a way to describe these transformations symbolically, in a manner conducive to concrete computations, is exceedingly helpful.
+On the flip side, there are cases where you may want to actually describe manipulations of space; again graphics programming offers a wealth of examples. In those cases, knowing that matrices give a way to describe these transformations symbolically, in a manner conducive to concrete computations, is exceedingly helpful.  
+另一方面，有时你可能需要描述对空间的操作；图形编程在这方面提供了大量示例。  
+在这些情况下，知道矩阵能够以一种有助于进行具体计算的方式，
+用符号形式来描述这些变换，是极为有用的。
 
 </section>

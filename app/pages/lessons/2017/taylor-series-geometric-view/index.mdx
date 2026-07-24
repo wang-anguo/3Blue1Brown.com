@@ -1,37 +1,66 @@
 ---
-title: Taylor series (geometric view)
-description: A different perspective of Taylor Series that's related to the fundamental theorem of calculus.
+title: Taylor series (geometric view) 泰勒级数（几何视角）
+description: A different perspective of Taylor Series that's related to the fundamental theorem of calculus.  与微积分基本定理相关的泰勒级数的另一种视角。
 date: 2017-05-07
 chapter: 15
 source: _2017/eoc/chapter10.py
 thumbnail: $lesson/thumbnail.jpg
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson  - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 <section>
 
-## Geometric View
+## Geometric View  几何视图
 
-In the spirit of showing you just how connected the topics of calculus are, let me turn to a completely different way to understand this second order term geometrically. It's related to the fundamental theorem of calculus, which I talked about in chapters 1 and 8.
+In the spirit of showing you just how connected the topics of calculus are, let me turn to a completely different way to understand this second order term geometrically. It's related to the fundamental theorem of calculus, which I talked about in chapters 1 and 8.  
+为了向您展示微积分各主题之间究竟有着多么紧密的联系，  
+让我用一种完全不同的方式从几何角度来理解这个二阶项。  
+它与我在第1章和第8章中讲过的微积分基本定理有关。
 
-Like we did in those videos, consider a function that gives the area under some graph between a fixed left point and a variable right point. What we're going to do is think about how to approximate this area function, not the function for the graph like we were doing before. Focusing on that area is what will make the second order term pop out.
+Like we did in those videos, consider a function that gives the area under some graph between a fixed left point and a variable right point. What we're going to do is think about how to approximate this area function, not the function for the graph like we were doing before. Focusing on that area is what will make the second order term pop out.  
+就像我们在那些视频中做的那样，考虑一个函数，  
+它表示从固定的左端点到一个变化的右端点之间的曲线下的面积。  
+我们要做的是思考如何近似这个面积函数，而不是像之前那样近似曲线的函数本身。  
+正是通过关注这个面积，二阶项才会显现出来。
 
-Remember, the fundamental theorem of calculus is that this graph itself represents the derivative of the area function, and as a reminder it's because a slight nudge dx to the right bound on the area gives a new bit of area approximately equal to the height of the graph times dx, in a way that's increasingly accurate for smaller choice of dx.
+Remember, the fundamental theorem of calculus is that this graph itself represents the derivative of the area function, and as a reminder it's because a slight nudge dx to the right bound on the area gives a new bit of area approximately equal to the height of the graph times dx, in a way that's increasingly accurate for smaller choice of dx.  
+       请记住，微积分基本定理指出，这条曲线本身就代表了面积函数的导数。  
+       需要提醒的是，这是因为当面积的右边界向右微调dx时，  
+       新增的面积大约等于曲线在对应点的高度乘以dx，  
+       而且当dx取值越小时，这种近似就越精确。
 
-So df over dx, the change in area divided by that nudge dx, approaches the height of the graph as dx approaches 0.
+So df over dx, the change in area divided by that nudge dx, approaches the height of the graph as dx approaches 0.  
+因此，当dx趋近于0时，面积的变化量除以这个微小的增量dx，即df/dx，  
+就会趋近于图形的纵坐标高度。
 
-But if you wanted to be more accurate about the change to the area given some change to x that isn't mean to approach 0, you would take into account this portion right here, which is approximately a triangle.
+But if you wanted to be more accurate about the change to the area given some change to x that isn't mean to approach 0, you would take into account this portion right here, which is approximately a triangle.  
+但如果你想更准确地计算当x发生非趋于0的变化时面积的变化，  
+就需要考虑这里的这部分，它大致呈三角形形状。
 
-Let's call the starting input a, and the nudged input above it x, so that this change is (x-a).
+Let's call the starting input a, and the nudged input above it x, so that this change is (x-a).  
+我们把初始输入记为a，其上方经过微调后的输入记为x，  
+这样这个变化量就是(x-a)。
 
-The base of that little triangle is that change (x-a), and its height is the slope of the graph times (x-a). Since this graph is the derivative of the area function, that slope is the second derivative of the area function, evaluated at the input a.
+The base of that little triangle is that change (x-a), and its height is the slope of the graph times (x-a). Since this graph is the derivative of the area function, that slope is the second derivative of the area function, evaluated at the input a.  
+那个小三角形的底边就是那个变化量（x-a）​，而其高则是函数图像的斜率乘以（x-a）​。  
+由于该图像是面积函数的导数，所以这个斜率实际上就是面积函数在输入值a处的二阶导数。
 
-So the area of that triangle, ½ base times height, is one half times the second derivative of the area function, evaluated at a, multiplied by (x-a)2.
+So the area of that triangle, ½ base times height, is one half times the second derivative of the area function, evaluated at a, multiplied by (x-a)2.  
+因此，该三角形的面积——即底乘以高的一半——  
+等于在点a处求得的面积函数二阶导数乘以(x-a)²的一半。
 
-And this is exactly what you see with Taylor polynomials. If you knew the various derivative information about the area function at the point a, you would approximate this area at x to be the area up to a, f(a), plus the area of this rectangle, which is the first derivative times (x-a), plus the area of this triangle, which is ½ (the second derivative) \* (x - a)2.
+And this is exactly what you see with Taylor polynomials. If you knew the various derivative information about the area function at the point a, you would approximate this area at x to be the area up to a, f(a), plus the area of this rectangle, which is the first derivative times (x-a), plus the area of this triangle, which is ½ (the second derivative) \* (x - a)2.  
+而这正是泰勒多项式所体现的原理。  
+如果你知道面积函数在点a处的各种导数信息，就可以将x处的面积近似表示为：  
+到a点的面积f(a)，  
+再加上这个矩形的面积，  
+即一阶导数乘以(x-a)，  
+再加上这个三角形的面积，  
+即½乘以二阶导数再乘以(x-a)²。
 
 I like this, because even though it looks a bit messy all written out, each term has a clear meaning you can point to on the diagram.
-
+我喜欢这样，因为尽管全部写出来看起来有点杂乱，  
+但每一项都有明确的含义，可以在图上对应找到。
 </section>

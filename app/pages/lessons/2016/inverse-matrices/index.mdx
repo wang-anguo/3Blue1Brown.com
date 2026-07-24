@@ -1,12 +1,12 @@
 ---
-title: Inverse matrices, column space, and null space
-description: How do you think about the column space and null space of a matrix visually?  How do you think about the inverse of a matrix?
+title: Inverse matrices, column space, and null space 逆矩阵、列空间与零空间
+description: How do you think about the column space and null space of a matrix visually?  How do you think about the inverse of a matrix? 从视觉角度出发，你如何理解矩阵的列空间与零空间？你又如何理解矩阵的逆？
 date: 2016-08-15
 chapter: 7
 video: uQhTuRlWMxw
 source: _2016/eola/chapter6.py
 credits:
-  - Lesson by Grant Sanderson
+  - Lesson by Grant Sanderson 格兰特·桑德森的课程
   - Text Adaption by River Way
 ---
 
@@ -15,25 +15,37 @@ import Question from "~/components/Question";
 
 <section>
 
-> To ask the right question is harder than to answer it.
+> To ask the right question is harder than to answer it. 提出正确的问题比回答它更难。
 >
-> $\qquad$ — Georg Cantor
+> $\qquad$ — Georg Cantor 乔治·康托尔
 
 </section>
 
 <section>
 
-As you can probably tell by now, the bulk of this series is on understanding matrix and vector operations through the more visual lens of linear transformations. This chapter will be no exception, describing the concepts of inverse matrices, column space, rank, and null space through that lens.
+As you can probably tell by now, the bulk of this series is on understanding matrix and vector operations through the more visual lens of linear transformations. This chapter will be no exception, describing the concepts of inverse matrices, column space, rank, and null space through that lens.  
+正如您现在可能已经意识到的，  
+本系列的内容主要在于通过线性变换这一更为直观的视角来理解矩阵与向量运算。  
+本章也不例外，将会通过这一视角来阐述逆矩阵、列空间、秩以及零空间的概念。
 
-A forewarning though, I'm not going to talk at all about the methods for computing these things, which some would argue is rather important. There are a lot of good resources for learning those methods outside this series, keywords "Gaussian elimination" and "row echelon form". I think most of the actual value I have to offer here is on the intuition half. Plus, in practice, we usually get software to compute these operations for us anyway.
+A forewarning though, I'm not going to talk at all about the methods for computing these things, which some would argue is rather important. There are a lot of good resources for learning those methods outside this series, keywords "Gaussian elimination" and "row echelon form". I think most of the actual value I have to offer here is on the intuition half. Plus, in practice, we usually get software to compute these operations for us anyway.  
+不过需要提前说明的是，我完全不会涉及计算这些量的方法，虽然有些人认为那相当重要。  
+在本系列之外有很多优秀的资源可以学习那些方法，关键词是“高斯消元法”和“行阶梯形”​。  
+我认为我在这里能提供的真正价值主要在于帮助大家建立直观理解。  
+此外，在实际应用中，我们通常也会使用软件来为我们完成这些运算。
 
 </section>
 
 <section>
 
-## Linear Systems of Equations
+## Linear Systems of Equations  线性方程组
 
-You have a hint by now of how linear algebra is useful for describing the manipulation of space, which is useful for things like computer graphics and robotics. But one of the main reasons linear algebra is more broadly applicable, and required for just about any technical discipline, is that it lets us solve certain systems of equations. When I say "system of equations", I mean you have a list of variables you don't know and a list of equations relating them.
+You have a hint by now of how linear algebra is useful for describing the manipulation of space, which is useful for things like computer graphics and robotics. But one of the main reasons linear algebra is more broadly applicable, and required for just about any technical discipline, is that it lets us solve certain systems of equations. When I say "system of equations", I mean you have a list of variables you don't know and a list of equations relating them.  
+      现在你应该已经大致了解线性代数在描述空间变换方面的作用了，  
+      而这在计算机图形学和机器人技术等领域非常有用。  
+      但线性代数之所以具有更广泛的适用性，并且几乎成为所有技术学科的必备工具，  
+      其中一个主要原因在于它能够帮助我们求解某些方程组。  
+      我所说的“方程组”​，指的是有一组未知的变量，以及一组描述这些变量之间关系的方程。
 
 $$
 \begin{matrix}
@@ -52,9 +64,15 @@ _{\large\text{Equations}}
 \end{matrix}
 $$
 
-These variables could be voltages across various elements in a circuit, prices of certain stocks, parameters in a machine learning network, or any situation where you might be dealing with multiple unknown numbers that somehow depend on one another.
+These variables could be voltages across various elements in a circuit, prices of certain stocks, parameters in a machine learning network, or any situation where you might be dealing with multiple unknown numbers that somehow depend on one another.  
+这些变量可以是电路中各元件的电压、某些股票的价格、机器学习网络中的参数，  
+或是任何需要处理多个相互关联的未知数值的情况。
 
-How exactly they depend on each other is determined by the substance of your science, whether that means modeling the physics of circuits, the dynamics of the economy, or interactions in a neural network, but often you end up with a list of equations that relate these variables to one another. In many situations, these equations can get _very_ complicated.
+How exactly they depend on each other is determined by the substance of your science, whether that means modeling the physics of circuits, the dynamics of the economy, or interactions in a neural network, but often you end up with a list of equations that relate these variables to one another. In many situations, these equations can get _very_ complicated.  
+它们之间的具体依赖关系由你所研究的科学领域决定，  
+无论是电路的物理特性建模、经济的动态变化，还是神经网络中的相互作用，  
+但通常最终会得到一组将这些变量相互关联的方程式。  
+在许多情况下，这些方程式会变得极为复杂。
 
 $$
 \begin{align*}
@@ -64,7 +82,11 @@ x^2+y^2&=e^{-z}
 \end{align*}
 $$
 
-But if you're lucky, they might take a certain special form. Within each equation, the only thing happening to each variable is that it will be scaled by some constant, and the only thing happening to each of those scaled variables is that they are added to each other. There are no exponents, fancy functions, or multiplying two variables together.
+But if you're lucky, they might take a certain special form. Within each equation, the only thing happening to each variable is that it will be scaled by some constant, and the only thing happening to each of those scaled variables is that they are added to each other. There are no exponents, fancy functions, or multiplying two variables together.  
+但如果你运气好的话，它们可能会呈现出某种特殊的形式。  
+在每个方程中，每个变量所经历的只是被某个常数缩放，  
+而那些经过缩放后的变量所做的只是彼此相加。  
+没有指数、复杂的函数，也没有两个变量相乘的情况。
 
 $$
 \begin{align*}
@@ -74,9 +96,16 @@ $$
 \end{align*}
 $$
 
-The typical way to organize this sort of special system of equations is to throw all the variables on the left and to put any lingering constants on the right. It's also nice to vertically line up all common variables, throwing in zero coefficients whenever one of the variables doesn't show up in one of the equations. This is called a "linear system of equations".
+The typical way to organize this sort of special system of equations is to throw all the variables on the left and to put any lingering constants on the right. It's also nice to vertically line up all common variables, throwing in zero coefficients whenever one of the variables doesn't show up in one of the equations. This is called a "linear system of equations".  
+    整理这类特殊方程组的典型方法是将所有变量放在左边，而将剩余的常数放在右边。  
+    此外，还将所有相同的变量对齐排列，如果某个变量没有出现在某个方程中，则将其系数记为零。  
+    这就被称为“线性方程组”​。
 
-You might notice that this looks a lot like matrix-vector multiplication. In fact, you can package all the equations together into one _vector_ equation where you have the matrix containing all the constant coefficients, and a vector containing all the variables, and their matrix-vector product equals some different, constant vector.
+You might notice that this looks a lot like matrix-vector multiplication. In fact, you can package all the equations together into one _vector_ equation where you have the matrix containing all the constant coefficients, and a vector containing all the variables, and their matrix-vector product equals some different, constant vector.  
+你可能会发现，这看起来很像矩阵-向量乘法。  
+实际上，你可以把所有方程合并成一个 _向量_ 方程，  
+其中用矩阵表示所有的常数系数，用向量表示所有的变量，  
+它们的矩阵-向量乘积就等于某个不同的常数向量。
 
 $$
 \begin{align*}
@@ -118,7 +147,8 @@ $$
 $$
 
 <Question
-  question="Which matrix-vector equation corresponds to this system: $\\3x+0y=5\\ 2x-5y=2$"
+  question="Which matrix-vector equation corresponds to this system: $\\3x+0y=5\\ 2x-5y=2$  
+  哪个矩阵-向量方程对应于这个方程组： $\\3x+0y=5\\ 2x-5y=2$"
   choice1="$\begin{bmatrix}2&-5\\ 3&0\end{bmatrix}\begin{bmatrix}x\\ y\end{bmatrix}=\begin{bmatrix}5\\2\end{bmatrix}$"
   choice2="$\begin{bmatrix}3&0\\ 2&-5\end{bmatrix}\begin{bmatrix}2\\ 5\end{bmatrix}=\begin{bmatrix}x\\y\end{bmatrix}$"
   choice3="$\begin{bmatrix}2&x\\ 5&y\end{bmatrix}\begin{bmatrix}3\\ 2\end{bmatrix}=\begin{bmatrix}0\\-5\end{bmatrix}$"
@@ -127,18 +157,35 @@ $$
 
 We package all of the coefficients into the matrix $A=\begin{bmatrix}3&0\\ 2&-5\end{bmatrix}$, all of the variables into the vector $\overrightarrow{\mathbf{x}}=\begin{bmatrix}x\\ y\end{bmatrix}$, and all of the constants into the vector $\overrightarrow{\mathbf{v}}=\begin{bmatrix}5\\2\end{bmatrix}$. Then we place them in the equation $A\overrightarrow{\mathbf{x}}=\overrightarrow{\mathbf{v}}$.
 
+我们将所有系数打包到矩阵 $A=\begin{bmatrix}3&0\\ 2&-5\end{bmatrix}$ 中，  
+将所有变量放入向量 $\overrightarrow{\mathbf{x}}=\begin{bmatrix}x\\ y\end{bmatrix}$ 中，  
+并将所有常数放入向量 $\overrightarrow{\mathbf{v}}=\begin{bmatrix}5\\2\end{bmatrix}$ 中。  
+然后将它们代入方程 $A\overrightarrow{\mathbf{x}}=\overrightarrow{\mathbf{v}}$。
+
 </Question>
 
-Let's name this coefficient matrix $A$, denote the vector holding all our variables with a boldfaced $\overrightarrow{\mathbf{x}}$, and call the constant vector on the right-hand side $\overrightarrow{\mathbf{v}}$. This is more than just a notational trick to get our system of equations written on one line, it sheds light on a wonderful geometric interpretation of the problem. The matrix $A$ corresponds to some linear transformation, so solving $A\overrightarrow{\mathbf{x}}=\overrightarrow{\mathbf{v}}$ means we're looking for a vector $\overrightarrow{\mathbf{x}}$ which, after applying that transformation, lands on $\overrightarrow{\mathbf{v}}$.
+Let's name this coefficient matrix $A$, denote the vector holding all our variables with a boldfaced $\overrightarrow{\mathbf{x}}$, and call the constant vector on the right-hand side $\overrightarrow{\mathbf{v}}$. This is more than just a notational trick to get our system of equations written on one line, it sheds light on a wonderful geometric interpretation of the problem. The matrix $A$ corresponds to some linear transformation, so solving $A\overrightarrow{\mathbf{x}}=\overrightarrow{\mathbf{v}}$ means we're looking for a vector $\overrightarrow{\mathbf{x}}$ which, after applying that transformation, lands on $\overrightarrow{\mathbf{v}}$.  
+让我们将这个系数矩阵记为$A$，用粗体符号$\overrightarrow{\mathbf{x}}$表示包含所有变量的向量，  
+而将右侧的常数向量称为$\overrightarrow{\mathbf{v}}$。  
+这不仅仅是一种为了让方程组写在一行上的符号技巧，它还揭示了该问题令人惊叹的几何意义。  
+矩阵$A$对应着某种线性变换，  
+因此求解$A\overrightarrow{\mathbf{x}}=\overrightarrow{\mathbf{v}}$意味着我们在寻找这样一个向量$\overrightarrow{\mathbf{x}}$：  
+在经过该变换之后，它能得到向量$\overrightarrow{\mathbf{v}}$。
 
 <Figure
   image="$lesson/transformation_ax=v.svg"
   video="$lesson/transformation_ax=v.mp4"
 />
 
-Just think about what's happening here for a moment. You can hold in your head this complex idea of multiple variables all intermingling with each other just by thinking about squishing and morphing space and trying to find which vector lands on another. Cool, right?
+Just think about what's happening here for a moment. You can hold in your head this complex idea of multiple variables all intermingling with each other just by thinking about squishing and morphing space and trying to find which vector lands on another. Cool, right?  
+试想一下这里正在发生的事情。  
+只需通过思考空间的挤压与变形，以及试图找出哪个向量会落在另一个向量上，  
+就能在脑海中理解这个由多个相互关联的变量构成的复杂概念。很酷吧？
 
-To start simply, let's say you have a system with two equations and two unknowns. This means the matrix $A$ is a $2\times 2$ matrix, and $\overrightarrow{\mathbf{x}}$ and $\overrightarrow{\mathbf{v}}$ are both two dimensional vectors.
+To start simply, let's say you have a system with two equations and two unknowns. This means the matrix $A$ is a $2\times 2$ matrix, and $\overrightarrow{\mathbf{x}}$ and $\overrightarrow{\mathbf{v}}$ are both two dimensional vectors.  
+简单起见，假设你有一个包含两个方程和两个未知数的系统。  
+这意味着矩阵$A$是一个$2\times 2$矩阵，  
+而$\overrightarrow{\mathbf{x}}$和$\overrightarrow{\mathbf{v}}$都是二维向量。
 
 $$
 \begin{align*}
@@ -168,52 +215,75 @@ $$
 }_{\large \color{orange}\overrightarrow{\mathbf{v}}}
 $$
 
-The way we think about solutions to this equation depends on whether the transformation associated with $A$ squishes all of space into a lower dimension, like a line or a point, or if it leaves everything spanning the full two dimensions where it started.
+The way we think about solutions to this equation depends on whether the transformation associated with $A$ squishes all of space into a lower dimension, like a line or a point, or if it leaves everything spanning the full two dimensions where it started.  
+我们思考该方程解的方式，取决于与$A$相关的变换是将整个空间压缩到更低维度，  
+如一条线或一个点，还是让所有内容都保留在其起始的二维空间中。
 
 <Figure image="$lesson/lower_dim.svg" video="$lesson/lower_dim.mp4" />
 
-In the language of the last chapter, we subdivide into the case where A has zero determinant, and the case where A has nonzero determinant.
+In the language of the last chapter, we subdivide into the case where A has zero determinant, and the case where A has nonzero determinant.  
+用上一章的语言来说，我们可以将其分为行列式为零的情况和行列式非零的情况。
 
 </section>
 
 <section>
 
-## Inverses
+## Inverses 逆
 
-Let's start with the most likely case, where the determinant is nonzero and space does not get squished onto a zero-area line. In this case, there will always be one and only one vector $\overrightarrow{\mathbf{x}}$ that lands on $\overrightarrow{\mathbf{v}}$, which you can find by playing the transformation in reverse.
+Let's start with the most likely case, where the determinant is nonzero and space does not get squished onto a zero-area line. In this case, there will always be one and only one vector $\overrightarrow{\mathbf{x}}$ that lands on $\overrightarrow{\mathbf{v}}$, which you can find by playing the transformation in reverse.  
+当你反向执行该变换时，实际上对应着另一个线性变换，  
+通常称为$A$的逆矩阵，记为$A^{-1}$。  
+例如，如果$A$表示顺时针旋转$90^\circ$，那么$A$的逆矩阵则表示逆时针旋转$90^\circ$。
 
 <Figure image="$lesson/inverse_ax=v.svg" video="$lesson/inverse_ax=v.mp4" />
 
 Following where $\overrightarrow{\mathbf{v}}$ goes as we rewind the tape like this, you will find the vector $\overrightarrow{\mathbf{x}}$ such that $A\overrightarrow{\mathbf{x}}=\overrightarrow{\mathbf{v}}$.
 
-### Inverse Matrix
+我们先从最可能的情况开始讨论，即行列式非零，且空间不会被压缩到零面积的直线上。  
+在这种情况下，总存在且仅存在一个向量$\overrightarrow{\mathbf{x}}$  
+使得它与$\overrightarrow{\mathbf{v}}$重合，你可以通过反向执行该变换来找到它。
 
-When you play the transformation in reverse, it actually corresponds with a separate linear transformation, commonly called the inverse of $A$, denoted as $A^{-1}$. For example, if $A$ was a counterclockwise rotation by $90^\circ$, the inverse of $A$ would be a clockwise rotation by $90^\circ$.
+### Inverse Matrix 逆矩阵
+
+When you play the transformation in reverse, it actually corresponds with a separate linear transformation, commonly called the inverse of $A$, denoted as $A^{-1}$. For example, if $A$ was a counterclockwise rotation by $90^\circ$, the inverse of $A$ would be a clockwise rotation by $90^\circ$.  
+当你反向执行该变换时，实际上对应着另一个线性变换，通常称为$A$的逆矩阵，记为$A^{-1}$。  
+例如，如果$A$表示顺时针旋转$90^\circ$，那么$A$的逆矩阵则表示逆时针旋转$90^\circ$。
 
 <Figure
   image="$lesson/rotation_inverse.svg"
   video="$lesson/rotation_inverse.mp4"
 />
 
-If $A$ was a rightward shear that pushed $\hat j$ one unit to the right, the inverse of $A$ would be leftward a shear that pushed $\hat j$ one unit to the left.
+If $A$ was a rightward shear that pushed $\hat j$ one unit to the right, the inverse of $A$ would be leftward a shear that pushed $\hat j$ one unit to the left.  
+如果$A$是一个将$\hat j$向右推动一个单位的向右剪切变换，  
+那么$A$的逆变换就是一个将$\hat j$向左推动一个单位的向左剪切变换。
 
 <Figure image="$lesson/shear_inverse.svg" video="$lesson/shear_inverse.mp4" />
 
-In general, $A^{-1}$ is the unique transformation with the property that if you apply the transformation $A$, and follow it with the transformation $A$ inverse, you end up back where you started.
+In general, $A^{-1}$ is the unique transformation with the property that if you apply the transformation $A$, and follow it with the transformation $A$ inverse, you end up back where you started.  
+一般来说，$A^{-1}$是唯一的这样的变换：  
+若先应用变换$A$，再应用其逆变换$A^{-1}$，就能回到起点。
 
 <Question
-  question="What is the inverse matrix for a $180^\circ$ rotation? $\begin{bmatrix}-1&0\\0&-1\end{bmatrix}$"
+  question="What is the inverse matrix for a $180^\circ$ rotation? $\begin{bmatrix}-1&0\\0&-1\end{bmatrix}$  
+  $180^\circ$ 旋转的逆矩阵是什么？$\begin{bmatrix}-1&0\\0&-1\end{bmatrix}$"
   choice1="$\begin{bmatrix}-1&0\\0&-1\end{bmatrix}$"
   choice2="$\begin{bmatrix}1&0\\0&-1\end{bmatrix}$"
   choice3="$\begin{bmatrix}0&-1\\1&0\end{bmatrix}$"
   choice4="$\begin{bmatrix}1&-1\\-1&1\end{bmatrix}$"
   answer={1} >
 
-The $180^\circ$ rotation matrix is its own inverse! That should make sense because applying the transformation twice will get you back to where you started.
+The $180^\circ$ rotation matrix is its own inverse! That should make sense because applying the transformation twice will get you back to where you started.  
+180°旋转矩阵就是它自身的逆矩阵！  
+这是有道理的，因为将这种变换应用两次就会回到起点。
 
 </Question>
 
-Since applying one transformation after another is captured algebraically with matrix multiplication, the core property of this reverse transform $A^{-1}$ is that $A^{-1}$ times $A$ equals the matrix that corresponds to doing nothing. The transformation which does nothing is called the "identity" transformation. It leaves $\hat i$ and $\hat j$ where they are, unmoved, so its columns are $\begin{bmatrix}1\\0\end{bmatrix}$ and $\begin{bmatrix}0\\1\end{bmatrix}$.
+Since applying one transformation after another is captured algebraically with matrix multiplication, the core property of this reverse transform $A^{-1}$ is that $A^{-1}$ times $A$ equals the matrix that corresponds to doing nothing. The transformation which does nothing is called the "identity" transformation. It leaves $\hat i$ and $\hat j$ where they are, unmoved, so its columns are $\begin{bmatrix}1\\0\end{bmatrix}$ and $\begin{bmatrix}0\\1\end{bmatrix}$.  
+由于依次应用变换在代数上可以通过矩阵乘法来表示，  
+因此这种逆变换$A^{-1}$的核心性质在于$A^{-1}$乘以$A$的结果相当于不执行任何操作的矩阵。  
+不执行任何操作的变换被称为“单位”变换。  
+它不会改变$\hat i$和$\hat j$的位置，因此其列向量分别为$\begin{bmatrix}1\\0\end{bmatrix}$ 和$\begin{bmatrix}0\\1\end{bmatrix}$。
 
 $$
 A^{-1}A=\begin{bmatrix}
@@ -222,7 +292,13 @@ A^{-1}A=\begin{bmatrix}
 \end{bmatrix}
 $$
 
-There are computational methods to compute this inverse matrix. In the case of two dimensions there's a commonly taught formula, which I have to admit, I can never remember. Once you find this inverse, which in practice you'd do with a computer, you can solve your equation by multiplying this inverse matrix by $\overrightarrow{\mathbf{v}}$. And again, what that means geometrically is that you're playing the transformation in reverse and following $\overrightarrow{\mathbf{v}}$ to end up at $\overrightarrow{\mathbf{x}}$.
+There are computational methods to compute this inverse matrix. In the case of two dimensions there's a commonly taught formula, which I have to admit, I can never remember. Once you find this inverse, which in practice you'd do with a computer, you can solve your equation by multiplying this inverse matrix by $\overrightarrow{\mathbf{v}}$. And again, what that means geometrically is that you're playing the transformation in reverse and following $\overrightarrow{\mathbf{v}}$ to end up at $\overrightarrow{\mathbf{x}}$.  
+有一些计算方法可以用来求出这个逆矩阵。  
+在二维情况下，有一个常用的公式，不过我得承认自己永远记不住它。  
+一旦找到了这个逆矩阵——实际上通常  是通过计算机来计算的——  
+就可以通过将这个逆矩阵与$\overrightarrow{\mathbf{v}}$相乘来解方程。  
+从几何意义上讲，这意味着你是在反向执行该变换，  
+并沿着$\overrightarrow{\mathbf{v}}$的方向最终得到$\overrightarrow{\mathbf{x}}$。
 
 $$
 \begin{align*}
@@ -240,7 +316,9 @@ $$
 \end{align*}
 $$
 
-This nonzero determinant case corresponds with the idea that if you have two unknowns and two linear equations, it's almost certainly the case that there is a single unique solution.
+This nonzero determinant case corresponds with the idea that if you have two unknowns and two linear equations, it's almost certainly the case that there is a single unique solution.  
+这种非零行列式的情况对应着这样一个观点：  
+如果有两个未知数和两个线性方程，那么几乎可以肯定存在唯一的解。
 
 $$
 \overbrace{
@@ -251,9 +329,13 @@ $$
 }^{\large\text{One unique solution... probably}}
 $$
 
-### Higher Dimensions
+### Higher Dimensions  更高维度
 
-This idea also makes sense in higher dimensions when the number of equations equals the number of unknowns. Again, the system of equations can be translated to the geometric interpretation where you have some transformation $A$ and some vector $\overrightarrow{\mathbf{v}}$, and you're looking for the vector $\overrightarrow{\mathbf{x}}$ that lands on $\overrightarrow{\mathbf{v}}$.
+This idea also makes sense in higher dimensions when the number of equations equals the number of unknowns. Again, the system of equations can be translated to the geometric interpretation where you have some transformation $A$ and some vector $\overrightarrow{\mathbf{v}}$, and you're looking for the vector $\overrightarrow{\mathbf{x}}$ that lands on $\overrightarrow{\mathbf{v}}$.  
+   当方程个数等于未知数个数时，这一理念在更高维度中同样成立。  
+   同样地，该方程组可以转化为几何解释：  
+   存在某个变换$A$和某个向量$\overrightarrow{\mathbf{v}}$，  
+   我们需要找到能够落在$\overrightarrow{\mathbf{v}}$上的向量$\overrightarrow{\mathbf{x}}$。
 
 $$
 \color{purple}\overrightarrow{\mathbf{x}}
@@ -292,11 +374,17 @@ $$
 }_{\large \color{orange}\overrightarrow{\mathbf{v}}}
 $$
 
-Just like in 2D, we can play a 3D transformation in reverse to find where the vector $\overrightarrow{\mathbf{x}}$ came from when it landed on $\overrightarrow{\mathbf{v}}$.
+Just like in 2D, we can play a 3D transformation in reverse to find where the vector $\overrightarrow{\mathbf{x}}$ came from when it landed on $\overrightarrow{\mathbf{v}}$.  
+就像在二维中一样，我们可以通过反向的3D变换  
+来找出向量$\overrightarrow{\mathbf{x}}$落在$\overrightarrow{\mathbf{v}}$上时的来源。
 
 <Figure image="$lesson/inverse_3D.svg" />
 
-As long as the transformation for $A$ doesn't squish all of space into a lower dimension, meaning its determinant is not zero, there will be an inverse transformation $A^{-1}$. The inverse transformation has the property that if you first do $A$, then you do $A^{-1}$, it's the same as doing nothing. Multiplying that reverse transformation matrix by $\overrightarrow{\mathbf{v}}$, you get the answer $\overrightarrow{\mathbf{x}}$.
+As long as the transformation for $A$ doesn't squish all of space into a lower dimension, meaning its determinant is not zero, there will be an inverse transformation $A^{-1}$. The inverse transformation has the property that if you first do $A$, then you do $A^{-1}$, it's the same as doing nothing. Multiplying that reverse transformation matrix by $\overrightarrow{\mathbf{v}}$, you get the answer $\overrightarrow{\mathbf{x}}$.  
+只要矩阵$A$的变换不会将整个空间压缩到低维空间，即其行列式不为零，那么就存在逆变换$A^{-1}$。  
+该逆变换具有这样的性质：  
+如果先执行$A$的变换，然后再执行$A^{-1}$的变换，效果等同于什么都没做。  
+将这个逆变换矩阵与向量$\overrightarrow{\mathbf{v}}$相乘，就能得到结果向量$\overrightarrow{\mathbf{x}}$。
 
 $$
 \det(A)\neq0\quad\to\quad A^{-1}\text{ exists}
@@ -306,20 +394,27 @@ $$
 
 <section>
 
-## Irreversibility
+## Irreversibility  不可逆性
 
-Up to this point, we've only mentioned the case when the determinant isn't zero. But when the determinant _is_ zero, and the transformation associated with the system of equations squishes space into a smaller dimension, there is no inverse. You cannot unsquish a line to turn it into a plane. At least, that's not something a _function_ can do.
+Up to this point, we've only mentioned the case when the determinant isn't zero. But when the determinant _is_ zero, and the transformation associated with the system of equations squishes space into a smaller dimension, there is no inverse. You cannot unsquish a line to turn it into a plane. At least, that's not something a _function_ can do.  
+到目前为止，我们只讨论了行列式不为零的情况。  
+但当行列式为零，且该方程组所对应的变换将空间压缩到更低维度时，就不存在逆变换了。  
+你无法再将一条直线“展开”成平面。至少，函数是做不到这一点的。
 
 <Figure image="$lesson/reverse_line.svg" video="$lesson/reverse_line.mp4" />
 
-That would require transforming each vector into a whole line of vectors, but functions can only take a single input to a single output.
+That would require transforming each vector into a whole line of vectors, but functions can only take a single input to a single output.  
+那需要将每个向量转换为整条向量线，但函数只能将一个输入映射为一个输出。
 
 <Figure
   image="$lesson/multiple_vectors.svg"
   video="$lesson/multiple_vectors.mp4"
 />
 
-Similarly, for 3 equations and 3 unknowns, there will be no inverse if the corresponding transformation squishes 3D space onto a plane, onto a line, or onto a point. Those all correspond to a determinant of zero, since any region is squished onto a zero-volume region.
+Similarly, for 3 equations and 3 unknowns, there will be no inverse if the corresponding transformation squishes 3D space onto a plane, onto a line, or onto a point. Those all correspond to a determinant of zero, since any region is squished onto a zero-volume region.  
+同样地，对于3个方程和3个未知数，  
+如果相应的变换将3D空间压缩到平面上、直线上或一个点上，那么该变换将没有逆矩阵。  
+这些情况都对应着行列式为零，因为任何区域都会被压缩成体积为零的区域。
 
 <Question
   question="Does $A^{-1}$ exist when $A=\begin{bmatrix}3&-1\\-9&3\end{bmatrix}$?"
@@ -327,71 +422,112 @@ Similarly, for 3 equations and 3 unknowns, there will be no inverse if the corre
   choice2="No, $A^{-1}$ doesn't exist"
   answer={2} >
 
-The columns of this matrix are linearly dependent $-3\begin{bmatrix}-1\\3\end{bmatrix}=\begin{bmatrix}3\\-9\end{bmatrix}$, so the determinant of $A$ is zero and $A^{-1}$ does not exist.
+The columns of this matrix are linearly dependent $-3\begin{bmatrix}-1\\3\end{bmatrix}=\begin{bmatrix}3\\-9\end{bmatrix}$, so the determinant of $A$ is zero and $A^{-1}$ does not exist.  
+该矩阵的列向量线性相关，因为$-3\begin{bmatrix}-1\\3\end{bmatrix}=\begin{bmatrix}3\\-9\end{bmatrix}$，  
+所以$A$的行列式为零，不存在$A^{-1}$。
 
 </Question>
 
-### Column Space
+### Column Space  列空间
 
-It's still possible that a solution exists even when there is no inverse, it's just that when your transformation squishes space onto, say, a line, you have to be lucky enough to have the vector $\overrightarrow{\mathbf{v}}$ live somewhere on that line.
+It's still possible that a solution exists even when there is no inverse, it's just that when your transformation squishes space onto, say, a line, you have to be lucky enough to have the vector $\overrightarrow{\mathbf{v}}$ live somewhere on that line.  
+即使不存在逆矩阵，也仍有可能存在解，  
+只是当你的变换将空间压缩到某条直线上时，你得足够幸运，  
+使得向量$\overrightarrow{\mathbf{v}}$恰好位于那条直线上。
 
 <Figure image="$lesson/no_solution_exists.svg" />
 
-You might notice that some of these zero-determinant cases feel much more restrictive than others. Given a $3\times 3$ matrix, it seems much harder for a solution to exist when it squishes space onto a line compared to when it squishes things onto a plane.
+You might notice that some of these zero-determinant cases feel much more restrictive than others. Given a $3\times 3$ matrix, it seems much harder for a solution to exist when it squishes space onto a line compared to when it squishes things onto a plane.  
+你可能会注意到，这些行列式为零的情况中，有些比其他情况更具限制性。  
+对于一个$3\times 3$矩阵而言，当它将空间压缩到一条直线上时，似乎比压缩到平面上更难存在解。
 
-We have some language that's a bit more specific than just saying zero-determinant. When the output of a transformation is a line, meaning it is one-dimensional, we say the transformation has a rank of $1$.
+We have some language that's a bit more specific than just saying zero-determinant. When the output of a transformation is a line, meaning it is one-dimensional, we say the transformation has a rank of $1$.  
+我们有一些比单纯说“行列式为零”更为具体的表述。  
+当变换后的结果是一条直线，即一维空间时，我们称该变换的秩为$1$。
 
 <Figure image="$lesson/rank_1.svg" />
 
-If all the vectors land on some two-dimensional plane, we say the transformation has a rank of $2$. So the word "rank" means the number of dimensions in the output of a transformation.
+If all the vectors land on some two-dimensional plane, we say the transformation has a rank of $2$. So the word "rank" means the number of dimensions in the output of a transformation.  
+如果所有向量都落在某个二维平面上，我们就说该变换的秩为2。  
+因此，​“秩”这个词指的是变换结果所具有的维度数。
 
 <Figure image="$lesson/rank_2.svg" />
 
-So for instance, in the case of $2\times 2$ matrices, rank $2$ is the best it can be, it means the basis vectors continue to span the full 2D space and the determinant is nonzero. But for $3\times 3$ matrices, rank $2$ means things have collapsed, but not as much as they would have for a rank $1$ transformation.
+So for instance, in the case of $2\times 2$ matrices, rank $2$ is the best it can be, it means the basis vectors continue to span the full 2D space and the determinant is nonzero. But for $3\times 3$ matrices, rank $2$ means things have collapsed, but not as much as they would have for a rank $1$ transformation.  
+例如，对于$2\times 2$矩阵而言，秩为$2$已是最大可能值，  
+这意味着基向量依然能够张成整个二维空间，且行列式非零。  
+但对于$3\times 3$矩阵，秩为$2$则表示情况已经出现退化，不过退化的程度还没有秩为$1$的变换那么严重。
 
-If a 3D transform has a non-zero determinant and its output fills all of 3D space, it has a rank of $3$. This set of all possible outputs for your matrix, whether it's a line, a plane, or 3D space; is called the "column space" of your matrix. You can probably guess where the name comes from; the columns of your matrix tell you where the basis vectors land and the span of those transformed basis vectors gives you all possible outputs. In other words, the column space is the span of the columns of your matrix.
+If a 3D transform has a non-zero determinant and its output fills all of 3D space, it has a rank of $3$. This set of all possible outputs for your matrix, whether it's a line, a plane, or 3D space; is called the "column space" of your matrix. You can probably guess where the name comes from; the columns of your matrix tell you where the basis vectors land and the span of those transformed basis vectors gives you all possible outputs. In other words, the column space is the span of the columns of your matrix.  
+如果一个3D变换的行列式非零，且其输出能够覆盖整个3D空间，那么它的秩为3。  
+矩阵所有可能的输出集合——无论是直线、平面还是3D空间——都被称为该矩阵的“列空间”​。  
+你大概能猜出这个名字的由来：矩阵的列决定了基向量的落点，  
+而这些经过变换后的基向量的张成范围则给出了所有可能的输出。  
+换句话说，列空间就是矩阵各列的张成空间。
 
-So a more precise definition of rank is that it's the number of dimensions in the column space. When this rank is as high as it can be, equaling the number of columns in the matrix, the matrix is called "full rank".
+So a more precise definition of rank is that it's the number of dimensions in the column space. When this rank is as high as it can be, equaling the number of columns in the matrix, the matrix is called "full rank".  
+因此，秩的更精确定义是列空间的维数。  
+当这个秩达到最大值，即等于矩阵的列数时，该矩阵被称为“满秩”​。
 
 <Question
-  question="What is the rank of this matrix? $\begin{bmatrix}1&-2&4\\-2&4&-8\\5&-10&20\end{bmatrix}$"
+  question="What is the rank of this matrix? $\begin{bmatrix}1&-2&4\\-2&4&-8\\5&-10&20\end{bmatrix}$  
+  这个矩阵的秩是多少？"
   choice1="Rank 0"
   choice2="Rank 1"
   choice3="Rank 2"
   choice4="Rank 3 (full rank)"
   answer={2} >
 
-The columns of this matrix can be expressed as $\begin{bmatrix}1\\-2\\5\end{bmatrix}=-\frac12\begin{bmatrix}-2\\4\\-10\end{bmatrix}=\frac14\begin{bmatrix}4\\-8\\20\end{bmatrix}$. Since they are all linearly dependent and form a line, the rank is $1$.
+The columns of this matrix can be expressed as $\begin{bmatrix}1\\-2\\5\end{bmatrix}=-\frac12\begin{bmatrix}-2\\4\\-10\end{bmatrix}=\frac14\begin{bmatrix}4\\-8\\20\end{bmatrix}$. Since they are all linearly dependent and form a line, the rank is $1$.  
+该矩阵的列可以表示为$\begin{bmatrix}1\\-2\\5\end{bmatrix}=-\frac12\begin{bmatrix}-2\\4\\-10\end{bmatrix}=\frac14\begin{bmatrix}4\\-8\\20\end{bmatrix}$。  
+由于这些列都线性相关且共线，因此秩为$1$。
 
 </Question>
 
-### Null Space
+### Null Space 零空间
 
-Notice the zero vector will always be included in the column space since linear transformations must keep the origin fixed in place.
+Notice the zero vector will always be included in the column space since linear transformations must keep the origin fixed in place.  
+请注意，零向量始终会包含在列空间中，因为线性变换必须保持原点位置不变。
 
-For a full-rank transformation, the only vector that lands at the origin is the zero vector itself. But for matrices that aren't full rank, which squish to a smaller dimension, you can have a whole bunch of vectors land on zero. If a 2D transformation squishes space onto a line, there is a separate line in a different direction full of vectors that get squished on the origin.
+For a full-rank transformation, the only vector that lands at the origin is the zero vector itself. But for matrices that aren't full rank, which squish to a smaller dimension, you can have a whole bunch of vectors land on zero. If a 2D transformation squishes space onto a line, there is a separate line in a different direction full of vectors that get squished on the origin.  
+对于满秩变换而言，唯一会落在原点的向量就是零向量本身。  
+但对于那些非满秩、维度被压缩的矩阵，则会有许多向量落在零点上。  
+如果一个二维变换将空间压缩成一条直线，  
+那么在另一个方向上也会存在一条充满向量的直线，这些向量都会被压缩到原点处。
 
 <Figure image="$lesson/null_line.svg" video="$lesson/null_line.mp4" />
 
-If a 3D transformation squishes space onto a plane, there is a line full of vectors that land on the origin.
+If a 3D transformation squishes space onto a plane, there is a line full of vectors that land on the origin.  
+如果一个3D变换将空间压缩到平面上，  
+就会存在一条充满向量的直线，这些向量都会被压缩到原点。
 
 <Figure image="$lesson/null_line_3D.svg" />
 
-If a 3D transformation squishes all of space onto a line, there is a whole _plane_ full of vectors that land on the origin.
+If a 3D transformation squishes all of space onto a line, there is a whole _plane_ full of vectors that land on the origin.  
+如果一个3D变换将整个空间压缩到一条直线上，那么就有整整一个 _平面_ 上的向量都落在原点上。
 
 <Figure image="$lesson/null_plane.svg" />
 
-This set of vectors that land on the origin is called the "null space" or the "kernel" of your matrix. It's the space of vectors that becomes null, in the sense that they land on the zero vector. In terms of the linear system of equations, if $\overrightarrow{\mathbf{v}}$ happens to be the zero vector, the null space gives you all possible solutions to the equation.
+This set of vectors that land on the origin is called the "null space" or the "kernel" of your matrix. It's the space of vectors that becomes null, in the sense that they land on the zero vector. In terms of the linear system of equations, if $\overrightarrow{\mathbf{v}}$ happens to be the zero vector, the null space gives you all possible solutions to the equation.  
+这组落在原点的向量被称为矩阵的“零空间”或“核”​。  
+它指的是那些变为零向量的向量所构成的空间。  
+就线性方程组而言，如果$\overrightarrow{\mathbf{v}}$恰好是零向量，那么零空间就会给出该方程的所有可能解。
 
 <Question
-  question="What does the null space of this matrix look like? $\begin{bmatrix}1&-2&4\\-2&4&-8\\5&-10&20\end{bmatrix}$"
+  question="What does the null space of this matrix look like? $\begin{bmatrix}1&-2&4\\-2&4&-8\\5&-10&20\end{bmatrix}$  
+      这个矩阵的零空间是什么样的？"
   choice1="Just the vector $\mathbf{0}$"
   choice2="A Line"
   choice3="A Plane"
   choice4="All of 3D space"
   answer={3} >
 
-The columns of this matrix can be expressed as $\begin{bmatrix}1\\-2\\5\end{bmatrix}=-\frac12\begin{bmatrix}-2\\4\\-10\end{bmatrix}=\frac14\begin{bmatrix}4\\-8\\20\end{bmatrix}$. Since they are all linearly dependent and form a line, the rank is $1$. This means an entire plane gets squished to the origin. The dimensionality of the null space is inversely proportional to the rank of the matrix. $3\text{ (size of matrix)}-1\text{ (rank)}=2\text{ (size of null space)}$.
+The columns of this matrix can be expressed as $\begin{bmatrix}1\\-2\\5\end{bmatrix}=-\frac12\begin{bmatrix}-2\\4\\-10\end{bmatrix}=\frac14\begin{bmatrix}4\\-8\\20\end{bmatrix}$. Since they are all linearly dependent and form a line, the rank is $1$. This means an entire plane gets squished to the origin. The dimensionality of the null space is inversely proportional to the rank of the matrix. $3\text{ (size of matrix)}-1\text{ (rank)}=2\text{ (size of null space)}$.  
+该矩阵的列可以表示为$\begin{bmatrix}1\\-2\\5\end{bmatrix}=-\frac12\begin{bmatrix}-2\\4\\-10\end{bmatrix}=\frac14\begin{bmatrix}4\\-8\\20\end{bmatrix}$。  
+由于这些列都线性相关且共线，因此秩为$1$。  
+这意味着整个平面都被压缩到了原点处。  
+零空间的维数与矩阵的秩成反比。  
+$3\text{（矩阵大小）}-1\text{（秩）}=2\text{（零空间大小）}$。
 
 </Question>
 
@@ -399,10 +535,17 @@ The columns of this matrix can be expressed as $\begin{bmatrix}1\\-2\\5\end{bmat
 
 <section>
 
-## Conclusion
+## Conclusion 结论
 
-So that's a very high-level overview of how to think about linear systems of equations geometrically. Each system has a linear transformation associated with it. When that transformation has an inverse, you can use that inverse to solve your system. Otherwise, the ideas of column space and null space let us know when there is a solution, and what the set of all possible solutions can look like.
+So that's a very high-level overview of how to think about linear systems of equations geometrically. Each system has a linear transformation associated with it. When that transformation has an inverse, you can use that inverse to solve your system. Otherwise, the ideas of column space and null space let us know when there is a solution, and what the set of all possible solutions can look like.  
+以上就是关于如何从几何角度思考线性方程组的非常高层次的概述。  
+每个方程组都对应一个线性变换。  
+当该变换存在逆变换时，就可以利用这个逆变换来求解方程组；  
+否则，列空间和零空间的概念能告诉我们是否存在解，以及所有可能解的集合会是什么样子。
 
-Again, there's a lot I haven't covered, most notably how to compute these things. Also, I limited my scope of examples here to equations where the number of unknowns equals the number of equations. But my goal here is that you come away with a strong intuition for inverse matrices, column space, and null space that can make any future learning you do more fruitful.
+Again, there's a lot I haven't covered, most notably how to compute these things. Also, I limited my scope of examples here to equations where the number of unknowns equals the number of equations. But my goal here is that you come away with a strong intuition for inverse matrices, column space, and null space that can make any future learning you do more fruitful.  
+同样，还有很多内容我没有涉及，最显著的是如何计算这些量。  
+此外，我在这里选取的例子都限制在未知数个数等于方程个数的情形。  
+但我的目标是让你对逆矩阵、列空间和零空间形成深刻直观的理解，从而让日后的学习更加高效。
 
 </section>

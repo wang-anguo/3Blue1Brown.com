@@ -1,13 +1,13 @@
 ---
-title: The paradox of the derivative
-description: An introduction to what a derivative is, and how it formalizes an otherwise paradoxical idea.
+title: The paradox of the derivative 导数的悖论
+description: An introduction to what a derivative is, and how it formalizes an otherwise paradoxical idea. 介绍什么是导数，以及它如何将一个原本充满矛盾的概念形式化。
 date: 2017-04-29
 chapter: 2
 video: 9vKqVkMQHKk
 source: _2017/eoc/chapter2.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Collapsible from "~/components/Collapsible";
@@ -19,176 +19,278 @@ import Spoiler from "~/components/Spoiler";
 
 <section>
 
-<Quote name="Albert Einstein">
+<Quote name="Albert Einstein 阿尔伯特 爱因斯坦">
   So far as the theories of mathematics are about reality, they are not certain;
-  so far as they are certain, they are not about reality.
+  so far as they are certain, they are not about reality.  
+  就数学理论涉及现实而言，它们并不确定。  
+  就其确定性而言，它们并非关于现实的。
 </Quote>
 
-The goal here is simple: Explain what a derivative is. Thing is, though, there's some subtlety to this topic, and some potential for paradoxes if you're not careful, so the secondary goal is that you have some appreciation for what those paradoxes are and how to avoid them.
+The goal here is simple: Explain what a derivative is. Thing is, though, there's some subtlety to this topic, and some potential for paradoxes if you're not careful, so the secondary goal is that you have some appreciation for what those paradoxes are and how to avoid them.  
+这里的目标很简单：解释什么是导数。  
+不过，这个话题其实有些微妙之处，如果不小心处理，还可能产生悖论，  
+因此第二个目标就是让你了解这些悖论是什么以及如何避免它们。
 
-It's common for people to say that the derivative measures "instantaneous rate of change", but if you think about it, that phrase is actually an oxymoron. Change is something that happens between separate points in time, and when you blind yourself to all but a single instant, there is no more room for change.
+It's common for people to say that the derivative measures "instantaneous rate of change", but if you think about it, that phrase is actually an oxymoron. Change is something that happens between separate points in time, and when you blind yourself to all but a single instant, there is no more room for change.  
+人们常说导数衡量的是“瞬时变化率”​，但仔细想想，这个说法其实是个自相矛盾的表述。  
+变化本就是发生在不同时间点之间的现象，而当你只关注某一瞬间时，变化就不再存在了。
 
-Even if the phrase "instantaneous rate of change" doesn't, strictly speaking, make sense, there is a very real concept which this phrase is meant to invoke. It took quite a bit of cleverness from the inventors of calculus to nail down this idea, which we now call the derivative.
+Even if the phrase "instantaneous rate of change" doesn't, strictly speaking, make sense, there is a very real concept which this phrase is meant to invoke. It took quite a bit of cleverness from the inventors of calculus to nail down this idea, which we now call the derivative.  
+严格来说，​“瞬时变化率”这一表述确实没有意义，但它试图指代的是一个真实存在的概念。  
+微积分的创立者们凭借极高的智慧才阐明了这一概念，我们如今将其称为导数。
 
-<Figure image="$lesson/figure-1.05.jpg">(A few) Inventors of Calculus</Figure>
+<Figure image="$lesson/figure-1.05.jpg">(A few) Inventors of Calculus （几位）微积分的创立者</Figure>
 
 </section>
 
 <section>
 
-## Car Moving
+## Car Moving 汽车移动
 
-As our central example, imagine a car that starts at some point $A$, speeds up, then slows to a stop at some point $B$, $100$ meters away, all over the course of $10$ seconds.
+As our central example, imagine a car that starts at some point $A$, speeds up, then slows to a stop at some point $B$, $100$ meters away, all over the course of $10$ seconds.  
+作为我们的核心示例，想象有一辆汽车在10秒的时间里，  
+从点A出发，加速行驶，然后在100米外的点B处减速并停止。
 
 <Figure
   image="$lesson/figure-1.08-1.21.svg"
   video="$lesson/figure-1.08-1.21.mp4"
   show="video"
 >
-  Position of car between two points at different points in time.
+  Position of car between two points at different points in time.  
+  不同时间下汽车在两点之间的位置。
 </Figure>
 
-We could graph this motion, letting a vertical axis represent the distance traveled, and a horizontal axis represent time.
+We could graph this motion, letting a vertical axis represent the distance traveled, and a horizontal axis represent time.  
+我们可以将这种运动绘制成图表，用纵轴表示行驶距离，用横轴表示时间。
 
 <Figure image="$lesson/figure-1.37.svg" video="$lesson/figure-1.25-1.35.mp4">
-  Distance Traveled (meters)
+  Distance Traveled (meters)  行驶距离（米）
 </Figure>
 
-At each time $t$, represented with a point on the horizontal axis, the height of the graph tells us how far the car has traveled after that amount of time. It's common to name a distance function like this $s(t)$. We'd use the letter $d$ for distance, except that it already has another full time job in calculus.
+At each time $t$, represented with a point on the horizontal axis, the height of the graph tells us how far the car has traveled after that amount of time. It's common to name a distance function like this $s(t)$. We'd use the letter $d$ for distance, except that it already has another full time job in calculus.  
+在每个时间点$t$（用横轴上的点表示）处，图表上的高度数值表明了经过该时间后汽车行驶的距离。  
+像这样的距离函数通常被记作 $s(t)$ 。  
+我们本想用字母$d$来表示距离，但它已在微积分中有了其他固定用途。
 
-For example, the height of the graph tells us that after $6$ seconds the car has traveled a little more than $70$ meters.
+For example, the height of the graph tells us that after $6$ seconds the car has traveled a little more than $70$ meters.  
+例如，从图上的高度可以看出，6秒后汽车行驶的距离略超过70米。
 
 <Figure image="$lesson/figure-1.43,1.50.svg">
-  Distance (meters) traveled at $t=6$.
+  Distance (meters) traveled at $t=6$.  
+  $t=6$时行驶的距离（米）​。
 </Figure>
 
-Initially this curve is quite shallow, since the car is slow at the start. During the first second, the distance traveled by the car hardly changes at all. For the next few seconds, as the car speeds up, the distance traveled in a given second gets larger, corresponding to a steeper slope in the graph. And as it slows towards the end, the curve shallows out again.
+Initially this curve is quite shallow, since the car is slow at the start. During the first second, the distance traveled by the car hardly changes at all. For the next few seconds, as the car speeds up, the distance traveled in a given second gets larger, corresponding to a steeper slope in the graph. And as it slows towards the end, the curve shallows out again.  
+起初这条曲线相当平缓，因为汽车在起步时速度较慢。  
+在最初的1秒内，汽车行驶的距离几乎没有任何变化。  
+在接下来的几秒里，随着汽车加速，每秒行驶的距离逐渐增加，这对应着图表上更陡的斜率。  
+而当汽车接近终点时速度变慢，曲线又会再次变得平缓。
 
 <Figure
   image="$lesson/figure-2.06-2.20.svg"
   video="$lesson/figure-2.03-2.22-trimmed.mp4"
 >
-  This figure highlights the slope of the graph for different intervals of time,
-  where slope is calculated as the rise over run for each interval.
+  This figure highlights the slope of the graph for different intervals of time,  
+  where slope is calculated as the rise over run for each interval.  
+  该图显示了不同时间区间内图表的斜率。  
+  其中，斜率是每个时间间隔内的上升量与水平距离之比。
 </Figure>
 
-If we were to plot the car's velocity in meters per second as a function of time, it might look like this green bump shown in the graph below.
+If we were to plot the car's velocity in meters per second as a function of time, it might look like this green bump shown in the graph below.  
+如果我们将汽车的速度以每秒米为单位作为时间的函数绘制出来，  
+它可能会呈现如下图表中所示的绿色凸起形状。
 
-<Figure image="$lesson/figure-2.43.svg">Distance and Velocity Graphs</Figure>
+<Figure image="$lesson/figure-2.43.svg">Distance and Velocity Graphs 距离-速度图</Figure>
 
-Shortly after time $t=0$, the velocity is very small. Up to the middle of the journey, the car builds up to some maximum velocity, covering a relatively large distance in each second. Then it slows back down to a speed of $0$ meters per second.
+Shortly after time $t=0$, the velocity is very small. Up to the middle of the journey, the car builds up to some maximum velocity, covering a relatively large distance in each second. Then it slows back down to a speed of $0$ meters per second.  
+在时间$t=0$之后不久，速度非常小。  
+在行驶过程中，汽车的速度逐渐增加到某个最大值，  
+此时每秒能行驶相对较远的距离。  
+随后速度又逐渐降低，最终变为0米/秒。
 
 </section>
 
 <section>
 
-## Position and Velocity
+## Position and Velocity 位置与速度
 
-These two curves are highly related to each other; if you change the specific distance vs. time function, you'll have some different velocity vs. time function. We want to understand the specifics of this relationship. Exactly how does velocity depend on this distance vs. time function? For example, let's look at a different distance vs. time function.
+These two curves are highly related to each other; if you change the specific distance vs. time function, you'll have some different velocity vs. time function. We want to understand the specifics of this relationship. Exactly how does velocity depend on this distance vs. time function? For example, let's look at a different distance vs. time function.  
+这两条曲线彼此之间有着密切的联系；  
+如果你改变距离与时间的具体函数关系，就会得到不同的速度与时间函数关系。  
+我们想要了解这种关系的具体机制——速度究竟是如何依赖于这个距离与时间函数关系的？  
+例如，让我们来看一个不同的距离与时间函数关系。
 
 <Figure image="$lesson/figure-2.57.svg">
-  In this graph, the car starts from a stopped position, speeds up and slows
-  down back to a stopped position at $5$ seconds time. Then the car speeds up
-  and slows down again to a stopped position at $10$ seconds time.
+  In this graph, the car starts from a stopped position, speeds up and slows down back to a stopped position at $5$ seconds time. Then the car speeds up and slows down again to a stopped position at $10$ seconds time.  
+  在这幅图中，汽车从静止状态开始，加速行驶，随后减速，并在 $5$ 秒时再次停下来。  
+  接着，汽车再次加速，随后减速，并在 $10$ 秒时再次停下来。
 </Figure>
 
-It's worth taking a moment to think critically about what velocity actually means here. Intuitively, we all know what velocity at a given moment means, it's whatever the car's speedometer shows at that moment. And intuitively, it might make sense that velocity should be higher at times when the distance function is steeper; when the car traverses more distance per unit time.
+It's worth taking a moment to think critically about what velocity actually means here. Intuitively, we all know what velocity at a given moment means, it's whatever the car's speedometer shows at that moment. And intuitively, it might make sense that velocity should be higher at times when the distance function is steeper; when the car traverses more distance per unit time.  
+值得花点时间仔细思考一下这里速度的真正含义。  
+直观上，我们都知道某一时刻的速度指的是什么——就是当时汽车转速表显示的数值。  
+而且从直觉上来看，当距离函数的变化更陡峭时，即汽车单位时间内行驶的距离更大时，  
+速度应该也会更高，这似乎是合乎逻辑的。
 
 <PiCreature emotion="pondering" flip />
 
-For example, given the graph of the car's position, shown below, at what time is the car going fastest? <Spoiler>The car is going fastest at $t=3$</Spoiler>
+For example, given the graph of the car's position, shown below, at what time is the car going fastest? <Spoiler>The car is going fastest at $t=3$</Spoiler>  
+例如，根据下图所示的汽车位置图，汽车在何时行驶得最快？ <Spoiler>汽车在 $t=3$ 时行驶得最快。</Spoiler>
 
 <Figure image="$lesson/figure-3.00-question.svg" />
 
-<Collapsible title="Show velocity graph">
+<Collapsible title="Show velocity graph 显示速度图象">
 
 <Figure image="$lesson/figure-3.00-answer.svg" />
 
 </Collapsible>
 
-But the funny thing is, velocity at a single moment makes no sense. Or at least if we think of velocity as a change in distance divided by a change in time, then isolating our view to a single moment leaves no room for both these changes. If I show you a picture of a car, a snapshot in an instant, and ask you how fast it's going, you'd have no way of telling me.
+But the funny thing is, velocity at a single moment makes no sense. Or at least if we think of velocity as a change in distance divided by a change in time, then isolating our view to a single moment leaves no room for both these changes. If I show you a picture of a car, a snapshot in an instant, and ask you how fast it's going, you'd have no way of telling me.  
+但有趣的是，某一时刻的速度其实是没有意义的。  
+或者说，如果我们把速度理解为距离变化量除以时间变化量，  
+那么将视角局限于某一瞬间时，就不存在这两种变化的空间了。  
+如果我给您看一张汽车的图片，即某一瞬间的快照，  
+然后问您它行驶的速度有多快，您是根本无法回答的。
 
 <Figure image="$lesson/figure-3.38.svg" />
 
-What you need are two points in time to compare, perhaps comparing the distance traveled after $4$ seconds to the distance traveled after $5$ second. That way, you can take the change in distance over the change in time. For example, the two snapshots in time below show the position of the car.
+What you need are two points in time to compare, perhaps comparing the distance traveled after $4$ seconds to the distance traveled after $5$ second. That way, you can take the change in distance over the change in time. For example, the two snapshots in time below show the position of the car.  
+你需要两个时间点进行比较，比如比较4秒后行驶的距离与5秒后行驶的距离。  
+这样，就可以用距离的变化除以时间的变化来计算速度。  
+例如，下面的两个时间快照显示了汽车的位置。
 
 <Figure image="$lesson/figure-3.52.svg" />
 
-Using this information, we can calculate the velocity of the car for this time interval.
+Using this information, we can calculate the velocity of the car for this time interval.  
+利用这些信息，我们可以计算出该时间间隔内汽车的速度。
 
 $$
-\text{Velocity} \implies \frac{\text { Change in distance }}{\text { Change in time }} \implies \frac{(50-30) \text { meters }}{(5-4) \text { seconds }}
+\text{Velocity} \implies \frac{\text { Change in distance }}{\text { Change in time }} \implies \frac{(50-30) \text { meters }}{(5-4) \text { seconds }}  
 $$
 
-That's what velocity is, the distance traveled over a given amount of time.
+$$
+\text{速度} \implies \frac{\text{距离的变化量}}{\text{时间的变化量}} \implies\frac{(50-30) \text{米}}{(5-4) \text{秒}}
 
-So how is it that we're looking at a function for velocity that only takes in a single value for $t$, a single snapshot in time. It's weird, isn't it? We want to associate each individual point in time with a velocity, but computing velocity requires comparing two points in time.
+$$
+That's what velocity is, the distance traveled over a given amount of time.  
+速度就是指在特定时间内行驶的距离。
+
+So how is it that we're looking at a function for velocity that only takes in a single value for $t$, a single snapshot in time. It's weird, isn't it? We want to associate each individual point in time with a velocity, but computing velocity requires comparing two points in time.  
+那么，为什么我们看到的速度函数只接受一个$t$值，也就是时间上的一个单一瞬间呢？  
+这很奇怪，对吧？  
+我们希望将每一个具体的时间点都与一个速度对应起来，但计算速度却需要比较两个时间点。
 
 <Figure image="$lesson/figure-4.14.svg" />
 
-If that feels strange and paradoxical, good! You're grappling with the same conflict that the inventors of calculus did, and if you want a deep understanding of rates of change, not just for a moving car, but for all sorts of scenarios in science, you'll need a resolution to this apparent paradox.
+If that feels strange and paradoxical, good! You're grappling with the same conflict that the inventors of calculus did, and if you want a deep understanding of rates of change, not just for a moving car, but for all sorts of scenarios in science, you'll need a resolution to this apparent paradox.  
+如果这让你觉得奇怪且自相矛盾，那很好！  
+你正在面对与微积分的创立者们相同的难题。  
+如果你想深入理解变化率——不仅是对行驶中的汽车，还包括科学领域的各种情形——  
+你就需要找到解决这一表面矛盾的方法。
 
 </section>
 
 <section>
 
-## Rates of Change
+## Rates of Change  变化率
 
-First let's talk about the real world, then we'll go into a purely mathematical one. Think about how you might build an actual speedometer for a car.
+First let's talk about the real world, then we'll go into a purely mathematical one. Think about how you might build an actual speedometer for a car.  
+首先我们来谈谈现实世界，然后再探讨纯粹的数学领域。  
+思考一下如何为汽车制造一个真正的速度表。
 
 <Figure image="$lesson/figure-4.45.svg" />
 
-At some point, say $3$ seconds into the journey, the speedometer might measure how far the car goes in a very small amount of time, perhaps the distance traveled between $3$ seconds and $3.01$ seconds. Then it would compute the speed in meters per second as that tiny distance, in meters, divided by that tiny time, $0.01$ seconds.
+At some point, say $3$ seconds into the journey, the speedometer might measure how far the car goes in a very small amount of time, perhaps the distance traveled between $3$ seconds and $3.01$ seconds. Then it would compute the speed in meters per second as that tiny distance, in meters, divided by that tiny time, $0.01$ seconds.  
+在行驶的某个时刻，比如3秒后，速度表可以测量汽车在极短时间内的行驶距离，  
+比如3秒到3.01秒之间的距离。  
+然后它会将这个以米为单位的微小距离除以0.01秒这个微小时间，从而算出速度，单位为米/秒。
 
 <Figure image="$lesson/figure-5.00.svg" />
 
-That is, a physical car can sidestep the paradox by not actually computing speed at a single point in time, and instead computing speed during _very_ small amounts of time.
+That is, a physical car can sidestep the paradox by not actually computing speed at a single point in time, and instead computing speed during _very_ small amounts of time.  
+        也就是说，真实的汽车可以通过不在某一特定时间点计算速度，  
+        而是计算极短时间内的速度，从而避开这一悖论。
 
 $$
 \text{Velocity} \implies \frac{\text { Change in distance }}{\text { Change in time }} \implies\frac{(20.21-20) \text { meters }}{(3.01-3) \text { seconds }}
 $$
 
-Let's call that difference in time "$dt$", which you might think of as $0.01$ seconds, and call the resulting difference in distance traveled "$ds$". So the velocity at that point in time is $ds$ over $dt$, the tiny change in distance over the tiny change in time.
+$$
+\text{速度} \implies \frac{\text{距离变化量}}{\text{时间变化量}} \implies\frac{(20.21-20) \text{米}}{(3.01-3) \text{秒}}
+$$
+
+Let's call that difference in time "$dt$", which you might think of as $0.01$ seconds, and call the resulting difference in distance traveled "$ds$". So the velocity at that point in time is $ds$ over $dt$, the tiny change in distance over the tiny change in time.  
+我们把时间上的这个差值称为 “$dt$”​，可以将其视为0.01秒，  
+而把由此产生的位移差值称为 “ $ds$ ”​。  
+因此，在那个时刻的速度就是 $ds$ 除以 $dt$，即微小的位移变化除以微小的时间变化。
 
 <Figure image="$lesson/figure-5.31.svg" />
 
-Graphically, imagine zooming in on the point of the distance vs. time graph above $t=3$. That $dt$ is a small step to the right, since time is on the horizontal axis, and that $ds$ is the resulting change in the height of the graph, since the vertical axis represents distance traveled.
+Graphically, imagine zooming in on the point of the distance vs. time graph above $t=3$. That $dt$ is a small step to the right, since time is on the horizontal axis, and that $ds$ is the resulting change in the height of the graph, since the vertical axis represents distance traveled.  
+从图形上看，可以想象将上述距离与时间图上 $t=3$ 点放大来看。  
+由于时间位于横轴上， $dt$ 表示向右移动的一小段距离；  
+而由于纵轴代表行驶的距离，$ds$则表示图表高度的相应变化。
 
 <Figure image="$lesson/figure-5.50.svg" video="$lesson/figure-6.00-6.08.mp4">
-  Zoomed in image of rise over run at $t=3$
+  Zoomed in image of rise over run at $t=3$  
+  $t=3$时位移随时间变化的放大图
 </Figure>
 
-So $\frac{ds}{dt}$ is the rise-over-run slope between two _very_ close points on the graph.
+So $\frac{ds}{dt}$ is the rise-over-run slope between two _very_ close points on the graph.  
+因此，$\frac{ds}{dt}$ 就是图上两个非常接近的点之间的上升率与跨度之比。
 
 $$
 \frac{d s}{d t}=\frac{\text { rise }}{\text{run}}
 $$
 
-Of course, there's nothing special about the value $t=3$, we could apply this to any other point in time, so we consider this expression $\frac{ds}{dt}$ to be a function of $t$, something where I can give you some time $t$, and you can give back to me the value of this ratio at that time; the velocity as a function of time.
+Of course, there's nothing special about the value $t=3$, we could apply this to any other point in time, so we consider this expression $\frac{ds}{dt}$ to be a function of $t$, something where I can give you some time $t$, and you can give back to me the value of this ratio at that time; the velocity as a function of time.  
+当然，$t=3$这个数值并没有什么特别之处，我们可以将其应用到任何其他时间点上。  
+因此，我们将表达式 $\frac{ds}{dt}$ 视为 $t$ 的函数——  
+也就是说，我可以给出一个时间 $t$，你就可以告诉我该时刻这个比值的大小；  
+也就是速度作为时间的函数。
 
 <Figure image="$lesson/figure-6.05.svg">
-  Zoomed in image of rise over run at $t=6$
+  Zoomed in image of rise over run at $t=6$  
+  $t=6$时升程与跑程之比的放大图像
 </Figure>
 
-So for example, when I had the computer draw this bump curve representing the velocity function, the one you can think of as the slope of this distance vs. time function at each point, here's what I had computer do:
+So for example, when I had the computer draw this bump curve representing the velocity function, the one you can think of as the slope of this distance vs. time function at each point, here's what I had computer do:  
+      例如，当我让计算机绘制出这条表示速度函数的起伏曲线——  
+      也就是可以理解为该距离随时间函数在每一点的斜率时，我是这样让计算机操作的：
 
-First, I chose some small value for $dt$, like $0.01$. Then, I had the computer look at many times $t$ between $0$ and $10$, and compute the distance function $s$ at $(t + dt)$, minus the value of this function at $t$. That is, the difference in the distance traveled between the given time $t$, and the time $0.01$ seconds after that. Then divide that difference by the change in time $dt$, and this gives the velocity in meters per second around each point in time.
+First, I chose some small value for $dt$, like $0.01$. Then, I had the computer look at many times $t$ between $0$ and $10$, and compute the distance function $s$ at $(t + dt)$, minus the value of this function at $t$. That is, the difference in the distance traveled between the given time $t$, and the time $0.01$ seconds after that. Then divide that difference by the change in time $dt$, and this gives the velocity in meters per second around each point in time.  
+首先，我选择了较小的 $dt$ 值，比如 $0.01$。  
+然后，让计算机在 $0$ 到 $10$ 之间多次取 $t$ 的值，  
+计算出 $(t + dt)$ 处的距离函数 $s$ 与该点 $t$ 处函数值的差值。  
+也就是说，这是给定时间 $t$ 与之后 $0.01$ 秒时的行进距离之差。  
+接着将这个差值除以时间变化量 $dt$，这样就得到了每个时间点附近的速度，单位为米/秒。
 
 $$
 \frac{d s}{d t}(t)=\frac{s(t+d t)-s(t)}{d t}
 $$
 
-With this formula, you can give the computer any curve representing the distance function $s(t)$, and it can figure out the curve representing the velocity $v(t)$.
+With this formula, you can give the computer any curve representing the distance function $s(t)$, and it can figure out the curve representing the velocity $v(t)$.  
+利用这个公式，你可以给计算机提供任意表示距离函数 $s(t)$ 的曲线，  
+它就能算出表示速度 $v(t)$ 的曲线。
 
 </section>
 
 <section>
 
-## The Paradox
+## The Paradox 悖论
 
-So now would be a good time to pause, reflect, make sure this idea of relating distance to velocity by looking at tiny changes in time $dt$ makes sense, because now we're going to tackle the paradox of the derivative head-on. This idea of $\frac{ds}{dt}$, a tiny change in the value of the function $s$ divided by a tiny change in the input $t$, is _almost_ what the derivative is.
+So now would be a good time to pause, reflect, make sure this idea of relating distance to velocity by looking at tiny changes in time $dt$ makes sense, because now we're going to tackle the paradox of the derivative head-on. This idea of $\frac{ds}{dt}$, a tiny change in the value of the function $s$ divided by a tiny change in the input $t$, is _almost_ what the derivative is.  
+所以现在正是暂停、思考的好时机，  
+要弄清楚通过观察时间$dt$的微小变化来将距离与速度联系起来的这种想法是否合理，  
+因为接下来我们就要直面导数的悖论了。  
+$\frac{ds}{dt}$ 这个概念——即函数 $s$ 值的微小变化除以输入量 $t$ 的微小变化——  
+几乎就是导数的定义。
 
-Even though our car's speedometer will look at an actual change in time like $0.01$ seconds to compute speed, and even though my program here for finding a velocity function given a position function also uses a concrete value of $dt$, in pure math, the derivative is not this ratio $\frac{ds}{dt}$ for any _specific_ choice of $dt$. It is whatever value that ratio _approaches_ as the choice for $dt$ approaches $0$.
+Even though our car's speedometer will look at an actual change in time like $0.01$ seconds to compute speed, and even though my program here for finding a velocity function given a position function also uses a concrete value of $dt$, in pure math, the derivative is not this ratio $\frac{ds}{dt}$ for any _specific_ choice of $dt$. It is whatever value that ratio _approaches_ as the choice for $dt$ approaches $0$.  
+尽管我们的汽车速度表会通过像0.01秒这样的实际时间间隔来计算速度，  
+而且我这里用于根据位置函数求速度函数的程序也使用了具体的 $dt$ 值，  
+但在纯数学中，导数并非对于任何特定 $dt$ 选择所对应的 $\frac{ds}{dt}$ 这个比值。  
+它而是当 $dt$ 趋近于 $0$ 时，该比值所趋近的那个值。
 
 <Figure image="$lesson/figure-8.03.svg" video="$lesson/figure-7.53-8.03.mp4" />
 
@@ -196,9 +298,12 @@ Even though our car's speedometer will look at an actual change in time like $0.
 
 <section>
 
-## Tangent Lines
+## Tangent Lines 切线
 
-Luckily, there is a really nice visual understanding for what it means to ask what this ratio approaches: For any specific choice of $dt$, this ratio $ds/dt$ is the slope of a line passing through two points on the graph, known as a secant line.
+Luckily, there is a really nice visual understanding for what it means to ask what this ratio approaches: For any specific choice of $dt$, this ratio $ds/dt$ is the slope of a line passing through two points on the graph, known as a secant line.  
+幸运的是，对于“求该比值趋近于何值”这一概念，有一种非常直观的理解方式：  
+对于任意给定的 $dt$ 值，这个比值 $ds/dt$ 就是穿过图表上两点的直线的斜率，  
+这类直线被称为割线。
 
 <Figure
   image="$lesson/figure-8.17.svg"
@@ -206,101 +311,155 @@ Luckily, there is a really nice visual understanding for what it means to ask wh
   show="video"
 />
 
-Well, as $dt$ approaches $0$, and those two points approach each other, the slope of that secant line approaches the slope of a line tangent to the graph at whatever point $t$ we're looking at. So the true, honest to goodness derivative, is not the rise-over-run slope between two nearby points on the graph; it's equal to the slope of a line _tangent_ to the graph at a single point.
+Well, as $dt$ approaches $0$, and those two points approach each other, the slope of that secant line approaches the slope of a line tangent to the graph at whatever point $t$ we're looking at. So the true, honest to goodness derivative, is not the rise-over-run slope between two nearby points on the graph; it's equal to the slope of a line _tangent_ to the graph at a single point.  
+嗯，当$dt$趋近于$0$时，那两个点也会逐渐靠近，  
+此时割线的斜率就会趋近于我们在某个 $t$ 值处所对应的曲线上的切线斜率。  
+所以，真正的导数并非是曲线上两相邻点间的斜率，而是曲线在某一点处的切线斜率。
 
 <Figure image="$lesson/figure-9.44.svg" video="$lesson/figure-9.27-9.42.mp4" />
 
 <Question
-  question="What does it mean if the slope of the tangent line is negative?"
-  choice1="The car is slowing down."
-  choice2="The car is going backwards."
-  choice3="The car is upside down."
-  choice4="There is a hole in the road."
+  question="What does it mean if the slope of the tangent line is negative?  切线的斜率为负意味着什么？​"
+  choice1="The car is slowing down. 汽车正在减速"
+  choice2="The car is going backwards. 汽车正在倒退"
+  choice3="The car is upside down. 汽车倒过来了"
+  choice4="There is a hole in the road. 路上有个洞"
   answer={2}
 >
 
-A negative tangent line means that the slope is negative and the car is going backwards.
+A negative tangent line means that the slope is negative and the car is going backwards.   
+负切线意味着斜率为负，汽车正在倒退。
 
 </Question>
 
-Notice what I'm not saying: I'm _not_ saying that the derivative is whatever happens when $dt$ is infinitely small, whatever that may mean, nor am I saying that you plug in $0$ for $dt$. Following what is a general theme in calculus, the idea is a two step process where you first consider a finitely small change, some actual number like $0.0001$, and then you ask what your answer approaches as this number approaches $0$.
+Notice what I'm not saying: I'm _not_ saying that the derivative is whatever happens when $dt$ is infinitely small, whatever that may mean, nor am I saying that you plug in $0$ for $dt$. Following what is a general theme in calculus, the idea is a two step process where you first consider a finitely small change, some actual number like $0.0001$, and then you ask what your answer approaches as this number approaches $0$.  
+注意我没说什么：我并不是说导数就是当$dt$无限小时的结果，不管那意味着什么；   
+我也不是说要把 $dt$ 替换为 $0$ 。  
+遵循微积分中的一条通用原则，其思路是一个两步过程：  
+首先考虑一个有限的小变化量，比如 $0.0001$ 这样的实际数值，  
+然后再探究当这个数值趋近于 $0$ 时，结果会趋近于什么。
 
-Even though change in an instant makes no sense, it does make sense to ask what the rate of change across smaller and smaller amounts of time approaches. It's a sneaky backdoor way to talk reasonably about the rate of change at a single point in time. Isn't that neat? It's flirting with the paradox of change in an instant without ever needing to touch it.
+Even though change in an instant makes no sense, it does make sense to ask what the rate of change across smaller and smaller amounts of time approaches. It's a sneaky backdoor way to talk reasonably about the rate of change at a single point in time. Isn't that neat? It's flirting with the paradox of change in an instant without ever needing to touch it.   
+尽管瞬间的变化毫无意义，但探讨在越来越短的时间间隔内的变化率会趋近于何值却是有意义的。  
+这是一种巧妙的方法，能让我们合理地讨论某一特定时间点的变化率。  
+是不是很妙？它在不直接触及瞬间变化悖论的情况下，与之进行了巧妙的互动。
 
-What's even more neat is how this potentially abstract notion of what many different rates of change approach ends up having such a clean and simple geometric meaning. Since the slope of the secant line between two nearby points approaches the slope of the tangent point at one of them as these points get closer together.
+What's even more neat is how this potentially abstract notion of what many different rates of change approach ends up having such a clean and simple geometric meaning. Since the slope of the secant line between two nearby points approaches the slope of the tangent point at one of them as these points get closer together.  
+更妙的是，这一关于多种不同变化率趋近于同一值的潜在抽象概念，  
+最终竟然具有如此清晰简洁的几何意义——  
+当两个相近点越来越接近时，它们之间的割线斜率就会趋近于其中一点处的切线斜率。
 
-Since change in an instant still makes no sense, rather than interpreting the slope of this tangent line as an "instantaneous rate of change", an alternate notion is to think of it as the best constant approximation for rate of change _around_ a point.
+Since change in an instant still makes no sense, rather than interpreting the slope of this tangent line as an "instantaneous rate of change", an alternate notion is to think of it as the best constant approximation for rate of change _around_ a point.  
+由于“瞬时变化”本身仍没有实际意义，  
+因此与其将这条切线的斜率理解为“瞬时变化率”​，  
+另一种看法是将其视为该点**附近**变化率的最佳常数近似值。
 
 </section>
 
 <section>
 
-## Words on Notation
+## Words on Notation  符号说明
 
-Throughout this article I've been using "$dt$" to refer to a tiny change in $t$ with some actual size, and "$ds$" to refer to the resulting tiny change in $s$, which again has an actual size.
+Throughout this article I've been using "$dt$" to refer to a tiny change in $t$ with some actual size, and "$ds$" to refer to the resulting tiny change in $s$, which again has an actual size.  
+在本文中，我使用 “$dt$” 来表示 $t$ 的具有实际大小的微小变化，  
+而用 “$ds$” 来表示随之产生的 $s$ 的同样具有实际大小的微小变化。
 
-But the convention in calculus is that whenever you're using the letter "$d$" like this, you're announcing that the intention is to eventually see what happens as $dt$ approaches $0$. For example, the honest-to-goodness derivative of the function $s(t)$ is written as $\displaystyle \frac{ds}{dt}$, even though the derivative is not a fraction, per se; it's whatever that fraction approaches for smaller and smaller nudges in $t$.
+But the convention in calculus is that whenever you're using the letter "$d$" like this, you're announcing that the intention is to eventually see what happens as $dt$ approaches $0$. For example, the honest-to-goodness derivative of the function $s(t)$ is written as $\displaystyle \frac{ds}{dt}$, even though the derivative is not a fraction, per se; it's whatever that fraction approaches for smaller and smaller nudges in $t$.  
+但在微积分中，惯例是每当像这样使用字母 “$d$” 时，  
+就意味着意图是探究当 $dt$ 趋近于 $0$ 时会发生什么。  
+例如，函数 $s(t)$ 的真正导数被写为 $\displaystyle \frac{ds}{dt}$，  
+尽管导数本身并非分数；  
+它实际上是当 $t$ 发生越来越小的变化时该分数所趋近的值。
 
 </section>
 
 <section>
 
-## Example
+## Example 示例
 
-A specific example should help here. You might think that asking about what this ratio approaches for smaller and smaller values of $dt$ would make it much more difficult to compute, but counterintuitively it can make things easier. Let's say a given distance vs. time function was exactly $t^3$. So after $1$ second, the car has traveled $1^3=1$ meters, after $2$ seconds, it's traveled $2^3=8$ meters, and so on. This function is shown below.
+A specific example should help here. You might think that asking about what this ratio approaches for smaller and smaller values of $dt$ would make it much more difficult to compute, but counterintuitively it can make things easier. Let's say a given distance vs. time function was exactly $t^3$. So after $1$ second, the car has traveled $1^3=1$ meters, after $2$ seconds, it's traveled $2^3=8$ meters, and so on. This function is shown below.  
+       一个具体的例子会有所帮助。  
+       你可能会认为，去探讨当$dt$的值越来越小时这个比值会趋近于多少，会让计算变得更加困难，  
+       但与直觉相反，这实际上可能让事情变得更简单。  
+       假设某个距离与时间的关系函数恰好是 $t^3$ 。  
+       那么1秒后，汽车行驶的距离为 $1^3=1$ 米；  
+       2秒后为$2^3=8$米，以此类推。该函数如下所示。
 
 <Figure image="$lesson/figure-10.50.svg">
-  This figure graphs the position function $s(t) = t^3$ and also highlights the
-  point at $t=2$.
+  This figure graphs the position function $s(t) = t^3$ and also highlights the point at $t=2$.  
+  该图绘制了位置函数 $s(t) = t^3$，并标出了 $t=2$ 处的点。
 </Figure>
 
-What I'm about to do might seem somewhat complicated, but once the dust settles it really is simpler, and it's the kind of thing you only ever have to do once in calculus. Let's say you want the velocity, $ds/dt$, at a specific time, like $t=2$. And for now, think of $dt$ having an actual size; we'll let it go to $0$ in just a bit.
+What I'm about to do might seem somewhat complicated, but once the dust settles it really is simpler, and it's the kind of thing you only ever have to do once in calculus. Let's say you want the velocity, $ds/dt$, at a specific time, like $t=2$. And for now, think of $dt$ having an actual size; we'll let it go to $0$ in just a bit.  
+    我接下来要做的步骤可能看起来有点复杂，但等一切尘埃落定后其实就会很简单，  
+    而且这是微积分中只需做一次的操作。  
+    假设你想知道在某个特定时间，比如 $t=2$ 时的速度 $ds/dt$。  
+    目前先假设 $dt$ 有实际的数值；稍后我们会让它趋近于 $0$ 。
 
 <Figure image="$lesson/figure-12.09.svg">
-  This figure illustrates the approximate velocity at $t=2$.
+  This figure illustrates the approximate velocity at $t=2$.  
+  该图展示了 $t=2$ 时的近似速度。
 </Figure>
 
-The tiny change in distance between $2$ seconds and $2+dt$ seconds is $s(2+dt)-s(2)$, and we divide by $dt$.
+The tiny change in distance between $2$ seconds and $2+dt$ seconds is $s(2+dt)-s(2)$, and we divide by $dt$.  
+2秒与2+dt秒之间距离的微小变化为$s(2+dt)-s(2)$，然后我们将其除以$dt$。
 
 $$
 \frac{d s}{d t}(2)=\frac{s(2+d t)-s(2)}{d t}
 $$
 
-Since $s(t) = t^3$, we can apply the definition of the function, so the numerator becomes $(2+dt)^3 - 2^3$.
+Since $s(t) = t^3$, we can apply the definition of the function, so the numerator becomes $(2+dt)^3 - 2^3$.  
+  由于 $s(t) = t^3$，我们可以应用函数的定义，因此分子变为 $(2+dt)^3 -2^3$。
 
 $$
 \frac{d s}{d t}(2)=\frac{(2+d t)^{3}-(2)^{3}}{d t}
 $$
 
-Now _this_, we can work out algebraically. And again bear with me, there's a reason I'm showing you the details. Expanding the top gives the expression:
+Now _this_, we can work out algebraically. And again bear with me, there's a reason I'm showing you the details. Expanding the top gives the expression:  
+现在，这个我们可以用代数方法来求解。  
+请再耐心听我讲，我之所以向你们展示这些细节是有原因的。展开上方部分后得到的表达式为：
 
 $$
 \frac{d s}{d t}(2)=\frac{2^3 + 3 \cdot 2^2dt + 3 \cdot 2 \cdot (dt)^2 + (dt)^3 - 2^3}{d t}
 $$
 
-Now there are a lot of terms, but it simplifies. Those $2^3$ terms cancel out. Everything remaining has a $dt$ in it, so we can divide that out. So the ratio $ds/dt$ has boiled down to $3 \cdot 2^2$ plus two different terms that each have a $dt$ in them.
+Now there are a lot of terms, but it simplifies. Those $2^3$ terms cancel out. Everything remaining has a $dt$ in it, so we can divide that out. So the ratio $ds/dt$ has boiled down to $3 \cdot 2^2$ plus two different terms that each have a $dt$ in them.  
+现在有很多项，但可以简化。那 $2^3$ 个项会相互抵消。  
+剩下的所有项都含有 $dt$ ，因此我们可以将其约掉。  
+这样一来， $ds/dt$ 这个比值就简化为 $3\cdot 2^2$ ，再加上两个各含一个 $dt$ 的不同项。
 
 $$
 \frac{d s}{d t}(2) = 3(2)^{2}+3(2)(d t)+(d t)^{2}
 $$
 
-So if we ask what happens as $dt$ approaches $0$, representing the idea of looking at smaller and smaller changes in time, we can ignore those! By eliminating the need to think of a specific $dt$, we've eliminated much of the complication in this expression! So what we're left with is a nice clean $3 \cdot 2^2$. This means the slope of a line tangent to the point at $t=2$ on the graph of $t^3$ is _exactly_ $3 \cdot 2^2$, or $12$.
+So if we ask what happens as $dt$ approaches $0$, representing the idea of looking at smaller and smaller changes in time, we can ignore those! By eliminating the need to think of a specific $dt$, we've eliminated much of the complication in this expression! So what we're left with is a nice clean $3 \cdot 2^2$. This means the slope of a line tangent to the point at $t=2$ on the graph of $t^3$ is _exactly_ $3 \cdot 2^2$, or $12$.  
+       因此，如果我们探讨当 $dt$ 趋近于 $0$ 时的情况——这代表着考虑时间上越来越小的变化——  
+       那么我们就可以忽略这些因素！  
+       由于无需再考虑具体的 $dt$ 值，这个表达式中的许多复杂性都被消除了！  
+       最终我们得到的就是一个简洁明了的 $3 \cdot 2^2$。   
+       这意味着在 $t^3$ 函数的图象上， $t=2$ 这一点处的切线斜率_恰好_为 $3 \cdot 2^2$，即 $12$。
 
 <Figure
   image="$lesson/figure-12.59.svg"
   video="$lesson/figure-12.20-13.00-trimmed.mp4"
 />
 
-Of course, there was nothing special about choosing $t=2$; more generally we'd say the derivative of $t^3$, as a function of $t$, is $3 \cdot t^2$.
+Of course, there was nothing special about choosing $t=2$; more generally we'd say the derivative of $t^3$, as a function of $t$, is $3 \cdot t^2$.  
+当然，选择 $t=2$ 并没有什么特别之处；  
+更一般地说，函数 $t^3$ 关于 $t$ 的导数是 $3 \cdot t^2$。
 
 $$
 \frac{d s}{d t}(t)=3(t)^{2}
 $$
 
-That's beautiful. This derivative is a quite complicated idea: We've got tiny changes in distance over tiny changes in time, but instead of looking at any specific tiny change in time we start talking about what this thing _approaches_. Yet we've ended up with such a simple expression: $3t^2$.
+That's beautiful. This derivative is a quite complicated idea: We've got tiny changes in distance over tiny changes in time, but instead of looking at any specific tiny change in time we start talking about what this thing _approaches_. Yet we've ended up with such a simple expression: $3t^2$.  
+太美了。这个导数的概念相当复杂：我们有距离的微小变化以及时间的微小变化，  
+但我们不是去研究某个特定的时间微小变化，而是开始探讨它所_趋近于_的值。  
+然而最终我们得到的表达式却如此简单： $3t^2$。
 
 <Question
-  question="What is the velocity of the car at time $t=1$"
+  question="What is the velocity of the car at time $t=1$  
+  当$t=1$时，汽车的速度是多少？​"
   choice1="$2 \frac{m}{s}$"
   choice2="$12 \frac{m}{s}$"
   choice3="$3 \frac{m}{s}$"
@@ -308,55 +467,91 @@ That's beautiful. This derivative is a quite complicated idea: We've got tiny ch
   answer={3}
 >
 
-The velocity of the car is calculated by substiting $t=1$ into the derivative function $\frac{d s}{d t}(1)=3(1)^{2} = 3$.
+The velocity of the car is calculated by substiting $t=1$ into the derivative function $\frac{d s}{d t}(1)=3(1)^{2} = 3$.  
+将$t=1$代入导数函数$\frac{d s}{d t}(1)=3(1)^{2} = 3$，即可算出汽车的速度。
 
 </Question>
 
-In practice, you would not go through all that algebra each time. Knowing that the derivative $t^3$ is $3t^2$ is one of those things all calculus students learn to do immediately without
-rederiving each time, as quickly and automatically as you know a simple algebra rule, like $x(y + z) = xy + xz$. In the next chapter, we'll see methods for thinking about this and many other derivative formulas in nice geometric ways.
+In practice, you would not go through all that algebra each time. Knowing that the derivative $t^3$ is $3t^2$ is one of those things all calculus students learn to do immediately without rederiving each time, as quickly and automatically as you know a simple algebra rule, like $x(y + z) = xy + xz$. In the next chapter, we'll see methods for thinking about this and many other derivative formulas in nice geometric ways.  
+实际上，你不会每次都去推导所有这些代数公式。  
+知道 $t^3$ 的导数是 $3t^2$ ，是所有微积分学生都会立即掌握的内容，无需每次重新推导，  
+就像你熟知 $x(y + z) = xy + xz$ 这样的简单代数规则一样，既迅速又自然。  
+在下一章中，我们将探讨如何从优美的几何角度来理解这一公式以及许多其他导数公式。 
 
-The point I want to make by showing you all of the algebraic guts here is that when you consider the change in distance over a change in time for any specific value of $dt$, something like $dt = 0.01$, you'd have kind of a mess.
+The point I want to make by showing you all of the algebraic guts here is that when you consider the change in distance over a change in time for any specific value of $dt$, something like $dt = 0.01$, you'd have kind of a mess.  
+我向大家展示这些代数运算的细节，是想说明：  
+当考虑在任意特定的$dt$值——比如 $dt = 0.01$ ——下距离随时间的变化时，情况会变得相当混乱。
 
 <Figure image="$lesson/figure-14.13-messy.svg" />
 
-But by considering what this ratio approaches as $dt$ approaches $0$, it lets you ignore much of that mess, and actually simplifies the problem.
+But by considering what this ratio approaches as $dt$ approaches $0$, it lets you ignore much of that mess, and actually simplifies the problem.  
+但通过研究当 $dt$ 趋近于0时该比值所呈现的趋势，  
+就可以忽略大部分混乱因素，从而真正简化问题。
 
 <Figure image="$lesson/figure-14.13-simple.svg" />
 
-That right there is the heart of why calculus becomes useful.
+That right there is the heart of why calculus becomes useful.  
+这正是微积分变得有用的核心所在。
 
 </section>
 
 <section>
 
-## The Paradox at Time Zero
+## The Paradox at Time Zero  零时刻的悖论
 
-This example also sets the stage to think more concretely about why the notion of an instantaneous rate of change is paradoxical. Think about this car traveling according to this $t^3$ distance function, and consider its motion at moment $t=0$. Now ask yourself: Is the car moving at that time?
+This example also sets the stage to think more concretely about why the notion of an instantaneous rate of change is paradoxical. Think about this car traveling according to this $t^3$ distance function, and consider its motion at moment $t=0$. Now ask yourself: Is the car moving at that time?  
+这个例子也为我们更具体地思考为何瞬时变化率的概念会带来悖论奠定了基础。  
+想象有一辆汽车按照 $t^3$ 这一距离函数行驶，考虑它在 $t=0$ 时刻的运动状态。  
+现在问自己：在那个时刻，汽车是在移动吗？
 
 <Figure image="$lesson/figure-14.44.svg" />
 
-On the one hand, we can compute its speed at that point using the derivative of this function, $3t^2$, which is $0$ at time $t=0$.
+On the one hand, we can compute its speed at that point using the derivative of this function, $3t^2$, which is $0$ at time $t=0$.  
+一方面，我们可以利用该函数的导数 $3t^2$ 来计算该点处的速度，  
+而在 $t=0$ 时这一数值为 $0$。
+
 
 $$
 \frac{d s}{d t}(t)=3 t^{2}=3(0)^{2}=0 \frac{\mathrm{m}}{\mathrm{s}}
 $$
 
-Visually, this means the tangent line to the graph at that point is perfectly flat, so the car's "instantaneous velocity" is $0$, which suggests it's not moving. But on the other hand, if it doesn't start moving at time $0$, when does it start moving? Really, pause and ponder this for a moment, is that car moving at $t=0$?
+Visually, this means the tangent line to the graph at that point is perfectly flat, so the car's "instantaneous velocity" is $0$, which suggests it's not moving. But on the other hand, if it doesn't start moving at time $0$, when does it start moving? Really, pause and ponder this for a moment, is that car moving at $t=0$?  
+从图形上看，这意味着该点处曲线的切线是完全水平的，因此汽车的“瞬时速度”为 $0$ ，  
+这表明它没有在移动。  
+但另一方面，如果它在 $t=0$ 时刻没有开始移动，那它究竟何时开始移动呢？  
+真的，请暂停片刻思考一下：在 $t=0$ 时那辆汽车是在移动吗？
 
-Take a moment to unpack what it actually means for the derivative of the distance function to be $0$ at this point. It means the best constant approximation for the car's velocity _around_ that point is $0$ meters per second. For example, between $t=0$ and $t=0.1$ seconds, the car _does move_, it moves $0.001$ meters. That's very small, and importantly it's very small _compared_ to the change in time, an average speed of only $0.01$ meters per second.
+Take a moment to unpack what it actually means for the derivative of the distance function to be $0$ at this point. It means the best constant approximation for the car's velocity _around_ that point is $0$ meters per second. For example, between $t=0$ and $t=0.1$ seconds, the car _does move_, it moves $0.001$ meters. That's very small, and importantly it's very small _compared_ to the change in time, an average speed of only $0.01$ meters per second.  
+         花点时间思考一下：在这一点上，距离函数的导数为$0$实际上意味着什么。  
+         这意味着在该点附近，汽车速度的最佳恒定近似值是 $0$ 米/秒。  
+         例如，在 $t=0$ 到 $t=0.1$ 秒之间，汽车确实是在移动的，它移动了 $0.001$米。  
+         这个数值非常小，而且重要的是，与时间间隔相比它更小，因此平均速度仅为 $0.01$ 米/秒。
 
 <Figure image="$lesson/figure-15.59.svg" />
 
-For smaller and smaller nudges in time, this ratio of the change in distance over change in time approaches $0$, though in this case it never actually hits it. So would you say this qualifies as moving at the time $t=0$? I would argue the question makes no sense, movement is something which happens between two points in time, so has no meaning in a given instant.
+For smaller and smaller nudges in time, this ratio of the change in distance over change in time approaches $0$, though in this case it never actually hits it. So would you say this qualifies as moving at the time $t=0$? I would argue the question makes no sense, movement is something which happens between two points in time, so has no meaning in a given instant.  
+当时间间隔越来越短时，距离变化量与时间变化量的比值会趋近于  $0$，  
+不过在这个例子中它始终无法真正达到 $0$ 。  
+那么你认为在 $t=0$ 时刻这算得上是在移动吗？  
+我认为这个问题毫无意义，  
+因为运动是发生在两个时间点之间的现象，所以在某一特定瞬间是没有意义的。
 
-It's tempting to say the derivative gives this notion meaning, and many people would happily say the car is not moving at $t=0$, but it is moving for all times $t > 0$. For my part, I'd recommend not taking the phrase "instantaneous rate of change" too seriously, instead thinking of it as a conceptual shorthand for "the best constant approximation for the rate of change".
+It's tempting to say the derivative gives this notion meaning, and many people would happily say the car is not moving at $t=0$, but it is moving for all times $t > 0$. For my part, I'd recommend not taking the phrase "instantaneous rate of change" too seriously, instead thinking of it as a conceptual shorthand for "the best constant approximation for the rate of change".  
+人们很容易认为导数赋予了这一概念以意义，很多人也会欣然承认汽车在 $t=0$ 时是静止的，  
+但在所有 $t>0$ 的时刻它都是运动的。  
+就我个人而言，建议不要过于认真地看待“瞬时变化率”这一表述，  
+而应将其视为“变化率的最佳恒定近似值”的概念性简写。
 
 </section>
 
 <section>
 
-## Next Chapter
+## Next Chapter  下一章
 
-In the following chapters we'll dig into how to compute the derivative of various functions. Along the way we'll see how this fundamental idea of looking at tiny nudges to the output of a function caused by tiny nudges to its input lends itself to many beautiful geometric intuitions.
+In the following chapters we'll dig into how to compute the derivative of various functions. Along the way we'll see how this fundamental idea of looking at tiny nudges to the output of a function caused by tiny nudges to its input lends itself to many beautiful geometric intuitions.  
+在接下来的章节中，我们将深入探讨如何计算各种函数的导数。  
+在此过程中，我们会看到：  
+通过研究函数输入的微小变化对其输出的微小影响这一基本理念，  
+是如何衍生出许多优美的几何直觉的。
 
 </section>

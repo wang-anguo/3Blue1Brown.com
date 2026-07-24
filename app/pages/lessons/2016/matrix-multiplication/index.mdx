@@ -1,13 +1,13 @@
 ---
-title: Matrix multiplication as composition
-description: How to think about matrix multiplication visually as successively applying two different linear transformations.
+title: Matrix multiplication as composition 矩阵乘法作为复合运算
+description: How to think about matrix multiplication visually as successively applying two different linear transformations. 如何将矩阵乘法直观地理解为依次应用两种不同的线性变换。
 date: 2016-08-08
 chapter: 4
 video: XkY2DOUCWMU
 source: _2016/eola/chapter4.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text Adaption by River Way
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text Adaption by River Way 文本改编：River Way
 ---
 
 import Collapsible from "~/components/Collapsible";
@@ -17,21 +17,28 @@ import Question from "~/components/Question";
 
 <section>
 
-> It is my experience that proofs involving matrices can be shortened by 50% if one throws the matrices out.
+> It is my experience that proofs involving matrices can be shortened by 50% if one throws the matrices out.  
+根据我的经验，涉及矩阵的证明长度可以缩短50%,  
+如果去掉矩阵的话。
 >
-> $\qquad$ — Emil Artin
+> $\qquad$ — Emil Artin 埃米尔·阿廷
 
 </section>
 
 <section>
 
-## Recap
+## Recap 总结
 
-In the <LessonLink id="linear-transformations">previous lesson</LessonLink> we showed how linear transformations are just functions with vectors as inputs and vectors as outputs. However it is often more convenient to think of linear transformations as moving space in a way that keeps gridlines parallel and evenly spaced.
+In the <LessonLink id="linear-transformations">previous lesson</LessonLink> we showed how linear transformations are just functions with vectors as inputs and vectors as outputs. However it is often more convenient to think of linear transformations as moving space in a way that keeps gridlines parallel and evenly spaced.  
+在上一课中，我们说明了线性变换其实就是以向量为输入、以向量为输出的函数。  
+不过，通常将线性变换视为以保持网格线平行且等距的方式移动空间，会更为方便。
 
 <Figure image="$lesson/recap1.jpg" />
 
-We can determine the entirety of the transformation by where the basis vectors land after the transformation, which form the columns of a matrix. To find where any arbitrary vector lands after the transformation, there is an operation called matrix-vector multiplication. Here is the computation for a 2D matrix and vector:
+We can determine the entirety of the transformation by where the basis vectors land after the transformation, which form the columns of a matrix. To find where any arbitrary vector lands after the transformation, there is an operation called matrix-vector multiplication. Here is the computation for a 2D matrix and vector:  
+我们可以通过变换后基向量的位置来确定整个变换，这些位置构成了矩阵的列。  
+要找出任意向量在变换后的位置，有一种称为矩阵-向量乘法的运算方法。  
+以下是二维矩阵与向量相乘的计算过程：
 
 $$
 \begin{bmatrix}
@@ -53,32 +60,51 @@ $$
 
 <section>
 
-## Composition of Transformations
+## Composition of Transformations  变换的组成
 
-Oftentimes, you find yourself wanting to describe the effects of applying one linear transformation, then applying another. For example, maybe you want to describe what happens when you rotate the plane $90^\circ$ counterclockwise, then to apply a shear. The overall effect here, from start to finish, is another linear transformation, distinct from the rotation and the shear. This new linear transformation is commonly called the "composition" of the two separate transformations we applied.
+Oftentimes, you find yourself wanting to describe the effects of applying one linear transformation, then applying another. For example, maybe you want to describe what happens when you rotate the plane $90^\circ$ counterclockwise, then to apply a shear. The overall effect here, from start to finish, is another linear transformation, distinct from the rotation and the shear. This new linear transformation is commonly called the "composition" of the two separate transformations we applied.  
+很多时候，你会需要描述先应用一个线性变换，然后再应用另一个线性变换所产生的效果。  
+例如，你可能想了解先将平面逆时针旋转$90^\circ$，然后再进行剪切时会发生什么。  
+从开始到结束的整个过程所产生的效果，其实是另一个线性变换，它不同于旋转和剪切本身。  
+这个新的线性变换通常被称为我们所应用的这两个独立变换的“复合”​。
 
 <Figure
   image="$lesson/rotate_shear_composition.svg"
   video="$lesson/rotate_shear_composition.mp4"
 />
 
-Like any linear transformation, it can be described with a matrix all of its own by following $\hat i$ and $\hat j$.
+Like any linear transformation, it can be described with a matrix all of its own by following $\hat i$ and $\hat j$.  
+与任何线性变换一样，它也可以通过跟随$\hat i$和$\hat j$来用属于自己的矩阵来描述。
 
 <Figure image="$lesson/rotate_shear_record.svg" />
 
-In this example, the ultimate landing spot for $\hat i$ after both transformations is $\begin{bmatrix}1\\1\end{bmatrix}$, so make this the first column of a matrix. Likewise, $\hat j$ ultimately ends up at $\begin{bmatrix}-1\\0\end{bmatrix}$, so make this the second column of a matrix. This new matrix captures the overall effect of applying a rotation then a shear, but as one single action rather than two successive ones.
+In this example, the ultimate landing spot for $\hat i$ after both transformations is $\begin{bmatrix}1\\1\end{bmatrix}$, so make this the first column of a matrix. Likewise, $\hat j$ ultimately ends up at $\begin{bmatrix}-1\\0\end{bmatrix}$, so make this the second column of a matrix. This new matrix captures the overall effect of applying a rotation then a shear, but as one single action rather than two successive ones.  
+
+在这个例子中，经过两次变换后$\hat i$的最终位置是$\begin{bmatrix}1\\1\end{bmatrix}$，因此将其作为矩阵的第一列。  
+
+同样地，$\hat j$的最终位置是$\begin{bmatrix}-1\\0\end{bmatrix}$，故将其作为矩阵的第二列。  
+
+这个新矩阵体现了先旋转再剪切的整体效果，但视为一个整体动作而非连续的两次操作。
 
 </section>
 
 <section>
 
-## Composition is Multiplication
+## Composition is Multiplication  组合即乘法
 
-Here's one way to think about that new matrix. If you were to take some vector and pump it through the rotation then the shear, the long way to compute where it lands by first multiplying on the left by the rotation matrix, then multiplying the result on the left by the shear matrix. This is, numerically speaking, what it _means_ to apply a rotation then a shear to a given vector. But whatever you get should be the same as just multiplying this new composition matrix that we found by the vector, no matter what vector you chose, since this new matrix is supposed to capture the same overall effect as the rotation-then-shear action.
+Here's one way to think about that new matrix. If you were to take some vector and pump it through the rotation then the shear, the long way to compute where it lands by first multiplying on the left by the rotation matrix, then multiplying the result on the left by the shear matrix. This is, numerically speaking, what it _means_ to apply a rotation then a shear to a given vector. But whatever you get should be the same as just multiplying this new composition matrix that we found by the vector, no matter what vector you chose, since this new matrix is supposed to capture the same overall effect as the rotation-then-shear action.  
+以下是一种理解那个新矩阵的方式。  
+如果你取某个向量，先让它经过旋转操作，然后再经过剪切操作，  
+那么要计算它最终的位置，就需要先在左侧乘以旋转矩阵，再将得到的结果在左侧乘以剪切矩阵。
+从数值上来说，这正是对给定向量先进行旋转再施加剪切的操作所_意味着_的内容。  
+不过，无论你选择哪个向量，  
+最终得到的结果都应该与我们用这个新组合矩阵直接乘以该向量所得到的结果相同，  
+因为这个新矩阵本应体现与“先旋转再剪切”操作相同的整体效果。
 
 <Figure image="$lesson/rotate_shear_sequence.svg" />
 
-Based on how things are written down here, I think it's reasonable to call that new matrix the product of the two original matrices, don't you?
+Based on how things are written down here, I think it's reasonable to call that new matrix the product of the two original matrices, don't you?  
+从这里的表述来看，我认为把那个新矩阵称为两个原始矩阵的乘积是合理的，你觉得呢？
 
 $$
 \color{purple}
@@ -98,9 +124,15 @@ $$
 }_{\large \text{Composition}}
 $$
 
-We can think about how to compute that product more generally in just a moment, but it's easy to get lost in the forest of numbers. Always remember that multiplying two matrices like this has the geometric meaning of applying one transformation after another.
+We can think about how to compute that product more generally in just a moment, but it's easy to get lost in the forest of numbers. Always remember that multiplying two matrices like this has the geometric meaning of applying one transformation after another.  
+我们稍后可以思考如何更一般地计算那个乘积，但在众多的数字中很容易迷失方向。  
+要始终记住，像这样相乘两个矩阵在几何上意味着依次应用某种变换。
 
-One thing that's kind of weird is that this has us reading right to left. You first apply the transformation represented by the matrix on the right, then you apply the transformation represented by the matrix on the left. This stems from function notation, since we write functions on the left of the variable, so composition always has to be read right-to-left. Good news for Hebrew readers, bad news for the rest of us.
+One thing that's kind of weird is that this has us reading right to left. You first apply the transformation represented by the matrix on the right, then you apply the transformation represented by the matrix on the left. This stems from function notation, since we write functions on the left of the variable, so composition always has to be read right-to-left. Good news for Hebrew readers, bad news for the rest of us.  
+有点奇怪的是，这样做要求我们从右往左阅读。  
+首先应用右侧矩阵所代表的变换，然后再应用左侧矩阵所代表的变换。  
+这源于函数表示法——因为我们在变量左侧书写函数，所以复合运算总是需要从右往左读取。  
+对希伯来语读者来说这是好消息，而对其他人而言则是坏消息
 
 $$
 \begin{align*}
@@ -124,19 +156,26 @@ $$
 \end{align*}
 $$
 
-### Computing the New Matrix
+### Computing the New Matrix 计算新矩阵
 
-Let's look at another example. There are two matrices $M_1$ and $M_2$ which perform different transformations:
+Let's look at another example. There are two matrices $M_1$ and $M_2$ which perform different transformations:  
+我们来看另一个例子。有两个矩阵$M_1$和$M_2$，它们执行不同的变换：
 
 <Figure image="$lesson/multiplication_matrices.svg" />
 
-The total effect of applying $M1$, then $M2$ gives a new transformation, so let's find its matrix.
+The total effect of applying $M1$, then $M2$ gives a new transformation, so let's find its matrix.  
+先应用$M1$再应用$M2$，其总体效果会产生一种新的变换，因此让我们来求出它的矩阵。
 
 <Figure image="$lesson/compound_multiply.svg" />
 
-But let's see if we can do it without any images, and instead just using the numerical entries in each matrix.
+But let's see if we can do it without any images, and instead just using the numerical entries in each matrix.  
+但让我们看看是否无需任何图像，仅使用每个矩阵中的数值就能完成。
 
-First we need to figure out where $\hat i$ goes. After applying $M_1$, the new coordinates of $\hat i$ are given be the first column of $M_1$. To see what happens after applying $M_2$, multiply the matrix for $M_2$ by the first column of $M_1$. Working it out the way I described in the last chapter, you'll get the vector $\begin{bmatrix}2\\1\end{bmatrix}$.
+First we need to figure out where $\hat i$ goes. After applying $M_1$, the new coordinates of $\hat i$ are given be the first column of $M_1$. To see what happens after applying $M_2$, multiply the matrix for $M_2$ by the first column of $M_1$. Working it out the way I described in the last chapter, you'll get the vector $\begin{bmatrix}2\\1\end{bmatrix}$.  
+首先我们需要确定$\hat i$ 会出现在何处。  
+应用$M_1$之后，$\hat i$的新坐标由$M_1$的第一列给出。  
+要了解应用$M_2$后的结果，只需将$M_2$的矩阵与$M_1$的第一列相乘。  
+按照我在上一章中描述的方法计算，就能得到向量$\begin{bmatrix}2\\1\end{bmatrix}$。
 
 $$
 \begin{align*}
@@ -160,7 +199,8 @@ M_2(M_1(\hat i))&=
 \end{align*}
 $$
 
-Likewise, we can apply the same operation to find where $\hat j$ goes after both transformations.
+Likewise, we can apply the same operation to find where $\hat j$ goes after both transformations.  
+ 同样地，我们可以应用相同的操作来找出两次变换后$\hat j$的位置。
 
 $$
 \begin{align*}
@@ -184,20 +224,25 @@ M_2(M_1(\hat j))&=
 $$
 
 <Question
-  question="Multiplying these two matrices yields $\begin{bmatrix}0&2\\1&0\end{bmatrix}\begin{bmatrix}1&-2\\1&0\end{bmatrix}=?$"
+  question="Multiplying these two matrices yields $\begin{bmatrix}0&2\\1&0\end{bmatrix}\begin{bmatrix}1&-2\\1&0\end{bmatrix}=?$  
+  将这两个矩阵相乘，结果为 $\begin{bmatrix}0&2\\1&0\end{bmatrix}\begin{bmatrix}1&-2\\1&0\end{bmatrix}=?$"
   choice1="$\begin{bmatrix}0&2\\-2&1\end{bmatrix}$"
   choice2="$\begin{bmatrix}2&0\\1&-2\end{bmatrix}$"
   choice3="$\begin{bmatrix}-2&1\\0&2\end{bmatrix}$"
   choice4="$\begin{bmatrix}1&-2\\2&0\end{bmatrix}$"
   answer={2} >
 
-To find the matrix that comes from multiplying $\begin{bmatrix}0&2\\1&0\end{bmatrix}\begin{bmatrix}1&-2\\1&0\end{bmatrix}$ we can place the transformed basis vectors in the columns to get $\begin{bmatrix}2&0\\1&-2\end{bmatrix}$
-
+To find the matrix that comes from multiplying $\begin{bmatrix}0&2\\1&0\end{bmatrix}\begin{bmatrix}1&-2\\1&0\end{bmatrix}$ we can place the transformed basis vectors in the columns to get $\begin{bmatrix}2&0\\1&-2\end{bmatrix}$  
+要找到由$\begin{bmatrix}0&2\\1&0\end{bmatrix}\begin{bmatrix}1&-2\\1&0\end{bmatrix}$相乘得到的矩阵，我们可以将变换后的基向量放在列中，从而得到$\begin{bmatrix}2&0\\1&-2\end{bmatrix}$。
 </Question>
 
-### General Form
+### General Form 一般形式
 
-Let's go through that same process again, but this time the entries will be variables in each matrix, just to show that the same line of reasoning works for any matrices. This is more symbol heavy, and will require some more room, but it should be satisfying for anyone who has previously been taught matrix multiplication the traditional way.
+Let's go through that same process again, but this time the entries will be variables in each matrix, just to show that the same line of reasoning works for any matrices. This is more symbol heavy, and will require some more room, but it should be satisfying for anyone who has previously been taught matrix multiplication the traditional way.  
+让我们再次经历同样的过程，  
+不过这次各个矩阵中的元素将是变量，以此来说明同样的推理方法适用于任何矩阵。  
+这种方式符号更多，也需要更多的空间，  
+但对于那些以前以传统方式学习过矩阵乘法的人来说，应该会感到满意。
 
 $$
 \color{purple}
@@ -217,7 +262,10 @@ $$
 }_{\large M_2M_1}
 $$
 
-To follow where $\hat i$ goes, start by looking at the first column of the matrix on the right, since this is where $\hat i$ initially lands. Multiplying that column by the matrix on the left is how you can tell where that intermediate version of $\hat i$ ends up after applying the second transformation. So the first column of the product matrix will always equal the left matrix times the first column of the right matrix.
+To follow where $\hat i$ goes, start by looking at the first column of the matrix on the right, since this is where $\hat i$ initially lands. Multiplying that column by the matrix on the left is how you can tell where that intermediate version of $\hat i$ ends up after applying the second transformation. So the first column of the product matrix will always equal the left matrix times the first column of the right matrix.  
+要追踪$\hat i$的走向，首先查看右侧矩阵的第一列，因为$\hat i$最初会落在那里。  
+将那一列与左侧矩阵相乘，就可以知道在经过第二次变换后，$\hat i$的中间状态会出现在何处。  
+因此，乘积矩阵的第一列始终等于左侧矩阵与右侧矩阵第一列的乘积。
 
 $$
 \color{purple}
@@ -250,7 +298,8 @@ $$
 \end{bmatrix}
 $$
 
-Similarly, $\hat j$ will always initially land on the second column of the right matrix, so multiplying the left matrix by this second column will give the final location of $\hat j$, and hence the second column of the product matrix.
+Similarly, $\hat j$ will always initially land on the second column of the right matrix, so multiplying the left matrix by this second column will give the final location of $\hat j$, and hence the second column of the product matrix.  
+类似地，$\hat j$ 最初总会落在右矩阵的第二列上，因此将左矩阵与该第二列相乘即可得到 $\hat j$ 的最终位置，也就是乘积矩阵的第二列。
 
 $$
 \color{purple}
@@ -283,7 +332,8 @@ $$
 \end{bmatrix}
 $$
 
-It's common to be taught this formula as something to memorize, along with a certain algorithmic process to remember it.
+It's common to be taught this formula as something to memorize, along with a certain algorithmic process to remember it.  
+通常，这个公式会被当作需要记忆的内容来教授，同时还会附带一套用于记住它的算法流程。
 
 $$
 \color{purple}
@@ -339,15 +389,19 @@ $\begin{bmatrix}-3&1\\2&5\end{bmatrix}\begin{bmatrix}5&3\\7&-3\end{bmatrix}=\beg
 
 </Question>
 
-I really do believe that before memorizing that process, you should get in the habit of thinking about what matrix multiplication really represents: applying one transformation after another. Trust me, this will give you the conceptual framework that makes the properties of matrix multiplication easier to understand.
+I really do believe that before memorizing that process, you should get in the habit of thinking about what matrix multiplication really represents: applying one transformation after another. Trust me, this will give you the conceptual framework that makes the properties of matrix multiplication easier to understand.  
+我真心认为，在记住那个运算过程之前，  
+你应该养成思考矩阵乘法究竟代表什么的习惯：即依次应用各种变换。  
+相信我，这会为你提供概念框架，从而让矩阵乘法的性质更易于理解。
 
 </section>
 
 <section>
 
-## Noncommutativity
+## Noncommutativity 非交换性
 
-Here is an important question: Does it matter what order we put the two matrices in?
+Here is an important question: Does it matter what order we put the two matrices in?  
+这里有一个重要问题：将这两个矩阵的顺序换过来有影响吗？
 
 $$
 \color{orange}M_1
@@ -357,15 +411,20 @@ $$
 \color{orange}M_1
 $$
 
-Well, let's think of a simple example like the one from earlier. Take a shear, which fixes $\hat i$ and smooshes $\hat j$ over to the right, and a $90^\circ$ rotation.
+Well, let's think of a simple example like the one from earlier. Take a shear, which fixes $\hat i$ and smooshes $\hat j$ over to the right, and a $90^\circ$ rotation.  
+那么，我们来看看之前那个简单的例子。  
+取一个剪切变换，它固定$\hat i$并将$\hat j$向右挤压，再结合一个$90^\circ$的旋转。
 
 <Figure image="$lesson/rotate_shear_swap.svg" />
 
-The overall effect is very different, so it would appear that order totally does matter! By thinking in terms of transformations, that's the kind of thing you can do in your head by visualizing, no matrix multiplication necessary!
+The overall effect is very different, so it would appear that order totally does matter! By thinking in terms of transformations, that's the kind of thing you can do in your head by visualizing, no matrix multiplication necessary!  
+整体效果截然不同，由此可见顺序确实非常重要！  
+通过从变换的角度来思考，就可以在脑海中通过可视化来完成这类操作，无需进行矩阵乘法！
 
-<Collapsible title="Numerical Proof">
+<Collapsible title="Numerical Proof 数值证明">
 
-We could show that matrix multiplication isn't commutative through numerical computation:
+We could show that matrix multiplication isn't commutative through numerical computation:  
+我们可以通过数值计算来证明矩阵乘法不具有交换性:
 
 $$
 \begin{align*}
@@ -535,26 +594,39 @@ But I believe demonstrating noncommutativity through visual transformations is f
 </Collapsible>
 
 <Question
-  question="When multiplying these two matrices $\begin{bmatrix}0&-1\\1&0\end{bmatrix}\begin{bmatrix}-2&0\\0&-2\end{bmatrix}\stackrel{?}{=}\begin{bmatrix}-2&0\\0&-2\end{bmatrix}\begin{bmatrix}0&-1\\1&0\end{bmatrix}$"
+  question="When multiplying these two matrices  
+  在对这两个矩阵进行乘法运算时
+  $\begin{bmatrix}0&-1\\1&0\end{bmatrix}\begin{bmatrix}-2&0\\0&-2\end{bmatrix}\stackrel{?}{=}\begin{bmatrix}-2&0\\0&-2\end{bmatrix}\begin{bmatrix}0&-1\\1&0\end{bmatrix}$"
   choice1="Yes, the matrices commute"
   choice2="No, the matrices don't commute"
   answer={1} >
 
-I know we just said that matrices don't commute! That is true, _generally_. However there are some examples of matrices commuting, even if not every pair of matrices being multiplied is communitive. This example isn't intuitive in numeric form so let's think about it visually.
+I know we just said that matrices don't commute! That is true, _generally_. However there are some examples of matrices commuting, even if not every pair of matrices being multiplied is communitive. This example isn't intuitive in numeric form so let's think about it visually.  
+我知道我们刚才说过矩阵不满足交换律！这确实是，_通常情况下_如此。  
+不过也有一些矩阵满足交换律的例子，即便并非所有相乘的矩阵对都满足交换律。  
+这个例子用数值形式表现出来不太直观，所以我们用图形方式来思考它吧。
 
-One matrix is rotating by $90^\circ$ counterclockwise. The other matrix is scaling by $-2$ (reflecting through the $y=-x$ line and multiplying by $2$). Does it matter if we first rotate and then scale, or can we also scale and then rotate?
+One matrix is rotating by $90^\circ$ counterclockwise. The other matrix is scaling by $-2$ (reflecting through the $y=-x$ line and multiplying by $2$). Does it matter if we first rotate and then scale, or can we also scale and then rotate?  
+一个矩阵是逆时针旋转$90^\circ$。  
+另一个矩阵则是按$-2$的比例进行缩放（即通过直线$y=-x$反射后再乘以$2$）​。  
+我们是先旋转再缩放，还是先缩放再旋转，这会有区别吗？
 
 </Question>
 
-<Collapsible title="Scaling Commutativity ">
+<Collapsible title="Scaling Commutativity 可换性的可扩展性 ">
 
-An interesting fact here is that a matrix which scales both axes by the same amount actually commutes with _every_ other matrix! This is because scalar-matrix multiplication is commutative. If we have some matrix $M$ and some scalar (number) $a$, then:
+An interesting fact here is that a matrix which scales both axes by the same amount actually commutes with _every_ other matrix! This is because scalar-matrix multiplication is commutative. If we have some matrix $M$ and some scalar (number) $a$, then:  
+这里一个有趣的事实是：  
+将两轴同时按相同比例缩放的矩阵实际上与**所有**其他矩阵都可交换！  
+这是因为标量矩阵乘法是可交换的。  
+如果我们有一个矩阵$M$和一个标量（数字）$a$，那么：
 
 $$
 aM=Ma
 $$
 
-When we "take out" the scalar from the scaling matrix we get this:
+When we "take out" the scalar from the scaling matrix we get this:  
+当我们从缩放矩阵中“提取”出标量后，就会得到这个结果：
 
 $$
 \begin{bmatrix}a&0\\0&a\end{bmatrix}
@@ -562,9 +634,15 @@ $$
 \begin{bmatrix}1&0\\0&1\end{bmatrix}
 $$
 
-The resulting matrix has a special name, we call it the "identity matrix", shown symbolically as $I$. It represents doing nothing; the basis vectors are already the columns of the matrix. It shouldn't be surprising that doing nothing is commutative with every matrix, after all we are doing nothing both before and after every transformation already!
+The resulting matrix has a special name, we call it the "identity matrix", shown symbolically as $I$. It represents doing nothing; the basis vectors are already the columns of the matrix. It shouldn't be surprising that doing nothing is commutative with every matrix, after all we are doing nothing both before and after every transformation already!  
+所得到的矩阵有一个特殊的名称，我们称其为“单位矩阵”​，用符号$I$表示。  
+它代表着不执行任何操作；基向量本身就是该矩阵的列。  
+既然在每次变换之前和之后我们都什么都不做，  
+那么“不执行任何操作”与任何矩阵都可交换也就不足为奇了！
 
-Since the identity matrix is always commutative and scalar-matrix multiplicative is always commutative, we know a scaling matrix is always commutative:
+Since the identity matrix is always commutative and scalar-matrix multiplicative is always commutative, we know a scaling matrix is always commutative:  
+由于单位矩阵始终满足交换律，且标量与矩阵的乘法也始终满足交换律，  
+因此我们知道缩放矩阵也始终满足交换律：
 
 $$
 (aI)M=aMI=M(aI)
@@ -576,20 +654,32 @@ $$
 
 <section>
 
-## Associativity
+## Associativity 结合律
 
-I remember when I first took linear algebra, there was a homework problem that asked to prove that matrix multiplication is associative. That means if you have three matrices, A, B and C, and multiply them all, it shouldn't matter if you first compute A times B, then multiply the result by C, or if you first multiply B times C, then multiply the result by the matrix A on the left. In other words, does it matter where you put the parentheses.
+I remember when I first took linear algebra, there was a homework problem that asked to prove that matrix multiplication is associative. That means if you have three matrices, A, B and C, and multiply them all, it shouldn't matter if you first compute A times B, then multiply the result by C, or if you first multiply B times C, then multiply the result by the matrix A on the left. In other words, does it matter where you put the parentheses.  
+我记得第一次学习线性代数时，有一道作业题要求证明矩阵乘法具有结合律。  
+也就是说，如果有三个矩阵A、B和C，将它们全部相乘时，  
+无论先计算A乘以B再将结果乘以C，还是先计算B乘以C再将结果左乘以矩阵A，  
+结果都应该是相同的。换言之，括号的位置并不重要。
 
 $$
 (AB)C\stackrel{?}{=}A(BC)
 $$
 
-Now, if you try to work through this numerically, like I did back then, it's horrible! And unenlightening for that matter. But when you think of matrix multiplication as applying one transformation after another, this property is trivial, can you see why?
+Now, if you try to work through this numerically, like I did back then, it's horrible! And unenlightening for that matter. But when you think of matrix multiplication as applying one transformation after another, this property is trivial, can you see why?  
+现在，如果你像我当年那样试图用数值方法来解决这个问题，  
+那简直糟糕透顶！而且也毫无启发意义。  
+但当你把矩阵乘法视为依次应用各种变换时，这个性质就变得很显然了，明白为什么吗？
 
-What it's saying is that if you first apply (C then B), then A, it's the same as applying C, (then B then A). I mean, there's nothing to prove! You're just applying three things one after the other, all in the same order!
+What it's saying is that if you first apply (C then B), then A, it's the same as applying C, (then B then A). I mean, there's nothing to prove! You're just applying three things one after the other, all in the same order!  
+它的意思是，如果你先应用(C然后B)，再应用A，这与直接应用C，(然后B再应用A)是相同的。  
+我的意思是，这根本无需证明！你只不过是按同样的顺序依次应用这三个操作而已！
 
 <Figure video="$lesson/associativity.mp4" />
 
-This might feel like cheating, but it's not. It's an honest-to-goodness proof that matrix multiplication is associative. And even better than that, it's a _good explanation_ for why that property should be true.
+This might feel like cheating, but it's not. It's an honest-to-goodness proof that matrix multiplication is associative. And even better than that, it's a _good explanation_ for why that property should be true.  
+这可能看起来像是在作弊，但其实并非如此。  
+这是一个真正严谨的证明，证明了矩阵乘法具有结合律。  
+更妙的是，它还给出了为何该性质必然成立的**合理解释**。
 
 </section>

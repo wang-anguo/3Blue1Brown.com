@@ -1,14 +1,14 @@
 ---
-title: Cross products
-description: The cross product is a way to multiple to vectors in 3d. This video shows how to visualize what it means.
+title: Cross products 叉积
+description: The cross product is a way to multiple to vectors in 3d. This video shows how to visualize what it means. 叉积是一种对三维向量进行运算的方法。本视频展示了如何直观理解其含义。
 date: 2016-09-01
 chapter: 10
 video: eu6i7WJeinw
 source: _2016/eola/chapter8p2.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
-  - Text adaptation by James Schloss
+  - Lesson by Grant Sanderson 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
+  - Text adaptation by James Schloss 詹姆斯·施洛斯
 ---
 
 import Figure from "~/components/Figure";
@@ -17,79 +17,113 @@ import Question from "~/components/Question";
 
 <section>
 
-> Every dimension is special.
+> Every dimension is special.  
+每个维度都很特别。
 >
-> \- Jeff Lagarias
+> \- Jeff Lagarias 
 
-Last chapter, I talked about the dot product, showing both the standard introduction to the topic, as well as the deeper view of it related to linear transformations. I'd like to do the same for cross products, which also have a standard introduction along with a deeper understanding in the light of linear transformations, but this time I'm dividing it into two chapters.
+Last chapter, I talked about the dot product, showing both the standard introduction to the topic, as well as the deeper view of it related to linear transformations. I'd like to do the same for cross products, which also have a standard introduction along with a deeper understanding in the light of linear transformations, but this time I'm dividing it into two chapters.  
+在上一章中，我介绍了点积，既给出了该主题的标准介绍，  
+也探讨了其与线性变换相关的更深层次含义。  
+对于叉积，我也想做同样的处理——既有标准介绍，  
+也有从线性变换角度出发的深入理解——不过这次我会将其分为两章来讲解。
 
-Here, I'll try to hit the main points that students are usually shown about the cross product, and in the next chapter I'll show a view which is less commonly taught, but really satisfying when you learn it.
+Here, I'll try to hit the main points that students are usually shown about the cross product, and in the next chapter I'll show a view which is less commonly taught, but really satisfying when you learn it.  
+在这里，我将介绍学生通常会学到的关于叉积的核心内容；  
+而在下一章里，则会展示一种较少被教授、但一旦理解就会让人感到非常满意的视角。
 
 </section>
 
 <section>
 
-## Two dimensions
+## Two dimensions 二维空间
 
-We'll start in two dimensions. If you have two vectors, $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, think about the parallelogram that they span out. What I mean by this is that if you take a copy of $\vec{\mathbf{v}}$, and move its tail to the tip of w, and you take a copy of $\vec{\mathbf{w}}$, and move its tail to the tip of $\vec{\mathbf{v}}$, the four vectors enclose a certain parallelogram.
+We'll start in two dimensions. If you have two vectors, $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, think about the parallelogram that they span out. What I mean by this is that if you take a copy of $\vec{\mathbf{v}}$, and move its tail to the tip of w, and you take a copy of $\vec{\mathbf{w}}$, and move its tail to the tip of $\vec{\mathbf{v}}$, the four vectors enclose a certain parallelogram.  
+我们从二维开始。如果有两个向量$\vec{\mathbf{v}}$和$\vec{\mathbf{w}}$，想象一下它们所构成的平行四边形。  
+我的意思是，如果取$\vec{\mathbf{v}}$的一个副本，将其尾端移到$\vec{\mathbf{w}}$的起点上；  
+再取$\vec{\mathbf{w}}$的一个副本，将其尾端移到$\vec{\mathbf{v}}$的起点上，  
+那么这四个向量就会围成一个特定的平行四边形。
 
 <Figure image="$lesson/figures/two-dimensions/AreaOfParallelogram.svg" />
 
-The cross product of $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, written with the x-shaped multiplication symbol ($\times$), is the area of this parallelogram.
+The cross product of $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, written with the x-shaped multiplication symbol ($\times$), is the area of this parallelogram.  
+向量 $\vec{\mathbf{v}}$ 与 $\vec{\mathbf{w}}$ 的叉积，用x形乘号（$\times$）表示，就是该平行四边形的面积。
 
 <Figure image="$lesson/figures/two-dimensions/AreaOfParallelogramFormula.svg" />
 
-Well, almost, we also need to consider orientation. If $\vec{\mathbf{w}}$ is a counterclockwise rotation away from $\vec{\mathbf{v}}$, then $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is positive and equal to the area of that parallelogram.
+Well, almost, we also need to consider orientation. If $\vec{\mathbf{w}}$ is a counterclockwise rotation away from $\vec{\mathbf{v}}$, then $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is positive and equal to the area of that parallelogram.  
+嗯，差不多吧，我们还需要考虑方向。  
+如果$\vec{\mathbf{w}}$是使向量从$\vec{\mathbf{v}}$开始逆时针旋转的向量，  
+那么$\vec{\mathbf{v}} \times\vec{\mathbf{w}}$的值为正，且等于该平行四边形的面积。
 
 <Figure image="$lesson/figures/two-dimensions/AreaOfParallelogramPositive.svg" />
 
-But if $\vec{\mathbf{w}}$ is a clockwise rotation away from $\vec{\mathbf{v}}$, the cross product is $-1$ times the area of that parallelogram.
+But if $\vec{\mathbf{w}}$ is a clockwise rotation away from $\vec{\mathbf{v}}$, the cross product is $-1$ times the area of that parallelogram.  
+但如果$\vec{\mathbf{w}}$是远离$\vec{\mathbf{v}}$的顺时针旋转，  
+则叉积等于该平行四边形面积的$-1$倍。
 
 <Figure image="$lesson/figures/two-dimensions/AreaOfParallelogramNegative.svg" />
 
-Notice, this means order matters. If you swap $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, and instead consider $\vec{\mathbf{w}}$ cross $\vec{\mathbf{v}}$, the cross product becomes the negative of whatever it was before.
+Notice, this means order matters. If you swap $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, and instead consider $\vec{\mathbf{w}}$ cross $\vec{\mathbf{v}}$, the cross product becomes the negative of whatever it was before.  
+注意，这意味着顺序很重要。  
+如果交换$\vec{\mathbf{v}}$和$\vec{\mathbf{w}}$，  
+考虑$\vec{\mathbf{w}}$与$\vec{\mathbf{v}}$的叉积，  
+其结果就会变成之前值的负数。
 
 $$
 \vec{\mathbf{v}} \times \vec{\mathbf{w}} = -\vec{\mathbf{w}} \times \vec{\mathbf{v}}
 $$
 
-The way I always remember this is that when you take the cross product of the two basis vectors in order, $\hat{\imath} \times \hat{\jmath}$, the result should be positive. In fact, the order of your basis vectors is what defines orientation. So since $\hat{\imath}$ is on the right of $\hat{\jmath}$, I remember that $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is positive whenever $\vec{\mathbf{w}}$ a counterclockwise rotation away from $\vec{\mathbf{v}}$.
+The way I always remember this is that when you take the cross product of the two basis vectors in order, $\hat{\imath} \times \hat{\jmath}$, the result should be positive. In fact, the order of your basis vectors is what defines orientation. So since $\hat{\imath}$ is on the right of $\hat{\jmath}$, I remember that $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is positive whenever $\vec{\mathbf{w}}$ a counterclockwise rotation away from $\vec{\mathbf{v}}$.  
+我记住这一点的方式是：当按顺序对两个基向量取叉积，即$\hat{\imath}\times \hat{\jmath}$时，结果应该是正的。  
+实际上，基向量的顺序决定了定向。由于$\hat{\imath}$在$\hat{\jmath}$的右侧，  
+所以我记得只要$\vec{\mathbf{w}}$以逆时针方向远离$\vec{\mathbf{v}}$，  
+那么$\vec{\mathbf{v}} \times \vec{\mathbf{w}}$就会是正的。
 
 <Figure image="$lesson/figures/two-dimensions/BasisVectorsSign.svg" />
 
-For example, with the vectors shown here, the area of that parallelogram is 7 (You'll see how to compute this below). Because $\vec{\mathbf{w}}$ is a clockwise rotation away from $\vec{\mathbf{v}}$, the cross product should be negative, so $\vec{\mathbf{v}} \times \vec{\mathbf{w}} = -7$.
+For example, with the vectors shown here, the area of that parallelogram is 7 (You'll see how to compute this below). Because $\vec{\mathbf{w}}$ is a clockwise rotation away from $\vec{\mathbf{v}}$, the cross product should be negative, so $\vec{\mathbf{v}} \times \vec{\mathbf{w}} = -7$.  
+例如，对于此处所示的向量，该平行四边形的面积为7（下面会介绍计算方法）​。  
+由于$\vec{\mathbf{w}}$是相对于$\vec{\mathbf{v}}$顺时针旋转的，因此叉积应为负值，  
+即$\vec{\mathbf{v}} \times \vec{\mathbf{w}} = -7$。
 
 <Figure image="$lesson/figures/two-dimensions/AreaOfParallelogramCalculation.svg" />
 
-**Given the diagram below:**
+**Given the diagram below:  
+给定下图：**
 
 <Figure image="$lesson/figures/two-dimensions/AreaOfParallelogramQuestion1.svg" />
 
 <Question
-  question="Is the cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ positive?"
+  question="Is the cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ positive?  
+  向量 $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ 的叉积是正数吗？​"
   choice1="yes"
   choice2="no"
   answer={1}
 >
 
-The cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is positive since $\vec{\mathbf{w}}$ is a counterclockwise rotation away from $\vec{\mathbf{v}}$.
+The cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is positive since $\vec{\mathbf{w}}$ is a counterclockwise rotation away from $\vec{\mathbf{v}}$.  
+由于$\vec{\mathbf{w}}$是绕$\vec{\mathbf{v}}$逆时针旋转的，因此叉积$\vec{\mathbf{v}} \times \vec{\mathbf{w}}$为正。
 
 <Figure image="$lesson/figures/two-dimensions/AreaOfParallelogramQuestion1Answer.svg" />
 
 </Question>
 
-**Given the diagram below:**
+**Given the diagram below:  
+给定下图：**
 
 <Figure image="$lesson/figures/two-dimensions/AreaOfParallelogramQuestion2.svg" />
 
 <Question
-  question="Is the cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ positive?"
+  question="Is the cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ positive?   
+  向量 $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ 的叉积是正数吗？​”"
   choice1="yes"
   choice2="no"
   answer={2}
 >
 
-The cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is negative since $\vec{\mathbf{w}}$ is a clockwise rotation away from $\vec{\mathbf{v}}$.
+The cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is negative since $\vec{\mathbf{w}}$ is a clockwise rotation away from $\vec{\mathbf{v}}$.  
+由于 $\vec{\mathbf{w}}$ 是使向量绕 $\vec{\mathbf{v}}$ 顺时针旋转的向量，因此叉积 $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ 为负值。
 
 <Figure image="$lesson/figures/two-dimensions/AreaOfParallelogramQuestion2Answer.svg" />
 
@@ -99,13 +133,19 @@ The cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is negative since $
 
 <section>
 
-## Compute with determinant
+## Compute with determinant 用行列式计算
 
-Of course, you want to be able to compute this without someone telling you the area. This is where the determinant comes in from <LessonLink id="determinant">chapter 5</LessonLink>. For the 2d cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$, you write the coordinates of $\vec{\mathbf{v}}$ as the first column of a matrix, write the coordinates of $\vec{\mathbf{w}}$ as the second column, then you compute the determinant.
+Of course, you want to be able to compute this without someone telling you the area. This is where the determinant comes in from <LessonLink id="determinant">chapter 5</LessonLink>. For the 2d cross product $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$, you write the coordinates of $\vec{\mathbf{v}}$ as the first column of a matrix, write the coordinates of $\vec{\mathbf{w}}$ as the second column, then you compute the determinant.  
+当然，你希望能够在没人告知面积的情况下计算出它。这时就需要用到第5章中介绍的行列式了。  
+对于二维叉积 $\vec{\mathbf{v}} \times\vec{\mathbf{w}}$ ，  
+将 $\vec{\mathbf{v}}$ 的坐标作为矩阵的第一列，  
+将 $\vec{\mathbf{w}}$ 的坐标作为第二列，然后计算该行列式。
 
 <Figure image="$lesson/figures/compute-with-determinant/ComputeCrossProduct.svg" />
 
-This is because a matrix whose columns represent $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$ corresponds with a linear transformation that moves the basis vectors $\hat{\imath}$ and $\hat{\jmath}$ to $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$.
+This is because a matrix whose columns represent $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$ corresponds with a linear transformation that moves the basis vectors $\hat{\imath}$ and $\hat{\jmath}$ to $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$.  
+这是因为，其列分别表示 $\vec{\mathbf{v}}$和$\vec{\mathbf{w}}$ 的矩阵对应于一种线性变换，  
+该变换将基向量 $\hat{\imath}$ 和 $\hat{\jmath}$映射为 $\vec{\mathbf{v}}$ 和 $\vec{\mathbf{w}}$ 。
 
 <Figure
   image="$lesson/figures/compute-with-determinant/ChangeOfArea.svg"
@@ -113,47 +153,62 @@ This is because a matrix whose columns represent $\vec{\mathbf{v}}$ and $\vec{\m
   show="video"
 />
 
-The determinant is all about measuring how areas change due to a transformation, and the prototypical area to look at is the unit square resting on $\hat{\imath}$ and $\hat{\jmath}$. After the transformation, that square turns into the parallelogram we care about. So the determinant, which generally measures the factor by which areas are changed, gives the area of this parallelogram, since it evolved from a square that started with area 1.
+The determinant is all about measuring how areas change due to a transformation, and the prototypical area to look at is the unit square resting on $\hat{\imath}$ and $\hat{\jmath}$. After the transformation, that square turns into the parallelogram we care about. So the determinant, which generally measures the factor by which areas are changed, gives the area of this parallelogram, since it evolved from a square that started with area 1.  
+行列式的作用在于衡量几何图形在经过变换后面积的变化情况，  
+而最典型的研究对象就是位于 $\hat{\imath}$ 和 $\hat{\jmath}$ 上的单位正方形。  
+经过变换后，这个正方形会变成我们所关注的平行四边形。  
+因此，通常用于表示面积变化倍数的行列式，实际上就给出了这个平行四边形的面积，  
+因为它是由初始面积为1的正方形演变而来的。
 
 <Figure image="$lesson/figures/compute-with-determinant/DeterminantBasisVectorsTransformedOrientation.svg" />
 
-What's more, if $\vec{\mathbf{w}}$ is a _clockwise_ rotation away from $\vec{\mathbf{v}}$, it means orientation is flipped during the transformation, which is what it means for a determinant to be negative.
+What's more, if $\vec{\mathbf{w}}$ is a _clockwise_ rotation away from $\vec{\mathbf{v}}$, it means orientation is flipped during the transformation, which is what it means for a determinant to be negative.  
+此外，如果 $\vec{\mathbf{w}}$ 是使向量远离 $\vec{\mathbf{v}}$ 的 _顺时针_ 旋转，  
+那就意味着在变换过程中方向发生了反转，而这正是行列式为负的含义。
 
 <Figure
   image="$lesson/figures/compute-with-determinant/DeterminantNegative.svg"
   video="$lesson/figures/compute-with-determinant/DeterminantNegative.mp4"
 >
-  Since the orientation is flipped, the determinant is negative.
+  Since the orientation is flipped, the determinant is negative.  
+   由于方向翻转，行列式的值为负。
 </Figure>
 
 <Figure
   image="$lesson/figures/compute-with-determinant/DeterminantPositive.svg"
   video="$lesson/figures/compute-with-determinant/DeterminantPositive.mp4"
 >
-  Since the orientation isn't flipped, the determinant is positive.
+  Since the orientation isn't flipped, the determinant is positive.  
+  由于方向没有翻转，行列式的值为正。
 </Figure>
 
-### Determinant example
+### Determinant example 行列式示例
 
 <Figure image="$lesson/figures/determinant-example/DeterminantExample.svg" />
 
-For example, if $\vec{\mathbf{v}}$ has coordinates $\begin{bmatrix}-3\\1\end{bmatrix}$, and $\vec{\mathbf{w}}$ has coordinates $\begin{bmatrix}2\\1\end{bmatrix}$, the determinant is:
+For example, if $\vec{\mathbf{v}}$ has coordinates $\begin{bmatrix}-3\\1\end{bmatrix}$, and $\vec{\mathbf{w}}$ has coordinates $\begin{bmatrix}2\\1\end{bmatrix}$, the determinant is:  
+例如，如果 $\vec{\mathbf{v}}$ 的坐标为 $\begin{bmatrix}-3\\1\end{bmatrix}$，而 $\vec{\mathbf{w}}$ 的坐标为 $\begin{bmatrix}2\\1\end{bmatrix}$，则行列式为：  
+
 
 $$
 \operatorname{det}\left(\left[\begin{array}{cc}-3 & 2 \\ 1 & 1\end{array}\right]\right)=(-3)\cdot1 - 2\cdot1 = -5.00
 $$
 
-Evidently the area of the parallelogram formed by the two vectors is $5$, and since $\vec{\mathbf{w}}$ is a clockwise rotation away from $\vec{\mathbf{v}}$ it should make sense that this value is negative.
+Evidently the area of the parallelogram formed by the two vectors is $5$, and since $\vec{\mathbf{w}}$ is a clockwise rotation away from $\vec{\mathbf{v}}$ it should make sense that this value is negative.  
+显然，由这两个向量构成的平行四边形的面积为 $5$ ，  
+而由于 $\vec{\mathbf{w}}$ 是相对于 $\vec{\mathbf{v}}$ 顺时针旋转的，因此这个值为负数也是合乎逻辑的。
 
 <Figure
   image="$lesson/figures/determinant-example/DeterminantTransformation.svg"
   video="$lesson/figures/determinant-example/DeterminantTransformation.mp4"
 />
 
-I'd recommend playing around with this notion a bit in your head to get an intuitive feel for the cross product.
+I'd recommend playing around with this notion a bit in your head to get an intuitive feel for the cross product.  
+我建议你在脑海中稍微思考一下这个概念，以便对叉积有直观的认识。
 
 <Question
-  question="What is result of of $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ where $\vec{\mathbf{v}} = \begin{bmatrix}1\\-2\end{bmatrix}$ and $\vec{\mathbf{w}} = \begin{bmatrix}4\\3\end{bmatrix}$?"
+  question="What is result of of $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ where $\vec{\mathbf{v}} = \begin{bmatrix}1\\-2\end{bmatrix}$ and $\vec{\mathbf{w}} = \begin{bmatrix}4\\3\end{bmatrix}$?  
+  当 $\vec{\mathbf{v}} = \begin{bmatrix}1\\-2\end{bmatrix}$ 且 $\vec{\mathbf{w}} = \begin{bmatrix}4\\3\end{bmatrix}$ 时， $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ 的结果是什么？​”"
   choice1="5"
   choice2="-11"
   choice3="11"
@@ -161,7 +216,9 @@ I'd recommend playing around with this notion a bit in your head to get an intui
   answer={3}
 >
 
-To compute the cross product calculate the determinant of the transformation matrix.
+To compute the cross product calculate the determinant of the transformation matrix.  
+要计算叉积，需计算变换矩阵的行列式。
+
 
 $$
 \begin{aligned}
@@ -171,16 +228,20 @@ $$
 \end{aligned}
 $$
 
-We can gut check our answer by drawing the diagram, and seeing if $11$ feels like a reasonable area, and whether it makes sense that it's positive.
+We can gut check our answer by drawing the diagram, and seeing if $11$ feels like a reasonable area, and whether it makes sense that it's positive.  
+我们可以通过画图来初步检验答案，  
+看看11是否是一个合理的面积，以及它为正数是否有道理。
 
 <Figure image="$lesson/figures/determinant-example/DeterminantExampleQuestion1.svg" />
 
-We know the cross product is equal to area of the parallelogram formed by the two vectors and since $\vec{\mathbf{w}}$ is a counterclockwise rotation away from $\vec{\mathbf{v}}$ we also know the result will be positive.
+We know the cross product is equal to area of the parallelogram formed by the two vectors and since $\vec{\mathbf{w}}$ is a counterclockwise rotation away from $\vec{\mathbf{v}}$ we also know the result will be positive.  
+我们知道向量叉积等于这两个向量所构成的平行四边形的面积，  
+而由于 $\vec{\mathbf{w}}$ 是使向量逆时针旋转离开 $\vec{\mathbf{v}}$ 的方向，因此结果也必为正数。
 
 <Figure image="$lesson/figures/determinant-example/DeterminantExampleQuestion1Parallelogram.svg" />
 
-Which corresponds to the determinant of the transformation matrix that sends $\hat{\imath} \to \begin{bmatrix}1\\-2\end{bmatrix}$ and $\hat{\jmath} \to \begin{bmatrix}4\\3\end{bmatrix}$.
-
+Which corresponds to the determinant of the transformation matrix that sends $\hat{\imath} \to \begin{bmatrix}1\\-2\end{bmatrix}$ and $\hat{\jmath} \to \begin{bmatrix}4\\3\end{bmatrix}$.  
+这对应于将 $\hat{\imath}$ 映射到 $\begin{bmatrix}1\\-2\end{bmatrix}$ 、将 $\hat{\jmath}$ 映射到 $\begin{bmatrix}4\\3\end{bmatrix}$ 的变换矩阵的行列式。
 <Figure image="$lesson/figures/determinant-example/DeterminantExampleQuestion1Calculation.svg" />
 
 </Question>
@@ -189,15 +250,23 @@ Which corresponds to the determinant of the transformation matrix that sends $\h
 
 <section>
 
-## Properties
+## Properties 性质
 
-For example, you might notice that when two vectors are perpendicular, or close to being perpendicular, their cross product is larger than it would be if they were pointing in a very similar direction, because the area of that parallelogram is larger when its sides are perpendicular.
+For example, you might notice that when two vectors are perpendicular, or close to being perpendicular, their cross product is larger than it would be if they were pointing in a very similar direction, because the area of that parallelogram is larger when its sides are perpendicular.  
+例如，你可能会发现，当两个向量垂直或接近垂直时，  
+它们的叉积值会大于它们指向非常相似方向时的叉积值，  
+因为当平行四边形的边相互垂直时，其面积更大。
 
 <Figure image="$lesson/figures/properties/BiggerSmaller.svg">
-  $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is bigger when the vectors are more perpendicular to eachother and smaller when the vectors are pointing in a similar direction.
+  $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ is bigger when the vectors are more perpendicular to eachother and smaller when the vectors are pointing in a similar direction.  
+  当两个向量彼此更加垂直时， $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ 的值更大；  
+  而当两个向量方向较为相似时，其值则更小。
 </Figure>
 
-Something else you might notice is that if you scale up one of the vectors, perhaps multiplying $\vec{\mathbf{v}}$ by $3$, then the area of that parallelogram is scaled up by a factor of three, so $(3\vec{\mathbf{v}}) \times \vec{\mathbf{w}} = 3 (\vec{\mathbf{v}} \times \vec{\mathbf{w}})$.
+Something else you might notice is that if you scale up one of the vectors, perhaps multiplying $\vec{\mathbf{v}}$ by $3$, then the area of that parallelogram is scaled up by a factor of three, so $(3\vec{\mathbf{v}}) \times \vec{\mathbf{w}} = 3 (\vec{\mathbf{v}} \times \vec{\mathbf{w}})$.  
+你可能还会注意到，如果放大其中一个向量，比如将 $\vec{\mathbf{v}}$ 乘以3，  
+那么该平行四边形的面积也会按3倍的比例放大，  
+因此 $(3\vec{\mathbf{v}}) \times \vec{\mathbf{w}} = 3 (\vec{\mathbf{v}} \times\vec{\mathbf{w}})$ 。
 
 <Figure image="$lesson/figures/properties/Scaling.svg" />
 
@@ -205,9 +274,12 @@ Something else you might notice is that if you scale up one of the vectors, perh
 
 <section>
 
-## Standard 3d View
+## Standard 3d View  标准3D视图
 
-Now, even though everything we just did is a perfectly fine mathematical operation, what I just described is technically not the cross product. The true cross product is something that combines two 3d vectors to get a new 3d vector.
+Now, even though everything we just did is a perfectly fine mathematical operation, what I just described is technically not the cross product. The true cross product is something that combines two 3d vectors to get a new 3d vector.  
+现在，尽管我们刚才所做的都是完全正确的数学运算，  
+但我刚才所描述的在技术上并不属于叉积。  
+真正的叉积是一种将两个三维向量结合起来以得到一个新的三维向量的运算。
 
 $$
 \left[\begin{array}{l}
@@ -229,24 +301,39 @@ p_3
 \end{array}\right]
 $$
 
-You still consider the parallelogram defined by the two vectors, and the area of that parallelogram still plays a big role. To be concrete the area is $9$ units for the vectors shown here.
+You still consider the parallelogram defined by the two vectors, and the area of that parallelogram still plays a big role. To be concrete the area is $9$ units for the vectors shown here.  
+你仍然考虑由这两个向量所确定的平行四边形，而该平行四边形的面积依然起着重要作用。  
+具体来说，此处所示向量的面积为9个单位。
 
 <Figure image="$lesson/figures/standard-view/AreaOfParallelogram.svg" />
 
-The 3d cross product does not return a number, it returns a vector. This new vector's length will be the area of that parallelogram, which in this example is $9$, and the direction of that new vector is perpendicular to that parallelogram.
+The 3d cross product does not return a number, it returns a vector. This new vector's length will be the area of that parallelogram, which in this example is $9$, and the direction of that new vector is perpendicular to that parallelogram.  
+三维向量叉积得到的不是一个数值，而是一个向量。  
+这个新向量的长度就是该平行四边形的面积，在这个例子中为9，  
+而该新向量的方向则垂直于该平行四边形。
 
 <Figure image="$lesson/figures/standard-view/ResultingVector.svg" />
 
-But which way? There are two possible vectors with length $9$ pointing perpendicular to a given plane. This is where the right-hand rule comes in. Point the forefinger of your right hand in the direction of $\vec{\mathbf{v}}$, and stick out your middle finger in the direction of $\vec{\mathbf{w}}$. Now when you point up your thumb, that's the direction of the cross product.
+But which way? There are two possible vectors with length $9$ pointing perpendicular to a given plane. This is where the right-hand rule comes in. Point the forefinger of your right hand in the direction of $\vec{\mathbf{v}}$, and stick out your middle finger in the direction of $\vec{\mathbf{w}}$. Now when you point up your thumb, that's the direction of the cross product.  
+但方向是哪个呢？与给定平面垂直且长度为9的向量有两个可能。  
+这时就需要用到右手定则了：  
+将右手的食指指向 $\vec{\mathbf{v}}$ 的方向，中指指向 $\vec{\mathbf{w}}$ 的方向，  
+那么拇指所指的方向就是叉积的方向。
 
 <Figure image="$lesson/figures/standard-view/RightHandRule.svg" />
 
-For example, let $\vec{\mathbf{v}}$ be the vector with length $2$ in the $z$ direction, and let $\vec{\mathbf{w}}$ be the vector with length $2$ in the $y$ direction. The parallelogram they define in this simple example is actually a square, since they're perpendicular, and the area of that square is $4$. Using the right hand rule, their cross product should point in the negative $x$ direction, so this cross product is $-4 \hat{\imath}$.
+For example, let $\vec{\mathbf{v}}$ be the vector with length $2$ in the $z$ direction, and let $\vec{\mathbf{w}}$ be the vector with length $2$ in the $y$ direction. The parallelogram they define in this simple example is actually a square, since they're perpendicular, and the area of that square is $4$. Using the right hand rule, their cross product should point in the negative $x$ direction, so this cross product is $-4 \hat{\imath}$.  
+例如，设 $\vec{\mathbf{v}}$ 是长度为2、沿 $z$ 方向的向量，  
+ $\vec{\mathbf{w}}$ 是长度为2、沿 $y$ 方向的向量。  
+在这个简单的例子中，它们所构成的平行四边形实际上是一个正方形，因为这两个向量互相垂直，该正方形的面积为4。  
+根据右手定则，它们的叉积应指向负 $x$ 方向，因此这个叉积为 $-4 \hat{\imath}$ 。
 
 <Figure image="$lesson/figures/standard-view/RightHandRuleExample1.svg" />
 
 <Question
-  question="What is $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ where $\vec{\mathbf{v}} = \left[\begin{array}{c}  2  \\  0  \\  0  \end{array}\right]$ and $\vec{\mathbf{w}} = \left[\begin{array}{c}  0  \\  -3  \\  0  \end{array}\right]$?"
+  question="What is $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ where $\vec{\mathbf{v}} = \left[\begin{array}{c}  2  \\  0  \\  0  \end{array}\right]$ and $\vec{\mathbf{w}} = \left[\begin{array}{c}  0  \\  -3  \\  0  \end{array}\right]$?  
+当 $\vec{\mathbf{v}} = \left[\begin{array}{c} 2 \\ 0 \\ 0\end{array}\right]$ 且 $\vec{\mathbf{w}} = \left[\begin{array}{c} 0 \\ -3 \\ 0\end{array}\right]$ 时， $\vec{\mathbf{v}} \times \vec{\mathbf{w}}$ 的值是多少？​"
+
   choice1="$\left[\begin{array}{c}  0  \\  0  \\  6  \end{array}\right]$"
   choice2="$\left[\begin{array}{c}  -6  \\  0  \\  0  \end{array}\right]$"
   choice3="$\left[\begin{array}{c}  6  \\  0  \\  0  \end{array}\right]$"
@@ -254,15 +341,22 @@ For example, let $\vec{\mathbf{v}}$ be the vector with length $2$ in the $z$ dir
   answer={4}
 >
 
-Using what we know about computing the cross product so far you can draw the parallelogram formed between $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$.
+Using what we know about computing the cross product so far you can draw the parallelogram formed between $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$.  
+利用我们目前所掌握的关于计算叉积的知识，  
+你可以画出由 $\vec{\mathbf{v}}$ 和 $\vec{\mathbf{w}}$ 构成的平行四边形。
 
 <Figure image="$lesson/figures/standard-view/RightHandRuleExample2Parallelogram.svg" />
 
-Which, in this case, is a rectangle with an area of $6$ units. So we know the resulting vector $\vec{\mathbf{p}}$ will have a length of $6$ and will be perpendicular to the $xy$-coordinate plane, so it will lie either on the positive $z$-axis or the negative $z$-axis. Applying the right-hand rule tell us that it is the vector pointing in the negative direction on the $z$-axis.
+Which, in this case, is a rectangle with an area of $6$ units. So we know the resulting vector $\vec{\mathbf{p}}$ will have a length of $6$ and will be perpendicular to the $xy$-coordinate plane, so it will lie either on the positive $z$-axis or the negative $z$-axis. Applying the right-hand rule tell us that it is the vector pointing in the negative direction on the $z$-axis.  
+在这种情况下，它是一个面积为6平方单位的矩形。  
+因此我们知道，所得向量 $\vec{\mathbf{p}}$ 的长度为6，且与 $xy$ 坐标平面垂直，  
+所以它要么位于正 $z$ 轴上，要么位于负 $z$ 轴上。  
+根据右手定则，可知该向量是指向$z$轴负方向的向量。
 
 <Figure image="$lesson/figures/standard-view/RightHandRuleExample2.svg" />
 
-Writing this out gives us the following computation.
+Writing this out gives us the following computation.  
+将其写出来后，我们得到如下的计算。
 
 $$
 \left[\begin{array}{c}  2  \\  0  \\  0  \end{array}\right]
@@ -278,9 +372,10 @@ $$
 
 <section>
 
-## Computing
+## Computing 计算
 
-There is a formula you could memorize for this cross product:
+There is a formula you could memorize for this cross product:  
+有一个可以记住的公式来计算这个叉积
 
 $$
 \left[\begin{array}{l}
@@ -298,16 +393,37 @@ v_1 \cdot w_2-w_1 \cdot v_2
 \end{array}\right]
 $$
 
-However, it's common and easier to remember a certain process involving the 3d determinant. This process looks truly strange at first. Write a 3d matrix where the second column is the coordinates of $\vec{\mathbf{v}}$, and the third column is the coordinates $\vec{\mathbf{w}}$. Then for the first column, write in the basis vector $\hat{\imath}$, $\hat{\jmath}$, and $\hat{k}$. Then, you compute the determinant of this matrix.
+However, it's common and easier to remember a certain process involving the 3d determinant. This process looks truly strange at first. Write a 3d matrix where the second column is the coordinates of $\vec{\mathbf{v}}$, and the third column is the coordinates $\vec{\mathbf{w}}$. Then for the first column, write in the basis vector $\hat{\imath}$, $\hat{\jmath}$, and $\hat{k}$. Then, you compute the determinant of this matrix.  
+  不过，使用涉及三维行列式的某种方法更为常见，也更容易记住。  
+  这种方法乍看之下确实很奇怪。  
+  先构造一个三维矩阵，其第二列为向量$\vec{\mathbf{v}}$的坐标，第三列为向量$\vec{\mathbf{w}}$的坐标。  
+  接着，第一列用基向量 $\hat{\imath}$ 、 $\hat{\jmath}$ 和 $\hat{k}$ 来表示。  
+  最后，计算该矩阵的行列式。
 
 <Figure image="$lesson/figures/computing/CrossProductDeterminantForm.svg" />
 
-The silliness is probably clear here. What on earth does it mean to put a vector in as the entry to a matrix? Students are often told that this is just a notational trick; when you carry out all the computations as if $\hat{\imath}$, $\hat{\jmath}$ and $\hat{k}$ were numbers. Then you get some linear combination of those basis vectors, and the vector defined by that linear combination, students are told to just believe, is the unique vector perpendicular to $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$ whose magnitude is the area of the appropriate parallelogram, and whose direction obeys the right-hand-rule.
+The silliness is probably clear here. What on earth does it mean to put a vector in as the entry to a matrix? Students are often told that this is just a notational trick; when you carry out all the computations as if $\hat{\imath}$, $\hat{\jmath}$ and $\hat{k}$ were numbers. Then you get some linear combination of those basis vectors, and the vector defined by that linear combination, students are told to just believe, is the unique vector perpendicular to $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$ whose magnitude is the area of the appropriate parallelogram, and whose direction obeys the right-hand-rule.  
+这里的不合理之处想必显而易见。  
+将一个向量作为矩阵的元素，这到底是什么意思？  
+学生们常被告知，这只是一个记号上的技巧；  
+在进行所有计算时，只需将 $\hat{\imath}$、$\hat{\jmath}$ 和 $\hat{k}$ 视为常数即可。  
+然后，你得到这些基向量的某个线性组合，而由该线性组合确定的向量——  
+学生们被告知只需相信这一点——  
+是唯一一个既与 $\vec{\mathbf{v}}$ 和 $\vec{\mathbf{w}}$ 垂直，其大小等于相应平行四边形的面积，且方向符合右手定则的向量。 
+
+
 
 <Figure image="$lesson/figures/computing/CrossProductDeterminantFormExpanded.svg" />
 
-And sure, in some sense this is a notational trick, but there is a reason for doing it. It's not just a coincidence that the determinant is once again important, and putting the basis vectors in these slots is not just random. To understand where this all comes from, it helps to use the idea of duality that I introduced in the last chapter. This concept is a bit heavy, though, so I'm putting it into a separate follow-on chapter for those of you curious to learn more.
+And sure, in some sense this is a notational trick, but there is a reason for doing it. It's not just a coincidence that the determinant is once again important, and putting the basis vectors in these slots is not just random. To understand where this all comes from, it helps to use the idea of duality that I introduced in the last chapter. This concept is a bit heavy, though, so I'm putting it into a separate follow-on chapter for those of you curious to learn more.  
+当然，从某种意义上说这确实是一种符号上的技巧，但这样做是有原因的。  
+行列式再次变得重要并非巧合，将基向量填入这些位置也并非随意为之。  
+要理解这一切的由来，运用我在上一章介绍的对偶性概念会有所帮助。  
+不过这个概念有点复杂，因此我会为那些有兴趣进一步了解的人单独写一章来讲解。
 
-Arguably, it falls outside the essence of linear algebra, so you can feel comfortable if you want to skip that <LessonLink id="cross-products-extended">next chapter</LessonLink> and go straight to the lesson on <LessonLink id="cramers-rule">Cramer's Rule</LessonLink>. But for those of you willing to go a bit deeper, it's just really cool.
+Arguably, it falls outside the essence of linear algebra, so you can feel comfortable if you want to skip that <LessonLink id="cross-products-extended">next chapter</LessonLink> and go straight to the lesson on <LessonLink id="cramers-rule">Cramer's Rule</LessonLink>. But for those of you willing to go a bit deeper, it's just really cool.  
+可以说，这超出了线性代数的核心范畴，  
+因此如果你想跳过下一章直接学习克拉默法则，也完全不必顾虑。  
+但对于那些愿意深入探究的人来说，这实在是非常有趣的内容。
 
 </section>

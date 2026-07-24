@@ -1,6 +1,6 @@
 ---
-title: Power Rule through geometry
-description: Introduction to the derivatives of polynomial terms thought about geometrically and intuitively. The goal is for these formulas to feel like something the student could have discovered, rather than something to be memorized.
+title: Power Rule through geometry 通过几何学理解幂的运算法则
+description: Introduction to the derivatives of polynomial terms thought about geometrically and intuitively. The goal is for these formulas to feel like something the student could have discovered, rather than something to be memorized.  从几何和直观的角度介绍多项式项的导数。其目的是让这些公式看起来像是学生自己可以发现的，而非需要死记硬背的内容。
 date: 2017-04-30
 chapter: 3
 video: S0_qX4VJhMQ
@@ -16,60 +16,113 @@ import Quote from "~/components/Quote";
 
 <section>
 
-<Quote name="David Hilbert">
-  You know, for a mathematician, he did not have enough imagination. But he has
-  become a poet and now he is fine.
+<Quote name="David Hilbert 大卫·希尔伯特">
+  You know, for a mathematician, he did not have enough imagination. But he has become a poet and now he is fine.  
+  你知道吗，作为一名数学家，他的想象力确实不够丰富。  
+  但他后来成了诗人，现在过得挺好的。
 </Quote>
 
-After introducing the derivative and its relation to rates of change in the last lesson, the next step is to learn how to compute the derivatives of functions that are explicitly given with some formula.
-A typical calculus student spends quite a bit of time drilling on how to compute derivatives, often without the context of a concrete rate of change problem.
-For example, a worksheet may ask you to compute the derivative of this function:
+After introducing the derivative and its relation to rates of change in the last lesson, the next step is to learn how to compute the derivatives of functions that are explicitly given with some formula.  
+在上节课介绍了导数及其与变化率的关系之后，  
+下一步就是学习如何计算以特定公式明确给出的函数的导数。
+
+A typical calculus student spends quite a bit of time drilling on how to compute derivatives, often without the context of a concrete rate of change problem.  
+典型的微积分学生会花费大量时间练习如何计算导数，  
+而这些练习往往没有具体的变化率问题的背景。
+
+
+For example, a worksheet may ask you to compute the derivative of this function:  
+例如，练习题可能会要求你计算这个函数的导数：
 
 $$
 f(x) = \frac{\sin(x)}{x^2}
 $$
 
-But there may be no indication of what physical process this function describes, or what significance its rate of change has.
-That's not necessarily a bad thing, it's analogous to how we often learn the multiplication table by drilling on many facts like $7 \times 6 = 42$ without perpetually having to put each such equation in context.
+But there may be no indication of what physical process this function describes, or what significance its rate of change has.  
+但可能没有迹象表明该函数描述的是何种物理过程，或其变化率具有什么意义。
 
-Still, before diving in, it may be worth emphasizing why all these formulas are worth learning in the first place, and why exercises asking students to drill on them are worth the effort.
-We model many real-world phenomena, especially those in physics, with polynomials, trigonometric functions, exponentials, and the like, so building up a fluency with actually computing derivatives of these functions gives you a language to readily understand the rates of change for these phenomena.
+That's not necessarily a bad thing, it's analogous to how we often learn the multiplication table by drilling on many facts like $7 \times 6 = 42$ without perpetually having to put each such equation in context.  
+这未必是件坏事，  
+这就好比我们通常是通过反复记忆诸如$7 \times 6 = 42$这样的众多算式来学习乘法表，  
+而不必始终将每个算式置于具体情境中。
 
-Think of how knowing the multiplication table by heart frees up a student to think about more complicated ideas in arithmetic and algebra.
+Still, before diving in, it may be worth emphasizing why all these formulas are worth learning in the first place, and why exercises asking students to drill on them are worth the effort.  
+不过，在开始之前，或许有必要先强调一下，  
+为何最初要学习所有这些公式，以及为何让学生通过大量练习来掌握它们是值得的。
 
-So in this chapter and the next, the aim is to show how you can think about a few of these rules intuitively and geometrically; and I really want to encourage you to never forget about the tiny nudges at the heart of derivatives.
+We model many real-world phenomena, especially those in physics, with polynomials, trigonometric functions, exponentials, and the like, so building up a fluency with actually computing derivatives of these functions gives you a language to readily understand the rates of change for these phenomena.  
+我们常用多项式、三角函数、指数函数等  
+来建模许多现实世界中的现象，尤其是物理学领域的现象。  
+因此，熟练掌握这些函数的求导方法，  
+就能让你用一种简洁的语言来理解这些现象的变化速率。
 
-All that said, even if there's value to drilling on these formulas and memorizing them, the goal of this series is for you to feel like these are facts you could have discovered yourself. So for the next few chapters, let's put ourselves in a mindset of patience and discovery. Discovering these formulas can be a beautiful exercise in creativity, requiring you to sniff out how tiny changes to one quantity influence tiny changes to another.
+Think of how knowing the multiplication table by heart frees up a student to think about more complicated ideas in arithmetic and algebra.  
+试想，记住乘法表能让学生有更多精力去思考算术和代数中更复杂的概念。
 
-Even if you don't need to think through these derivations every time you compute a derivative, going through them can reinforce the core idea of what derivatives are all about.
+So in this chapter and the next, the aim is to show how you can think about a few of these rules intuitively and geometrically; and I really want to encourage you to never forget about the tiny nudges at the heart of derivatives.  
+因此，在这一章和下一章中，我们的目标是展示  
+如何以直观和几何的方式理解其中的一些规则；  
+我真心希望鼓励大家永远不要忘记导数背后的那些核心原理。
+
+All that said, even if there's value to drilling on these formulas and memorizing them, the goal of this series is for you to feel like these are facts you could have discovered yourself. So for the next few chapters, let's put ourselves in a mindset of patience and discovery. Discovering these formulas can be a beautiful exercise in creativity, requiring you to sniff out how tiny changes to one quantity influence tiny changes to another.  
+        话虽如此，尽管反复练习这些公式并记住它们也有一定价值，  
+但本系列课程的目标是让你觉得这些其实是自己能够发现的事实。  
+因此在接下来的几章中，让我们以耐心和探索的心态来面对。  
+发现这些公式其实是一种很棒的创造性训练，  
+它要求你去探究一个量上的微小变化是如何影响另一个量上的微小变化的。
+
+Even if you don't need to think through these derivations every time you compute a derivative, going through them can reinforce the core idea of what derivatives are all about.  
+即便每次计算导数时都不必详细推导，但经过这些推导仍能加深你对导数本质的理解。
 
 </section>
 
 <section>
 
-## Monomial Terms
+## Monomial Terms  单项式项
 
-### Derivative of $f(x) = x^2$
+### Derivative of $f(x) = x^2$  $f(x) = x^2$ 的导数
 
-Let's start with a function like $f(x) = x^2$. What is its derivative? That is to say, if you look at some value of $x$, like $x = 2$, and compare it to a value slightly bigger, just $dx$ bigger, what's that corresponding change in the value of the function, $df$?
+Let's start with a function like $f(x) = x^2$. What is its derivative? That is to say, if you look at some value of $x$, like $x = 2$, and compare it to a value slightly bigger, just $dx$ bigger, what's that corresponding change in the value of the function, $df$?  
+我们从像$f(x) = x^2$这样的函数开始。它的导数是多少？  
+也就是说，如果你取某个$x$的值，比如$x = 2$，  
+再将其与稍大一点的值相比，仅大$dx$，  
+那么函数的值相应地会变化多少，即$df$是多少？
 
 <Figure image="$lesson/figures/2.08-alt.svg" />
 
-In particular, what is $df$ divided by $dx$? The _rate_ at which this function changes per unit change in $x$? As the first step for intuition, we know you can think of the ratio $\frac{df}{dx}$ as the slope of a tangent line to the graph of $x^2$. From that, we can see that the slope generally increases as $x$ increases. At $0$, the tangent line is flat, so the slope is $0$. At $x = 1$, it's something steeper, at $x=2$, it's steeper still.
+In particular, what is $df$ divided by $dx$? The _rate_ at which this function changes per unit change in $x$? As the first step for intuition, we know you can think of the ratio $\frac{df}{dx}$ as the slope of a tangent line to the graph of $x^2$. From that, we can see that the slope generally increases as $x$ increases. At $0$, the tangent line is flat, so the slope is $0$. At $x = 1$, it's something steeper, at $x=2$, it's steeper still.  
+具体来说，$df$除以$dx$是多少？也就是函数随着$x$每变化一个单位而变化的_速率_。  
+作为建立直观理解的第一步，我们知道可以将比值$\frac{df}{dx}$视为$x^2$图像上切线的斜率。  
+由此可以看出，随着$x$的增大，斜率通常也会增大。  
+在$x=0$时，切线是水平的，因此斜率为$0$。  
+在$x=1$时斜率稍大一些，在$x=2$时则更加陡峭。
 
-But looking at graphs isn't generally the best way to understand the _precise_ formula for a derivative. For that, it's best to take a more literal look at what $x^2$ actually means. In this case, let's picture a square whose side length is $x$.
+But looking at graphs isn't generally the best way to understand the _precise_ formula for a derivative. For that, it's best to take a more literal look at what $x^2$ actually means. In this case, let's picture a square whose side length is $x$.  
+不过，通过观察图形通常并非理解导数精确公式的最佳方式。  
+为此，最好更直接地理解$x^2$的实际含义。  
+在这种情况下，让我们想象一个边长为$x$的正方形。
 
 <Figure image="$lesson/figures/2.41.svg" />
 
-If you increase $x$ by a tiny nudge $dx$, what is the resulting change to the area of the square? That slight change in area represents $df$: the tiny increase in the value of $f(x)=x^2$ caused by increasing $x$ by a tiny nudge $dx$.
+If you increase $x$ by a tiny nudge $dx$, what is the resulting change to the area of the square? That slight change in area represents $df$: the tiny increase in the value of $f(x)=x^2$ caused by increasing $x$ by a tiny nudge $dx$.  
+如果将$x$稍微增加一个微小的量$dx$，那么正方形的面积会有怎样的变化呢？  
+这种微小的面积变化就代表了$df$：  
+即由于$x$增加了微小的量$dx$而导致的$f(x)=x^2$的微小变化量。
 
 <Figure image="$lesson/figures/2.46.svg" />
 
-There's three new bits of area in this diagram, two thin rectangles, and a miniscule square.
-The two thin rectangles have side lengths $x$ and $dx$, so together they account for $2 \cdot x \cdot dx$ units of new area. For example, if $x$ was $3$ and $dx$ was $0.01$, the new area from these thin rectangles would be $2 \cdot 3 \cdot 0.01$, which is $0.06$; About $6$ times the size of $dx$.
+There's three new bits of area in this diagram, two thin rectangles, and a miniscule square.  
+在这个图中有三块新的面积部分：两个细长的矩形，以及一个极小的正方形。
+
+The two thin rectangles have side lengths $x$ and $dx$, so together they account for $2 \cdot x \cdot dx$ units of new area. For example, if $x$ was $3$ and $dx$ was $0.01$, the new area from these thin rectangles would be $2 \cdot 3 \cdot 0.01$, which is $0.06$; About $6$ times the size of $dx$.  
+这两个细长矩形的边长分别为$x$和$dx$，  
+因此它们共同新增的面积为$2\cdot x \cdot dx$单位。  
+例如，如果$x$为3，$dx$为0.01，那么这两个细长矩形新增的面积就是$2 \cdot 3 \cdot 0.01$，即0.06；  
+这大约是$dx$大小的6倍。
 
 <Question
-  question="If $x=2$ and $dx$ was $0.01$, approximately how much bigger would the new area be relative to the size of $dx$?"
+  question="If $x=2$ and $dx$ was $0.01$, approximately how much bigger would the new area be relative to the size of $dx$?  
+  如果$x=2$且$dx=0.01$，那么新面积大约会比$dx$的数值大多少? "
   choice1="6"
   choice2="2"
   choice3="4"
@@ -77,38 +130,57 @@ The two thin rectangles have side lengths $x$ and $dx$, so together they account
   answer={3}
 >
 
-If $x=2$ and $dx$ is $0.01$, the area of the thin rectangles would be $2 \cdot 2 \cdot 0.01$; About $4$ times the size of $dx$. We can check this answer by looking at the slope of the tangent line at $x=2$ on the plot of $f(x)=x^2$. Eyeballing the graph a slope, or rise over run, of about $4$ looks right.
+If $x=2$ and $dx$ is $0.01$, the area of the thin rectangles would be $2 \cdot 2 \cdot 0.01$; About $4$ times the size of $dx$. We can check this answer by looking at the slope of the tangent line at $x=2$ on the plot of $f(x)=x^2$. Eyeballing the graph a slope, or rise over run, of about $4$ looks right.  
+如果$x=2$且$dx$为$0.01$，那么这些细长矩形的面积将为$2 \cdot 2 \cdot0.01$，大约是$dx$大小的4倍。  
+我们可以通过查看$f(x)=x^2$图像在$x=2$处的切线斜率来验证这个结果。  
+粗略观察该图像，其斜率，  
+也就是纵坐标变化量与横坐标变化量的比值，约为4，这是合理的。
 
 <Figure image="$lesson/figures/2.08-alt.svg" />
 
 </Question>
 
-That little square has area $dx^2$, but you should think of this as being _really_ tiny; negligibly tiny. For example, if $dx$ was $0.01$, it would be $0.0001$. I'm drawing $dx$ with a fair bit of width here, so we can see it, but always remember in principle $dx$ should be thought of as a truly tiny amount.
+That little square has area $dx^2$, but you should think of this as being _really_ tiny; negligibly tiny. For example, if $dx$ was $0.01$, it would be $0.0001$. I'm drawing $dx$ with a fair bit of width here, so we can see it, but always remember in principle $dx$ should be thought of as a truly tiny amount.  
+那个小正方形的面积为$dx^2$，但你应该将其视为极其微小——小到可以忽略不计。  
+例如，如果$dx$是0.01，那么它的面积就是0.0001。  
+我在这里把$dx$画得相对宽一些，这样就能看清楚了，  
+但始终要记住，从原理上来说$dx$应当被视为真正极小的量。
 
-Phrased more precisely, our final consideration will always be what happens as the size of this $dx$ approaches $0$, and as that happens the proportion of this yellow area $df$ which is accounted for by the tiny $dx^2$ corner will go to $0$.
+Phrased more precisely, our final consideration will always be what happens as the size of this $dx$ approaches $0$, and as that happens the proportion of this yellow area $df$ which is accounted for by the tiny $dx^2$ corner will go to $0$.  
+更准确地说，我们最终要研究的始终是当这个$dx$的数值趋近于$0$时会发生什么，  
+而此时，由极小的$dx^2$区域所占据的黄色区域$df$的比例也会趋于$0$。
 
 <Figure
   image="$lesson/figures/3.51.svg"
   video="$lesson/figures/3.49-3.52.mp4"
 />
 
-The full unapproximated change $df$ represented by all the yellow area above looks like $df = 2x \cdot dx + (dx)^2$.
-So you might begin thinking of the expression for the derivative like this:
+The full unapproximated change $df$ represented by all the yellow area above looks like $df = 2x \cdot dx + (dx)^2$.  
+上方所有黄色区域所表示的完整精确变化量$df$可表示为$df = 2x \cdot dx +(dx)^2$。
+
+So you might begin thinking of the expression for the derivative like this:  
+因此你可以这样来思考导数的表达式：
 
 $$
 \frac{df}{dx} = \frac{2x \cdot dx + (dx)^2}{dx} = 2x + dx
 $$
 
-Remember, if we're using this "$d$" notation, the implicit meaning is that we consider what happens as $dx \to 0$. So in this case, our final expression would look like this.
+Remember, if we're using this "$d$" notation, the implicit meaning is that we consider what happens as $dx \to 0$. So in this case, our final expression would look like this.  
+请记住，如果我们使用这个“$d$”符号，其隐含的意思就是考虑当$dx \to0$时会发生什么。  
+因此，在这种情况下，我们的最终表达式会是这样的。
 
 $$
 \frac{df}{dx} = 2x
 $$
 
-Notice how we could have simply ignored the $(dx)^2$ term since it doesn't get fully canceled out when dividing by $dx$. A good rule of thumb is that you can ignore anything which includes a $dx$ raised to a power greater than one; that is, a tiny change squared is a negligible change.
+Notice how we could have simply ignored the $(dx)^2$ term since it doesn't get fully canceled out when dividing by $dx$. A good rule of thumb is that you can ignore anything which includes a $dx$ raised to a power greater than one; that is, a tiny change squared is a negligible change.  
+注意，我们本可以直接忽略$(dx)^2$项，因为在除以$dx$时它无法被完全抵消。  
+一个实用的规则是：凡是包含$dx$的幂次大于一的项都可以忽略；  
+也就是说，微小变化的平方是可以忽略不计的。
 
 <Question
-  question="For example, if you were starting at $x=3$, as you slightly increase $x$, what is the rate in change of the area per unit of length added?"
+  question="For example, if you were starting at $x=3$, as you slightly increase $x$, what is the rate in change of the area per unit of length added?  
+  例如，如果你从$x=3$开始，当$x$稍有增大时，每增加一个单位长度，面积的变化率是多少？​”"
   choice1="The rate of change in area would be $6$."
   choice2="The rate of change in area would be $3$."
   choice3="The rate of change in area would be $4$."
@@ -116,38 +188,56 @@ Notice how we could have simply ignored the $(dx)^2$ term since it doesn't get f
   answer={1}
 >
 
-The rate of change in the area per unit of length added, $\frac{d(x^2)}{dx}$, would be $2 \cdot 3$, or $6$. As another example, if you were starting at $x=5$, that rate of change would be $10$ units of area per change in $x$.
+The rate of change in the area per unit of length added, $\frac{d(x^2)}{dx}$, would be $2 \cdot 3$, or $6$. As another example, if you were starting at $x=5$, that rate of change would be $10$ units of area per change in $x$.  
+每增加一个单位长度时面积的变化率，即$\frac{d(x^2)}{dx}$，为$2 \cdot3$，也就是$6$。  
+再举个例子，如果从$x=5$开始，  
+那么这个变化率就是每变化一个单位$x$，面积增加$10$个单位。
 
 </Question>
 
-### Derivative of $f(x) = x^3$
+### Derivative of $f(x) = x^3$ $f(x) = x^3$的导数
 
-Let's try a different simple function, $f(x) = x^3$. This will be the geometric view of what you and I went through algebraically in the last chapter for the function $x^3$. We can think of $x^3$ geometrically as the volume of a cube with side lengths $x$.
+Let's try a different simple function, $f(x) = x^3$. This will be the geometric view of what you and I went through algebraically in the last chapter for the function $x^3$. We can think of $x^3$ geometrically as the volume of a cube with side lengths $x$.  
+我们试一个不同的简单函数，$f(x) = x^3$。  
+这将从几何角度展示我们在上一章中通过代数方法研究函数$x^3$时的内容。  
+从几何上来看，$x^3$可以理解为边长为$x$的立方体的体积。
 
 <Figure image="$lesson/figures/4.55.svg" />
 
-When you increase $x$ by a tiny nudge, $dx$, the volume increases as shown in the figure below. That represents all the volume in a cube with side length $x + dx$ that's not already in the original cube with side length $x$.
+When you increase $x$ by a tiny nudge, $dx$, the volume increases as shown in the figure below. That represents all the volume in a cube with side length $x + dx$ that's not already in the original cube with side length $x$.  
+当$x$增加一个微小的量$dx$时，体积会如下图所示增加。  
+这部分体积代表了边长为$x + dx$的立方体中、原本边长为$x$的立方体所没有的那部分体积。
 
 <Figure image="$lesson/figures/5.05-5.10.svg">
-  Remember that we are interested in what happens as $dx$ approaches $0$. The
-  length of $dx$ is illustrated so big to demonstrate the change in volume it
-  introduces.
+  Remember that we are interested in what happens as $dx$ approaches $0$. The length of $dx$ is illustrated so big to demonstrate the change in volume it introduces.  
+  请记住，我们关注的是当 $dx$ 趋近于 $0$ 时发生的情况。   
+  $dx$ 的长度被画得如此之大，是为了展示它所引起的体积变化。
 </Figure>
 
-This figure shows the increase in volume of a cube when its side length $x$ is increased by a small nudge $dx$. It's nice to think of this new volume broken up into multiple components, but almost all of it comes from the three square faces; Or, said a little more precisely, as $dx$ approaches $0$, those three squares comprise a portion closer and closer to 100% of the new volume.
+This figure shows the increase in volume of a cube when its side length $x$ is increased by a small nudge $dx$. It's nice to think of this new volume broken up into multiple components, but almost all of it comes from the three square faces; Or, said a little more precisely, as $dx$ approaches $0$, those three squares comprise a portion closer and closer to 100% of the new volume.  
+该图展示了当立方体的边长$x$增加一个微小的量$dx$时，其体积的增大情况。  
+我们可以将这个新的体积拆分成多个部分来理解，但几乎所有的体积都来自那三个正方形面；  
+或者更准确地说，当$dx$趋近于0时，  
+这三个正方形面所占据的体积比例会越来越接近新体积的100%。
 
 <Figure
   image="$lesson/figures/5.20-expanded.svg"
   video="$lesson/figures/5.20-6.20-trimmed.mp4"
 />
 
-Each of those thin squares has a volume of $x^2 \cdot dx$; the area of the face times the thickness of $dx$, so in total this gives us $3x^2dx$ of volume change. There are some other slivers of volume along the edges, and in the corner, but their volume will be proportional to $dx^2$, or $dx^3$, so they can be ignored. Again, this is because ultimately they will be divided by $dx$, and if there's still any $dx$ remaining, these terms won't survive the process of letting $dx$ approach $0$.
+Each of those thin squares has a volume of $x^2 \cdot dx$; the area of the face times the thickness of $dx$, so in total this gives us $3x^2dx$ of volume change. There are some other slivers of volume along the edges, and in the corner, but their volume will be proportional to $dx^2$, or $dx^3$, so they can be ignored. Again, this is because ultimately they will be divided by $dx$, and if there's still any $dx$ remaining, these terms won't survive the process of letting $dx$ approach $0$.  
+每个这样的小正方块的体积为$x^2 \cdot dx$，即面的面积乘以厚度$dx$，因此总体积变化量为$3x^2dx$。  
+但它们的体积与$dx^2$或$dx^3$成正比，故可忽略不计。  
+这也是因为最终这些量都会被$dx$除，而如果还有$dx$存在，  
+那么在让$dx$趋近于0的过程中，这些项就会消失。
 
 $$
 (x + dx)^3 = x^3 + \color{#fc6255} 3x^2 \color{black} dx \color{#AAAAAA} + 3xdx^2 + dx^3
 $$
 
-So the derivative of $x^3$, the rate at which $x^3$ changes per unit of change in $x$, is $3x^2$. Looking at the graph, this means the slope of the graph of $x^3$ at each point $x$ is exactly $3x^2$.
+So the derivative of $x^3$, the rate at which $x^3$ changes per unit of change in $x$, is $3x^2$. Looking at the graph, this means the slope of the graph of $x^3$ at each point $x$ is exactly $3x^2$.  
+因此，$x^3$的导数，即$x$每变化一个单位时$x^3$的变化率，为$3x^2$。  
+从图像上看，这意味着在任意点$x$处，$x^3$函数图像的斜率恰好等于$3x^2$。
 
 <Figure
   image="$lesson/figures/6.46.svg"
@@ -155,23 +245,43 @@ So the derivative of $x^3$, the rate at which $x^3$ changes per unit of change i
   show="video"
 />
 
-Graphical intuition with slope can tell us why this derivative is high on the left, $0$ at the origin, and high on the right, but just thinking in terms of graphs would not land us on the precise quantity $3x^2$. For that, we had to take a much more direct look at the actual meaning of the function.
+Graphical intuition with slope can tell us why this derivative is high on the left, $0$ at the origin, and high on the right, but just thinking in terms of graphs would not land us on the precise quantity $3x^2$. For that, we had to take a much more direct look at the actual meaning of the function.  
+通过斜率这一图形直观概念，我们可以理解为何该导数  
+在左侧较大、在原点处为$0$、在右侧又较大，  
+但仅凭图形分析是无法得出精确值$3x^2$的。  
+为此，我们必须更直接地探究该函数的实际含义。
 
-### Derivative of $f(x) = x^n$
+### Derivative of $f(x) = x^n$ 
+### $f(x) = x^n$的导数
 
 {/* TODO: incorporate text into expressions */}
+{/* 待办：将文本整合到表达式中 */}
 
-In practice, you wouldn't necessarily think of the square every time you're taking a derivative of $x^2$, nor would you necessarily think of the cube when taking a derivative of $x^3$. Instead, thinking like a mathematician, can you generalize this approach to see if a pattern emerges? Can you invent a tool to find the derivative of any polynomial?
+In practice, you wouldn't necessarily think of the square every time you're taking a derivative of $x^2$, nor would you necessarily think of the cube when taking a derivative of $x^3$. Instead, thinking like a mathematician, can you generalize this approach to see if a pattern emerges? Can you invent a tool to find the derivative of any polynomial?  
+在实践中，每对$x^2$求导时你并不一定非得想到平方，对$x^3$求导时也未必非得想到立方。  
+相反，以数学家的思维去思考，能否将这种方法推广，看看是否存在某种规律？  
+能否发明一种工具来计算任意多项式的导数？
 
-Let's look at the pattern of the first three monomial functions, where I've included the monomial of degree one for completeness. So far, each of these monomial functions has had a nice geometric meaning. Nudging the input $x$ by a small amount $dx$ has allowed us to see how the geometry changes and find the derivative.
+
+Let's look at the pattern of the first three monomial functions, where I've included the monomial of degree one for completeness. So far, each of these monomial functions has had a nice geometric meaning. Nudging the input $x$ by a small amount $dx$ has allowed us to see how the geometry changes and find the derivative.  
+让我们来看看前三个单项式函数的规律，为完整起见，我也加入了次数为一的单项式。  
+到目前为止，这些单项式函数都具有很好的几何意义。  
+通过将输入值$x$微调一个小量$dx$，我们就能观察到几何形态的变化，进而求出导数。
 
 {/* TODO: link to footnote that is a portal into radius of convergence */}
+{/* 待办：添加指向关于收敛半径的脚注的链接 */}
 
 <Figure image="$lesson/figures/8.11-9.35-base-cases.svg" />
 
-However, from a geometric perspective, we have hit a roadblock. How do we visualize four dimensions? One path forward is to continue with algebra, using our geometric intuition to inform the base cases. For example, we can expand higher degree monomial expressions, where the input $x$ have been nudged by a small amount $dx$. This gives us the following series of expressions.
+However, from a geometric perspective, we have hit a roadblock. How do we visualize four dimensions? One path forward is to continue with algebra, using our geometric intuition to inform the base cases. For example, we can expand higher degree monomial expressions, where the input $x$ have been nudged by a small amount $dx$. This gives us the following series of expressions.  
+然而，从几何角度来看，我们遇到了障碍。  
+如何可视化四维空间呢？  
+一种可行的方法是通过代数继续探索，利用几何直觉来指导基础情况的处理。  
+例如，我们可以展开更高次单项式表达式，此时输入变量$x$会发生微小的变化$dx$。  
+这样我们就得到了以下一系列表达式。
 
 {/* TODO: possibly expand $f(x) = x^4$ by hand ? */}
+{/* 待办：是否可以手动展开$f(x) = x^4$？ */}
 
 | Polynomial   | Expansion                                                                                                          |
 | ------------ | ------------------------------------------------------------------------------------------------------------------ |
@@ -183,18 +293,29 @@ However, from a geometric perspective, we have hit a roadblock. How do we visual
 
 {/* | $f(x) = x^6$ | $(x + dx)^6 = x^6 + \color{#fc6255} 6x^5 \color{black} dx \color{#AAAAAA} + 15x^4dx^2 + 20x^3dx^3 + 15x^2dx^4 + 6xdx^5 + dx^6$ | */}
 
-{/* TODO: link to binomial expansion */}
+{/* TODO: link to binomial expansion */}  
+{/* 待办：添加二项式展开的链接 */}
 
-Focusing on the rate in change introduced by the very small nudge, highlighted in red, and ignoring expressions containing $dx^2$, the pattern that emerges is what's known in the business as the "power rule". Given a monomial function raised to some power, $n$, applying the rule gives us the derivative of the function.
+Focusing on the rate in change introduced by the very small nudge, highlighted in red, and ignoring expressions containing $dx^2$, the pattern that emerges is what's known in the business as the "power rule". Given a monomial function raised to some power, $n$, applying the rule gives us the derivative of the function.  
+聚焦于由红色标出的极小微调所引入的变化率，并忽略包含$dx^2$的项，  
+由此呈现出的规律在商业领域被称为“幂规则”​。  
+对于某个幂为$n$的单项式函数，应用该规则即可得到该函数的导数。
 
 <Figure image="$lesson/figures/7.32.svg" video="$lesson/figures/7.32.mp4">
-  Power Rule Definition
+  Power Rule Definition 幂规则定义
 </Figure>
 
-Even though in practice you will find yourself performing this derivative quickly and symbolically, imagining that exponent hopping down to the front, every now and then it's nice to step back and remember why this rule works. Not just because it's pretty, and not just because it helps to remind us that math actually makes sense and isn't just a pile of formulas to memorize, but because it flexes that very important muscle of thinking about derivatives in terms of tiny nudges.
+Even though in practice you will find yourself performing this derivative quickly and symbolically, imagining that exponent hopping down to the front, every now and then it's nice to step back and remember why this rule works. Not just because it's pretty, and not just because it helps to remind us that math actually makes sense and isn't just a pile of formulas to memorize, but because it flexes that very important muscle of thinking about derivatives in terms of tiny nudges.  
+尽管在实践中你会很快地以符号形式计算出这个导数，  
+想象着指数向下移动到最前面，但偶尔退一步， 
+回顾一下这条规则为何有效也是不错的。  
+这不仅因为它看起来很美，  
+也不仅因为它能提醒我们数学其实是有意义的，而不只是一堆需要记忆的公式，  
+更因为它锻炼了那种从微小变化角度思考导数的重要思维能力。
 
 <Question
-  question="What is the derivative of the function $f(x)= 3x^2$?"
+  question="What is the derivative of the function $f(x)= 3x^2$?   
+  函数$f(x)=3x^2$的导数是多少？​"
   choice1="$2x$"
   choice2="$5x$"
   choice3="$3x$"
@@ -202,58 +323,97 @@ Even though in practice you will find yourself performing this derivative quickl
   answer={4}
 >
 
-You certainly don't need to visualize this to answer the question. In fact, in practice, it would be absurd to do so. Nevertheless, continuing with the playful and visual spirit of this lesson, it's fun to think of a few ways to do just that.
+You certainly don't need to visualize this to answer the question. In fact, in practice, it would be absurd to do so. Nevertheless, continuing with the playful and visual spirit of this lesson, it's fun to think of a few ways to do just that.  
+其实回答这个问题根本不需要进行可视化想象。实际上，在实践中这么做也是荒谬的。  
+不过，为了延续这节课有趣的可视化思维方式，  
+试着想出几种实现可视化想象的方法倒也挺有意思的。
 
-This question can be modeled and solved as a question of change in area. For example, nudging the input of the function by $dx$ gives the expression $3(x+d x)^{2}$ which expands to the expression $3(x + dx)( x + dx)$. I've drawn the area below where the $3$ scales one of the sides.
+This question can be modeled and solved as a question of change in area. For example, nudging the input of the function by $dx$ gives the expression $3(x+d x)^{2}$ which expands to the expression $3(x + dx)( x + dx)$. I've drawn the area below where the $3$ scales one of the sides.  
+这个问题可以建模为面积变化问题来求解。  
+例如，将函数的输入值增加$dx$，  
+就会得到表达式$3(x+dx)^2$，进一步展开后即为$3(x+dx)(x+dx)$。  
+我在下方画出了该区域，其中$3$用于缩放其中一条边。
 
 <Figure image="$lesson/figures/power-rule-example.svg">
-  Derivative of $f(x) = 3x^{2}$ modeled as area
+  Derivative of $f(x) = 3x^{2}$ modeled as area  
+  将$f(x) = 3x^{2}$的导数视为面积问题来建模
 </Figure>
 
-Looking at the figure we can see the rate of the change of the function represented by the new area of $6$ thin rectangles with area $x \cdot dx$. Alternatively, the question can be modeled as volume, where instead of scaling one of the sides, the $3$ extends the geometry into another dimension.
+Looking at the figure we can see the rate of the change of the function represented by the new area of $6$ thin rectangles with area $x \cdot dx$. Alternatively, the question can be modeled as volume, where instead of scaling one of the sides, the $3$ extends the geometry into another dimension.  
+    从图中可以看出，该函数的变化率由6个面积为$x \cdot dx$的薄矩形所构成的新面积来表示。  
+    或者，这个问题也可以用体积来建模，在这种情况下，  
+    不是对某一边进行缩放，而是通过“3”将几何结构扩展到另一个维度。
 
 <Figure image="$lesson/figures/3x^2-volume-model.svg">
-  Derivative of $f(x) = 3x^{2}$ modeled as volume
+  Derivative of $f(x) = 3x^{2}$ modeled as volume  
+  将$f(x) = 3x^{2}$的导数建模为体积
 </Figure>
 
-This gives us the equivalent derivative, as the new volume of the two rectangular prisms is equal to $3 \cdot x \cdot dx + 3 \cdot x \cdot dx = 6x$. As before, we are ignoring the smaller rectangular prism because its volume $3dx^2$ contains $dx^2$.
+This gives us the equivalent derivative, as the new volume of the two rectangular prisms is equal to $3 \cdot x \cdot dx + 3 \cdot x \cdot dx = 6x$. As before, we are ignoring the smaller rectangular prism because its volume $3dx^2$ contains $dx^2$.  
+这就得到了等价导数，因为两个长方体的新体积之和等于$3 \cdot x \cdot dx+ 3 \cdot x \cdot dx = 6x$。  
+与之前一样，我们忽略了较小的长方体，因为它的体积$3dx^2$中含有$dx^2$项。
 
-In either case, the upshot is that multiplying a function by $3$ also multiplies its derivative by $3$. And of course, this goes for any constant, not just $3$. In practice, this fact is simple enough to memorize, and you'll use it thousands of times in your relationship with calculus, but every now and then it's nice to step back and reflect on why it's true and what it means in a particular context.
+In either case, the upshot is that multiplying a function by $3$ also multiplies its derivative by $3$. And of course, this goes for any constant, not just $3$. In practice, this fact is simple enough to memorize, and you'll use it thousands of times in your relationship with calculus, but every now and then it's nice to step back and reflect on why it's true and what it means in a particular context.  
+无论哪种情况，其结论都是：将一个函数乘以3，也会使其导数乘以3。  
+当然，这适用于任何常数，而不仅仅是3。  
+在实践中，这一事实简单到足以记住，而且在学习微积分的过程中你会无数次用到它，  
+但偶尔退一步思考一下它为何成立以及在特定情境下意味着什么，也是很有意义的。
 
 </Question>
 
 ### Derivative of $f(x) = \frac{1}{x}$
+### $f(x) = \frac{1}{x}$ 的导数
 
-As another example, think of the function $f(x) = \frac{1}{x}$. Now, on the one hand, you could blindly try applying the power rule, since $\frac{1}{x}$ is the same as writing $x^{-1}$. That would involve letting that $-1$ hop down to become a coefficient, leaving behind one less than itself in the exponent, $-2$.
-But let's have some fun and see if we can reason this geometrically, rather than just plugging it through a formula.
+As another example, think of the function $f(x) = \frac{1}{x}$. Now, on the one hand, you could blindly try applying the power rule, since $\frac{1}{x}$ is the same as writing $x^{-1}$. That would involve letting that $-1$ hop down to become a coefficient, leaving behind one less than itself in the exponent, $-2$.  
+再举一个例子，考虑函数$f(x) = \frac{1}{x}$。  
+一方面，由于$\frac{1}{x}$可以写成$x^{-1}$的形式，因此可以尝试直接应用幂函数求导法则。  
+这样一来，那个$-1$就会变成系数，而指数则变为比原来小1的$-2$。
 
-The value $1/x$ is asking "what number multiplied by $x$ equals $1$", so here's how I'd visualize it: Imagine a little rectangular puddle of water in two dimensions with area $1$. Let's say that it's width is $x$, which means its height must be $1/x$, since the total area is $1$.
+But let's have some fun and see if we can reason this geometrically, rather than just plugging it through a formula.  
+不过，让我们来玩得有趣一点，看看能否从几何角度来推理，而不仅仅是套用公式。
+
+The value $1/x$ is asking "what number multiplied by $x$ equals $1$", so here's how I'd visualize it: Imagine a little rectangular puddle of water in two dimensions with area $1$. Let's say that it's width is $x$, which means its height must be $1/x$, since the total area is $1$.  
+$1/x$这个值实际上是在问“哪个数乘以$x$等于1？​”​，  
+我的理解方式是这样的：想象一个在二维空间中的小矩形水坑，其面积为1。  
+假设它的宽度为$x$，那么由于总面积为1，其高度就必定是$1/x$。
 
 <Figure image="$lesson/figures/10.51.svg" />
 
-For example, if you increase $x$ to $3$, the other side must be squished down to $\frac{1}{3}$. And if $x=2$, the other side is forced to be $\frac{1}{2}$.
+For example, if you increase $x$ to $3$, the other side must be squished down to $\frac{1}{3}$. And if $x=2$, the other side is forced to be $\frac{1}{2}$.  
+例如，如果将$x$增加到3，另一边就必须压缩到$\frac{1}{3}$。而当$x=2$时，另一边则不得不变为$\frac{1}{2}$。
 
 <Figure image="$lesson/figures/10.58.svg" />
 
-This is a nice way to think about the graph of $1/x$, by the way. If you think of the width $x$ of this puddle in the $xy$-plane, the corresponding output $1/x$, the height of the graph above that point, is whatever height the puddle must have to maintain an area of $1$.
+This is a nice way to think about the graph of $1/x$, by the way. If you think of the width $x$ of this puddle in the $xy$-plane, the corresponding output $1/x$, the height of the graph above that point, is whatever height the puddle must have to maintain an area of $1$.  
+顺便说一下，这是一种理解$1/x$图像的不错思路。  
+如果你把$xy$平面中这个“水坑”的宽度视为$x$，  
+那么对应的输出值$1/x$就代表了该点上方图形的高度，  
+而这个高度正是水坑为保持面积等于$1$时所必须具有的高度。
 
 <Figure
   image="$lesson/figures/11.00.svg"
   video="$lesson/figures/11.11-11.24-trimmed.mp4"
 />
 
-For the derivative, imagine nudging the input $x$ up by a value $dx$. How must the height of this rectangle change so that the area remains unchanged at $1$? That is, increasing the width by $dx$ adds some new area to the right here, so the puddle must decrease in height by some $d(1/x)$ so that the area lost off the top here cancels that out.
+For the derivative, imagine nudging the input $x$ up by a value $dx$. How must the height of this rectangle change so that the area remains unchanged at $1$? That is, increasing the width by $dx$ adds some new area to the right here, so the puddle must decrease in height by some $d(1/x)$ so that the area lost off the top here cancels that out.  
+对于导数来说，想象将输入值$x$向上微调一个量$dx$。  
+为了使面积保持为1，这个矩形的高度应该如何变化呢？  
+也就是说，宽度增加$dx$会在右侧增加一定的新面积，因此矩形的高度必须相应减少$d(1/x)$，  
+这样顶部损失的面积就能与之抵消。
 
 <Figure image="$lesson/figures/11.41.svg" />
 
-You should think of that $d(1/x)$ as being some tiny _negative_ value, since it's _decreasing_ the height of this rectangle. And once you work out $d(1/x)/dx$, compare it to what happens if you apply the power rule purely symbolically to $x^{-1}$.
+You should think of that $d(1/x)$ as being some tiny _negative_ value, since it's _decreasing_ the height of this rectangle. And once you work out $d(1/x)/dx$, compare it to what happens if you apply the power rule purely symbolically to $x^{-1}$.  
+你应该把$d(1/x)$视为一个很小的_负数_，因为它正在_降低_这个矩形的高度。  
+一旦算出了$d(1/x)/dx$，再将其与仅从符号层面对$x^{-1}$应用幂规则所得的结果进行比较。
 
 $$
 \frac{d(1 / x)}{d x}= ? ? ?
 $$
 
 <Question
-  question="What is the derivative of the function $f(x) = \frac{1}{x}$?"
+  question="What is the derivative of the function $f(x) = \frac{1}{x}$?  
+  函数$f(x) = \frac{1}{x}$的导数是多少？​"
   choice1="$\frac{1}{x^2}$"
   choice2="$\frac{1}{2x}$"
   choice3="$x^2$"
@@ -261,25 +421,33 @@ $$
   answer={4}
 >
 
-The small nudge $dx$ changes the width of the rectangle, but the area must still be $1$, so the area gained must cancel out with the area lost. This gives us the expression below.
+The small nudge $dx$ changes the width of the rectangle, but the area must still be $1$, so the area gained must cancel out with the area lost. This gives us the expression below.  
+ 微小的增量$dx$会改变矩形的宽度，但面积仍必须为$1$，  
+ 因此增加的面积必须与减少的面积相互抵消。这就得到了下面的表达式。
 
 $$
 dx \frac{1}{x} + x \cdot d \left( \frac{1}{x} \right) = 0
 $$
 
-Subtract $dx \frac{1}{x}$ from both sides.
+Subtract $dx \frac{1}{x}$ from both sides.  
+从两边减去 $dx \frac{1}{x}$。
 
 $$
 x \cdot d \left( \frac{1}{x} \right) = -dx \frac{1}{x}
 $$
 
-Divide both sides by $x \cdot dx$ and simplify.
+Divide both sides by $x \cdot dx$ and simplify.  
+将等式两边同时除以$x \cdot dx$并化简。
 
 $$
 \frac{ d \left( \frac{1}{x} \right)}{dx}  = - \frac{1}{x^2}
 $$
 
-We can check our work using the power rule. The expression $\frac{1}{x}$ is the same as $x^{-1}$. We can drop the $-1$ down in front and subtract one from the exponent, giving us the same answer as the geometric approach.
+We can check our work using the power rule. The expression $\frac{1}{x}$ is the same as $x^{-1}$. We can drop the $-1$ down in front and subtract one from the exponent, giving us the same answer as the geometric approach.  
+我们可以利用幂的运算法则来检验我们的计算结果。  
+表达式$\frac{1}{x}$等同于$x^{-1}$。  
+我们可以将前面的$-1$移到指数上，再从指数中减去1，  
+这样得到的结果与几何方法所得的结果一致。
 
 $$
 \frac{df}{dx} = -1 x^{-2}
@@ -291,31 +459,44 @@ $$
 
 <section>
 
-## Exercises
+## Exercises  练习题
 
-Here are a couple questions to test your knowledge of derivatives and the past chapters.
+Here are a couple questions to test your knowledge of derivatives and the past chapters.  
+这里有几道题，用来检测你对导数以及前面章节的掌握情况。
 
 ### Derivative of $f(x) = \sqrt{x}$
+### $f(x) = \sqrt{x}$的导数
 
-See if you can reason your way through the derivative of $f(x) = \sqrt{x}$ which also can be written as $x^{\frac{1}{2}}$. By far the easiest way to compute this is to apply the power rule: The exponent hops down as a coefficient, leaving behind $\frac{1}{2} - 1 = -\frac{1}{2}$ in the exponent.
+See if you can reason your way through the derivative of $f(x) = \sqrt{x}$ which also can be written as $x^{\frac{1}{2}}$. By far the easiest way to compute this is to apply the power rule: The exponent hops down as a coefficient, leaving behind $\frac{1}{2} - 1 = -\frac{1}{2}$ in the exponent.  
+试着推导一下函数$f(x) = \sqrt{x}$的导数，该函数也可以表示为$x^{\frac{1}{2}}$。  
+计算这个导数的最简单方法就是运用幂函数求导法则：  
+指数会变为系数，而指数位置上则留下$\frac{1}{2} - 1 = -\frac{1}{2}$。
 
 $$
 \frac{df}{dx} = \frac{1}{2}x^{-1 / 2}
 $$
 
-But is this valid? And following our current playful and geometric spirit, is there a way to read what this really _means_?
+But is this valid? And following our current playful and geometric spirit, is there a way to read what this really _means_?  
+但这合理吗？按照我们目前这种充满趣味与几何感的方式，有没有办法理解它的真正含义呢？
 
 Approaching this question with geometry is, by far, overkill.
 Frankly, it's a bit of a mind warp.
-But it does offer a satisfying explanation of an otherwise mostly symbolic fact, and more than that it's one more opportunity to flex our muscles in reasoning about how small nudges to one value can affect another.
+But it does offer a satisfying explanation of an otherwise mostly symbolic fact, and more than that it's one more opportunity to flex our muscles in reasoning about how small nudges to one value can affect another.  
+用几何学来探讨这个问题，未免过于夸张了。  
+坦白说，这有点让人难以理解。  
+不过，它确实为这一原本大多具有象征意义的现象提供了一个令人满意的解释；  
+更重要的是，这又为我们提供了一个机会，  
+来展示自己在思考“对某一价值的微小调整如何影响另一价值”这一问题上的推理能力。
 
 <Figure image="$lesson/figures/12.34.svg">
   Unlike in previous problems, $dx$ does not represent geometric length, but
-  instead represents **area**.
+  instead represents **area**.  
+  与之前的问题不同，$dx$ 并不表示几何长度，而是代表**面积**。
 </Figure>
 
 <Question
-  question="Using the diagram above, what is the derivative of the function $f(x) = \sqrt{x}$?"
+  question="Using the diagram above, what is the derivative of the function $f(x) = \sqrt{x}$?  
+    根据上图，函数$f(x) = \sqrt{x}$的导数是多少？​"
   choice1="$\sqrt{2}x$"
   choice2="$\frac{1}{2\sqrt{x}}$"
   choice3="$\frac{x}{\sqrt{2}}$"
@@ -323,45 +504,65 @@ But it does offer a satisfying explanation of an otherwise mostly symbolic fact,
   answer={2}
 >
 
-Previously, to reason about $f(x) = x^2$, we thought of the input of the function as the side length of a square with the output being that square's area.
-Here, for the function $f(x) = \sqrt{x}$, we do the opposite. We think of the input $x$ as being the area of a square, with the output $\sqrt{x}$ being the side length of that square.
+Previously, to reason about $f(x) = x^2$, we thought of the input of the function as the side length of a square with the output being that square's area.  
+此前，在研究$f(x) = x^2$时，我们将函数的  
+输入视为正方形的边长，  
+输出则为该正方形的面积。
+
+Here, for the function $f(x) = \sqrt{x}$, we do the opposite. We think of the input $x$ as being the area of a square, with the output $\sqrt{x}$ being the side length of that square.  
+对于函数$f(x) = \sqrt{x}$，我们则采取相反的思路。  
+我们将输入$x$视为一个正方形的面积，而输出$\sqrt{x}$则是该正方形的边长。
 
 $$
 x = \sqrt{x} \sqrt{x} \\
 $$
 
-Then, we want to find $d\sqrt{x}$, the change of the function's output, when the input $x$ is nudged by a small value $dx$. Since $x$ represents area, it makes sense that a small nudge $dx$ should also be area!
+Then, we want to find $d\sqrt{x}$, the change of the function's output, when the input $x$ is nudged by a small value $dx$. Since $x$ represents area, it makes sense that a small nudge $dx$ should also be area!  
+那么，我们想要找到$d\sqrt{x}$，  
+即当输入$x$发生微小变化$dx$时，函数输出的变化量。  
+由于$x$表示面积，因此微小的变化$dx$也应当是面积，这是合乎逻辑的！
 
 <Figure image="$lesson/figures/12.34-explanation.svg">
   Unlike in previous problems, $dx$ is not geometric length, but instead
-  represents **area**.
+  represents **area**.  
+  与之前的问题不同，$dx$并非几何长度，而是表示**面积**。
 </Figure>
 
-The added area changes the output of the function by the new length $d\sqrt{x}$, which looks like this. So the question is, how much does the side length of that square increase if the total change to the area is meant to be $dx$?
+The added area changes the output of the function by the new length $d\sqrt{x}$, which looks like this. So the question is, how much does the side length of that square increase if the total change to the area is meant to be $dx$?  
+增加的面积会使得函数的输出发生变化，变化量为新的长度$d\sqrt{x}$，其形式如下。  
+那么问题就是：如果面积的总变化量要为$dx$，那么该正方形的边长会增加多少？
 
 $$
 x + dx = (\sqrt{x} + d\sqrt{x})(\sqrt{x} + d\sqrt{x})
 $$
 
-To find the derivative, $\frac{d\sqrt{x}}{dx}$, expand out the area expressions on the right-hand side.
+To find the derivative, $\frac{d\sqrt{x}}{dx}$, expand out the area expressions on the right-hand side.  
+要求导数$\frac{d\sqrt{x}}{dx}$，需展开右侧的面积表达式。
 
 $$
 x + dx = x + 2\sqrt{x}(d\sqrt{x}) + (d\sqrt{x})^2
 $$
 
-Since we are only interested in the change in area, we can subtract $x$ from both sides. Additionally, we can safely ignore the expression $(d\sqrt{x})^2$ since the area it represents changes the output (length) of the function in a negligible way.
+Since we are only interested in the change in area, we can subtract $x$ from both sides. Additionally, we can safely ignore the expression $(d\sqrt{x})^2$ since the area it represents changes the output (length) of the function in a negligible way.  
+由于我们只关心面积的变化，因此可以从等式两边同时减去$x$。  
+此外，我们可以忽略表达式$(d\sqrt{x})^2$，  
+因为它所代表的面积对函数的输出（长度）的影响微乎其微。
 
 $$
 dx = 2\sqrt{x}(d\sqrt{x})
 $$
 
-Finally, we can divide both sides by $dx$ and $2\sqrt{x}$ to get the expression below.
+Finally, we can divide both sides by $dx$ and $2\sqrt{x}$ to get the expression below.  
+最后，我们可以将等式两边同时除以$dx$和$2\sqrt{x}$，得到下面的表达式。
 
 $$
 \frac{d\sqrt{x}}{dx}  = \frac{1}{2\sqrt{x}}
 $$
 
-It's always a good idea to check our work, and luckily we have derived such a tool to do that, the power rule. Starting with $\displaystyle f(x) = x^{\frac{1}{2}}$ we can drop the $\frac{1}{2}$ down in front and subtract one from the exponent, giving us the same answer.
+It's always a good idea to check our work, and luckily we have derived such a tool to do that, the power rule. Starting with $\displaystyle f(x) = x^{\frac{1}{2}}$ we can drop the $\frac{1}{2}$ down in front and subtract one from the exponent, giving us the same answer.  
+检查我们的工作总是个好主意，幸运的是我们有了这样的工具——幂规则。  
+以$\displaystyle f(x) = x^{\frac{1}{2}}$为例，我们可以将$\frac{1}{2}$提到指数前面，  
+再从指数中减去1，这样就能得到相同的答案。
 
 $$
 \frac{d\sqrt{x}}{dx}  = \frac{1}{2} x^{-\frac{1}{2}}

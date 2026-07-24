@@ -1,13 +1,13 @@
 ---
-title: Visualizing the chain rule and product rule
-description: The product rule and chain rule in calculus can feel like they were pulled out of thin air, but is there an intuitive way to think about them?
+title: Visualizing the chain rule and product rule 可视化链式法则与乘积法则
+description: The product rule and chain rule in calculus can feel like they were pulled out of thin air, but is there an intuitive way to think about them? 微积分中的乘积法则和链式法则看似凭空出现，但是否存在一种直观的理解方式？
 date: 2017-05-01
 chapter: 5
 video: YG15m2VwSjA
 source: _2017/eoc/chapter4.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Collapsible from "~/components/Collapsible";
@@ -17,98 +17,138 @@ import Quote from "~/components/Quote";
 
 <section>
 
-<Quote name="Anonymous professor">
-  Using the chain rule is like peeling an onion: you have to deal with each
-  layer at a time, and if it is too big you will start crying.
+<Quote name="Anonymous professor 一位不愿透露姓名的教授">
+  Using the chain rule is like peeling an onion: you have to deal with each layer at a time, and if it is too big you will start crying.  
+  应用链式法则就像剥洋葱：必须一层一层地处理，  
+  如果洋葱太大，你就会流泪。
 </Quote>
 
-## Introduction
+## Introduction  引言
 
-In the last videos I talked about the derivatives of simple functions, things like powers of $x$, $\sin(x)$, and exponentials, the goal being to have a clear picture or intuition to hold in your mind that explains where these formulas come from.
+In the last videos I talked about the derivatives of simple functions, things like powers of $x$, $\sin(x)$, and exponentials, the goal being to have a clear picture or intuition to hold in your mind that explains where these formulas come from.  
+在之前的视频中，我讲解了简单函数的导数，比如$x$的幂、$\sin(x)$以及指数函数等，  
+目的是让你在脑海中形成清晰的认知或直觉，从而明白这些公式的由来。
 
-Most functions you use to model the world involve mixing, combining and tweaking these simple functions in some way; so our goal now is to understand how to take derivatives of more complicated combinations; where again, I want you to have a clear picture in mind for each rule.
+Most functions you use to model the world involve mixing, combining and tweaking these simple functions in some way; so our goal now is to understand how to take derivatives of more complicated combinations; where again, I want you to have a clear picture in mind for each rule.  
+用于描述世界的大多数函数都是以某种方式混合、组合并调整这些简单函数而形成的；  
+因此，我们现在的目标是理解如何对更复杂的组合求导；  
+同样，我希望你对每条规则都能有清晰的理解。
 
-This really boils down into three basic ways to combine functions together: **Adding** them, **multiplying** them, and putting one inside the other; also known as **composing** them. Sure, you could say subtracting them, but that's really just multiplying the second by $-1$, then adding. Likewise, dividing functions is really just the same as plugging one into the function $1/x$, then multiplying.
+This really boils down into three basic ways to combine functions together: **Adding** them, **multiplying** them, and putting one inside the other; also known as **composing** them. Sure, you could say subtracting them, but that's really just multiplying the second by $-1$, then adding. Likewise, dividing functions is really just the same as plugging one into the function $1/x$, then multiplying.  
+归根结底，将函数组合在一起主要有三种基本方式：  
+**相加**、**相乘**，以及将一个函数嵌套在另一个函数内部；后者也被称为**函数复合**。  
+当然，也可以说用一个函数减去另一个函数，  
+但实际上那不过是将第二个函数乘以$-1$后再相加而已。  
+同样地，对函数进行除法运算，也相当于将其中一个函数代入$1/x$这个函数中，然后再相乘。
 
-Most functions you come across just involve layering on these three types of combinations, with no bound on how monstrous things can become. But as long as you know how derivatives play with those three types of combinations, you can always just take it step by step and peel through the layers.
+Most functions you come across just involve layering on these three types of combinations, with no bound on how monstrous things can become. But as long as you know how derivatives play with those three types of combinations, you can always just take it step by step and peel through the layers.  
+你遇到的大多数函数都只是由这三种组合方式叠加而成，其复杂程度几乎没有上限。  
+但只要你知道导数是如何作用于这三种组合方式的，就总能一步步来，逐层剖析。
 
-So, the question is, if you know the derivatives of two functions, what is the derivative of their sum, of their product, and of the function compositions between them?
+So, the question is, if you know the derivatives of two functions, what is the derivative of their sum, of their product, and of the function compositions between them?  
+那么问题就是，如果你知道两个函数的导数，  
+那么它们之和、乘积以及相互复合的函数的导数分别是多少？
 
 </section>
 
 <section>
 
-## Sum rule
+## Sum rule 和的求导法则
 
 <Figure image="$lesson/figures/sum-rule.svg">
-  Derivative Sum Rule for the function $f(x) = g(x) + h(x)$
+  Derivative Sum Rule for the function $f(x) = g(x) + h(x)$ 
+  函数$f(x) = g(x) + h(x)$的导数求和法则
 </Figure>
 
-The sum rule is the easiest, if somewhat tongue-twisting to say out loud: The derivative of a sum of two functions is the sum of their derivatives. But it's worth warming up with an example and _really_ thinking through what it means to take a derivative of a sum of two functions, since the derivative patterns for products and function composition won't be so straight forward, and will require this kind of deeper thinking.
+The sum rule is the easiest, if somewhat tongue-twisting to say out loud: The derivative of a sum of two functions is the sum of their derivatives. But it's worth warming up with an example and _really_ thinking through what it means to take a derivative of a sum of two functions, since the derivative patterns for products and function composition won't be so straight forward, and will require this kind of deeper thinking.  
+求和法则是最简单的，只是口头表达时有点绕口：  
+两个函数之和的导数等于它们各自导数之和。  
+不过还是通过一个例子来热身，并真正思考一下对两个函数之和求导的含义，  
+因为对于乘积和函数复合而言，其导数规律就没那么直接了，需要这种更深入的思考。
 
-For example, let's think about this function $f(x) = \sin(x) + x^2$. It's a function where, for every input, you add together the values of $\sin(x)$ and $x^2$ at that point.
+For example, let's think about this function $f(x) = \sin(x) + x^2$. It's a function where, for every input, you add together the values of $\sin(x)$ and $x^2$ at that point.  
+例如，我们来考虑这个函数 $f(x) = \sin(x) + x^2$。  
+对于每一个输入值，它都是将该点处 $\sin(x)$ 的值与 $x^2$ 的值相加所得的结果。
 
 <Figure
   image="$lesson/figures/sum-rule-example-graph.svg"
   video="$lesson/figures/sum-rule-2.16-2.25-trimmed.mp4"
 />
 
-Given the input $x = 0.5$, the output of the function is the height of the sine graph represented by the blue bar **plus** the height of the $x^2$ parabola represented by the green bar.
+Given the input $x = 0.5$, the output of the function is the height of the sine graph represented by the blue bar **plus** the height of the $x^2$ parabola represented by the green bar.  
+当输入为$x = 0.5$时，该函数的输出值为蓝色条形所表示的  
+正弦曲线的高度**加上**绿色条形所表示的$x^2$抛物线的高度。
 
 <Figure image="$lesson/figures/sum-rule-detail-stacked.svg" />
 
-For the derivative, you ask what happens as you nudge the input slightly, maybe increasing it to $0.5 + dx$. The difference in the value of $f$ between these two values is what we call $df$.
+For the derivative, you ask what happens as you nudge the input slightly, maybe increasing it to $0.5 + dx$. The difference in the value of $f$ between these two values is what we call $df$.  
+对于导数，我们需要考虑当输入值稍有变化时会发生什么，  
+比如将其增加到 $0.5 + dx$。  
+这两个值对应的$f$函数值之差，就是我们所说的$df$。
 
 <Figure
   image="$lesson/figures/sum-rule-detail-stacked-df.svg"
   video="$lesson/figures/sum-rule-2.30-3.00-faster.mp4"
 />
 
-Well, pictured like this, I think you'll agree that the total change in height is whatever the change to the sine graph is, what we might call $d\left(\sin(x)\right)$, plus whatever the change to $x^2$ is, $d(x^2)$.
+Well, pictured like this, I think you'll agree that the total change in height is whatever the change to the sine graph is, what we might call $d\left(\sin(x)\right)$, plus whatever the change to $x^2$ is, $d(x^2)$.  
+嗯，这样看的话，我想你会同意：高度的总变化量就是正弦函数图像的变化量，  
+也就是我们所说的$d\left(\sin(x)\right)$，再加上$x^2$的变化量，即$d(x^2)$。
 
 <Figure
   image="$lesson/figures/sum-rule-detail-stacked-dx.svg"
   video="$lesson/figures/sum-rule-3.06-3.24.mp4"
 />
 
-This gives us $df$ as the sum of change of the two functions.
+This gives us $df$ as the sum of change of the two functions.  
+这样，$df$ 就是这两个函数变化量之和。
 
 <Figure image="$lesson/figures/sum-rule-example-equation.svg" />
 
-We know the derivative of sine is cosine, and what that means is that this little change $d\left(\sin(x)\right)$ would be about $\cos(x) \cdot dx$. It's proportional to the size of $dx$, with a proportionality constant equal to cosine of whatever input we started at. {/* TODO: possibly explain */}Similarly, because the derivative of $x^2$ is $2x$, the change in the height of the $x^2$ graph is about $2x \cdot dx$.
+We know the derivative of sine is cosine, and what that means is that this little change $d\left(\sin(x)\right)$ would be about $\cos(x) \cdot dx$. It's proportional to the size of $dx$, with a proportionality constant equal to cosine of whatever input we started at. {/* TODO: possibly  explain */}Similarly, because the derivative of $x^2$ is $2x$, the change in the height of the $x^2$ graph is about $2x \cdot dx$.  
+我们知道正弦函数的导数是余弦函数，这意味着微小变化$d\left(\sin(x)\right)$大约等于$\cos(x) \cdot dx$。  
+它与$dx$的大小成正比，比例常数为初始输入值的余弦值。  
+同样地，由于$x^2$函数的导数是$2x$，因此$x^2$图像高度的变化大约为 $2x \cdot dx$。
 
 <Figure image="$lesson/figures/sum-rule-example-nudge.svg" />
 
-So, $\frac{df}{dx}$, the ratio of the tiny change to the sum function to the tiny change in $x$ that caused it, is indeed $\cos(x)+2x$, the sum of the derivatives of its parts.
+So, $\frac{df}{dx}$, the ratio of the tiny change to the sum function to the tiny change in $x$ that caused it, is indeed $\cos(x)+2x$, the sum of the derivatives of its parts.  
+因此，$\frac{df}{dx}$，即函数值微小变化量与引起该变化的$x$的微小变化量之比，  
+确实等于$\cos(x)+2x$，也就是其各部分导数之和。  
 
 <Figure image="$lesson/figures/sum-rule-example-derivative.svg" />
 
 <Question
-  question="What is the derivative of the function $f(x) = x^4 + \cos(x)$?"
+  question="What is the derivative of the function $f(x) = x^4 + \cos(x)$?  
+  函数 $f(x) = x^4 + \cos(x)$ 的导数是多少？​"
   choice1="$4x^3 - \sin(x)$"
   choice2="$4x^3 + \sin(x)$"
   answer={1}
 >
 
-Start by setting up the derivative of the function.
+Start by setting up the derivative of the function.  
+首先求出该函数的导数。
 
 $$
 \frac{d}{dx }\left( f(x) \right) = \frac{d}{dx }\left(  x^4 + \cos(x) \right)
 $$
 
-Apply the sum rule.
+Apply the sum rule.  
+应用求和规则。
 
 $$
 \frac{df}{dx} = \frac{d}{dx }\left(  x^4 \right) + \frac{d}{dx }\left(  \cos(x) \right)
 $$
 
-Take the derivative of the two functions.
+Take the derivative of the two functions.  
+对这两个函数求导。
 
 $$
 \frac{df}{dx} = 4x^3 + (- \sin(x))
 $$
 
-Simplify.
+Simplify.  
+简化。
 
 $$
 \frac{df}{dx} = 4x^3 - \sin(x)
@@ -120,15 +160,22 @@ $$
 
 <section>
 
-## Product rule
+## Product rule   乘积法则
 
-Things are a bit different for the product of two functions. Let's think through why, in terms of tiny nudges. In this case, I don't think graphs are our best bet for visualizing things. Pretty commonly in math, all levels of math really, if you're dealing with a product of two things, it helps to try to understand it as some form of area.
+Things are a bit different for the product of two functions. Let's think through why, in terms of tiny nudges. In this case, I don't think graphs are our best bet for visualizing things. Pretty commonly in math, all levels of math really, if you're dealing with a product of two things, it helps to try to understand it as some form of area.  
+对于两个函数的乘积来说，情况略有不同。  
+让我们通过一些简单的分析来探讨其中的原因。  
+在这种情况下，我认为用图形来直观展示并不是最佳方法。  
+在数学中，实际上在各个层次的数学里，如果你要处理两个量的乘积，试着将其理解为某种面积形式会很有帮助。
 
-For example, for the function $\sin(x) \cdot x^2$, you might try to configure some mental setup of a box whose side-lengths are $\sin(x)$ and $x^2$.
+For example, for the function $\sin(x) \cdot x^2$, you might try to configure some mental setup of a box whose side-lengths are $\sin(x)$ and $x^2$.  
+例如，对于函数$\sin(x) \cdot x^2$，你可以试着在脑海中构建一个长宽分别为$\sin(x)$和$x^2$的盒子。
 
 <Figure image="$lesson/figures/product-rule-example-area.svg" />
 
-What would that mean? Well, since these are functions, you might think of these sides as adjustable; dependent on the value of $x$, which you might think of as a number that you can freely adjust.
+What would that mean? Well, since these are functions, you might think of these sides as adjustable; dependent on the value of $x$, which you might think of as a number that you can freely adjust.  
+      那意味着什么？嗯，既然这些都是函数，你可以把这些边长看作是可调节的；  
+      它们取决于$x$的值，而你可以把$x$看作是一个可以自由调整的数字。
 
 <Figure
   image="$lesson/figures/product-rule-example-areas.svg"
@@ -137,59 +184,103 @@ What would that mean? Well, since these are functions, you might think of these 
 />
 
 So, just getting the feel for this, focus on that top side, whose changes as the function $\sin(x)$. As you change the value of $x$ up from $0$, it increases up to a length of $1$ as $\sin(x)$ moves towards its peak. After that, it starts decreasing as $\sin(x)$ comes down from $1$.
-And likewise, that height changes as $x^2$.
+And likewise, that height changes as $x^2$.  
+那么，先了解一下这个规律：重点关注顶部部分，它的变化遵循函数$\sin(x)$的规律。  
+当$x$的值从$0$开始增大时，随着$\sin(x)$向峰值靠近，该部分的长度会增加到$1$。  
+之后，当$\sin(x)$从$1$开始下降时，这部分长度又会开始减小。
+同样地，其高度也随$x^2$变化。
 
-So $f(x)$, defined as this product, is the area of this box. For the derivative, think about how a tiny change to $x$ by $dx$ influences this area; that resulting change in area is $df$. That nudge to $x$ causes the width to change by some small $d\left( \sin(x)\right)$, and the height to change by some $d(x^2)$.
+So $f(x)$, defined as this product, is the area of this box. For the derivative, think about how a tiny change to $x$ by $dx$ influences this area; that resulting change in area is $df$. That nudge to $x$ causes the width to change by some small $d\left( \sin(x)\right)$, and the height to change by some $d(x^2)$.  
+因此，定义为该乘积的$f(x)$就是这个矩形的面积。  
+至于导数，可以思考$x$发生微小变化$dx$时会对这个面积产生怎样的影响；  
+由此产生的面积变化量即为$df$。  
+$x$的这种微小变化会导致宽度改变一个微小的量$d\left(\sin(x)\right)$，  
+而高度则改变一个微小的量$d(x^2)$。
 
 <Figure image="$lesson/figures/product-rule-example-area-df-labeled.svg" />
 
-This gives us three little snippets of new area: A thin rectangle on the bottom, whose area is its width, $\sin(x)$, times its thin height, $d(x^2)$; there's a thin rectangle on the right, whose area is its height, $x^2$, times its thin width, $d\left( \sin(x)\right)$. And there's also a bit in the corner. But we can ignore it, since its area will ultimately be proportional to $dx^2$, which becomes negligible as $dx$ goes to $0$. {/* TODO: footnote for ignoring dx^2 */}
+This gives us three little snippets of new area: A thin rectangle on the bottom, whose area is its width, $\sin(x)$, times its thin height, $d(x^2)$; there's a thin rectangle on the right, whose area is its height, $x^2$, times its thin width, $d\left( \sin(x)\right)$. And there's also a bit in the corner. But we can ignore it, since its area will ultimately be proportional to $dx^2$, which becomes negligible as $dx$ goes to $0$. {/* TODO: footnote for ignoring dx^2 */}  
+这样我们就得到了三小块新增的面积：  
+底部有一个细长矩形，其面积为宽度$\sin(x)$乘以薄高度$d(x^2)$；  
+右侧也有一个细长矩形，其面积为高度$x^2$乘以薄宽度$d(\sin(x))$。  
+角落里还有那么一小块，但我们可以忽略它，因为它的面积最终会与$dx^2$成正比，  
+而当$dx$趋近于0时，$dx^2$可以忽略不计。   
+{/* TODO: 说明忽略dx^2的脚注 */}
 
-This is very similar to what I showed in the last chapter, with the $x^2$ diagram. Just like then, keep in mind that I'm using somewhat beefy changes to draw things, so we can see them, but in principle think of $dx$ as _very_ small, meaning $d(x^2)$ and $d\left(\sin(x)\right)$ are also _very_ small.
+This is very similar to what I showed in the last chapter, with the $x^2$ diagram. Just like then, keep in mind that I'm using somewhat beefy changes to draw things, so we can see them, but in principle think of $dx$ as _very_ small, meaning $d(x^2)$ and $d\left(\sin(x)\right)$ are also _very_ small.  
+这与我在上一章中用$x^2$图展示的内容非常相似。  
+和那时一样，请记住，我使用了相对较大的变化量来绘制图形，以便我们能够看到它们，  
+但从原则上来说，应把$dx$视为_极其_微小，  
+这意味着$d(x^2)$和$d\left(\sin(x)\right)$也_极其_微小。
 
 <Figure image="$lesson/figures/product-rule-example-area-small-df.svg" />
 
-So we are interested in finding the change to the **area** of this rectangle represented by the two smaller rectangles highlighted in yellow.
+So we are interested in finding the change to the **area** of this rectangle represented by the two smaller rectangles highlighted in yellow. 
+因此，我们感兴趣的是找出由黄色标出的两个较小矩形所代表的这个矩形**面积**的变化量。
 
 <Figure image="$lesson/figures/product-rule-example-step-0.svg" />
 
-Applying what we know about the derivative of sine and $x^2$, that tiny change $d(x^2)$ is $2x \cdot dx$, and that tiny change $d\left(\sin(x)\right)$ is $\cos(x)dx$.
+Applying what we know about the derivative of sine and $x^2$, that tiny change $d(x^2)$ is $2x \cdot dx$, and that tiny change $d\left(\sin(x)\right)$ is $\cos(x)dx$. 
+根据我们对正弦函数和$x^2$的导数的了解，那个微小的变化$d(x^2)$为$2x\cdot dx$，  
+而微小的变化$d\left(\sin(x)\right)$则为$\cos(x)dx$。
 
 <Figure image="$lesson/figures/product-rule-example-step-1.svg" />
 
-Dividing out by that $dx$, the derivative $\frac{df}{dx}$ is $\sin(x)$ by the derivative of $x^2$, plus $x^2$ by the derivative of sine.
+Dividing out by that $dx$, the derivative $\frac{df}{dx}$ is $\sin(x)$ by the derivative of $x^2$, plus $x^2$ by the derivative of sine.  
+除以那个$dx$后，导数$\frac{df}{dx}$等于$\sin(x)$除以$x^2$的导数，  
+再加上$x^2$除以正弦函数的导数。
 
 <Figure image="$lesson/figures/product-rule-example-step-2.svg" />
 
-This line of reasoning works for any two functions.
+This line of reasoning works for any two functions.  
+     这种推理方法适用于任意两个函数。
 
 <Figure image="$lesson/figures/product-rule-general.svg">
-  Generic Product Rule where $f(x) = g(x)h(x)$.
+  Generic Product Rule where $f(x) = g(x)h(x)$.  
+  当$f(x) = g(x)h(x)$时的通用乘积法则。
 </Figure>
 
-A common mnemonic for the product rule is to say in your head "left d right, right d left". In this example, $\sin(x) \cdot x^2$, "left d right" means you take the left function, in this case $g(x) = \sin(x)$, times the derivative of the right, $h(x) = x^2$, which gives $2x$. Then you add "right d left": the right function, $x^2$, times the derivative of the left, $\cos(x)$.
+A common mnemonic for the product rule is to say in your head "left d right, right d left". In this example, $\sin(x) \cdot x^2$, "left d right" means you take the left function, in this case $g(x) = \sin(x)$, times the derivative of the right, $h(x) = x^2$, which gives $2x$. Then you add "right d left": the right function, $x^2$, times the derivative of the left, $\cos(x)$.  
+记忆乘积法则的一个常用方法是在心里默念“左求导右，右求导左”​。  
+在这个例子 $\sin(x) \cdot x^2$ 中，​  
+“左求导右”意味着取左侧的函数，  
+即 $g(x) =\sin(x)$，再乘以右侧函数 $h(x) = x^2$ 的导数，其结果为 $2x$。  
+接着是“右求导左”​：取右侧的函数 $x^2$，再乘以左侧函数 $\cos(x)$ 的导数。
 
-Out of context, this feels like kind of a strange rule, but when you think of this adjustable box you can actually see how those terms represent slivers of area. "Left d right" is the area of this bottom rectangle, and "right d left" is the area of this rectangle on the right.
+Out of context, this feels like kind of a strange rule, but when you think of this adjustable box you can actually see how those terms represent slivers of area. "Left d right" is the area of this bottom rectangle, and "right d left" is the area of this rectangle on the right.  
+      脱离上下文来看，这似乎是个相当奇怪的规则，  
+      但当你想到这个可调节的盒子时，就能明白那些项是如何代表面积片段的。  
+      ​“左导右”指的是底部矩形的面积，而“右导左”则是右侧矩形的面积。
 
 </section>
 
 <section>
 
-## Constant multiplication
+## Constant multiplication  常数乘法
 
-By the way, I should mention that if you multiply by a _constant_, say $2 \cdot \sin(x)$, things end up much simpler. The derivative is just that same constant times the derivative of the function, in this case $2 \cdot \cos(x)$. I'll leave it to you to pause and ponder to verify that this makes sense. {/* TODO: link to question from last lesson */}
+By the way, I should mention that if you multiply by a _constant_, say $2 \cdot \sin(x)$, things end up much simpler. The derivative is just that same constant times the derivative of the function, in this case $2 \cdot \cos(x)$. I'll leave it to you to pause and ponder to verify that this makes sense. {/* TODO: link to question from last lesson */}  
+顺便提一下，如果乘以一个_常数_，比如$2 \cdot \sin(x)$，情况就会简单得多。  
+其导数就是那个常数乘以函数的导数，在这个例子中就是$2 \cdot\cos(x)$。  
+请你自己稍作思考，验证一下这是否合理。 {/* TODO: link toquestion from last lesson */}
 
 <Collapsible title="Explanation">
 
-One way to verify that this is the case is to visualize a constant multiplied by a function as the area of the rectangle with width equal to the function and height equal to the constant.
+One way to verify that this is the case is to visualize a constant multiplied by a function as the area of the rectangle with width equal to the function and height equal to the constant.  
+验证这一点的一种方法是将常数乘以函数视为矩形面积，  
+该矩形的宽度等于函数值，高度等于常数。
 
 <Figure image="$lesson/figures/constant-multiplication-area.svg" />
 
-Then, introducing a small nudge $dx$ to the input of the function, you can measure the change in the area highlighted in yellow below.
+Then, introducing a small nudge $dx$ to the input of the function, you can measure the change in the area highlighted in yellow below.  
+然后，对函数的输入施加一个微小的扰动$dx$，  
+就可以测量下图中黄色标出的区域的变化量。
 
 <Figure image="$lesson/figures/constant-multiplication-area-df.svg" />
 
-In the case of $g(x) = \sin(x)$ and $c = 2$ we know that $d(g(x)) = \cos(x) \cdot dx$. This gives us a change in area of $df = 2 \cdot \cos(x) \cdot dx$. Solving for $\frac{df}{dx}$ we get that the derivative is $2\cos(x)$.
+In the case of $g(x) = \sin(x)$ and $c = 2$ we know that $d(g(x)) = \cos(x) \cdot dx$. This gives us a change in area of $df = 2 \cdot \cos(x) \cdot dx$. Solving for $\frac{df}{dx}$ we get that the derivative is $2\cos(x)$.  
+当$g(x) = \sin(x)$且$c = 2$时，我们知道$d(g(x)) = \cos(x) \cdot dx$。  
+由此可得面积的变化量为$df = 2 \cdot \cos(x) \cdot dx$。  
+求解$\frac{df}{dx}$后可知，其导数为$2\cos(x)$。
 
 </Collapsible>
 
@@ -197,20 +288,37 @@ In the case of $g(x) = \sin(x)$ and $c = 2$ we know that $d(g(x)) = \cos(x) \cdo
 
 <section>
 
-## Chain rule
+## Chain rule  链式法则
 
-Aside from addition and multiplication, the other common way to combine functions that comes up all the time is function composition. For example, let's say we take the function $x^2$, and shove it inside $\sin(x)$ to get a new function, $\sin(x^2)$. Or, in other words, the output of the function $x^2$ gets fed as input to sine function.
+Aside from addition and multiplication, the other common way to combine functions that comes up all the time is function composition. For example, let's say we take the function $x^2$, and shove it inside $\sin(x)$ to get a new function, $\sin(x^2)$. Or, in other words, the output of the function $x^2$ gets fed as input to sine function.  
+除了加法和乘法之外，另一种经常用到的组合函数的常见方法就是函数复合。  
+例如，我们取函数$x^2$，将其放入$\sin(x)$中，从而得到一个新函数$\sin(x^2)$。  
+换句话说，函数$x^2$的输出被作为输入传递给正弦函数。
 
-What's the derivative of this new function?
+What's the derivative of this new function?  
+这个新函数的导数是多少？
 
-Here I'll choose yet another way to visualize things, just to emphasize that in creative math, we have lots of options. I'll put up three number lines. The top one will hold the value of $x$, the second one will represent the value of $x^2$, and the third line will hold the value of $\sin(x^2)$.
+Here I'll choose yet another way to visualize things, just to emphasize that in creative math, we have lots of options. I'll put up three number lines. The top one will hold the value of $x$, the second one will represent the value of $x^2$, and the third line will hold the value of $\sin(x^2)$.  
+     这里我选择另一种方式来直观展示，只是为了强调在创造性数学中我们有很多选择。  
+     我会画出三条数轴：  
+     最上面的一条表示$x$的值，  
+     第二条表示$x^2$的值，  
+     第三条则表示$\sin(x^2)$的值。
 
 <Figure image="$lesson/figures/chain-rule-x-1-2.svg" />
 
-That is, the function $x^2$ gets you from line $1$ to line $2$, and the function sine gets you from line $2$ to line $3$. In the image, I'm showing an $x$ value of $0.5$ on the first number line. So the second number line, which just displays $x^2$, is showing the output of the inner function, $0.25$. The third number line shows $\sin(x^2)$, which is really just the sine of the previous value, so $\sin(0.25) \approx 0.247$.
+That is, the function $x^2$ gets you from line $1$ to line $2$, and the function sine gets you from line $2$ to line $3$. In the image, I'm showing an $x$ value of $0.5$ on the first number line. So the second number line, which just displays $x^2$, is showing the output of the inner function, $0.25$. The third number line shows $\sin(x^2)$, which is really just the sine of the previous value, so $\sin(0.25) \approx 0.247$.  
+也就是说，函数$x^2$能将你从第1条数轴带到第2条数轴，  
+而正弦函数则能将你从第2条数轴带到第3条数轴。  
+在图中，我在第一条数轴上标出了$x=0.5$的值。  
+因此，仅显示$x^2$的第二条数轴上显示的就是内部函数的输出结果，即$0.25$。  
+第三条数轴显示的是$\sin(x^2)$，实际上它就是前一个值的正弦值，  
+所以$\sin(0.25) \approx 0.247$。
 
 <Question
-  question="What is the value of the composed function given the input $x=2$? To get a hang of this visualization technique, go from the first line to the second line to the third line."
+  question="What is the value of the composed function given the input $x=2$? To get a hang of this visualization technique, go from the first line to the second line to the third line.  
+  当输入$x=2$时，复合函数的值是多少？  
+  为了掌握这种可视化方法，请从第一条线依次走到第二条线、第三条线。"
   choice1="$\sin(2) \approx 0.909$"
   choice2="$\sin(4) \approx -0.757$"
   answer={2}
@@ -218,99 +326,176 @@ That is, the function $x^2$ gets you from line $1$ to line $2$, and the function
 
 <Figure image="$lesson/figures/chain-rule-x-2.svg" />
 
-Using the number line visual, start on $x=2$ and move to the next line using the function $g(x) = x^2$. Plugging in $x=2$ into the function we get $(2)^2 = 4$ on the next numberline which we then feed into the outer function $h(x) = \sin(x)$.
+Using the number line visual, start on $x=2$ and move to the next line using the function $g(x) = x^2$. Plugging in $x=2$ into the function we get $(2)^2 = 4$ on the next numberline which we then feed into the outer function $h(x) = \sin(x)$.  
+使用数轴可视化工具，从$x=2$开始，根据函数$g(x) = x^2$移动到下一条数轴。  
+将$x=2$代入该函数后得到$(2)^2 = 4$，这个数值会被输入到外部函数$h(x) = \sin(x)$中。
 
 </Question>
 
-As I shift that value of $x$, maybe up to the value $3$, then the value on the second shifts to whatever $x^2$ is, in this case $9$. And that bottom value, being the $\sin(x^2)$, will go over to whatever $\sin(9)$ is.
+As I shift that value of $x$, maybe up to the value $3$, then the value on the second shifts to whatever $x^2$ is, in this case $9$. And that bottom value, being the $\sin(x^2)$, will go over to whatever $\sin(9)$ is.  
+当我改变$x$的值，比如将其变为$3$时，  
+第二个数值就会变成$x^2$对应的值，在这种情况下是$9$。  
+而最下面的那个值，即$\sin(x^2)$，则会变成$\sin(9)$对应的值。
 
 <Figure image="$lesson/figures/chain-rule-x-3.svg" />
 
-So for the derivative, let's again think of nudging that $x$-value by some little $dx$. I find it helpful to imagine $x$ starting out as some actual number, maybe $1.5$, and $dx$ as some small number approaching zero, like $0.1$.
+So for the derivative, let's again think of nudging that $x$-value by some little $dx$. I find it helpful to imagine $x$ starting out as some actual number, maybe $1.5$, and $dx$ as some small number approaching zero, like $0.1$.  
+那么对于导数来说，我们还是考虑让$x$值稍微变化一点$dx$。  
+我觉得把$x$想象成一个具体的数字，比如$1.5$，  
+而$dx$想象成一个趋近于零的较小数值，比如$0.1$，这样会很有帮助。
 
 <Figure image="$lesson/figures/chain-rule-dx.svg" />
 
-The resulting nudge to this second value, the change to $x^2$ caused by such a $dx$, is what we might call $d(x^2)$. You can expand this as $2x \cdot dx$. For our specific input that length would be $2(1.5)dx$, but it helps to keep it written as $d(x^2)$ for now. In fact let me go one step further and give a new name to $x^2$, maybe $h$, so this nudge $d(x^2)$ is just $dh$.
+The resulting nudge to this second value, the change to $x^2$ caused by such a $dx$, is what we might call $d(x^2)$. You can expand this as $2x \cdot dx$. For our specific input that length would be $2(1.5)dx$, but it helps to keep it written as $d(x^2)$ for now. In fact let me go one step further and give a new name to $x^2$, maybe $h$, so this nudge $d(x^2)$ is just $dh$.  
+由此，这个第二個数值所受到的微小变动，  
+也就是由这样的$dx$所引起的$x^2$的变化，就可以被称为$d(x^2)$。  
+我们可以将其展开为$2x \cdot dx$。  
+对于我们具体的数值来说，它就是$2(1.5)dx$，但暂时还是用$d(x^2)$来表示会更好。  
+实际上，让我再进一步，给$x^2$起个新名字，比如$h$，这样$d(x^2)$就变成了$dh$。
 
 <Figure image="$lesson/figures/chain-rule-dh.svg">
-  The fact that $\sin(h)$ is moving left while the $dh$ bump is to the right
-  just means that this change $d\left(\sin(h)\right)$ is some negative number.
+  The fact that $\sin(h)$ is moving left while the $dh$ bump is to the right just means that this change $d\left(\sin(h)\right)$ is some negative number.  
+$\sin(h)$ 向左移动，而 $dh$ 的突起位于右侧这一事实，  
+仅仅意味着这个变化量 $d\left(\sin(h)\right)$ 是一个负数。   
 </Figure>
 
-Now think of that third value, which is pegged at $\sin(h)$. Its change is $d\left(\sin(h)\right)$, the tiny change _caused_ by the nudge $dh$. Well, we know the derivative of sine, so we can expand $d\left(\sin(h)\right)$ as $\cos(h) \cdot dh$; that's what it means for the derivative of sine to be cosine.
+Now think of that third value, which is pegged at $\sin(h)$. Its change is $d\left(\sin(h)\right)$, the tiny change _caused_ by the nudge $dh$. Well, we know the derivative of sine, so we can expand $d\left(\sin(h)\right)$ as $\cos(h) \cdot dh$; that's what it means for the derivative of sine to be cosine.  
+现在考虑那个固定在$\sin(h)$值的第三个量。  
+它的变化量就是$d\left(\sin(h)\right)$，也就是由微小变动$dh$所引起的那一丝变化。  
+由于我们知道正弦函数的导数，因此可以将$d\left(\sin(h)\right)$展开为$\cos(h)\cdot dh$；  
+这正是正弦函数的导数为余弦函数的含义所在。
 
-Now we can unfold the transformation, replacing $h$ with $x^2$ and $dh$ with $d(x^2)$. So the bottom nudge becomes $\cos(x^2)d(x^2)$ and the middle nudge becomes $d(x^2)$. Of course, we also know that $d(x^2) = 2x \cdot dx$ and so we can substitute that into the diagram as well.
+Now we can unfold the transformation, replacing $h$ with $x^2$ and $dh$ with $d(x^2)$. So the bottom nudge becomes $\cos(x^2)d(x^2)$ and the middle nudge becomes $d(x^2)$. Of course, we also know that $d(x^2) = 2x \cdot dx$ and so we can substitute that into the diagram as well.  
+现在我们可以展开这个变换，用$x^2$替换$h$，用$d(x^2)$替换$dh$。  
+这样一来，底部的微小变化就变成了$\cos(x^2)d(x^2)$，  
+而中间的微小变化则变为$d(x^2)$。  
+当然，我们还知道$d(x^2) = 2x \cdot dx$，因此也可以将其代入该表达式中。
 
 <Figure image="$lesson/figures/chain-rule-example-dh-expanded.svg">
-  The derivative of $f(x) = \sin(x^2)$ is reframed by using the transformation
-  $h=x^2$.
+  The derivative of $f(x) = \sin(x^2)$ is reframed by using the transformation $h=x^2$.  
+  利用该变换，可以重新表述函数$f(x) = \sin(x^2)$的导数。
 </Figure>
 
-It's always good to remind yourself of what this all actually means. In this case where we started at $x = 1.5$ up top, this means that the size of that nudge on the third line is about $\cos(1.5^2) \cdot 2(1.5)$ multiplied by the size of $dx$; proportional to the size of $dx$, where the derivative here gives us that proportionality constant.
+It's always good to remind yourself of what this all actually means. In this case where we started at $x = 1.5$ up top, this means that the size of that nudge on the third line is about $\cos(1.5^2) \cdot 2(1.5)$ multiplied by the size of $dx$; proportional to the size of $dx$, where the derivative here gives us that proportionality constant.  
+时刻提醒自己这一切的实际含义总是好的。  
+在本题中，我们从$x = 1.5$开始，  
+这意味着第三条线上那个微小的位移大小约为$\cos(1.5^2) \cdot 2(1.5)$乘以$dx$的大小；  
+该值与$dx$的大小成正比，而这里的导数则给出了这个比例常数。
 
-Since the nudge on the third line represents the change to our initial function $df$ when we introduced the small nudge $dx$, we can rearrange the expression and this gives us the derivative of the function.
+Since the nudge on the third line represents the change to our initial function $df$ when we introduced the small nudge $dx$, we can rearrange the expression and this gives us the derivative of the function.  
+由于第三条线上的微小变化代表了在引入微小增量$dx$时初始函数$df$的变化量，  
+我们可以通过重新排列该表达式来得到函数的导数。
 
 <Figure image="$lesson/figures/chain-rule-example-derivative.svg" />
 
-Notice what we have here, we have the derivative of the outside function, still taking in the unaltered inside function, and we multiply it by the derivative of the inside function.
+Notice what we have here, we have the derivative of the outside function, still taking in the unaltered inside function, and we multiply it by the derivative of the inside function.  
+注意这里的表达式：它是外层函数的导数，  
+仍然使用未改变的内层函数，然后将其乘以内层函数的导数。
 
 <Figure image="$lesson/figures/chain-rule-annotated.svg" />
 
-Again, there's nothing special about $\sin(x)$ and $x^2$. If you have two functions $g(x)$ and $h(x)$, the derivative of their composition function $g\left(h(x)\right)$ is the derivative of $g$, evaluated at $h(x)$, times the derivative of $h$. This is what we call the "chain rule".
+Again, there's nothing special about $\sin(x)$ and $x^2$. If you have two functions $g(x)$ and $h(x)$, the derivative of their composition function $g\left(h(x)\right)$ is the derivative of $g$, evaluated at $h(x)$, times the derivative of $h$. This is what we call the "chain rule".  
+同样，$\sin(x)$和$x^2$并没有什么特别之处。  
+如果有两个函数$g(x)$和$h(x)$，那么它们的复合函数$g\left(h(x)\right)$的导数，  
+就是$g$在$h(x)$处的导数乘以$h$的导数。这就是我们所说的“链式法则”​。
 
 <Figure image="$lesson/figures/chain-rule-general-annotated-alt.svg">
-  The chain rule for the function $f(x) = g(h(x))$
+  The chain rule for the function $f(x) = g(h(x))$  
+  函数$f(x) = g(h(x))$的链式法则
 </Figure>
 
-Notice, for the derivative of $g$, I'm writing it as $\frac{d}{dh}$ instead of $\frac{d}{dx}$. On the symbolic level, this serves as a reminder that you still plug in the inner function to this derivative. But it's also an important reflection of what this derivative of the outer function actually represents.
+Notice, for the derivative of $g$, I'm writing it as $\frac{d}{dh}$ instead of $\frac{d}{dx}$. On the symbolic level, this serves as a reminder that you still plug in the inner function to this derivative. But it's also an important reflection of what this derivative of the outer function actually represents.  
+请注意，对于$g$的导数，我将其写为$\frac{d}{dh}$而非$\frac{d}{dx}$。  
+从符号层面来看，这提醒我们仍需将内层函数代入该导数中。  
+但这也深刻反映了外层函数导数的实际含义。
 
-Remember, in our three-lines setup, when we took the derivative of sine on the bottom, we expanded the size of the nudge $d(\sin)$ as $\cos(h) \cdot dh$. This was because we didn't immediately know how the size of that bottom nudge depended on $x$, that's kind of the whole thing we're trying to figure out, but we could take the derivative with respect to the intermediate variable $h$. That is, figure out how to express the size of that nudge as multiple of $dh$. Then it unfolded by figuring out what $dh$ was. {/* I'm not sure about "unfolded here" */}
+Remember, in our three-lines setup, when we took the derivative of sine on the bottom, we expanded the size of the nudge $d(\sin)$ as $\cos(h) \cdot dh$. This was because we didn't immediately know how the size of that bottom nudge depended on $x$, that's kind of the whole thing we're trying to figure out, but we could take the derivative with respect to the intermediate variable $h$. That is, figure out how to express the size of that nudge as multiple of $dh$. Then it unfolded by figuring out what $dh$ was. {/* I'm not sure about "unfolded here" */}  
+请记住，在我们三行式的推导中，当对最下面的正弦函数求导时，  
+我们将微小变化量$d(\sin)$表示为$\cos(h) \cdot dh$。  
+这是因为我们当时还不知道最下面的那个微小变化量的大小  
+是如何依赖于$x$的——这正是我们试图弄清楚的要点。  
+不过我们可以先对中间变量$h$求导，也就是想办法将那个微小变化量的大小表示成$dh$的倍数。  
+之后再通过确定$dh$的值来进一步展开推导。
 
-So in this chain rule expression we're saying to look at the ratio between the tiny change in $g$ and the tiny change in $h$ that caused it, where $h$ is the value that we're plugging into $g$. Then multiply that by the tiny change in $h$ divided by the tiny change in $x$ that caused it.
+So in this chain rule expression we're saying to look at the ratio between the tiny change in $g$ and the tiny change in $h$ that caused it, where $h$ is the value that we're plugging into $g$. Then multiply that by the tiny change in $h$ divided by the tiny change in $x$ that caused it.  
+因此，在这个链式法则表达式中，  
+我们要计算的是函数$g$的微小变化量与导致该变化的$h$的微小变化量之间的比值，  
+这里的$h$就是我们代入$g$中的数值。  
+然后再将这个比值乘以$h$的微小变化量与导致该变化的$x$的微小变化量之比。
 
 <Figure image="$lesson/figures/chain-rule.svg" />
 
-The $dh$'s cancel to give the ratio between a tiny change in the final output, and the tiny change to the input that, through a certain chain of events, brought it about. That cancellation of $dh$ is more than just a notational trick, it's a genuine reflection of the tiny nudges that underpin calculus.
+The $dh$'s cancel to give the ratio between a tiny change in the final output, and the tiny change to the input that, through a certain chain of events, brought it about. That cancellation of $dh$ is more than just a notational trick, it's a genuine reflection of the tiny nudges that underpin calculus.  
+$dh$项相互抵消后，就得到了最终输出的微小变化  
+与通过一系列连锁反应导致该变化的输入微小变化之间的比值。  
+这种$dh$项的抵消并非仅仅是符号上的技巧，  
+它真正反映了微积分所基于的那些微小的推动作用。
 
 </section>
 
 <section>
 
-## Summary
+## Summary  总结
 
-So those are the three basic tools in your belt to handle derivatives of functions that combine many smaller things: The sum rule, the product rule and the chain rule. I should say, there's a big difference between knowing what the chain rule and product rules are, and being fluent with applying them in even the most hairy of situations.
+So those are the three basic tools in your belt to handle derivatives of functions that combine many smaller things: The sum rule, the product rule and the chain rule. I should say, there's a big difference between knowing what the chain rule and product rules are, and being fluent with applying them in even the most hairy of situations.  
+所以，这些就是处理由许多简单部分组合而成的函数导数时所需的三种基本工具：  
+求和法则、乘积法则以及链式法则。  
+我得说，仅仅知道链式法则和乘积法则是什么，  
+与能够熟练地在最复杂的情境中运用它们之间，存在着很大的差距。
 
-I said this at the start of the series, but it's worth repeating: Watching and reading about the mechanics of calculus will never substitute for practicing them yourself, and building the muscles to do these computations yourself. I wish I could offer to do that for you, but I'm afraid the ball is in your court, my friend, to seek out practice.
+I said this at the start of the series, but it's worth repeating: Watching and reading about the mechanics of calculus will never substitute for practicing them yourself, and building the muscles to do these computations yourself. I wish I could offer to do that for you, but I'm afraid the ball is in your court, my friend, to seek out practice.  
+我在系列文章的开头就说过，但值得再强调一次：  
+观看和阅读关于微积分运算方法的讲解，  
+永远无法替代亲自练习、培养自己进行这些计算的能力。  
+我希望能为你代劳，但恐怕朋友，主动去练习才是关键。
 
-What I can offer, and what I hope I have offered, is to show you where these rules come from, to show that they're not just something to be memorized and hammered away; but instead are natural patterns that you too could have discovered by just patiently thinking through what a derivative means.
+What I can offer, and what I hope I have offered, is to show you where these rules come from, to show that they're not just something to be memorized and hammered away; but instead are natural patterns that you too could have discovered by just patiently thinking through what a derivative means.  
+我能做，也希望已经做到的是，向你们展示这些规则的由来，  
+让你们明白它们并非只是需要死记硬背的东西；  
+相反，它们是自然的规律，只要耐心思考导数的含义，你们同样能够发现它们。
 
 </section>
 
 <section>
 
-## Exercises
+## Exercises  练习题
 
 ## $\sin(x)^2$
 
-As a fun exercise, think about the derivative of $\sin(x)^2$. First, use the chain rule, thinking of this as shoving the function $\sin(x)$ into the function $x^2$, then taking the derivative of the outside multiplied by the derivative of the inside.
+As a fun exercise, think about the derivative of $\sin(x)^2$. First, use the chain rule, thinking of this as shoving the function $\sin(x)$ into the function $x^2$, then taking the derivative of the outside multiplied by the derivative of the inside.  
+作为一个有趣的练习，思考一下$\sin(x)^2$的导数。  
+首先，运用链式法则，将其视为将函数$\sin(x)$代入函数$x^2$中，  
+然后再用外层函数的导数乘以内层函数的导数。
 
-Then, think of it using the product rule, interpreting it as $\sin(x) \cdot \sin(x)$, and think about how this relates to the visual for the derivative of $x^2$ shown in the last video. That should give a deeper feel for the chain rule.
+Then, think of it using the product rule, interpreting it as $\sin(x) \cdot \sin(x)$, and think about how this relates to the visual for the derivative of $x^2$ shown in the last video. That should give a deeper feel for the chain rule.  
+然后，用乘积法则来思考它，将其理解为$\sin(x) \cdot \sin(x)$，  
+并思考这与上一个视频中展示的$x^2$的导数图像之间的关联。  
+这样应该能让你更深入地理解链式法则。
 
 <Collapsible title="Chain Rule Explanation">
 
-Setup three number lines to represent the function composition. Then nudge the input $x$ by a small amount $dx$. Remember, we are interested in finding $df$, the change to the function represented on the bottom number line.
+Setup three number lines to represent the function composition. Then nudge the input $x$ by a small amount $dx$. Remember, we are interested in finding $df$, the change to the function represented on the bottom number line.  
+画出三条数轴来表示函数复合。然后让输入值$x$发生微小的变化$dx$。  
+记住，我们想要找到的是$df$，即最下方数轴上所表示的函数的变化量。
 
 <Figure image="$lesson/figures/exercise-1-chain-rule-setup.svg" />
 
-Substitute $h=\sin(x)$ into the function composition. That way, $(\sin (x))^{2}$ becomes $(h)^{2}$. And we know that the change to $h^2$ caused by some small nudge $dh$ is $2h \cdot dh$.
+Substitute $h=\sin(x)$ into the function composition. That way, $(\sin (x))^{2}$ becomes $(h)^{2}$. And we know that the change to $h^2$ caused by some small nudge $dh$ is $2h \cdot dh$.  
+将 $h=\sin(x)$ 代入函数复合表达式中。  
+这样，$(\sin(x))^{2}$ 就变成了$(h)^{2}$。  
+而我们知道，由于微小的变化 $dh$ 导致的 $h^2$ 的变化量为 $2h\cdot dh$。
 
 <Figure image="$lesson/figures/exercise-1-chain-rule-substitution.svg" />
 
-Unfold the composition and observe that $dh = \cos(x) \cdot dx$, because we know that the change in sine is $d(\sin(x)) = \cos(x) \cdot dx$.
+Unfold the composition and observe that $dh = \cos(x) \cdot dx$, because we know that the change in sine is $d(\sin(x)) = \cos(x) \cdot dx$.  
+展开复合函数后可以发现 $dh = \cos(x) \cdot dx$，  
+因为我们知道正弦函数的变化量是 $d(\sin(x)) = \cos(x) \cdot dx$。
 
 <Figure image="$lesson/figures/exercise-1-chain-rule-unfolding.svg" />
 
-This gives us that the change to the function is $df = 2 \sin(x) \cdot \cos(x) dx$ which we can rearrange for the derivative of the function.
+This gives us that the change to the function is $df = 2 \sin(x) \cdot \cos(x) dx$ which we can rearrange for the derivative of the function.  
+由此可知，该函数的变化量为 $df = 2 \sin(x) \cdot \cos(x) dx$，  
+我们可以通过重新整理得到该函数的导数。
 
 $$
 \frac{df}{dx} = 2 \sin(x) \cos(x)
@@ -318,21 +503,28 @@ $$
 
 </Collapsible>
 
-<Collapsible title="Product Rule Explanation">
+<Collapsible title="Product Rule Explanation 乘法规则说明 ">
 
-To model the derivative of this function, start by visualizing the function as the area of the square with side lengths $\sin(x)$.
+To model the derivative of this function, start by visualizing the function as the area of the square with side lengths $\sin(x)$.  
+要对该函数的导数进行建模，首先将该函数视为边长为$\sin(x)$的正方形的面积。
 
 <Figure image="$lesson/figures/exercise-1-product-rule-area.svg" />
 
-Then, imagine nudging the input of the function $x$ by a small amount $dx$. This introduces three new rectangles of area.
+Then, imagine nudging the input of the function $x$ by a small amount $dx$. This introduces three new rectangles of area.  
+接着，想象将函数的自变量$x$微调一个很小的量$dx$。  
+这样就会产生三个面积相等的新矩形。
 
 <Figure image="$lesson/figures/exercise-1-product-rule-area-df.svg" />
 
-From past chapters we know that the expression $d(\sin(x))$ is $\cos(x) \cdot dx$. Using this information we can express the changing area of the function as shown below. As before, the small rectangle's area in the bottom right corner is negligible.
+From past chapters we know that the expression $d(\sin(x))$ is $\cos(x) \cdot dx$. Using this information we can express the changing area of the function as shown below. As before, the small rectangle's area in the bottom right corner is negligible.  
+    从前面的章节我们知道，$d(\sin(x))$ 的表达式为 $\cos(x) \cdot dx$。  
+    利用这一信息，我们可以如下表示该函数面积的变化情况。  
+    与之前一样，右下角那个小矩形的面积可以忽略不计。
 
 <Figure image="$lesson/figures/exercise-1-product-rule-derivative.svg" />
 
-Dividing both sides by $dx$ we get the same derivative that we found when applying the chain rule.
+Dividing both sides by $dx$ we get the same derivative that we found when applying the chain rule.  
+将两边同时除以$dx$，就能得到与运用链式法则时所得到的相同导数。
 
 $$
 \frac{df}{dx} = 2 \sin(x) \cos(x)

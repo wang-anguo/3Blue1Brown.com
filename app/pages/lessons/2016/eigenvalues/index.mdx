@@ -1,14 +1,14 @@
 ---
-title: Eigenvectors and eigenvalues
-description: Eigenvalues and eigenvectors are one of the most important ideas in linear algebra, but what on earth are they?
+title: Eigenvectors and eigenvalues 特征向量与特征值
+description: Eigenvalues and eigenvectors are one of the most important ideas in linear algebra, but what on earth are they? 特征值与特征向量是线性代数中最重要的概念之一，但它们究竟是什么呢？
 date: 2016-09-15
 chapter: 14
 video: PFDu9oVAE-g
 source: _2016/eola/chapter10.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
-  - Text adaptation by James Schloss
+  - Lesson by Grant Sanderson 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
+  - Text adaptation by James Schloss 詹姆斯·施洛斯
 ---
 
 import Collapsible from "~/components/Collapsible";
@@ -18,21 +18,35 @@ import Question from "~/components/Question";
 
 <section>
 
-> Last time, I asked: 'What does mathematics mean to you?', and some people answered: 'The manipulation of numbers, the manipulation of structures.' And if I had asked what music means to you, would you have answered: 'The manipulation of notes?'
+> Last time, I asked: 'What does mathematics mean to you?', and some people answered: 'The manipulation of numbers, the manipulation of structures.' And if I had asked what music means to you, would you have answered: 'The manipulation of notes?'  
+上次我问道：​“数学对你来说意味着什么？​”  
+有些人回答说：​“对数字的运算，对结构的操作。​”  
+如果我问音乐对你来说意味着什么，你们会回答“对音符的运算”吗？
 >
-> \- Serge Lang
+> \- Serge Lang 塞尔日·朗格
 
-Eigenvectors and eigenvalues are some of those topics that a lot of students find particularly unintuitive. Questions like "why are we doing this?" and "what does this actually mean?" are too often left floating away unanswered in a sea of computations. And as I've put out chapters in this series, many of you have commented about looking forward to visualizing this topic in particular.
+Eigenvectors and eigenvalues are some of those topics that a lot of students find particularly unintuitive. Questions like "why are we doing this?" and "what does this actually mean?" are too often left floating away unanswered in a sea of computations. And as I've put out chapters in this series, many of you have commented about looking forward to visualizing this topic in particular.  
+特征向量和特征值是许多学生觉得特别难以理解的主题。  
+诸如“我们为什么要这么做？​”以及“这到底意味着什么？​”之类的问题，  
+往往在大量的计算中无人解答而悬而未决。  
+自从我陆续推出该系列的章节后，很多读者都表示特别希望以可视化的方式来理解这一主题。
 
-I suspect that the reason for this is not so much that eigen-things are particularly complicated or poorly explained. In fact, it's comparatively straightforward, and I think most books do a fine job explaining it. The issue is that it only really makes sense if you have a solid visual understanding of many of the topics that precede it. Most important here is that you know how to think about matrices as linear transformations. But you also need to be comfortable with <LessonLink id="determinant">determinants</LessonLink>, <LessonLink id="linear-transformations">linear systems of equations</LessonLink>, and <LessonLink id="change-of-basis">change of basis</LessonLink>. Confusion about eigen-stuffs usually has more to do with a shaky foundation in one of these topics than it does with the eigenvectors and eigenvalues themselves.
+I suspect that the reason for this is not so much that eigen-things are particularly complicated or poorly explained. In fact, it's comparatively straightforward, and I think most books do a fine job explaining it. The issue is that it only really makes sense if you have a solid visual understanding of many of the topics that precede it. Most important here is that you know how to think about matrices as linear transformations. But you also need to be comfortable with <LessonLink id="determinant">determinants</LessonLink>, <LessonLink id="linear-transformations">linear systems of equations</LessonLink>, and <LessonLink id="change-of-basis">change of basis</LessonLink>. Confusion about eigen-stuffs usually has more to do with a shaky foundation in one of these topics than it does with the eigenvectors and eigenvalues themselves.  
+我认为，造成这种状况的原因并非是因为特征向量与特征值本身特别复杂或解释不当。  
+事实上，这个概念相对直观，而且我觉得大多数教材都能很好地加以解释。  
+问题在于，只有在你对前置的许多概念有扎实的直观理解之后，它才会真正有意义。  
+其中最关键的是你要明白如何将矩阵视为线性变换。  
+此外，你还需熟悉行列式、线性方程组以及基的变换。  
+关于特征向量和特征值的困惑，往往更多是由于这些基础概念掌握不牢，而非概念本身难以理解。
 
 </section>
 
 <section>
 
-## An example
+## An example 一个例子
 
-To start, consider some linear transformation in two dimensions, like the one shown here.
+To start, consider some linear transformation in two dimensions, like the one shown here.  
+首先，考虑一个二维中的线性变换，比如这里所示的。
 
 <Figure
   video="$lesson/figures/an-example/LinearTransformation.light.mp4"
@@ -40,7 +54,12 @@ To start, consider some linear transformation in two dimensions, like the one sh
   show="image"
 />
 
-It moves the basis vector $\hat{\imath}$ to the coordinates $\left[\begin{array}{c}3 \\ 0\end{array}\right]$, and $\hat{\jmath}$ to $\left[\begin{array}{c}1 \\ 2\end{array}\right]$, so it's represented with a the matrix $\left[\begin{array}{c}3 & 1 \\ 0 & 2\end{array}\right]$. Now, focus on what it does to any individual vector, and think about the span of that vector, which is the line passing through the origin and its tip.
+It moves the basis vector $\hat{\imath}$ to the coordinates $\left[\begin{array}{c}3 \\ 0\end{array}\right]$, and $\hat{\jmath}$ to $\left[\begin{array}{c}1 \\ 2\end{array}\right]$, so it's represented with a the matrix $\left[\begin{array}{c}3 & 1 \\ 0 & 2\end{array}\right]$. Now, focus on what it does to any individual vector, and think about the span of that vector, which is the line passing through the origin and its tip.  
+它将基向量 $\hat{\imath}$ 移到坐标 $\left[\begin{array}{c}3 \\0\end{array}\right]$ 处，
+将 $\hat{\jmath}$ 移到 $\left[\begin{array}{c}1 \\2\end{array}\right]$ 处，
+因此用矩阵$\left[\begin{array}{c}3 & 1 \\ 0 &2\end{array}\right]$来表示。  
+现在，关注它对任意单个向量的作用，并思考该向量的张成空间—  
+即通过原点及其终点的直线。
 
 <Figure
   image="$lesson/figures/an-example/VectorGetsKnockedOffSpan.light.svg"
@@ -48,7 +67,11 @@ It moves the basis vector $\hat{\imath}$ to the coordinates $\left[\begin{array}
   show="image"
 />
 
-Most vectors will get knocked off that line during the transformation. It would seem pretty coincidental if the place where a vector lands happens to be somewhere on that line. But some special vectors do remain on their own span, meaning the effect the matrix has on such a vector is to just stretch or squish it, like a scalar.
+Most vectors will get knocked off that line during the transformation. It would seem pretty coincidental if the place where a vector lands happens to be somewhere on that line. But some special vectors do remain on their own span, meaning the effect the matrix has on such a vector is to just stretch or squish it, like a scalar.  
+在变换过程中，大多数向量都会脱离那条直线。  
+如果某个向量最终落在那条直线上，那就未免太巧合了。  
+但有一些特殊的向量会保持在它们所张成的子空间中，  
+这意味着矩阵对这类向量的作用就如同作用于标量一样，只是对其进行拉伸或压缩而已。
 
 <Figure
   image="$lesson/figures/an-example/VectorRemainsOnSpan.light.svg"
@@ -56,7 +79,10 @@ Most vectors will get knocked off that line during the transformation. It would 
   show="image"
 />
 
-For this specific example, the basis vector $\hat{\imath}$ is one such vector with this special property. The span of $\hat{\imath}$ is the $x$-axis, and from the first column of the matrix we can see that $\hat{\imath}$ moves over to $3$ times itself, still on that $x$-axis. What's more, because of the way linear transformations work, any other vector on the $x$-axis is also just stretched by a factor of $3$, and hence remains on its own span.
+For this specific example, the basis vector $\hat{\imath}$ is one such vector with this special property. The span of $\hat{\imath}$ is the $x$-axis, and from the first column of the matrix we can see that $\hat{\imath}$ moves over to $3$ times itself, still on that $x$-axis. What's more, because of the way linear transformations work, any other vector on the $x$-axis is also just stretched by a factor of $3$, and hence remains on its own span.  
+在这个具体的例子中，基向量 $\hat{\imath}$ 就是具有这种特殊性质的向量之一。  
+$\hat{\imath}$所张成的空间是$x$轴，从矩阵的第一列可以看出，$\hat{\imath}$变为原来的3倍后仍然位于该 $x$ 轴上。  
+此外，由于线性变换的运作方式，$x$ 轴上的任何其他向量也会被拉伸 $3$ 倍，因而依然处于其自身张成的空间内。
 
 <Figure
   image="$lesson/figures/an-example/VectorOnXAxisRemainsOnSpan.light.svg"
@@ -64,7 +90,10 @@ For this specific example, the basis vector $\hat{\imath}$ is one such vector wi
   show="image"
 />
 
-A slightly sneakier vector that remains on its own span during this transformation is $\left[\begin{array}{c}1 \\ -1\end{array}\right]$. It ends up getting stretched out by a factor of $2$. And again, linearity will imply that any other vector on the diagonal line spanned by this one will just get stretched out by a factor of $2$.
+A slightly sneakier vector that remains on its own span during this transformation is $\left[\begin{array}{c}1 \\ -1\end{array}\right]$. It ends up getting stretched out by a factor of $2$. And again, linearity will imply that any other vector on the diagonal line spanned by this one will just get stretched out by a factor of $2$.  
+在本次变换中仍保持在其自身张成空间内的、稍微隐蔽一些的向量是 $\left[\begin{array}{c}1 \\ -1\end{array}\right]$。  
+它会被拉伸为原来的2倍。  
+同样，由于线性性质，由该向量张成的对角线上的其他向量也会被拉伸为原来的2倍。
 
 <Figure
   image="$lesson/figures/an-example/VectorRemainsOnSpanWithTex.light.svg"
@@ -72,7 +101,10 @@ A slightly sneakier vector that remains on its own span during this transformati
   show="image"
 />
 
-For this transformation, those are all the vectors with this special property of staying on their span: Those on the $x$-axis that get stretched by a factor of $3$, and those on this diagonal line that are stretched by a factor of $2$. Any other vector will get rotated somewhat during the transformation, knocked off of the line it spans.
+For this transformation, those are all the vectors with this special property of staying on their span: Those on the $x$-axis that get stretched by a factor of $3$, and those on this diagonal line that are stretched by a factor of $2$. Any other vector will get rotated somewhat during the transformation, knocked off of the line it spans.  
+对于这种变换，所有具有保持在其所张成直线上的特殊性质的向量都是如此：  
+位于$x$轴上的向量会被拉伸3倍，而位于这条对角线上的向量则会被拉伸2倍。  
+其他任何向量在变换过程中都会发生一定程度的旋转，从而偏离其所在直线。
 
 <Figure
   image="$lesson/figures/an-example/VectorsThatRemainOnSpan.light.svg"
@@ -80,103 +112,156 @@ For this transformation, those are all the vectors with this special property of
   show="image"
 />
 
-These special vectors are called the "eigenvectors" of the transformation, and each eigenvector has associated with it what's called an "eigenvalue", which is the factor by which it's stretched or squished during the transformation. In this example, vectors on the $x$-axis are eigenvectors with eigenvalue $3$, while those on the diagonal line are eigenvectors with eigenvalue $2$.
+These special vectors are called the "eigenvectors" of the transformation, and each eigenvector has associated with it what's called an "eigenvalue", which is the factor by which it's stretched or squished during the transformation. In this example, vectors on the $x$-axis are eigenvectors with eigenvalue $3$, while those on the diagonal line are eigenvectors with eigenvalue $2$.  
+这些特殊向量被称为该变换的“特征向量”​，  
+每个特征向量都对应一个所谓的“特征值”​，即该向量在变换过程中被拉伸或压缩的比例。  
+在这个例子中， $x$ 轴上的向量是特征值为 $3$ 的特征向量，  
+而对角线上的向量则是特征值为 $2$ 的特征向量。
 
 <Figure image="$lesson/figures/an-example/EigenvectorsAndEigenvalues.light.svg" />
 
-Of course, there's nothing special about stretching vs. squishing, or the fact that these eigenvalues happen to be positive. In another example you could have an eigenvector with eigenvalue $-\frac{1}{2}$, meaning that vector gets flipped and squished by a factor of $\frac{1}{2}$, but the important part is that it stays on the line that it spans out, without being rotated off of it.
+Of course, there's nothing special about stretching vs. squishing, or the fact that these eigenvalues happen to be positive. In another example you could have an eigenvector with eigenvalue $-\frac{1}{2}$, meaning that vector gets flipped and squished by a factor of $\frac{1}{2}$, but the important part is that it stays on the line that it spans out, without being rotated off of it.  
+当然，拉伸与压缩本身并没有什么特别之处，这些特征值恰好为正数也是如此。  
+在另一个例子中，可能会出现特征值为$-\frac{1}{2}$的特征向量，  
+这意味着该向量会被翻转并以$\frac{1}{2}$的系数被压缩，  
+但重要的是它仍会保持在自己所张成的直线上，而不会发生旋转偏移。
 
 <Figure
   image="$lesson/figures/an-example/AnotherExampleVectorRemainsOnSpan.light.svg"
   video="$lesson/figures/an-example/AnotherExampleVectorRemainsOnSpan.light.mp4"
   show="image"
 >
-  Eigenvector with eigenvalue $-\frac{1}
-  {2}$.
+  Eigenvector with eigenvalue $-\frac{1}  {2}$.  
+  特征值为 $-\frac{1}  {2}$ 的特征向量
 </Figure>
 
-## 3d rotational axis
+## 3d rotational axis 3D旋转轴 
 
-For a glimpse of why this might be a useful thing to think about, consider some three-dimensional rotation. If you can find an eigenvector for this rotation, a vector which remains on its own span, what you have found is the axis of rotation.
+For a glimpse of why this might be a useful thing to think about, consider some three-dimensional rotation. If you can find an eigenvector for this rotation, a vector which remains on its own span, what you have found is the axis of rotation.  
+要想了解为何思考这个问题可能很有用，可以考虑三维旋转。  
+如果你能找到这种旋转的本征向量—即一个仍保留在其张成空间中的向量，  
+那么你找到的就是旋转轴。
 
 <Figure image="$lesson/figures/3d-rotational-axis/AxisOfRotationEigenvector.light.svg" />
 
-It's much easier to think about a 3d rotation in terms of an axis of rotation, and an angle by which it is rotating, rather than thinking about the full 3x3 matrix associated with such a transformation.
+It's much easier to think about a 3d rotation in terms of an axis of rotation, and an angle by which it is rotating, rather than thinking about the full 3x3 matrix associated with such a transformation.  
+考虑三维旋转时，用旋转轴以及旋转角度来思考要容易得多，  
+相比去考虑与这种变换相关的完整的 $3×3$ 矩阵。
 
 </section>
 
 <section>
 
-## 3d rotational axis
+## 3d rotational axis 3D旋转轴
 
 <Figure image="$lesson/figures/3d-rotational-axis/Full3x3Matrix.light.svg" />
 
 <Figure image="$lesson/figures/3d-rotational-axis/AxisOfRotation.light.svg" />
 
-In this case, the corresponding eigenvalue would have to be $1$, since 3d rotations don't stretch or squish anything.
+In this case, the corresponding eigenvalue would have to be $1$, since 3d rotations don't stretch or squish anything.  
+在这种情况下，相应的特征值必须是 $1$ ，因为3D旋转不会使任何物体发生拉伸或压缩。 
 
-This is a pattern that shows up a lot in linear algebra: With any linear transformation described by a matrix, you could understand what it's doing by reading off the columns of this matrix as the landing spots for the basis vectors. But often a better way to get at the heart of what that transformation actually does, less dependent on your particular coordinate system, is to find the eigenvectors and eigenvalues.
+This is a pattern that shows up a lot in linear algebra: With any linear transformation described by a matrix, you could understand what it's doing by reading off the columns of this matrix as the landing spots for the basis vectors. But often a better way to get at the heart of what that transformation actually does, less dependent on your particular coordinate system, is to find the eigenvectors and eigenvalues.  
+这是线性代数中经常出现的一种模式：  
+对于任何由矩阵描述的线性变换，都可以通过读取该矩阵的列作为基向量的落点来理解它的作用。  
+但通常，要更深入地了解该变换的实际作用，且减少对特定坐标系的依赖，  
+更好的方法是找到特征向量与特征值。
 
 </section>
 
 <section>
 
-## Notes on computation
+## Notes on computation 计算说明
 
-We won't cover the full details on methods for computing eigenvectors and eigenvalues here, but we'll try to give an overview of the computational ideas that are most important for conceptual understanding.
+We won't cover the full details on methods for computing eigenvectors and eigenvalues here, but we'll try to give an overview of the computational ideas that are most important for conceptual understanding.  
+我们不会在这里详细介绍计算特征向量和特征值的方法，  
+但会尝试概述对概念理解最为重要的计算思路。
 
-Symbolically, here's what the idea of eigenvectors and eigenvalues looks like. $A$ is the matrix representing some transformation, with $\vec{\mathbf{v}}$ as an eigenvector, and $\lambda$ (lambda) is a number, namely the corresponding eigenvalue.
+Symbolically, here's what the idea of eigenvectors and eigenvalues looks like. $A$ is the matrix representing some transformation, with $\vec{\mathbf{v}}$ as an eigenvector, and $\lambda$ (lambda) is a number, namely the corresponding eigenvalue.  
+从符号层面来看，特征向量与特征值的概念如下：  
+$A$ 是表示某种变换的矩阵， $\vec{\mathbf{v}}$ 是其特征向量，  
+而 $\lambda$ 则是一个数值，即对应的特征值。
 
 <Figure image="$lesson/figures/notes-on-computation/SymbolicIdea.light.svg" />
 
-What this expression is saying is that the matrix-vector product $A$ times $\vec{\mathbf{v}}$ gives the same result as scaling the eigenvector $\vec{\mathbf{v}}$ by the eigenvalue lambda.
+What this expression is saying is that the matrix-vector product $A$ times $\vec{\mathbf{v}}$ gives the same result as scaling the eigenvector $\vec{\mathbf{v}}$ by the eigenvalue lambda.  
+这个表达式的意思是，矩阵向量乘积 $A$ 乘以 $\vec{\mathbf{v}}$ 所得到的结果，  
+与将特征向量 $\vec{\mathbf{v}}$ 乘以特征值 $\lambda$ 所得到的结果相同。
 
 <Figure image="$lesson/figures/notes-on-computation/SymbolicIdeaMeaning.light.svg" />
 
-Finding the eigenvectors and eigenvalues of a matrix $A$ comes down to finding values of $\mathbf{v}$ and $\lambda$ that make this expression true. It's a little awkward to work with at first, because the left-hand-side represents matrix vector multiplication, while the right-hand-side is scalar-vector multiplication. Let's start by rewriting that right-hand-side as some kind of matrix vector multiplication, using a matrix which has the effect of scaling vectors by a factor of lambda.
+Finding the eigenvectors and eigenvalues of a matrix $A$ comes down to finding values of $\mathbf{v}$ and $\lambda$ that make this expression true. It's a little awkward to work with at first, because the left-hand-side represents matrix vector multiplication, while the right-hand-side is scalar-vector multiplication. Let's start by rewriting that right-hand-side as some kind of matrix vector multiplication, using a matrix which has the effect of scaling vectors by a factor of lambda.  
+
+求矩阵$A$的特征向量和特征值，归根结底就是寻找使得该等式成立的 $\mathbf{v}$ 和 $\lambda$ 的值。  
+刚开始处理这个问题会有点棘手，因为左边表示矩阵向量乘法，而右边则是标量向量乘法。  
+我们先通过使用一个能够将向量按因子$\lambda$进行缩放的矩阵，  
+把右边的表达式改写为某种矩阵向量乘法的形式。
 
 <Figure image="$lesson/figures/notes-on-computation/RewriteScalarMultiplication.light.svg" />
 
-The columns of such matrix will represent what happens to each basis vector, and each basis vector is simply multiplied by lambda, so this matrix will have the number lambda down the diagonal with zeros everywhere else. The common way to write this matrix is as lambda times $I$, where $I$ is the identity matrix with $1$s down the diagonal.
+The columns of such matrix will represent what happens to each basis vector, and each basis vector is simply multiplied by lambda, so this matrix will have the number lambda down the diagonal with zeros everywhere else. The common way to write this matrix is as lambda times $I$, where $I$ is the identity matrix with $1$s down the diagonal.  
+这样的矩阵的各列将表示每个基向量所发生的变化，而每个基向量只需乘以λ，  
+因此该矩阵的对角线上为 λ ，其余位置均为0。  
+表示这个矩阵的常用方式是 λ 乘以 $I$ ，其中 $I$ 是对角线元素为 $1$ 的单位矩阵。
 
 <Figure image="$lesson/figures/notes-on-computation/RewriteScalarMultiplicationIdentityMatrix.light.svg" />
 
-With both sides looking like matrix-vector multiplication, we can subtract off the right-hand side and factor out the $\vec{\mathbf{v}}$. So we have a new matrix, $\left(A - \lambda I\right)$, and we're looking for a vector $\vec{\mathbf{v}}$ such that this new matrix times $\vec{\mathbf{v}}$ gives the zero vector.
+With both sides looking like matrix-vector multiplication, we can subtract off the right-hand side and factor out the $\vec{\mathbf{v}}$. So we have a new matrix, $\left(A - \lambda I\right)$, and we're looking for a vector $\vec{\mathbf{v}}$ such that this new matrix times $\vec{\mathbf{v}}$ gives the zero vector.  
+由于两边都表现为矩阵-向量乘法的形式，我们可以减去右侧项并提取出$\vec{\mathbf{v}}$。  
+这样我们就得到了一个新矩阵 $\left(A - \lambda I\right)$ ，  
+我们需要找到一个向量 $\vec{\mathbf{v}}$ ，使得这个新矩阵乘以 $\vec{\mathbf{v}}$ 的结果为零向量。
 
 <Figure image="$lesson/figures/notes-on-computation/SymbolicSetEqualToZero.light.svg" />
 
-Now, this will always be true when $\vec{\mathbf{v}}$ is the zero vector, but that's boring, we want a non-zero eigenvector.
+Now, this will always be true when $\vec{\mathbf{v}}$ is the zero vector, but that's boring, we want a non-zero eigenvector.  
+当然，当 $\vec{\mathbf{v}}$ 为零向量时这一结论始终成立，但这太无趣了，  
+我们想要的是非零特征向量。
 
-### Zero Determinant
+### Zero Determinant 行列式为零
 
-As viewers of <LessonLink id="3d-transformations">chapter 5</LessonLink> and <LessonLink id="determinant">chapter 6</LessonLink> will know, the only way it's possible for the product of a matrix with a nonzero vector to become zero is if the transformation associated with that matrix squishes space into a lower dimension. And that squishification corresponds to a zero determinant of the matrix.
+As viewers of <LessonLink id="3d-transformations">chapter 5</LessonLink> and <LessonLink id="determinant">chapter 6</LessonLink> will know, the only way it's possible for the product of a matrix with a nonzero vector to become zero is if the transformation associated with that matrix squishes space into a lower dimension. And that squishification corresponds to a zero determinant of the matrix.  
+正如第5章和第6章的读者所知，一个矩阵与一个非零向量相乘的结果为零，  
+唯一的原因是该矩阵所代表的变换将空间压缩到了更低维度。  
+而这种压缩现象就对应着该矩阵的行列式为零。
 
 <Figure
   image="$lesson/figures/notes-on-computation/ZeroDeterminantTransformation.light.svg"
   video="$lesson/figures/notes-on-computation/ZeroDeterminantTransformation.light.mp4"
 />
 
-To be concrete, let's say your matrix is $\left[\begin{array}{c} 2 & 2 \\ 1 & 3 \end{array}\right]$, and imagine subtracting off the variable amount lambda from each diagonal entry.
+To be concrete, let's say your matrix is $\left[\begin{array}{c} 2 & 2 \\ 1 & 3 \end{array}\right]$ , and imagine subtracting off the variable amount lambda from each diagonal entry.  
+具体来说，假设你的矩阵是 $\left[\begin{array}{c} 2 & 2 \\ 1 & 3\end{array}\right]$，想象从每个对角线元素中减去一个变量lambda。
 
 <Figure image="$lesson/figures/notes-on-computation/ZeroDeterminantConcreteExample.light.svg" />
 
-Imagine tweaking lambda, turning a knob to change its value. As that value of lambda changes, the matrix changes, and so the determinant of that matrix changes.
+Imagine tweaking lambda, turning a knob to change its value. As that value of lambda changes, the matrix changes, and so the determinant of that matrix changes.  
+想象一下调整 lambda 的值，通过转动旋钮来改变它的数值。  
+随着 lambda 值的变化，矩阵也会发生变化，因此该矩阵的行列式也会随之改变。
 
 <Figure
   image="$lesson/figures/notes-on-computation/ZeroDeterminantConcreteExampleDifferentLambdas.light.svg"
   video="$lesson/figures/notes-on-computation/ZeroDeterminantConcreteExampleDifferentLambdas.light.mp4"
 />
 
-The goal is to find a value of lambda that will make the determinant zero, meaning the tweaked transformation squishes space. In this case, the sweet spot comes when $\lambda = 1$.
+The goal is to find a value of lambda that will make the determinant zero, meaning the tweaked transformation squishes space. In this case, the sweet spot comes when $\lambda = 1$.  
+目标是找到一个使行列式为零的 lambda 值，这意味着经过调整后的变换会压缩空间。  
+在这种情况下，最佳值出现在  $\lambda = 1$ 时。
 
 <Figure
   image="$lesson/figures/notes-on-computation/ZeroDeterminantConcreteExampleSweetSpot.light.svg"
   video="$lesson/figures/notes-on-computation/ZeroDeterminantConcreteExampleSweetSpot.light.mp4"
 />
 
-Remember that the lambda is tied to the matrix, so if we use another matrix, the lambda might not be $1$. To unravel what that means, when $\lambda=1$, the matrix $A - \lambda \cdot I$ squishes space onto a line. That means there's a nonzero vector $\mathbf{v}$ such that $(A-\lambda\cdot I)\cdot \mathbf{v}=0$.
+Remember that the lambda is tied to the matrix, so if we use another matrix, the lambda might not be $1$. To unravel what that means, when $\lambda=1$, the matrix $A - \lambda \cdot I$ squishes space onto a line. That means there's a nonzero vector $\mathbf{v}$ such that $(A-\lambda\cdot I)\cdot \mathbf{v}=0$.  
 
-The reason we care about that is because it means $A \cdot \mathbf{v} = \lambda \cdot \mathbf{v}$, which you can read as saying the vector $\mathbf{v}$ is an eigenvector of $A$, staying on its own span during the transformation $A$. In this example, the corresponding eigenvalue is $1$, so it actually just stays fixed in place.
+请记住，lambda与矩阵是相关的，因此如果我们使用另一个矩阵，lambda可能不再等于1。  
+要理解其含义：当 $\lambda=1$ 时，矩阵 $A - \lambda \cdot I$ 会将空间压缩成一条直线。  
+这意味着存在一个非零向量 $\mathbf{v}$ ，使得 $(A-\lambda\cdot I)\cdot \mathbf{v}=0$ 。
+
+The reason we care about that is because it means $A \cdot \mathbf{v} = \lambda \cdot \mathbf{v}$, which you can read as saying the vector $\mathbf{v}$ is an eigenvector of $A$, staying on its own span during the transformation $A$. In this example, the corresponding eigenvalue is $1$, so it actually just stays fixed in place.  
+我们关注这一点的原因是，它意味着$A \cdot \mathbf{v} = \lambda \cdot \mathbf{v}$，  
+也就是说向量$\mathbf{v}$是$A$的特征向量，在$A$的变换作用下仍保持在其自身的张成空间内。  
+在这个例子中，对应的特征值为$1$，因此该向量实际上会保持原位不变。
 
 $$
 \begin{aligned}
@@ -187,32 +272,47 @@ A \vec{\mathbf{v}}-\lambda I \vec{\mathbf{v}} & =0 \\ \rule{0pt}{2em}
 \end{aligned}
 $$
 
-Pause and ponder to make sure that line of reasoning feels good.
+Pause and ponder to make sure that line of reasoning feels good.  
+暂停思考，确保这一推理逻辑合理。
 
-### Characteristic polynomial
+### Characteristic polynomial   特征多项式
 
-This expression, where we take a given matrix minus lambda times the identity and set its determinant equal to zero, thinking of lambda as a variable, is fundamental to eigenvalues. This is the kind of thing we mentioned in the introduction. If you didn't have a solid grasp of the determinant, and why it relates to linear systems having non-zero solutions, an expression like this would feel completely out of the blue.
+This expression, where we take a given matrix minus lambda times the identity and set its determinant equal to zero, thinking of lambda as a variable, is fundamental to eigenvalues. This is the kind of thing we mentioned in the introduction. If you didn't have a solid grasp of the determinant, and why it relates to linear systems having non-zero solutions, an expression like this would feel completely out of the blue.  
+这个表达式——  
+即取一个给定的矩阵减去λ乘以单位矩阵，然后令其行列式等于零，将λ视为一个变量——  
+是研究特征值的基础。  
+这正是我们在引言中提到过的内容。  
+如果你对行列式以及它为何与存在非零解的线性系统相关联没有扎实的理解，  
+那么这样的表达式就会显得完全莫名其妙。
 
-Let's revisit the example from the start, with the matrix $\left[\begin{array}{c} 3 & 1\\ 0 & 2 \end{array}\right]$.
+Let's revisit the example from the start, with the matrix $\left[\begin{array}{c} 3 & 1\\ 0 & 2 \end{array}\right]$.  
+让我们重新从最开始的例子入手，考虑矩阵$\left[\begin{array}{c} 3 & 1\\ 0 &2 \end{array}\right]$。
 
 <Figure
   image="$lesson/figures/notes-on-computation/CharacteristicPolynomialExample.light.svg"
   video="$lesson/figures/notes-on-computation/CharacteristicPolynomialExample.light.mp4"
 />
 
-To find if a value $\lambda$ is an eigenvalue, subtract it from the diagonals of this matrix, and compute the determinant.
+To find if a value $\lambda$ is an eigenvalue, subtract it from the diagonals of this matrix, and compute the determinant.  
+要判断一个值$\lambda$是否为特征值，需将其从该矩阵的对角线上减去，然后计算行列式。
 
 $$
 \operatorname{det}\left(\left[\begin{array}{cc}3-\lambda & \mathbb{1} \\ 0 & 2-\lambda\end{array}\right]\right)
 $$
 
-Doing this, we get a certain quadratic polynomial in terms of lambda.
+Doing this, we get a certain quadratic polynomial in terms of lambda.  
+这样，我们就能得到一个关于lambda的二次多项式。
 
 $$
-\operatorname{det}\left(\left[\begin{array}{cc}3-\lambda & \mathbb{1} \\ 0 & 2-\lambda\end{array}\right]\right) = (3 - \lambda)(2- \lambda)
+\operatorname{det}\left(\left[\begin{array}{cc}3-\lambda & \mathbb{1} \\ 0 & 2-\lambda\end{array}\right]\right) = (3 - \lambda)(2- \lambda)  
+
 $$
 
-Since lambda can only be an eigenvalue if this determinant is zero, you can conclude that the only eigenvalues are $\lambda = 2$ and $\lambda = 3$. To see what eigenvectors have one of these eigenvalues, say $\lambda=2$, plug in that value of lambda to the matrix, and solve for which vectors this diagonally-altered matrix sends to zero.
+Since lambda can only be an eigenvalue if this determinant is zero, you can conclude that the only eigenvalues are $\lambda = 2$ and $\lambda = 3$. To see what eigenvectors have one of these eigenvalues, say $\lambda=2$, plug in that value of lambda to the matrix, and solve for which vectors this diagonally-altered matrix sends to zero.  
+由于只有当该行列式为零时，lambda才能成为特征值，  
+因此可以得出唯一的特征值为$\lambda = 2$ 和 $\lambda = 3$。  
+要找出具有这些特征值中某个值的特征向量，以$\lambda=2$为例，将该值代入矩阵中，  
+然后求解哪些向量能被这个经过对角线修改后的矩阵映射为零。
 
 $$
 \left[\begin{array}{cc}
@@ -227,23 +327,30 @@ y
 \end{array}\right]
 $$
 
-If you computed this, you'd see that the solutions are all of the vectors on the diagonal line spanned by $\left[\begin{array}{c} -1 \\ 1 \end{array}\right]$. This corresponds to the fact that the unaltered matrix $\left[\begin{array}{c} 3 & 1 \\ 0 & 2 \end{array}\right]$ stretches all those vectors by a factor of $2$.
+If you computed this, you'd see that the solutions are all of the vectors on the diagonal line spanned by $\left[\begin{array}{c} -1 \\ 1 \end{array}\right]$. This corresponds to the fact that the unaltered matrix $\left[\begin{array}{c} 3 & 1 \\ 0 & 2 \end{array}\right]$ stretches all those vectors by a factor of $2$.  
+如果你计算一下，就会发现解都是由$\left[\begin{array}{c} -1 \\ 1\end{array}\right]$张成的对角线上的向量。  
+这对应于未改变的矩阵$\left[\begin{array}{c} 3 & 1 \\ 0 & 2 \end{array}\right]$会将所有这些向量按2的比例拉伸这一事实。
 
 <Figure
   image="$lesson/figures/notes-on-computation/CharacteristicPolynomialEigenvalues.light.svg"
   video="$lesson/figures/notes-on-computation/CharacteristicPolynomialEigenvalues.light.mp4"
 />
 
-### Rotation
+### Rotation 旋转
 
-Now, a 2d transformation doesn't have to have eigenvectors. For example, consider a rotation by $90$ degrees. This doesn't have any eigenvectors, since each vector is rotated off of its own span.
+Now, a 2d transformation doesn't have to have eigenvectors. For example, consider a rotation by $90$ degrees. This doesn't have any eigenvectors, since each vector is rotated off of its own span.  
+现在，二维变换不一定需要特征向量。例如，考虑90度的旋转。  
+它没有任何特征向量，因为每个向量都会脱离其自身的张成空间而发生旋转。
 
 <Figure
   image="$lesson/figures/notes-on-computation/RotationTransformation.light.svg"
   video="$lesson/figures/notes-on-computation/RotationTransformation.light.mp4"
 />
 
-If you actually try computing the eigenvalues for a $90$ degree rotation, notice what happens. Its matrix is $\left[\begin{array}{c} 0 & -1 \\ 1 & 0 \end{array}\right]$. Subtract $\lambda$ from the diagonal elements, and look for when the determinant is $0$.
+If you actually try computing the eigenvalues for a $90$ degree rotation, notice what happens. Its matrix is $\left[\begin{array}{c} 0 & -1 \\ 1 & 0 \end{array}\right]$. Subtract $\lambda$ from the diagonal elements, and look for when the determinant is $0$.  
+如果你真的尝试计算90度旋转的特征值，观察会发生什么。  
+它的矩阵是$\left[\begin{array}{c} 0 & -1 \\ 1 & 0 \end{array}\right]$。  
+从对角元素中减去$\lambda$，然后找出行列式为0时的情况。
 
 $$
 \begin{aligned}
@@ -252,18 +359,26 @@ $$
 \end{aligned}
 $$
 
-In this case, you get the polynomial $\lambda^2 + 1$. The only roots of this polynomial are the imaginary numbers $i$ and $-i$. The fact that there are no real number solutions indicates that there are no eigenvectors.
+In this case, you get the polynomial $\lambda^2 + 1$. The only roots of this polynomial are the imaginary numbers $i$ and $-i$. The fact that there are no real number solutions indicates that there are no eigenvectors.  
+在这种情况下，得到的多项式是$\lambda^2 + 1$。该多项式的唯一根是虚数$i$和$-i$。  
+由于不存在实数解，因此也就不存在特征向量。
 
-### Shear
+### Shear 剪切
 
-Another interesting example is a shear. This fixes $\hat{\imath}$ in place, and moves $\hat{\jmath}$ one over, so its matrix is $\left[\begin{array}{c} 1 & 1 \\ 0 & 1\end{array}\right]$.
+Another interesting example is a shear. This fixes $\hat{\imath}$ in place, and moves $\hat{\jmath}$ one over, so its matrix is $\left[\begin{array}{c} 1 & 1 \\ 0 & 1\end{array}\right]$.  
+另一个有趣的例子是剪切变换。  
+它将 $\hat{\imath}$ 固定不动，而将 $\hat{\jmath}$ 向右移动一位，因此其矩阵为 $\left[\begin{array}{c} 1 & 1 \\0 & 1\end{array}\right]$ 。
 
 <Figure
   image="$lesson/figures/notes-on-computation/ShearTransformation.light.svg"
   video="$lesson/figures/notes-on-computation/ShearTransformation.light.mp4"
 />
 
-All the vectors on the $x$-axis are eigenvectors with eigenvalue $1$, since they remain fixed in place. In fact these are the only eigenvectors. When you subtract $\lambda$ from the diagonals and compute the determinant, you get $(1-\lambda)^2$, and the only root of that expression is $\lambda = 1$.
+All the vectors on the $x$-axis are eigenvectors with eigenvalue $1$, since they remain fixed in place. In fact these are the only eigenvectors. When you subtract $\lambda$ from the diagonals and compute the determinant, you get $(1-\lambda)^2$, and the only root of that expression is $\lambda = 1$.  
+ $x$ 轴上的所有向量都是特征值为$1$的特征向量，因为它们保持不动。  
+实际上这些就是唯一的特征向量。  
+当从对角线元素中减去 $\lambda$ 并计算行列式时，结果为 $(1-\lambda)^2$，  
+而该表达式的唯一根就是 $\lambda = 1$。
 
 $$
 \operatorname{det}\left(\left[\begin{array}{cc}
@@ -272,16 +387,20 @@ $$
 \end{array}\right]\right)=\underbrace{(1-\lambda)(1-\lambda)=0}_{\lambda=1}
 $$
 
-This lines up with what we see geometrically that all the eigenvectors have eigenvalue $1$.
+This lines up with what we see geometrically that all the eigenvectors have eigenvalue $1$.  
+这与我们从几何上观察到的结果一致，即所有特征向量的特征值均为$1$。
 
 <Figure
   image="$lesson/figures/notes-on-computation/ShearTransformationEigenvectors.light.svg"
   video="$lesson/figures/notes-on-computation/ShearTransformationEigenvectors.light.mp4"
 />
 
-### Scaling
+### Scaling 
 
-It's also possible to have just one eigenvalue with more than just a line full of eigenvectors. A simple example is the matrix which scales everything by $2$. The only eigenvalue is $2$, but every vector in the plane gets to be an eigenvector with that eigenvalue.
+It's also possible to have just one eigenvalue with more than just a line full of eigenvectors. A simple example is the matrix which scales everything by $2$. The only eigenvalue is $2$, but every vector in the plane gets to be an eigenvector with that eigenvalue.  
+也有可能存在只有一个特征值，但对应的特征向量却不止一列。  
+一个简单的例子就是将所有元素都乘以2的矩阵。  
+它的唯一特征值是2，但平面上的每一个向量都可以成为该特征值的特征向量。
 
 <Figure
   image="$lesson/figures/notes-on-computation/ScalingTransformation.light.svg"
@@ -290,12 +409,14 @@ It's also possible to have just one eigenvalue with more than just a line full o
   Scale everything by $2$.
 </Figure>
 
-Now is another good time to pause and ponder some of this.
+Now is another good time to pause and ponder some of this.  
+现在又是停下来思考这些问题的好时机。
 
 ### Questions
 
 <Question
-  question="What is the eigenvalue(s) of the matrix $\left[\begin{array}{cc}3 & 2 \\ 2 & 3\end{array}\right]$?"
+  question="What is the eigenvalue(s) of the matrix $\left[\begin{array}{cc}3 & 2 \\ 2 & 3\end{array}\right]$?  
+  矩阵$\left[\begin{array}{cc}3 & 2 \\ 2 & 3\end{array}\right]$的特征值是什么？"
   choice1="$3$"
   choice2="$5$"
   choice3="$5$ and $1$"
@@ -320,8 +441,9 @@ $$
 </Question>
 
 <Question
-  question="What is the eigenvalue(s) of the matrix $\left[\begin{array}{cc}2 & 1 \\ -1 & 2\end{array}\right]$?"
-  choice1="There are no real eigenvalues."
+  question="What is the eigenvalue(s) of the matrix $\left[\begin{array}{cc}2 & 1 \\ -1 & 2\end{array}\right]$?  
+  矩阵$\left[\begin{array}{cc}2 & 1 \\ -1 & 2\end{array}\right]$的特征值是什么？​"
+  choice1="There are no real eigenvalues. 不存在实特征值 "
   choice2="$2$"
   choice3="$3$ and $1$"
   choice4="$1$"
@@ -343,12 +465,14 @@ $$
 \end{aligned}
 $$
 
-The fact that there are no real number solutions indicates that there are no eigenvectors.
+The fact that there are no real number solutions indicates that there are no eigenvectors.  
+不存在实数解这一事实表明不存在特征向量。
 
 </Question>
 
 <Question
-  question="What is the eigenvalue(s) of the matrix $\left[\begin{array}{cc}-2 & 1 \\ 0 & -2\end{array}\right]$?"
+  question="What is the eigenvalue(s) of the matrix $\left[\begin{array}{cc}-2 & 1 \\ 0 & -2\end{array}\right]$?  
+  矩阵$\left[\begin{array}{cc}-2 & 1 \\ 0 & -2\end{array}\right]$的特征值是什么？​"
   choice1="There are none."
   choice2="$2$"
   choice3="$3$"
@@ -374,18 +498,25 @@ $$
 
 <section>
 
-## Working in an eigenbasis
+## Working in an eigenbasis 在本征基下工作
 
-Let's finish off here with the idea of an eigenbasis, which relies heavily on ideas from the last chapter.
+Let's finish off here with the idea of an eigenbasis, which relies heavily on ideas from the last chapter.  
+让我们在这里结束关于特征基的讨论，这一概念在很大程度上依赖于上一章中的内容。
 
-Take a look at what happens if our basis vectors happen to be eigenvectors. For example, maybe $\hat{\imath}$ is scaled by $-1$, and $\hat{\jmath}$ is scaled by $2$. Writing their new coordinates as columns of a matrix, notice that those scalar multiples $-1$ and $2$, which are the eigenvalues of $\hat{\imath}$ and $\hat{\jmath}$, are on the diagonal, and all other entries are $0$.
+Take a look at what happens if our basis vectors happen to be eigenvectors. For example, maybe $\hat{\imath}$ is scaled by $-1$, and $\hat{\jmath}$ is scaled by $2$. Writing their new coordinates as columns of a matrix, notice that those scalar multiples $-1$ and $2$, which are the eigenvalues of $\hat{\imath}$ and $\hat{\jmath}$, are on the diagonal, and all other entries are $0$.  
+让我们看看当我们的基向量恰好是特征向量时会发生什么。  
+例如，假设 $\hat{\imath}$ 被缩放为 $-1$ ，而 $\hat{\jmath}$ 被缩放为 $2$ 。  
+将它们新的坐标作为矩阵的列，可以发现，  
+作为 $\hat{\imath}$ 和 $\hat{\jmath}$ 的特征值的 $-1$ 和 $2$ 位于对角线上，其余所有元素均为$0$。
 
 <Figure
   image="$lesson/figures/working-in-an-eigenbasis/BothBasisVectorsAreEigenvectors.light.svg"
   video="$lesson/figures/working-in-an-eigenbasis/BothBasisVectorsAreEigenvectors.light.mp4"
 />
 
-Any time a matrix has zeros everywhere other than the diagonal, it's called a "diagonal matrix", and the way to interpret it is that all the basis vectors are eigenvectors, and the diagonal entries of the matrix give you their corresponding eigenvalues.
+Any time a matrix has zeros everywhere other than the diagonal, it's called a "diagonal matrix", and the way to interpret it is that all the basis vectors are eigenvectors, and the diagonal entries of the matrix give you their corresponding eigenvalues.  
+当一个矩阵的对角线以外的所有位置均为零时，它就被称为“对角矩阵”​。  
+其含义是所有的基向量都是特征向量，而矩阵的对角线元素则对应着这些特征向量的特征值。
 
 $$
 \left[\begin{array}{cccc}
@@ -396,7 +527,9 @@ $$
 \end{array}\right]
 $$
 
-There are a number of things that make diagonal matrices nicer to work with. One big one is that it's easier to compute what will happen if you multiply this matrix by itself a whole bunch of times.
+There are a number of things that make diagonal matrices nicer to work with. One big one is that it's easier to compute what will happen if you multiply this matrix by itself a whole bunch of times.  
+有许多因素使得对角矩阵更便于处理。  
+其中一个重要原因是，若将这样的矩阵多次相乘，其结果会更容易计算。
 
 $$
 \begin{aligned}
@@ -446,7 +579,9 @@ y
 \end{aligned}
 $$
 
-Since all one of these matrices does is scale each basis vector by some eigenvalue, applying that matrix, say, 100 times will just correspond to scaling each basis vector by the 100th power of the corresponding eigenvalue.
+Since all one of these matrices does is scale each basis vector by some eigenvalue, applying that matrix, say, 100 times will just correspond to scaling each basis vector by the 100th power of the corresponding eigenvalue.  
+由于这些矩阵的作用仅仅是用某个特征值来缩放每个基向量，因此将该矩阵应用100次，  
+就相当于用相应特征值的100次方来缩放每个基向量。
 
 $$
 
@@ -478,37 +613,58 @@ y
 
 $$
 
-By contrast, consider how hard computing the 100th power of a non-diagonal matrix would be. Really, think about it for a moment, compared to simply exponentiating the entries it's a nightmare!
+By contrast, consider how hard computing the 100th power of a non-diagonal matrix would be. Really, think about it for a moment, compared to simply exponentiating the entries it's a nightmare!  
+相比之下，试想计算一个非对角矩阵的100次幂会有多困难。  
+真的，花点时间想想吧—与直接对矩阵中的元素取幂相比，这简直就是一场噩梦！
 
-### Change of basis
+### Change of basis 基变换
 
-Of course, you will rarely be so lucky as to have your basis vectors also be eigenvectors. But if your transformation has lots of eigenvectors, enough that you can choose a set that spans the full space, then you can change your coordinate system so that these eigenvectors are your basis vectors.
+Of course, you will rarely be so lucky as to have your basis vectors also be eigenvectors. But if your transformation has lots of eigenvectors, enough that you can choose a set that spans the full space, then you can change your coordinate system so that these eigenvectors are your basis vectors.  
+    当然，你很少会有这么幸运的情况：让你的基向量同时也是特征向量。  
+    但如果你的变换具有大量特征向量，多到足以让你挑选出一组能张成整个空间的向量，  
+    那么你就可以改变坐标系，让这些特征向量成为新的基向量。
 
 <Figure
   image="$lesson/figures/working-in-an-eigenbasis/UseEigenVectorsAsBasis.light.svg"
   video="$lesson/figures/working-in-an-eigenbasis/UseEigenVectorsAsBasis.light.mp4"
 />
 
-We talked all about change of basis in the <LessonLink id="change-of-basis">last chapter</LessonLink>, but let's go through a super quick reminder here of how to express a transformation in a different coordinate system.
+We talked all about change of basis in the <LessonLink id="change-of-basis">last chapter</LessonLink>, but let's go through a super quick reminder here of how to express a transformation in a different coordinate system.  
+在上一章中我们讨论了基变换的所有内容，但在这里简单回顾一下如何用不同的坐标系来表示变换。
 
-Take the coordinates of the vectors you want to use as a basis, which in our cases means two eigenvectors, then make those coordinates the columns of a matrix, known as the change of basis matrix. When you sandwich the original transformation, putting the change of basis matrix on its right and the inverse change of basis matrix on its left, the result will be a matrix representing this same transformation, but from the perspective of the new basis vector's coordinate system.
+Take the coordinates of the vectors you want to use as a basis, which in our cases means two eigenvectors, then make those coordinates the columns of a matrix, known as the change of basis matrix. When you sandwich the original transformation, putting the change of basis matrix on its right and the inverse change of basis matrix on its left, the result will be a matrix representing this same transformation, but from the perspective of the new basis vector's coordinate system.  
+选取那些希望用作基的向量的坐标，在我们的例子中即两个特征向量，  
+然后将这些坐标作为矩阵的列，该矩阵被称为基变换矩阵。  
+将原始变换置于中间，基变换矩阵放在其右侧，逆基变换矩阵放在其左侧，  
+这样得到的矩阵就会表示同样的变换，只不过是从新基向量坐标系的角度来看的。
 
 <Figure
   image="$lesson/figures/working-in-an-eigenbasis/UseEigenVectorsAsBasisSandwich.light.svg"
   video="$lesson/figures/working-in-an-eigenbasis/UseEigenVectorsAsBasisSandwich.light.mp4"
 />
 
-The whole point of doing this with eigenvectors is that this new matrix is guaranteed to be diagonal, with the corresponding eigenvalues down the diagonal, since this represents working in a coordinate system where basis vectors just get scaled during the transformation.
+The whole point of doing this with eigenvectors is that this new matrix is guaranteed to be diagonal, with the corresponding eigenvalues down the diagonal, since this represents working in a coordinate system where basis vectors just get scaled during the transformation.  
+使用特征向量来做到这一点的关键在于，新的矩阵必定是対角矩阵，对应的特征值位于对角线上，  
+因为这代表着在这样一种坐标系中工作：基向量在变换过程中仅会发生缩放。
 
 <Figure image="$lesson/figures/working-in-an-eigenbasis/ChangeOfBasisMatrix.light.svg" />
 
-A set of basis vectors which are all also eigenvectors is called an "eigenbasis". For example, if you needed to compute the 100th power of this matrix, it would be much easier to change to an eigenbasis, compute the 100th power in that system, then convert back to the standard system. You can't do this with all transformations. A shear, for example, doesn't have enough eigenvectors to span all of space. But if you can find an eigenbasis, it can make matrix operations really lovely.
+A set of basis vectors which are all also eigenvectors is called an "eigenbasis". For example, if you needed to compute the 100th power of this matrix, it would be much easier to change to an eigenbasis, compute the 100th power in that system, then convert back to the standard system. You can't do this with all transformations. A shear, for example, doesn't have enough eigenvectors to span all of space. But if you can find an eigenbasis, it can make matrix operations really lovely.  
+一组既都是特征向量又是基向量的集合被称为“特征基”​。  
+例如，如果需要计算该矩阵的100次方，  
+转换为特征基后在该体系中计算100次方，然后再转换回标准体系，会容易得多。  
+并非所有的变换都能这样做。比如剪切变换就没有足够的特征向量来张成整个空间。  
+但一旦找到了特征基，就能让矩阵运算变得极为简洁高效
 
-For anyone willing to work through a neat puzzle to see what this looks like in action, and how it can be used to produce surprising results, we'll put the puzzle prompt below. It's a bit of work, but we think you'll enjoy it.
+For anyone willing to work through a neat puzzle to see what this looks like in action, and how it can be used to produce surprising results, we'll put the puzzle prompt below. It's a bit of work, but we think you'll enjoy it.  
+对于那些愿意认真解答这个有趣的谜题，  
+看看其实际应用效果以及如何借此获得惊人结果的人，  
+我们将在下方给出谜题提示。  
+虽然需要一些功夫，但我们认为你会乐在其中。
 
-<Collapsible title="Show puzzle">
+<Collapsible title="Show puzzle 展示谜题">
 
-Take the following matrix:
+Take the following matrix: 有以下矩阵: 
 
 $$
 A=\left[\begin{array}{ll}
@@ -517,9 +673,13 @@ A=\left[\begin{array}{ll}
 \end{array}\right]
 $$
 
-Start computing its first few powers by hand: $A^2, A^3$, etc. What pattern do you see? Can you explain why this pattern shows up? This might make you curious to know if there's an efficient way to compute arbitrary powers of this matrix, $A^n$ for any number $n$.
+Start computing its first few powers by hand: $A^2, A^3$, etc. What pattern do you see? Can you explain why this pattern shows up? This might make you curious to know if there's an efficient way to compute arbitrary powers of this matrix, $A^n$ for any number $n$.  
+先手动计算它的前几项幂：$A^2, A^3$ 等。你发现了什么规律？  
+能解释为什么会出现这种规律吗？  
+这可能会让你好奇，是否有一种高效的方法可以计算该矩阵的任意次幂，  
+即对于任意数$n$，计算$A^n$。
 
-Given that two eigenvectors of this matrix are
+Given that two eigenvectors of this matrix are 已知该矩阵的两个特征向量是
 
 $$
 \overrightarrow{\mathbf{v}}_1=\left[\begin{array}{c}
@@ -531,15 +691,18 @@ $$
 \end{array}\right],
 $$
 
-see if you can figure out a way to compute $A^n$ by first changing to an eigenbasis, compute the new representation of $A^n$ in that basis, then converting back to our standard basis. What does this formula tell you?
+see if you can figure out a way to compute $A^n$ by first changing to an eigenbasis, compute the new representation of $A^n$ in that basis, then converting back to our standard basis. What does this formula tell you?  
+看看你是否能够找到一种方法：  
+先转换到特征基，在该基中计算 $A^n$ 的新表示形式，  
+然后再转换回我们的标准基。这个公式能告诉你什么？
 
 </Collapsible>
 
-<Collapsible title="Show puzzle solution">
+<Collapsible title="Show puzzle solution 显示谜题答案">
 
-### Eigenvector puzzle solution
+### Eigenvector puzzle solution 特征向量谜题解答
 
-In the puzzle we were given the following matrix,
+In the puzzle we were given the following matrix, 特征向量谜题解答
 
 $$
 \begin{align*}
@@ -552,7 +715,8 @@ $$
 \end{align*}
 $$
 
-and we were asked to compute several powers of this matrix. Taking the time to work out the first few, here's what we get.
+and we were asked to compute several powers of this matrix. Taking the time to work out the first few, here's what we get.  
+我们被要求计算这个矩阵的若干次幂。花时间算出了前几项，结果如下。
 
 $$
 \begin{align*}
@@ -649,9 +813,19 @@ $$
 \end{align*}
 $$
 
-Two things stand out as we do this. First, this process is tedious! Finding matrix powers is no fun, and the prospect of finding something like $A^{100}$ feels truly horrifying. And even if you have a computer to evaluate this for you, finding matrix powers simply by repeating matrix multiplication stands to be very computationally inefficient, especially for large matrices. Switching to an eigenbasis, as you are about to see, can greatly speed up the process, both for doodling humans and number-crunching machines.
+Two things stand out as we do this. First, this process is tedious! Finding matrix powers is no fun, and the prospect of finding something like $A^{100}$ feels truly horrifying. And even if you have a computer to evaluate this for you, finding matrix powers simply by repeating matrix multiplication stands to be very computationally inefficient, especially for large matrices. Switching to an eigenbasis, as you are about to see, can greatly speed up the process, both for doodling humans and number-crunching machines.  
+在开展这项工作时，有两点尤为突出。  
+首先，这个过程极其繁琐！  
+计算矩阵的幂次实在不是件有趣的事，而要计算像$A^{100}$这样的数值更是让人望而却步。  
+即便有计算机来帮忙计算，  
+仅通过反复进行矩阵乘法来求矩阵幂次也会显得效率极低，尤其是对于大型矩阵而言。  
+正如你即将看到的，转为使用特征基可以大大加快这一过程的速度，  
+无论是对人类还是计算机器来说都是如此。
 
-The second thing that stands out is that the terms in side our matrix appear to be following the Fibonacci sequence! $1, 1, 2, 3, 5, 8, 13, \dots$ There's actually a good reason for this. Notice how this matrix acts on an arbitrary vector:
+The second thing that stands out is that the terms in side our matrix appear to be following the Fibonacci sequence! $1, 1, 2, 3, 5, 8, 13, \dots$ There's actually a good reason for this. Notice how this matrix acts on an arbitrary vector:  
+第二个值得注意的点是，我们矩阵中的各项似乎遵循斐波那契数列！  
+$1, 1, 2,3, 5, 8, 13, \dots$ 这其实是有原因的。  
+观察一下这个矩阵对任意向量的作用：
 
 $$
 \begin{align*}
@@ -676,7 +850,10 @@ $$
 \end{align*}
 $$
 
-So the second component of the input, $b$, vector gets shifted to be the first component of the output, and the second component of the output becomes the sum of $a$ and $b$. For example, think of applying that process repeatedly to a given vector:
+So the second component of the input, $b$, vector gets shifted to be the first component of the output, and the second component of the output becomes the sum of $a$ and $b$. For example, think of applying that process repeatedly to a given vector:  
+因此，输入向量的第二个分量$b$会变为输出向量的第一个分量，  
+而输出向量的第二个分量则变为$a$与$b$之和。  
+例如，可以想象将这一过程反复应用于某个给定的向量：
 
 $$
 \begin{align*}
@@ -731,11 +908,18 @@ $$
 \end{align*}
 $$
 
-This iterative process perfectly capture the one defining the Fibonacci sequence: Each term is the sum of the previous two terms.
+This iterative process perfectly capture the one defining the Fibonacci sequence: Each term is the sum of the previous two terms.  
+这一迭代过程完美地体现了定义斐波那契数列的规律：每一项都是前两项之和。
 
-Since multiplying the matrix $A^n$ by a vector corresponds to going through this process $n$ times, figuring out how to represent $A^n$ can lead us to an explicit formula for the $n$th Finbonacci term. I don't know about you, but I find that awesome! Well, maybe it's not obvious that a clean formula for $A^n$ is achievable, but this is where eigenvectors come in.
+Since multiplying the matrix $A^n$ by a vector corresponds to going through this process $n$ times, figuring out how to represent $A^n$ can lead us to an explicit formula for the $n$th Finbonacci term. I don't know about you, but I find that awesome! Well, maybe it's not obvious that a clean formula for $A^n$ is achievable, but this is where eigenvectors come in.  
+由于将矩阵 $A^n$ 与一个向量相乘相当于执行 $n$ 次这样的运算过程，  
+因此找到表示 $A^n$ 的方法就能让我们得到第 $n$ 个斐波那契数的显式公式。  
+我不知道你们怎么想，但我觉得这太棒了！  
+当然，要得到 $A^n$ 的简洁公式可能并非显而易见，但这时特征向量就派上用场了。
 
-We can find the eigenvalues of this matrix by subtracting a variable $\lambda$ off the diagonal, and computing when its determinant is 0:
+We can find the eigenvalues of this matrix by subtracting a variable $\lambda$ off the diagonal, and computing when its determinant is 0:  
+       我们可以通过在矩阵的对角线上减去一个变量$\lambda$，  
+       然后计算其行列式何时为0，从而找到该矩阵的特征值。
 
 $$
 \begin{align*}
@@ -750,7 +934,7 @@ $$
 \end{align*}
 $$
 
-This quadratic has two solutions:
+This quadratic has two solutions: 这个二次方程有两个解：
 
 $$
 \begin{align*}
@@ -759,9 +943,12 @@ $$
 \end{align*}
 $$
 
-Some of you may recognize the first of these as the golden ratio $\varphi = 1.618\dots$, and the second as $-\frac{1}{\varphi} = -0.618\dots$.
+Some of you may recognize the first of these as the golden ratio $\varphi = 1.618\dots$, and the second as $-\frac{1}{\varphi} = -0.618\dots$.  
+你们中有些人可能会认出第一个数是黄金比例$\varphi = 1.618\dots$，  
+而第二个数则是$-\frac{1}{\varphi} = -0.618\dots$。
 
-To find the eigenvectors, you find a non-zero solution to the equation
+To find the eigenvectors, you find a non-zero solution to the equation  
+要找到特征向量，就需要求出该方程的非零解。
 
 $$
 \begin{align*}
@@ -786,7 +973,8 @@ $$
 \end{align*}
 $$
 
-Doing so, you'll find that the eigenvectors corresponding to $\lambda_1$ and $\lambda_2$ are
+Doing so, you'll find that the eigenvectors corresponding to $\lambda_1$ and $\lambda_2$ are  
+这样做的话，你会发现对应于 $\lambda_1$ 和 $\lambda_2$ 的特征向量是
 
 $$
 \begin{align*}
@@ -805,9 +993,20 @@ $$
 \end{align*}
 $$
 
-Why are we doing this? Well, think about what it means for $\textbf{v}_1$ to be an eigenvector of $A$. It means multiplying $A$ by $\textbf{v}_1$ just has the effect of scaling it by a constant, namely the eigenvalue $\lambda_1$. So repeatedly multiplying $A$ by this vector, say $100$ times, just has the effect of scaling this vector by $\lambda_1^{100}$. So, if we switch to a coordinate system where the two eigenvalues are our basis, the action $A^n$ will have a very simple form, since its effect on the basis vectors would simply be multiplying by $\lambda_1^n$ and $\lambda_2^n$.
+Why are we doing this? Well, think about what it means for $\textbf{v}_1$ to be an eigenvector of $A$. It means multiplying $A$ by $\textbf{v}_1$ just has the effect of scaling it by a constant, namely the eigenvalue $\lambda_1$. So repeatedly multiplying $A$ by this vector, say $100$ times, just has the effect of scaling this vector by $\lambda_1^{100}$. So, if we switch to a coordinate system where the two eigenvalues are our basis, the action $A^n$ will have a very simple form, since its effect on the basis vectors would simply be multiplying by $\lambda_1^n$ and $\lambda_2^n$.  
+我们为什么要这么做呢？其实，想想$\textbf{v}_1$是$A$的特征向量意味着什么。  
+这意味着用$A$乘以$\textbf{v}_1$只是将其按一个常数—也就是特征值$\lambda_1$—进行缩放。  
+所以，如果反复用这个向量乘以$A$，比如乘100次，  
+那就相当于将这个向量按$\lambda_1^{100}$的倍数进行缩放。  
+因此，如果我们换到一个以这两个特征值为基的坐标系，  
+那么 $A^n$ 的作用形式就会非常简单，  
+因为它对基向量的作用仅仅是分别乘以$\lambda_1^n$和$\lambda_2^n$而已。
 
-So...how do you switch to a different basis? If you'll recall from the last lesson, a matrix whose columns are the vectors $\textbf{v}_1$ and $\textbf{v}_2$ can be thought of as translating a coordinates describing a certain vector in the language of that basis system into a description of that same vector in our basis. That is, define the matrix
+So...how do you switch to a different basis? If you'll recall from the last lesson, a matrix whose columns are the vectors $\textbf{v}_1$ and $\textbf{v}_2$ can be thought of as translating a coordinates describing a certain vector in the language of that basis system into a description of that same vector in our basis. That is, define the matrix  
+那么……要如何转换到另一个基呢？如果还记得上一课的内容，  
+以向量$\textbf{v}_1$和$\textbf{v}_2$作为列的矩阵，  
+可以被视为将该基系中描述某个向量的坐标转换为我们基系中描述同一个向量的坐标。  
+也就是说，定义该矩阵
 
 $$
 \begin{align*}
@@ -820,7 +1019,10 @@ $$
 \end{align*}
 $$
 
-Then $S$ is the change of basis matrix which has the effect of taking in a vector written in the coordinates of the eigenbasis, and spitting out the coordinates for that same vector in our standard basis. So to take the action of the matrix $A$, and write it in the language of the eigenbasis, we'd write an expression like this:
+Then $S$ is the change of basis matrix which has the effect of taking in a vector written in the coordinates of the eigenbasis, and spitting out the coordinates for that same vector in our standard basis. So to take the action of the matrix $A$, and write it in the language of the eigenbasis, we'd write an expression like this:  
+   那么 $S$ 就是基变换矩阵，  
+   它的作用是将用特征基坐标表示的向量转换成用标准基坐标表示的向量。  
+   因此，若要表示矩阵$A$的作用，并用特征基的语言来表达，我们会写出这样的公式：
 
 $$
 \begin{align*}
@@ -828,9 +1030,14 @@ $$
 \end{align*}
 $$
 
-You might read the right side here as saying first translate from the language of the eigenbasis to our basis, then apply A, then translate back. The resulting matrix $D$ will represent the same transformation as $A$, just in the language of the eigenbasis. The whole point of doing this is to make it so that the action of $A$ just looks like stretching two basis vectors. Let's see how that plays out!
+You might read the right side here as saying first translate from the language of the eigenbasis to our basis, then apply A, then translate back. The resulting matrix $D$ will represent the same transformation as $A$, just in the language of the eigenbasis. The whole point of doing this is to make it so that the action of $A$ just looks like stretching two basis vectors. Let's see how that plays out!  
+   你可能会将这里的右侧内容理解为：  
+   先从特征基的语言转换为我们的基的语言，然后应用A，再转换回去。  
+   得到的矩阵$D$将表示与$A$相同的变换，只不过是用特征基的语言来表示的。  
+   这样做的主要目的就是让$A$的作用看起来就像是在拉伸两个基向量。
+     让我们看看具体效果如何！
 
-The inverse of $S$ is
+The inverse of $S$ is $S$ 的逆是
 
 $$
 \begin{align*}
@@ -857,7 +1064,7 @@ $$
 \end{align*}
 $$
 
-Crunching through it all, we then get
+Crunching through it all, we then get 经过仔细分析，我们最终得到了
 
 $$
 \begin{align*}
@@ -911,7 +1118,11 @@ $$
 \end{align*}
 $$
 
-We actually could have concluded this ahead of time, since the action of $A$ on the first eigenvector is to scale it by $\lambda_1 = \frac{1}{2}(1 + \sqrt{5})$, and its action on the second basis vector is to scale it by $\lambda_1 = \frac{1}{2}(1 - \sqrt{5})$. Nevertheless, it's nice to get a little computational confirmation now and then.
+We actually could have concluded this ahead of time, since the action of $A$ on the first eigenvector is to scale it by $\lambda_1 = \frac{1}{2}(1 + \sqrt{5})$, and its action on the second basis vector is to scale it by $\lambda_1 = \frac{1}{2}(1 - \sqrt{5})$. Nevertheless, it's nice to get a little computational confirmation now and then.  
+其实我们本可以提前得出这个结论，  
+因为$A$对第一个特征向量的作用是将其按$\lambda_1 = \frac{1}{2}(1 + \sqrt{5})$进行缩放，  
+而对第二个基向量的作用则是按$\lambda_1 = \frac{1}{2}(1 - \sqrt{5})$进行缩放。  
+不过，偶尔通过计算来验证一下也是不错的。
 
 Okay, final stretch! This means in the eigenbases, the action of our transformation $n$ times is simply
 
@@ -933,7 +1144,9 @@ $$
 \end{align*}
 $$
 
-Compare that to how it felt to compute the first few powers of $A^n$, much easier! Of course, this is all in coordinate system of the eigenbasis, so to translate back to our coordinate system, we have
+Compare that to how it felt to compute the first few powers of $A^n$, much easier! Of course, this is all in coordinate system of the eigenbasis, so to translate back to our coordinate system, we have  
+将其与计算$A^n$的最初几项幂时的感受相比，后者要容易得多！  
+当然，这一切都是在特征基的坐标系中进行的，因此要转换回我们的坐标系，我们需要
 
 $$
 \begin{align*}
@@ -960,7 +1173,10 @@ $$
 \end{align*}
 $$
 
-This can be a written a little more nicely if we notice the occurrence of $\lambda_1 = \frac{1}{2}(1 + \sqrt{5})$ and $\lambda_2 = \frac{1}{2}(1 - \sqrt{5})$ in the change of basis matrices, and pull the $\frac{1}{\sqrt{5}}$ term to the front. Also, in doing the calculuation, I'll take advantage of the convenient fact that $\lambda_1\lambda_2 = -1$
+This can be a written a little more nicely if we notice the occurrence of $\lambda_1 = \frac{1}{2}(1 + \sqrt{5})$ and $\lambda_2 = \frac{1}{2}(1 - \sqrt{5})$ in the change of basis matrices, and pull the $\frac{1}{\sqrt{5}}$ term to the front. Also, in doing the calculuation, I'll take advantage of the convenient fact that $\lambda_1\lambda_2 = -1$  
+如果我们注意到在基变换矩阵中出现了$\lambda_1 = \frac{1}{2}(1 +\sqrt{5})$和$\lambda_2 = \frac{1}{2}(1 - \sqrt{5})$，  
+并将$\frac{1}{\sqrt{5}}$项提到最前面，那么这个表达式就可以写得更简洁一些。  
+此外，在进行计算时，我会利用$\lambda_1\lambda_2 = -1$这一便利性质。
 
 $$
 \begin{align*}
@@ -1018,7 +1234,8 @@ $$
 \end{align*}
 $$
 
-If you compare this to the first few computations we did for $A^n$ at the start, this gives us a very striking formula. The $n$th Fibonacci number has the formula
+If you compare this to the first few computations we did for $A^n$ at the start, this gives us a very striking formula. The $n$th Fibonacci number has the formula  
+如果将此与我们最初为$A^n$所做的前几次计算相比，就会得到一个非常惊人的公式。第$n$个斐波那契数的公式为
 
 $$
 \begin{align*}
@@ -1027,10 +1244,12 @@ $$
 \end{align*}
 $$
 
-It's not even obvious that this expression should give a rational expression, much less the Fibonacci numbers!
+It's not even obvious that this expression should give a rational expression, much less the Fibonacci numbers!  
+甚至都无法确定这个表达式是否会给出有理表达式，更不用说斐波那契数了！
 
 </Collapsible>
 
-The next chapter is about a quick trick for computing eigenvalues before the final chapter of the series on abstract vector spaces.
+The next chapter is about a quick trick for computing eigenvalues before the final chapter of the series on abstract vector spaces.  
+下一章将介绍在抽象向量空间系列的最后章节之前，用于快速计算特征值的一个技巧。
 
 </section>

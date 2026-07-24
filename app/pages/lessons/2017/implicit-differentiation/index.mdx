@@ -1,13 +1,13 @@
 ---
-title: Implicit differentiation, what's going on here?
-description: How to think about implicit differentiation in terms of functions with multiple inputs, and tiny nudges to those inputs.
+title: Implicit differentiation, what's going on here? 隐函数求导，这里发生了什么？
+description: How to think about implicit differentiation in terms of functions with multiple inputs, and tiny nudges to those inputs.  如何从具有多个输入的函数以及对这些输入的微小扰动角度来理解隐函数求导。
 date: 2017-05-03
 chapter: 7
 video: qb40J4N1fa4
 source: _2017/eoc/chapter6.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Figure from "~/components/Figure";
@@ -16,68 +16,111 @@ import Quote from "~/components/Quote";
 
 <section>
 
-<Quote name="Errett Bishop">
-  Do not ask whether a statement is true until you know what it means.
+<Quote name="Errett Bishop 埃雷特·毕晓普">
+  Do not ask whether a statement is true until you know what it means.   
+  在明白某句话的含义之前，不要去问它是否正确。
 </Quote>
 
-Let me share with you something I found particularly weird when I was a student first learning calculus.
+Let me share with you something I found particularly weird when I was a student first learning calculus.  
+让我和大家分享一下我当初学习微积分时觉得特别奇怪的事情。
 
 </section>
 
 <section>
 
-## Implicit Curves
+## Implicit Curves   隐式曲线
 
-Let's say you have a circle with radius $5$ centered at the origin of the $xy$-coordinate plane. This shape is defined using the equation $x^2 + y^2 = 5^2$. That is, all points on this circle are a distance $5$ from the origin, as encapsulated by the pythagorean theorem where the sum of the squares of the legs of this triangle equals the square of the hypotenuse, $5^2$.
+Let's say you have a circle with radius $5$ centered at the origin of the $xy$-coordinate plane. This shape is defined using the equation $x^2 + y^2 = 5^2$. That is, all points on this circle are a distance $5$ from the origin, as encapsulated by the pythagorean theorem where the sum of the squares of the legs of this triangle equals the square of the hypotenuse, $5^2$.  
+假设你有一个半径为5的圆，其圆心位于xy坐标平面的原点。  
+这个图形可以用方程$x^2 + y^2 = 5^2$来表示。  
+也就是说，圆上的所有点到原点的距离都是5，  
+这符合勾股定理——即该三角形两直角边的平方和等于斜边的平方，也就是$5^2$。
 
 <Figure image="$lesson/figures/circle-radius-5.svg" />
 
 {/* TODO: add animation of point traveling around perimeter of circle */}
 
-And suppose you want to find the slope of a tangent line to this circle, maybe at the point $(x, y) = (3, 4)$.
+And suppose you want to find the slope of a tangent line to this circle, maybe at the point $(x, y) = (3, 4)$.  
+假设你想求出该圆在点$(x, y) = (3, 4)$处的切线斜率。
 
 <Figure image="$lesson/figures/circle-tangent-line.svg" />
 
-Now, if you're savvy with geometry, you might already know that this tangent line is perpendicular to the radius line touching that point. But let's say you don't already know that, or that you want a technique that generalizes to curves other than circles.
+Now, if you're savvy with geometry, you might already know that this tangent line is perpendicular to the radius line touching that point. But let's say you don't already know that, or that you want a technique that generalizes to curves other than circles.  
+现在，如果你熟悉几何学，或许已经知道这条切线与经过该点的半径线垂直。  
+但假设你还不知道这一点，或者你想找到一种适用于圆以外曲线的通用方法。
 
-As with other problems about the slopes of tangent lines to curves, they key thought here is to zoom in close enough that the curve basically looks just like its own tangent line, then ask about a tiny step along that curve.
+As with other problems about the slopes of tangent lines to curves, they key thought here is to zoom in close enough that the curve basically looks just like its own tangent line, then ask about a tiny step along that curve.  
+     与其他关于曲线切线斜率的问题一样，这里的关键思路是放大到足够近的程度，  
+     使得曲线看起来几乎与其自身的切线相同，然后再考虑沿该曲线走的一小段距离。
 
 <Figure image="$lesson/figures/circle-tangent-line-step-detail.svg">
   The $y$-component of that little step *along the curve* is what you might call
   $dy$, and the $x$-component is a little $dx$, so the slope that we want is the
-  rise over run $dy/dx$.
+  rise over run $dy/dx$.  
+  这个*沿曲线*的小步长  
+  的 $y$ 分量可以称为 $dy$，  
+  而 $x$ 分量则是一个小 $dx$，  
+  因此我们想要的斜率就是垂直距离除以水平距离，即 $dy/dx$。
 </Figure>
 
-But unlike other tangent-slope problems in calculus, this curve is not the graph of a function. We cannot take a simple derivative, like we have in the past, by asking about the size of a tiny nudge to the output of a function caused by some tiny nudge to the input. In the equation $x$ is not an input and $y$ is not an output, they're both just interdependent values related by some equation.
+But unlike other tangent-slope problems in calculus, this curve is not the graph of a function. We cannot take a simple derivative, like we have in the past, by asking about the size of a tiny nudge to the output of a function caused by some tiny nudge to the input. In the equation $x$ is not an input and $y$ is not an output, they're both just interdependent values related by some equation.  
+但与微积分中的其他切线斜率问题不同，这条曲线并非某个函数的图像。  
+我们无法像过去那样，通过研究输入的微小变化对函数输出的微小影响来求导数。  
+在该方程中，$x$并非输入，$y$也并非输出，  
+它们只是由某个方程关联在一起的相互依存的数值而已。
+ 
+This is called an "implicit curve"; it's just the set of all points $(x, y)$ that satisfy some property written in terms of the two variables $x$ and $y$.  
+这被称为“隐式曲线”​；  
+它只是所有满足由变量$x$和$y$表示的某种性质的点$(x, y)$的集合。
 
-This is called an "implicit curve"; it's just the set of all points $(x, y)$ that satisfy some property written in terms of the two variables $x$ and $y$.
+The procedure for how you actually find $dy/dx$ for curves like this is the thing I found very weird as a calculus student. You take the derivative of both sides of this equation like this:  
+作为微积分专业的学生，我曾觉得如何为这类曲线求出$dy/dx$的方法非常奇怪。  
+你需要像这样对等式两边求导：
 
-The procedure for how you actually find $dy/dx$ for curves like this is the thing I found very weird as a calculus student. You take the derivative of both sides of this equation like this:
 
-- For the derivative of $x^2$ you write $2x \cdot dx$.
-- Similarly, $y^2$ becomes $2y \cdot dy$.
-- The derivative of the constant $5^2$ on the right is just $0$.
+- For the derivative of $x^2$ you write $2x \cdot dx$.  
+- 对于$x^2$的导数，要写成$2x \cdot dx$。
+- Similarly, $y^2$ becomes $2y \cdot dy$.  
+- 同样地，$y^2$ 变为 $2y \cdot dy$。
+- The derivative of the constant $5^2$ on the right is just $0$.  
+- 右边常数$5^2$的导数仅为$0$。
 
 <Figure image="$lesson/figures/implicit-differentiation.svg" />
 
-You can see why this feels strange, right? What does it mean to take a derivative of an expression with multiple variables? And why are we tacking on the little $dy$ and $dx$ in this way? Unlike with functions, there isn't clear flow from input to output. But if you just blindly move forward with what you get here, you can rearrange this equation to find an expression for $dy/dx$, which in this case comes out to $-x/y$.
+You can see why this feels strange, right? What does it mean to take a derivative of an expression with multiple variables? And why are we tacking on the little $dy$ and $dx$ in this way? Unlike with functions, there isn't clear flow from input to output. But if you just blindly move forward with what you get here, you can rearrange this equation to find an expression for $dy/dx$, which in this case comes out to $-x/y$.  
+你能明白为什么这会让人觉得奇怪吧？  
+对含有多个变量的表达式求导意味着什么？  
+我们为什么要以这种方式加上$dy$和$dx$呢？与函数不同，这里并不存在从输入到输出的明确流程。  
+但如果你直接按照现有的结果继续推导，就可以重新排列这个方程，  
+从而得到$dy/dx$的表达式，在这种情况下其值为$-x/y$。
 
 <Figure image="$lesson/figures/implicit-differentiation-derivative.svg" />
 
-So at a point with coordinates $(x, y) = (3, 4)$, that slope would be $-3/4$, evidently.
-This strange process is called "implicit differentiation". Don't worry, I have an explanation for how you can interpret taking a derivative of an expression with two variables like this. But first, I want to set aside this particular problem, and show how this is related to a different type of calculus problem, something called a related rates problem.
+So at a point with coordinates $(x, y) = (3, 4)$, that slope would be $-3/4$, evidently.  
+因此在坐标为$(x, y) = (3, 4)$的点上，该斜率显然为$-3/4$。
+
+This strange process is called "implicit differentiation". Don't worry, I have an explanation for how you can interpret taking a derivative of an expression with two variables like this. But first, I want to set aside this particular problem, and show how this is related to a different type of calculus problem, something called a related rates problem.  
+这个奇怪的过程被称为“隐函数求导”​。  
+别担心，我会解释如何理解对这类含有两个变量的表达式求导。  
+不过首先，我想先搁置这个问题，来说明它与另一种微积分问题——  
+即所谓的相关变化率问题——之间的关联。
+
 
 </section>
 
 <section>
 
-## Related Rates
+## Related Rates 相关变化率
 
-Imagine a $5$ meter long ladder held up against a wall, where the top of the ladder starts off $4$ meters above the ground, which&mdash;by the pythagorean theorem&mdash;means the bottom is $3$ meters away from the wall.
+
+Imagine a $5$ meter long ladder held up against a wall, where the top of the ladder starts off $4$ meters above the ground, which&mdash;by the pythagorean theorem&mdash;means the bottom is $3$ meters away from the wall.  
+想象有一把5米长的梯子靠在墙上，梯子的顶端离地面4米高——根据勾股定理，  
+这意味着梯子的底部距离墙3米。
 
 <Figure image="$lesson/figures/ladder-setup.jpg" />
 
-And say it's slipping down the wall in such a way that the top of the ladder is dropping at $1$ meter per second. In that initial moment, what is the rate at which the bottom of the ladder is moving away from the wall?
+And say it's slipping down the wall in such a way that the top of the ladder is dropping at $1$ meter per second. In that initial moment, what is the rate at which the bottom of the ladder is moving away from the wall?  
+假设梯子正沿着墙壁下滑，且梯子顶端的下降速度为每秒1米。在初始时刻，梯子底部远离墙壁的速度是多少？
 
 <Figure
   image="$lesson/figures/ladder-rate-of-change.jpg"
@@ -85,37 +128,67 @@ And say it's slipping down the wall in such a way that the top of the ladder is 
   show="video"
 />
 
-It's interesting, right? That distance from the bottom of the ladder to the wall is $100\%$ determined by the distance between the top of the ladder and the floor, so we should have enough information to figure out how the rates of change for each value depend on each other, but it might not be entirely clear how exactly you relate those two.
+It's interesting, right? That distance from the bottom of the ladder to the wall is $100\%$ determined by the distance between the top of the ladder and the floor, so we should have enough information to figure out how the rates of change for each value depend on each other, but it might not be entirely clear how exactly you relate those two.  
+很有趣，对吧？梯子底部到墙的距离完全由梯子顶部到地面的距离决定，  
+因此我们应该有足够的信息来弄清楚各个数值的变化率是如何相互影响的，  
+但如何确切地将这两者联系起来可能还不太清楚。
 
-First thing's first, it's always nice to give names to the quantities we care about. So label the distance from the top of the ladder to the ground $y(t)$, written as a function of time because it's changing. Likewise, label the distance between the bottom of the ladder and the wall $x(t)$. They key equation that relates these terms is the pythagorean theorem: $x(t)^2 + y(t)^2 = 5^2$. What makes this equation powerful is that it's true at all points in time.
+First thing's first, it's always nice to give names to the quantities we care about. So label the distance from the top of the ladder to the ground $y(t)$, written as a function of time because it's changing. Likewise, label the distance between the bottom of the ladder and the wall $x(t)$. They key equation that relates these terms is the pythagorean theorem: $x(t)^2 + y(t)^2 = 5^2$. What makes this equation powerful is that it's true at all points in time.  
+首先，给我们所关心的量起名字总是很不错的。  
+因此，将梯子顶端到地面的距离记为 $y(t)$，因为它会随时间变化，所以用函数的形式表示；  
+同样，将梯子底部到墙的距离记为 $x(t)$。  
+连接这两个量的关键方程就是勾股定理：$x(t)^2+ y(t)^2 = 5^2$。  
+这个方程的强大之处在于它在任何时刻都成立。
 
 <Figure image="$lesson/figures/ladder-time-variable.jpg" />
 
-One way to solve this would be to isolate $x(t)$, figure out what what $y(t)$ must be based this $1$ meter/second drop rate, then take a derivative of the resulting function; $dx/dt$, the rate at which $x$ is changing with respect to time.
+One way to solve this would be to isolate $x(t)$, figure out what what $y(t)$ must be based this $1$ meter/second drop rate, then take a derivative of the resulting function; $dx/dt$, the rate at which $x$ is changing with respect to time.  
+解决这个问题的一种方法是先求出$x(t)$，  
+根据每秒1米的下降速度确定$y(t)$的值，  
+然后再对得到的函数求导；  
+即$dx/dt$，也就是$x$随时间变化的速率。
 
 <Figure image="$lesson/figures/ladder-traditional-derivative.jpg" />
 
-And that's fine; if you're willing to apply the chain rule a few times, this method will definitely work for you. But I want to show a different way to think about the same problem.
+And that's fine; if you're willing to apply the chain rule a few times, this method will definitely work for you. But I want to show a different way to think about the same problem.  
+      这也没问题；如果你愿意多次应用链式法则，这种方法肯定会对你有帮助。  
+      但我想展示一种思考同一问题的不同方式。
 
-This left-hand side of the equation is a function of time, right? Which just so happens to equal a constant, meaning this value evidently doesn't change while time passes.
+This left-hand side of the equation is a function of time, right? Which just so happens to equal a constant, meaning this value evidently doesn't change while time passes.  
+方程的这一左侧是时间的函数，对吧？  
+而它恰好等于一个常数，这意味着这个数值随着时间的推移显然不会改变。
 
 <Figure image="$lesson/figures/ladder-function-of-time.jpg" />
 
-However, this expression is dependent on time which we can manipulate like any other function with $t$ as an input. In particular, we can take a derivative of the left hand side, which is a way of saying "If I let a little bit of time, $dt$, pass, which causes $y$ to slightly decrease, and $x$ to slightly increase, how much does this expression change?"
+However, this expression is dependent on time which we can manipulate like any other function with $t$ as an input. In particular, we can take a derivative of the left hand side, which is a way of saying "If I let a little bit of time, $dt$, pass, which causes $y$ to slightly decrease, and $x$ to slightly increase, how much does this expression change?"  
+然而，这个表达式是随时间变化的，我们可以像处理其他以$t$为输入的函数一样对其操作。  
+具体来说，我们可以对等式的左侧求导，这相当于在问：  
+​“如果让一小段时间$dt$过去，导致$y$略微减小、$x$略微增大，  
+那么这个表达式会变化多少？​”
 
-On the one hand, we know that derivative should be $0$, since this expression is a constant, and constants don't care about your tiny nudge to time; they remain unchanged. But on the other hand, what do you get when you compute the derivative of this as a function of time?
+On the one hand, we know that derivative should be $0$, since this expression is a constant, and constants don't care about your tiny nudge to time; they remain unchanged. But on the other hand, what do you get when you compute the derivative of this as a function of time?  
+一方面，我们知道导数应该为$0$，因为这个表达式是一个常数，  
+而常数不会因时间的微小变化而改变，始终如一。  
+但另一方面，若将其视为时间的函数来计算导数，又会得到什么结果呢？
 
 <Figure image="$lesson/figures/implicit-differentiation-function-of-time.svg" />
 
-The derivative of $x(t)^2$ is $2 \cdot x(t)$ times the derivative of $x$. That's the chain rule in action. $2x \cdot dx$ represents the size of a change to $x^2$ caused by a change to $x$, and then we're dividing out by $dt$. Likewise, the rate at which $y(t)^2$ is changing is $2 \cdot y(t)$ times the derivative of $y$.
+The derivative of $x(t)^2$ is $2 \cdot x(t)$ times the derivative of $x$. That's the chain rule in action. $2x \cdot dx$ represents the size of a change to $x^2$ caused by a change to $x$, and then we're dividing out by $dt$. Likewise, the rate at which $y(t)^2$ is changing is $2 \cdot y(t)$ times the derivative of $y$.  
+$x(t)^2$的导数是$2 \cdot x(t)$乘以$x$的导数，这就是链式法则的体现。  
+$2x\cdot dx$表示由于$x$的变化而导致的$x^2$的变化量，然后再除以$dt$。  
+同样地，$y(t)^2$的变化率也是$2 \cdot y(t)$乘以$y$的导数。
 
 <Figure image="$lesson/figures/implicit-differentiation-function-of-time-derivative.svg" />
 
-Now, evidently, this whole expression must be zero, and that's an equivalent of saying $x^2+y^2$ must not change while the ladder moves. And at the very start, $t=0$, the height $y(t)$ is $4$ meters, the distance $x(t)$ is $3$ meters, and since the top of the ladder is dropping at a rate of $1$ meter per second, that derivative $dy/dt$ is $-1$ meters/second.
+Now, evidently, this whole expression must be zero, and that's an equivalent of saying $x^2+y^2$ must not change while the ladder moves. And at the very start, $t=0$, the height $y(t)$ is $4$ meters, the distance $x(t)$ is $3$ meters, and since the top of the ladder is dropping at a rate of $1$ meter per second, that derivative $dy/dt$ is $-1$ meters/second.  
+显然，整个表达式的值必须为零，这等价于说在梯子移动时，$x^2+y^2$ 的值不得发生变化。  
+在最开始的时候，即 $t=0$ 时，高度 $y(t)$ 为4米，水平距离$x(t)$ 为3米，  
+由于梯子顶端以每秒1米的速度下降，因此导数 $dy/dt$ 的值为-1米/秒。
 
 <Figure image="$lesson/figures/related-rates-example.svg" />
 
-Now this gives us enough information to isolate the derivative $dx/dt$, which, when you work it out, it comes out to be $4/3$ meters per second.
+Now this gives us enough information to isolate the derivative $dx/dt$, which, when you work it out, it comes out to be $4/3$ meters per second.  
+现在我们有了足够的信息来求出导数$dx/dt$，计算结果为每秒$4/3$米。
 
 {/* TODO: insert illustration of ladder? */}
 
@@ -123,121 +196,205 @@ Now this gives us enough information to isolate the derivative $dx/dt$, which, w
 
 <section>
 
-## Implicit Differentiation
+## Implicit Differentiation  隐函数求导
 
-Now compare this to the problem of finding the slope of the tangent line to the circle. In both cases, we had the equation $x^2 + y^2 = 5^2$, and in both cases we ended up taking the derivative of each side of this expression. But for the ladder problem, these expressions were functions of time, so taking the derivative has a clear meaning: it's the rate at which this expression changes as time change.
 
-What makes the circle situation strange is that rather than saying a small amount of time $dt$ has passed, which causes $x$ and $y$ to change, the derivative has the tiny nudges $dx$ and $dy$ both just floating free, not tied to some other common variable like time.
+Now compare this to the problem of finding the slope of the tangent line to the circle. In both cases, we had the equation $x^2 + y^2 = 5^2$, and in both cases we ended up taking the derivative of each side of this expression. But for the ladder problem, these expressions were functions of time, so taking the derivative has a clear meaning: it's the rate at which this expression changes as time change.  
+现在将此与求圆切线斜率的问题进行比较。  
+在这两种情况下，我们都有方程$x^2 + y^2 = 5^2$，并且都在对这一等式的每一侧求导。  
+但在梯子问题中，这些表达式是时间的函数，因此求导具有明确的意义：  
+它表示随着时间变化这些表达式变化的速率。
 
-Let me show you how you can think about this: Give this expression $x^2 + y^2$ a name, maybe $S$. $S$ is essentially a function of two variables; it takes every point $(x, y)$ on the plane and associates it with a number.
+What makes the circle situation strange is that rather than saying a small amount of time $dt$ has passed, which causes $x$ and $y$ to change, the derivative has the tiny nudges $dx$ and $dy$ both just floating free, not tied to some other common variable like time.  
+让圆的问题显得奇怪的是，我们并非说经过了一小段时间$dt$从而导致$x$和$y$发生变化，  
+而是导数中的微小变化量$dx$和$dy$仿佛独立存在，并未与时间这样的共同变量相关联。
+
+Let me show you how you can think about this: Give this expression $x^2 + y^2$ a name, maybe $S$. $S$ is essentially a function of two variables; it takes every point $(x, y)$ on the plane and associates it with a number.  
+让我来告诉您该如何思考这个问题：  
+给表达式$x^2 + y^2$起个名字，比如$S$。  
+$S$本质上是一个包含两个变量的函数；它将平面上的每一个点$(x,y)$与一个数值对应起来。
 
 <Figure image="$lesson/figures/function-of-two-variables.svg" />
 
-For points on this circle, that number happens to be $25$.
+For points on this circle, that number happens to be $25$.  
+对于这个圆上的点，这个数值恰好是25。
 
 <Figure image="$lesson/figures/function-of-two-variables-implicit-curve.svg">
   If you step off that circle away from the center, that value would be bigger.
-  For other points $(x, y)$ closer to the origin, that value is smaller.
+  For other points $(x, y)$ closer to the origin, that value is smaller.  
+  如果你离开圆心、走到圆外，那个数值会更大。  
+  对于更靠近原点的其他点$(x, y)$，该值会更小。
 </Figure>
 
-What it means to take a derivative of this expression, a derivative of $S$, is to consider a tiny change to both these variables, some tiny change $dx$ to $x$, and some tiny change $dy$ to $y$ – and not necessarily one that keeps you on this circle, by the way, it's just some tiny step in any direction on the $xy$-plane.
+What it means to take a derivative of this expression, a derivative of $S$, is to consider a tiny change to both these variables, some tiny change $dx$ to $x$, and some tiny change $dy$ to $y$ – and not necessarily one that keeps you on this circle, by the way, it's just some tiny step in any direction on the $xy$-plane.  
+对这一表达式求导，即对$S$求导，意味着考虑这两个变量发生微小的变化：  
+$x$发生微小变化$dx$，$y$发生微小变化$dy$——  
+顺便说一下，这些变化不一定要保持点在圆上，只需是$xy$平面上任意方向上的微小位移即可。
 
 <Figure image="$lesson/figures/circle-dx-dy.svg" />
 
-From there you ask how much the value of $S$ changes. That difference in the value of $S$, from the original point to the nudged point, is what we would call "$dS$" or "the change to the function $S$".
+From there you ask how much the value of $S$ changes. That difference in the value of $S$, from the original point to the nudged point, is what we would call "$dS$" or "the change to the function $S$".  
+从那里开始，你就会问$S$的值变化了多少。  
+从初始点变为微调后的点时，$S$值的这一差值，  
+就是我们所说的“$dS$”或“函数$S$的变化量”​。
 
 <Figure image="$lesson/figures/function-of-two-variables-dx-dy-algebra.svg">
   As we saw in previous lessons, these $dx$ and $dy$ expressions raised to the
-  second power are negligible as the nudges approaches zero.
+  second power are negligible as the nudges approaches zero.  
+  正如我们在前几节课中所见，  
+  当微小扰动趋近于零时，这些 $dx$ 和 $dy$ 表达式的平方可以忽略不计。
 </Figure>
 
-For example, say we're starting at a point $(3,4)$, and let's just say that step $dx$ is $-0.02$, and that $dy$ is $-0.01$. Then the decrease to $S$, the amount that $x^2+y^2$ changes over that step, will be around $2(3)(-0.02) + 2(4)(-0.01)$.
+For example, say we're starting at a point $(3,4)$, and let's just say that step $dx$ is $-0.02$, and that $dy$ is $-0.01$. Then the decrease to $S$, the amount that $x^2+y^2$ changes over that step, will be around $2(3)(-0.02) + 2(4)(-0.01)$.  
+例如，假设我们从点$(3,4)$开始，步长$dx$为$-0.02$，$dy$为$-0.01$。  
+那么在該步长下，$x^2+y^2$的变化量$S$大约为$2(3)(-0.02) + 2(4)(-0.01)$。
 
-That's what this derivative expression $2x \cdot dx + 2y \cdot dy$ means. It tells you how much the value $x^2+y^2$ changes, as determined by the point $(x, y)$ where you started, and the tiny step $(dx, dy)$ that you take.
+That's what this derivative expression $2x \cdot dx + 2y \cdot dy$ means. It tells you how much the value $x^2+y^2$ changes, as determined by the point $(x, y)$ where you started, and the tiny step $(dx, dy)$ that you take.  
+这就是导数表达式$2x \cdot dx + 2y \cdot dy$的含义。  
+它告诉你在给定的起始点$(x, y)$以及所取的微小步长$(dx, dy)$下，  
+$x^2+y^2$的值会变化多少。
 
-As with all things derivative, this is only an approximation, but it's one that gets more and more true for smaller and smaller choices of $dx$ and $dy$.
+As with all things derivative, this is only an approximation, but it's one that gets more and more true for smaller and smaller choices of $dx$ and $dy$.  
+与所有的导数概念一样，这只是一个近似值，  
+但当$dx$和$dy$的取值越来越小时，它的准确性就会越来越高。
 
 {/* the phrase "you're essentially saying you want to ensure that this value $S$ doesn't change" seems like a consequence of this example and the shape of the function S(x,y). I really like it because it has very nice geometric meaning, but maybe reword the following paragraph to be more general and then mention what it means for dS to be equal to 0 */}
+{/*“你本质上是想确保这个值$S$不变”这句话似乎是该例子以及函数S(x,y)的形态所导致的结论。我非常喜欢这种表述，因为它具有很好的几何意义，不过或许可以重新措辞，使其更具普遍性，然后再说明dS等于0意味着什么*/}
 
-The key point is that when you restrict yourself to steps along this circle, you're essentially saying you want to ensure that this value $S$ doesn't change; it starts at a value of $25$, and you want to keep it at a value of $25$; that is, $dS$ should be $0$. So setting this expression $2x \cdot dx + 2y \cdot dy$ equal to $0$ is the condition under which a tiny step stays on the circle.
+The key point is that when you restrict yourself to steps along this circle, you're essentially saying you want to ensure that this value $S$ doesn't change; it starts at a value of $25$, and you want to keep it at a value of $25$; that is, $dS$ should be $0$. So setting this expression $2x \cdot dx + 2y \cdot dy$ equal to $0$ is the condition under which a tiny step stays on the circle.  
+关键在于，当你仅考虑沿此圆周的微小位移时，实际上就是希望确保这个值$S$保持不变；  
+它起始值为$25$，而你希望它始终为$25$；  
+也就是说，$dS$应当等于$0$。  
+因此，令表达式$2x \cdot dx + 2y \cdot dy$等于$0$，  
+正是微小位移能保持在圆周上的条件。
 
 <Figure image="$lesson/figures/circle-implicit-derivative.svg" />
 
-Again, this is only an approximation. Speaking more precisely, that condition keeps you on a tangent line of the circle, not the circle itself, but for tiny enough steps those are essentially the same thing.
+Again, this is only an approximation. Speaking more precisely, that condition keeps you on a tangent line of the circle, not the circle itself, but for tiny enough steps those are essentially the same thing.  
+关键在于，当你仅考虑沿此圆周的微小位移时，实际上就是希望确保这个值$S$保持不变；  
+它起始值为$25$，而你希望它始终为$25$；  
+也就是说，$dS$应当等于$0$。  
+因此，令表达式$2x \cdot dx + 2y \cdot dy$等于$0$，  
+正是微小位移能保持在圆周上的条件。
 
 </section>
 
 <section>
 
-## Another example
+## Another example  另一个例子
 
-{/* Alt title: Finding the derivative of $\sin(x) \cdot y^2 = x$ */}
+{/* Alt title: Finding the derivative of $\sin(x) \cdot y^2 = x$ */}  
+{/* 替代标题：求 $\sin(x) \cdot y^2 = x$ 的导数 */}
 
-Of course, there's nothing special about the expression $x^2+y^2 = 5^2$ here. You could have some other expression involving $x$'s and $y$'s, representing some other curve, and taking the derivative of both sides like this would give you a way to relate $dx$ to $dy$ for tiny steps along that curve.
+Of course, there's nothing special about the expression $x^2+y^2 = 5^2$ here. You could have some other expression involving $x$'s and $y$'s, representing some other curve, and taking the derivative of both sides like this would give you a way to relate $dx$ to $dy$ for tiny steps along that curve.  
+当然，这里的表达式$x^2+y^2 = 5^2$并没有什么特别之处。  
+你可以使用其他包含$x$和$y$的表达式来表示另一条曲线，  
+像这样对等式两边求导，就能找到沿该曲线微小位移时$dx$与$dy$之间的关系。
 
-It's always nice to think through more examples, so consider the expression $\sin(x) \cdot y^2 = x$, which corresponds to many U-shaped curves on the plane. Those curves represent all the points $(x, y)$ of the plane where the value of $\sin(x) \cdot y^2$ equals the value of $x$.
+It's always nice to think through more examples, so consider the expression $\sin(x) \cdot y^2 = x$, which corresponds to many U-shaped curves on the plane. Those curves represent all the points $(x, y)$ of the plane where the value of $\sin(x) \cdot y^2$ equals the value of $x$.  
+多思考一些例子总是不错的，因此考虑表达式$\sin(x) \cdot y^2 = x$，  
+它在平面上对应着许多U形曲线。  
+这些曲线代表了平面上所有满足$\sin(x) \cdoty^2$的值等于$x$的值的点$(x, y)$。
 
 <Figure image="$lesson/figures/implicit-curve-example.svg" />
 
-Now imagine taking some tiny step with components $(dx, dy)$, and not necessarily one that keeps you on the curve.
+Now imagine taking some tiny step with components $(dx, dy)$, and not necessarily one that keeps you on the curve.  
+现在想象沿着分量为$(dx, dy)$的极小步长前进，  
+而不一定要求这一步能让你始终留在曲线上。
 
 <Figure image="$lesson/figures/implicit-curve-example-detail.svg" />
 
 Taking the derivative of each side of the equation $\sin(x) \cdot y^2 = x$ will tell us how much the value of that side changes during this step.
 On the left side, the product rule tells us that this should be "left d-right plus right d-left": $\sin(x)$ times the change to $y^2$, which is $2y \cdot dy$, plus $y^2$ times the change to $\sin(x)$, which is $\cos(x) \cdot dx$.
-The right side is simply $x$, so the size of a change to the value is exactly $dx$, right? [^1]
+The right side is simply $x$, so the size of a change to the value is exactly $dx$, right? [^1]  
+     对方程$\sin(x) \cdot y^2 = x$的每一侧求导，  
+     就能告诉我们在这一步中该侧的数值变化了多少。  
+     在左侧，乘积法则告诉我们其结果应为“左导数乘以右变量加上右导数乘以左变量”​：  
+     即$\sin(x)$乘以$y^2$的变化量$2y \cdot dy$，  
+     再加上$y^2$乘以$\sin(x)$的变化量$\cos(x) \cdot dx$。  
+     右侧就是$x$本身，因此数值变化的大小恰好就是$dx$，对吧？​[^1]
 
-[^1]: You might be thinking that the derivative of $x$ is just $1$, and yes the derivative of the function $f(x) = x$ is $df/dx = 1$. However, in this case. we are interested in how much the value of that side changes because of the small step which is analogous for calculating just $df$ in the case of the function $f(x) = x$.
+[^1]: You might be thinking that the derivative of $x$ is just $1$, and yes the derivative of the function $f(x) = x$ is $df/dx = 1$. However, in this case. we are interested in how much the value of that side changes because of the small step which is analogous for calculating just $df$ in the case of the function $f(x) = x$.  
+       [^1]​：你可能会认为$x$的导数就是$1$，没错，函数$f(x) = x$的导数确实为$df/dx = 1$。  
+       但在这种情况下，我们关注的是由于微小变化而导致的该侧数值的变化量，  
+       这其实与计算函数$f(x) = x$时的$df$是类似的。
 
 <Figure image="$lesson/figures/implicit-curve-example-derivative.svg" />
 
-Setting these two sides equal to each other is a way of saying "whatever your tiny step with coordinates $(dx, dy)$ is, if it's going to keep us on this curve, the values of both the left-hand side and the right-hand side must change by the same amount." That's the only way this top equation can remain true.
+Setting these two sides equal to each other is a way of saying "whatever your tiny step with coordinates $(dx, dy)$ is, if it's going to keep us on this curve, the values of both the left-hand side and the right-hand side must change by the same amount." That's the only way this top equation can remain true.  
+将这两边设为相等，意味着“无论坐标 $(dx, dy)$ 的微小变化是多少，  
+只要它能让我们始终位于这条曲线上，左右两边的数值就必须发生相同量的变化”​。  
+只有这样，上面的等式才能成立。
 
-From there, depending on what problem you're solving, you could manipulate further with algebra, where perhaps the most common goal is to find $dy$ divided by $dx$.
+From there, depending on what problem you're solving, you could manipulate further with algebra, where perhaps the most common goal is to find $dy$ divided by $dx$.  
+从那里开始，根据你所要解决的问题，可以进一步用代数方法进行运算，  
+其中最常见的目标可能是求出 $dy$ 除以 $dx$ 的值。
 
 </section>
 
 <section>
 
-## Finding derivative of ln(x)
+## Finding derivative of ln(x)  求ln(x)的导数
 
-As one more example, let me show how you can use this technique to help find new derivative formulas. I've mentioned in a previous lesson that the derivative of $e^x$ is itself, but what about the derivative of its inverse function the natural log of $x$?
+As one more example, let me show how you can use this technique to help find new derivative formulas. I've mentioned in a previous lesson that the derivative of $e^x$ is itself, but what about the derivative of its inverse function the natural log of $x$?  
+再举一个例子，让我展示如何运用这种技巧来帮助推导新的导数公式。  
+我在之前的课程中提到过，$e^x$ 的导数就是它本身，  
+那么它的反函数——自然对数$x$ 的导数又是多少呢？
 
 <Figure image="$lesson/figures/natural-logarithm-plot.svg" />
 
-The graph of $\ln(x)$ can be thought of as an implicit curve; all the points on the $xy$-plane where $y = \ln(x)$, it just happens to be the case that the $x$'s and $y$'s of this equation aren't as intermingled as they were in other examples. The slope of this graph, $dy/dx$, should be the derivative of $\ln(x)$, right?
+The graph of $\ln(x)$ can be thought of as an implicit curve; all the points on the $xy$-plane where $y = \ln(x)$, it just happens to be the case that the $x$'s and $y$'s of this equation aren't as intermingled as they were in other examples. The slope of this graph, $dy/dx$, should be the derivative of $\ln(x)$, right?  
+$\ln(x)$的图像可以被视为一条隐式曲线；  
+在$xy$平面上所有满足$y =\ln(x)$的点，  
+恰好是该方程中的$x$与$y$并没有像其他例子中那样紧密交织。  
+这条曲线的斜率$dy/dx$，应该就是$\ln(x)$的导数，对吧？
 
-Well, to find that, first rearrange this equation $y = \ln(x)$ to be $e^y = x$. This is exactly what the natural log of $x$ means; it's saying "$e$ to the what equals $x$?"
+Well, to find that, first rearrange this equation $y = \ln(x)$ to be $e^y = x$. This is exactly what the natural log of $x$ means; it's saying "$e$ to the what equals $x$?"  
+嗯，要找到它，首先要把方程$y = \ln(x)$变形为$e^y = x$。  
+这正是$x$的自然对数的含义；它是在问“$e$的多少次方等于$x$？​”
 
 <Figure image="$lesson/figures/natural-logarithm-and-exponential-functions-diagonal-line.svg">
   Graphically this should make sense too, since you can draw a diagonal line and
-  reflect the functions to see that they are inverses of each other.
+  reflect the functions to see that they are inverses of each other.  
+  从图形上看，这一点也应该能说得通，  
+  因为你可以画一条对角线，并将这两个函数关于该线对称，  
+  从而看出它们是彼此的逆函数。
 </Figure>
 
-Since we know the derivative of $e^y$, we can take the derivative of both sides of this equation $y = \ln(x)$, effectively asking how a tiny step with components $(dx, dy)$ changes the value of each side.
+Since we know the derivative of $e^y$, we can take the derivative of both sides of this equation $y = \ln(x)$, effectively asking how a tiny step with components $(dx, dy)$ changes the value of each side.  
+    既然我们知道$e^y$的导数，就可以对方程$y = \ln(x)$的两边求导，  
+    从而了解具有分量$(dx, dy)$的微小变化会如何改变两边的值。
 
 <Figure image="$lesson/figures/implicit-natural-log.svg" />
 
-To ensure the step stays on the curve, the change to the left side of the equation, which is $e^y \cdot dy$, must equal the change to the right side, which is $dx$.
+To ensure the step stays on the curve, the change to the left side of the equation, which is $e^y \cdot dy$, must equal the change to the right side, which is $dx$.  
+为确保该微小变化仍位于曲线上，方程左侧的变化量$e^y \cdot dy$必须等于右侧的变化量$dx$。
 
-Rearranging, this means $dy/dx$, the slope of our graph, equals $1/e^y$.
+Rearranging, this means $dy/dx$, the slope of our graph, equals $1/e^y$.  
+重新整理后，这意味着斜率 $dy/dx$ 等于 $1/e^y$。
 
 <Figure image="$lesson/figures/implicit-natural-log-dy-over-dx.svg" />
 
-And when we're on this curve, $e^y$ is by definition the same as $x$, so evidently the slope is $1/x$.
+And when we're on this curve, $e^y$ is by definition the same as $x$, so evidently the slope is $1/x$.  
+而当我们位于这条曲线上时，根据定义$e^y$就等于$x$，因此斜率显然是$1/x$。
 
 <Figure image="$lesson/figures/implicit-natural-log-derivative.svg" />
 
-An expression for the slope of the graph of a function in terms of $x$ like this is the derivative of that function, so the derivative of $\ln(x)$ is $1/x$.
+An expression for the slope of the graph of a function in terms of $x$ like this is the derivative of that function, so the derivative of $\ln(x)$ is $1/x$.  
+用$x$表示的函数图像斜率的表达式就是该函数的导数，  
+因此$\ln(x)$的导数为$1/x$。
 
 </section>
 
 <section>
 
-## Exercises
+## Exercises  练习题
 
 <Question
-  question="What is the slope of the tangent line at the point $(1, \sqrt{2})$ for the implicit curve defined by the equation $y^2 - x^2 = 1$? Compare this with the derivative at the point $x=1$ for the function $f(x) = \sqrt{1 + x^2}$."
+  question="What is the slope of the tangent line at the point $(1, \sqrt{2})$ for the implicit curve defined by the equation $y^2 - x^2 = 1$? Compare this with the derivative at the point $x=1$ for the function $f(x) = \sqrt{1 + x^2}$.  
+  对于由方程 $y^2 - x^2 = 1$ 定义的隐函数曲线，  
+  在点 $(1, \sqrt{2})$ 处的切线斜率是多少？  
+  将此结果与函数 $f(x) = \sqrt{1 + x^2}$ 在 $x=1$ 处的导数值进行比较。"
   choice1="$1$"
   choice2="$\sqrt{2}$"
   choice3="$\frac{1}{\sqrt{2}}$"
@@ -245,25 +402,32 @@ An expression for the slope of the graph of a function in terms of $x$ like this
   answer={3}
 >
 
-Start by taking the implicit derivative of both sides of the equation $y^2 - x^2 = 1$.
+Start by taking the implicit derivative of both sides of the equation $y^2 - x^2 = 1$.  
+首先对方程 $y^2 - x^2 = 1$ 的两边求隐函数导数。
 
 $$2y \cdot dy - 2x \cdot dx = 0$$
 
-Rearrange the equation to solve for $dy/dx$.
+Rearrange the equation to solve for $dy/dx$.  
+重新排列方程以求解 $dy/dx$。
 
 $$\frac{dy}{dx} = \frac{x}{y}$$
 
-Substitute the point $(1,\sqrt{2})$ into the expression.
+Substitute the point $(1,\sqrt{2})$ into the expression.  
+将点$(1,\sqrt{2})$代入该表达式。
 
 $$\frac{dy}{dx} = \frac{1}{\sqrt{2}}$$
 
-Let's check our work with the function $f(x) = \sqrt{1 + x^2}$ which forms the same curve as the implicit equation $y^2 - x^2 = 1$ in the first and second quadrants of the $xy$-plane. Start by taking the derivative of the function.
+Let's check our work with the function $f(x) = \sqrt{1 + x^2}$ which forms the same curve as the implicit equation $y^2 - x^2 = 1$ in the first and second quadrants of the $xy$-plane. Start by taking the derivative of the function.  
+我们用函数$f(x) = \sqrt{1 + x^2}$来检验我们的计算结果，  
+该函数在$xy$平面的第一象限和第二象限中绘出的曲线与隐式方程$y^2 - x^2 = 1$的曲线相同。  
+首先对这个函数求导。
 
 $$\frac{df}{dx} = \frac{1}{2} \frac{1}{\sqrt{1 + x^2}} \cdot 2x$$
 
 $$\frac{dy}{dx} = \frac{x}{\sqrt{1 + x^2}}$$
 
-Substituting $x=1$ into the derivative we get the same answer so our confidence in our work should go up.
+Substituting $x=1$ into the derivative we get the same answer so our confidence in our work should go up.  
+将$x=1$代入导数表达式后得到的结果相同，因此我们对结果的可靠性应该会更高。
 
 </Question>
 
@@ -271,10 +435,16 @@ Substituting $x=1$ into the derivative we get the same answer so our confidence 
 
 <section>
 
-## Next Lesson
+## Next Lesson  下一课
 
-By the way, all of this is a little peek into multivariable calculus, where you consider functions with multiple inputs, and how they change as you tweak those inputs. The key, as always, is to have a clear image in your head of what tiny nudges are at play, and how exactly they depend on each other.
+By the way, all of this is a little peek into multivariable calculus, where you consider functions with multiple inputs, and how they change as you tweak those inputs. The key, as always, is to have a clear image in your head of what tiny nudges are at play, and how exactly they depend on each other.  
+顺便说一下，所有这些内容都是多元微积分的一个简要介绍，  
+在多元微积分中，我们会研究具有多个输入变量的函数，  
+以及当调整这些输入变量时函数的变化情况。  
+和往常一样，关键在于在脑海中清晰地想象出那些微小的变化因素，  
+以及它们之间究竟是如何相互关联的。
 
-Next up, I'll talk about about what exactly a limit is, and how it's used to formalize the idea of a derivative.
+Next up, I'll talk about about what exactly a limit is, and how it's used to formalize the idea of a derivative.  
+接下来，我将讲解极限究竟是什么，以及它是如何被用来将导数的概念形式化的。
 
 </section>

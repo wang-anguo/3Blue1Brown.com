@@ -1,14 +1,14 @@
 ---
-title: Nonsquare matrices as transformations between dimensions
-description: How do you think about a non-square matrix as a transformation?
+title: Nonsquare matrices as transformations between dimensions 非方阵作为维度间的变换
+description: How do you think about a non-square matrix as a transformation? 你如何将非方阵视为一种变换？
 date: 2016-08-16
 chapter: 8
 video: v8VSDg_WQlA
 source: _2016/eola/footnote2.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
-  - Text adaptation by James Schloss
+  - Lesson by Grant Sanderson 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
+  - Text adaptation by James Schloss 詹姆斯·施洛斯
 ---
 
 import Figure from "~/components/Figure";
@@ -17,57 +17,88 @@ import Question from "~/components/Question";
 
 <section>
 
-> On this quiz, I asked you to find the determinant of a 2x3 matrix. Some of you, to my great amusement, actually tried to do this.
+> On this quiz, I asked you to find the determinant of a 2x3 matrix. Some of you, to my great amusement, actually tried to do this.  
+在这次测验中，我让你们求一个2x3矩阵的行列式。令我十分惊讶的是，确实有一些人尝试去做了。
 >
-> \- Linear algebra professor
+> \- Linear algebra professor 线性代数教授
 
 </section>
 
 <section>
 
-In discussing linear transformations so far, we've only really talked about transformations from 2d vectors to other 2d vectors, represented with 2x2 matrices, or from 3d vectors to other 3d vectors, represented with 3x3 matrices. By now in the series you actually have most of the background you need to start pondering a question like this on your own, but we'll start talking through it just to give a little mental momentum.
+In discussing linear transformations so far, we've only really talked about transformations from 2d vectors to other 2d vectors, represented with 2x2 matrices, or from 3d vectors to other 3d vectors, represented with 3x3 matrices. By now in the series you actually have most of the background you need to start pondering a question like this on your own, but we'll start talking through it just to give a little mental momentum.  
+在迄今为止关于线性变换的讨论中，我们实际上只探讨了从二维向量到其他二维向量的变换，  
+这类变换用2×2矩阵表示；  
+以及从三维向量到其他三维向量的变换，这类变换用3×3矩阵表示。  
+通过本系列的内容，你们已经掌握了大部分必要的基础知识，可以开始独立思考这样的问题了，  
+不过我们还是会逐步讲解，为你们提供一些思维上的引导。
 
 </section>
 
 <section>
 
-## 2d to 3d
+## 2d to 3d 2维到3维
 
 <Figure image="$lesson/figures/2d-to-3d/TransformationFunction2dTo3d.svg" />
 
-It's perfectly reasonable to talk about transformations between dimensions, such as a transformation from 2d space to 3d space. Again, what makes one of these linear is that grid lines remain parallel and evenly spaced, and the origin maps to the origin.
+It's perfectly reasonable to talk about transformations between dimensions, such as a transformation from 2d space to 3d space. Again, what makes one of these linear is that grid lines remain parallel and evenly spaced, and the origin maps to the origin.  
+讨论维度之间的转换是完全合理的，比如从二维空间到三维空间的转换。  
+同样，这类转换属于线性转换的原因是网格线保持平行且间距均匀，同时原点也会对应到原点上。
 
 <Figure image="$lesson/figures/2d-to-3d/InputSpaceOutputSpace.svg" />
 
-What we have pictured here is the input space on the left, which is 2d space, and the output of the transformation shown on the right. The reason we're not showing the inputs move to their outputs like we usually do is not just visualization laziness, it's worth emphasizing that 2d vector inputs are a very different animal from the 3d vector outputs, living in a completely separate and unconnected space.
+What we have pictured here is the input space on the left, which is 2d space, and the output of the transformation shown on the right. The reason we're not showing the inputs move to their outputs like we usually do is not just visualization laziness, it's worth emphasizing that 2d vector inputs are a very different animal from the 3d vector outputs, living in a completely separate and unconnected space.  
+我们在这里展示的是左边的输入空间，即二维空间，以及右边所示的变换输出结果。  
+我们没有像通常那样展示输入如何映射到输出，  
+这并非出于简化可视化的考虑，而是因为需要强调：  
+二维向量输入与三维向量输出是完全不同的概念，它们存在于完全独立且互不关联的空间中。
 
-Encoding such a transformation with a matrix is really just the same thing as what we've done before: Look at where each basis vector lands, and write the coordinates of its landing spot as the columns of a matrix.
+Encoding such a transformation with a matrix is really just the same thing as what we've done before: Look at where each basis vector lands, and write the coordinates of its landing spot as the columns of a matrix.  
+用矩阵来编码这样的变换，其实与我们之前所做的完全相同：  
+只需观察每个基向量最终落在何处，然后将这些落点的坐标作为矩阵的列。
 
 <Figure image="$lesson/figures/2d-to-3d/InputSpaceOutputSpaceBasisVectors.svg" />
 
-For example, look at the matrix that corresponds to the current transformation that takes $\hat{\imath}$ to the coordinates $\left[\begin{array}{c} 2 \\ -1 \\ -1 \end{array}\right]$, and $\hat{\jmath}$ to the coordinates $\left[\begin{array}{c} 0 \\ 1 \\ 1 \end{array}\right]$. The first column represents where $\hat{\imath}$ lands and the second column represents where $\hat{\jmath}$ lands.
+For example, look at the matrix that corresponds to the current transformation that takes $\hat{\imath}$ to the coordinates $\left[\begin{array}{c} 2 \\ -1 \\ -1 \end{array}\right]$, and $\hat{\jmath}$ to the coordinates $\left[\begin{array}{c} 0 \\ 1 \\ 1 \end{array}\right]$. The first column represents where $\hat{\imath}$ lands and the second column represents where $\hat{\jmath}$ lands.  
+      例如，看看对应于当前变换的矩阵：  
+      它将$\hat{\imath}$映射到坐标$\left[\begin{array}{c} 2 \\ -1 \\ -1 \end{array}\right]$，将$\hat{\jmath}$映射到坐标$\left[\begin{array}{c} 0 \\ 1 \\ 1 \end{array}\right]$。  
+      第一列表示$\hat{\imath}$所到达的位置，  
+      第二列表示$\hat{\jmath}$所到达的位置。
 
 <Figure image="$lesson/figures/2d-to-3d/MatrixNotation3x2.svg" />
 
-Notice, this means the matrix encoding our transformation has three rows and two columns, which, to use standard terminology, makes it a "3x2 matrix".
+Notice, this means the matrix encoding our transformation has three rows and two columns, which, to use standard terminology, makes it a "3x2 matrix".  
+注意，这意味着表示我们变换的矩阵有三行两列，  
+用标准术语来说，它就是一个“3×2矩阵”​。
 
 <Figure image="$lesson/figures/2d-to-3d/MatrixNotation3x2RowsColumns.svg" />
 
-To use the language of the last chapter, the column space of this matrix, the place where all vectors land, is a 2d plane slicing through the origin of 3d space. But the matrix is still full-rank, since the number of dimensions in this column space is the same as the number of dimensions in your input space.
+To use the language of the last chapter, the column space of this matrix, the place where all vectors land, is a 2d plane slicing through the origin of 3d space. But the matrix is still full-rank, since the number of dimensions in this column space is the same as the number of dimensions in your input space.  
+用上一章的术语来说，  
+该矩阵的列空间——即所有向量最终落定的地方——是一个穿过三维空间原点的二维平面。  
+不过该矩阵仍然是满秩的，因为这个列空间的维度与输入空间的维度相同。
 
-So if you see a 3x2 matrix out in the wild, you can know that it has the geometric interpretation of mapping 2 dimensions to 3, since the two columns indicate that the input space has 2 basis vectors, and the 3 rows indicate that the landing spot for each basis vector is described with 3 coordinates.
+So if you see a 3x2 matrix out in the wild, you can know that it has the geometric interpretation of mapping 2 dimensions to 3, since the two columns indicate that the input space has 2 basis vectors, and the 3 rows indicate that the landing spot for each basis vector is described with 3 coordinates.  
+因此，如果你在现实中看到一个3×2矩阵，  
+就可以知道它具有将二维空间映射到三维空间的几何意义——因为两列表明输入空间有2个基向量，  
+而3行则表明每个基向量的终点可以用3个坐标来描述。
 
 <Figure image="$lesson/figures/2d-to-3d-mental-image.jpg" />
 
-Likewise, if you see a 2x3 matrix, with 2 rows and 3 columns, what do you think that means?
+Likewise, if you see a 2x3 matrix, with 2 rows and 3 columns, what do you think that means?  
+同样地，如果你看到一个2行3列的矩阵，你觉得那意味着什么？
 
 <FreeResponse>
 
-Well, the 3 columns indicate that the starting space has 3 basis vectors, so we're starting in 3 dimensions. And the 2 rows indicate that the landing spot for each of those 3 basis vectors is described with only 2 coordinates, so they must be landing in 2 dimensions.
+Well, the 3 columns indicate that the starting space has 3 basis vectors, so we're starting in 3 dimensions. And the 2 rows indicate that the landing spot for each of those 3 basis vectors is described with only 2 coordinates, so they must be landing in 2 dimensions.  
+      嗯，3列表示起始空间有3个基向量，所以我们是在三维空间中开始。  
+      而2行则表示这3个基向量各自的落点只需用2个坐标来描述，  
+      因此它们必定落在二维空间中。
 
 <Figure image="$lesson/figures/2d-to-3d/MatrixNotation2x3.svg" />
 
-This means it's a transformation from three-dimensions down to two; a transformation that would feel deeply uncomfortable to experience.
+This means it's a transformation from three-dimensions down to two; a transformation that would feel deeply uncomfortable to experience.  
+这意味着这是一种从三维空间到二维空间的变换；这种变换会让人感到极为不适。
 
 <Figure image="$lesson/figures/2d-to-3d/Input3dOutput2d.svg" />
 
@@ -77,28 +108,37 @@ This means it's a transformation from three-dimensions down to two; a transforma
 
 <section>
 
-## 2d to 1d
+## 2d to 1d 2维到1维
 
 <Figure image="$lesson/figures/2d-to-1d/TransformationFunction2dTo1d.svg" />
 
-You could also have a transformation from two dimensions to one dimension. One-dimensional space is really just the number line, so a transformation like this takes in 2d vectors, and spits out numbers.
+You could also have a transformation from two dimensions to one dimension. One-dimensional space is really just the number line, so a transformation like this takes in 2d vectors, and spits out numbers.  
+也可以实现从二维到一维的转换。  
+一维空间其实就是数轴，因此这样的转换会输入二维向量，然后输出数值。
 
 <Figure
   image="$lesson/figures/2d-to-1d/LinearTransformationVectorToNumber.svg"
   video="$lesson/figures/2d-to-1d/LinearTransformationVectorToNumber.mp4"
 />
 
-Thinking about grid lines remaining parallel and evenly spaced is a bit messy due to all of the squishification, so in this case, the visual understanding for what makes a linear transformation distinct from non-linear transformations is that a line of evenly spaced dots would remain evenly spaced once they're mapped onto the number line.
+Thinking about grid lines remaining parallel and evenly spaced is a bit messy due to all of the squishification, so in this case, the visual understanding for what makes a linear transformation distinct from non-linear transformations is that a line of evenly spaced dots would remain evenly spaced once they're mapped onto the number line.  
+由于存在各种压缩效应，要保证网格线保持平行且等距分布有些困难，  
+因此在这种情况下，理解线性变换与非线性变换之间差异的直观方式是：  
+一组等距排列的点在映射到数轴上后依然会保持等距。
 
 <Figure
   image="$lesson/figures/2d-to-1d/LinearTransformationLinearSpacedDots.svg"
   video="$lesson/figures/2d-to-1d/LinearTransformationLinearSpacedDots.mp4"
 />
 
-One of these transformations is encoded with a 1x2 matrix, each of whose 2 columns just has a single entry, indicating the number the $\hat{\imath}$ lands on and the number that $\hat{\jmath}$ lands on.
+One of these transformations is encoded with a 1x2 matrix, each of whose 2 columns just has a single entry, indicating the number the $\hat{\imath}$ lands on and the number that $\hat{\jmath}$ lands on.  
+这些变换之一由一个1×2矩阵编码，该矩阵的2列中每列仅包含一个元素，  
+分别表示$\hat{\imath}$落下的数字以及$\hat{\jmath}$落下的数字。
 
 <Figure image="$lesson/figures/2d-to-1d/TransformationMatrix.svg" />
 
-This is actually a surprisingly meaningful type of transformation, with close ties to the dot product that we'll talk about next chapter. Until then, we encourage you to play around with this idea on your own, contemplating the meaning of things like matrix multiplication and linear systems of equations in the context of transformations between dimensions.
+This is actually a surprisingly meaningful type of transformation, with close ties to the dot product that we'll talk about next chapter. Until then, we encourage you to play around with this idea on your own, contemplating the meaning of things like matrix multiplication and linear systems of equations in the context of transformations between dimensions.  
+    实际上，这是一种极具意义的变换类型，与我们将在下一章讨论的点积有着密切联系。
+    在此之前，我们鼓励大家自行探索这一概念，思考在维度间变换的背景下矩阵乘法与线性方程组等概念的含义。
 
 </section>

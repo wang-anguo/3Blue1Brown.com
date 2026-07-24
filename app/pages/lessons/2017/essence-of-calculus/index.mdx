@@ -1,13 +1,13 @@
 ---
-title: The Essence of Calculus
-description: An overview of what calculus is all about, with an emphasis on making it seem like something students could discover for themselves.  The central example is that of rediscovering the formula for a circle's area, and how this is an isolated instance of the fundamental theorem of calculus
+title: The Essence of Calculus 微积分的精髓
+description: An overview of what calculus is all about, with an emphasis on making it seem like something students could discover for themselves.  The central example is that of rediscovering the formula for a circle's area, and how this is an isolated instance of the fundamental theorem of calculus 概述微积分的本质，着重让读者感受到这是学生可以自行探索的内容。核心示例是重新发现圆的面积公式，以及这一例子如何体现微积分基本定理的个别应用。
 date: 2017-04-28
 chapter: 1
 video: WUvTyaaNkzM
 source: _2017/eoc/chapter1.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Figure from "~/components/Figure";
@@ -18,64 +18,105 @@ import Quote from "~/components/Quote";
 
 <section>
 
-<Quote name="David Hilbert">
+<Quote name="David Hilbert 大卫·希尔伯特">
   The art of doing mathematics is finding that *special case* that contains all
-  the germs of generality.
+  the germs of generality.  
+  数学的艺术在于找到那个蕴含了所有普遍性萌芽的*特例*。 
+    
 </Quote>
 
-My goal is for you to come away from this series feeling like you could have invented calculus. That is, cover these core ideas, but in a way that makes clear where they actually come from, and what they really mean, using an all-around visual approach.
+My goal is for you to come away from this series feeling like you could have invented calculus. That is, cover these core ideas, but in a way that makes clear where they actually come from, and what they really mean, using an all-around visual approach.  
+   我的目标是让你们在看完这套课程后，觉得自己仿佛可以发明出微积分。  
+   也就是说，要讲解这些核心概念，  
+   但要通过全方位的可视化方式，清晰地展现它们的起源以及真正含义。
 
-Inventing math is no joke, and there is a difference between being told why something makes sense and actually generating it from scratch. But at all points I want you to think to yourself if you were an early mathematician pondering these ideas and drawing the right diagrams, does it feel reasonable that you could have stumbled upon these truths yourself?
+Inventing math is no joke, and there is a difference between being told why something makes sense and actually generating it from scratch. But at all points I want you to think to yourself if you were an early mathematician pondering these ideas and drawing the right diagrams, does it feel reasonable that you could have stumbled upon these truths yourself?  
+创造数学绝非儿戏，被告知某件事为何合理与真正从零开始推导出来之间存在着差异。  
+但在整个过程中，我希望你时刻思考：  
+如果你是那位探索这些理念、绘制恰当图表的早期数学家，  
+你觉得自己有可能独立发现这些真理吗？
 
 </section>
 
 <section>
 
-## Questions of area
+## Questions of area  面积问题
 
-In this chapter, I want to show how you might stumble into the core ideas of calculus by thinking deeply about one very specific bit of geometry: The area of a circle. Maybe you know that the area is $\pi$ multiplied by the radius $R$ squared, but why? Is there a way to think about where this formula comes from?
+In this chapter, I want to show how you might stumble into the core ideas of calculus by thinking deeply about one very specific bit of geometry: The area of a circle. Maybe you know that the area is $\pi$ multiplied by the radius $R$ squared, but why? Is there a way to think about where this formula comes from?  
+在这一章中，我想通过深入思考几何学中一个非常具体的问题——圆的面积——  
+来展示人们是如何偶然发现微积分的核心思想的。  
+也许你知道圆的面积是π乘以半径R的平方，但为什么呢？  
+有没有办法去理解这个公式的由来？
 
 <Figure image="$lesson/figure-1.42.svg">
-  This figure illustrates the area of a circle with radius $R$ and the formula
-  that calculates its area.
+  This figure illustrates the area of a circle with radius $R$ and the formula that calculates its area.  
+  该图展示了半径为 $R$ 的圆的面积，以及计算其面积的公式。
 </Figure>
 
-Contemplating this problem and leaving yourself open to generalizing the tools you use along the way can actually lead you to a glimpse of three big ideas in calculus: Integrals, derivatives, and the fact that they are opposites.
+Contemplating this problem and leaving yourself open to generalizing the tools you use along the way can actually lead you to a glimpse of three big ideas in calculus: Integrals, derivatives, and the fact that they are opposites.  
+     思考这个问题，并乐于在过程中对所使用的工具进行归纳总结，  
+     实际上能让你初步了解微积分中的三个重要概念：  
+     积分、导数，以及它们互为相反数的关系。
 
-But the story of finding the area starts more simply: Just you, and a circle. To be concrete, let's say the radius is $1$ unit[^1]. If you weren't worried about the exact area, and just wanted to estimate it, one way you might go about it is to chop the circle into smaller pieces whose areas are easier to approximate, then add up the results.
 
-[^1]: This article uses an example circle of radius $1$ where the original video uses a circle of radius $3$.
+But the story of finding the area starts more simply: Just you, and a circle. To be concrete, let's say the radius is $1$ unit[^1]. If you weren't worried about the exact area, and just wanted to estimate it, one way you might go about it is to chop the circle into smaller pieces whose areas are easier to approximate, then add up the results.  
+不过，计算面积的故事其实更为简单：只需要你和一个圆。  
+具体来说，假设半径为1个单位[^1]​。  
+如果你不关心精确的面积值，只是想对其进行估算，  
+一种方法是将圆分割成若干面积更易于近似的较小部分，然后再把这些部分的面积加总起来。
 
-There are many ways you might go about this, each of which may lead to its own interesting line of reasoning.
+[^1]: This article uses an example circle of radius $1$ where the original video uses a circle of radius $3$.  
+本文采用半径为1的圆作为示例，而原始视频中使用的是半径为3的圆。
+
+There are many ways you might go about this, each of which may lead to its own interesting line of reasoning.  
+解决这个问题有多种方法，每种方法都可能引出各自有趣的推理思路。
 
 <Figure image="$lesson/figure-2.04-2.21.svg">
-  This figure illustrates different ways to divide the area of the circle with a
-  radius $1$.
+  This figure illustrates different ways to divide the area of the circle with a radius $1$.  
+  该图展示了将半径为 $1$ 的圆的面积进行分割的不同方法。
 </Figure>
 
-Math has a tendency to reward you when you respect symmetry, so among the divisions shown above, either the bottom left one dividing into pizza slices or the bottom right which divides into concentric rings will be likely to lead us down a fruitful path. For now, let's think about the division into concentric rings [^2].
+Math has a tendency to reward you when you respect symmetry, so among the divisions shown above, either the bottom left one dividing into pizza slices or the bottom right which divides into concentric rings will be likely to lead us down a fruitful path. For now, let's think about the division into concentric rings [^2].  
+在数学中，尊重对称性往往能带来回报，  
+因此在上述各种分割方式中，  
+无论是将图形分割成披萨片的那一种，还是分割成同心圆环的那一种，  
+都更有可能引领我们走向富有成果的路径。  
+目前，让我们先考虑将图形分割成同心圆环的情况[^2]​。
 
-[^2]: You may notice that the other division of the circle that respects symmetry is dividing the circle into slices, like a pizza. Challenge question: Can you use this to provide an alternative argument for the area of circle formula?
+[^2]: You may notice that the other division of the circle that respects symmetry is dividing the circle into slices, like a pizza. Challenge question: Can you use this to provide an alternative argument for the area of circle formula?  
+你可能会注意到，另一种符合对称性的圆的分法是将圆分割成像披萨一样的扇形。挑战问题：你能利用这一点为圆的面积公式提供另一种证明方法吗？
 
 </section>
 
 <section>
 
-## Unraveling rings
+## Unraveling rings 解析圆环
 
-Focus on just one of those concentric rings, and let's call its radius $r$, which will be some number between $0$ and $1$. If we can find a nice expression for the area of one such ring, and if we find a nice way to add them all up, it might lead us to an understanding of the full circle's area.
+Focus on just one of those concentric rings, and let's call its radius $r$, which will be some number between $0$ and $1$. If we can find a nice expression for the area of one such ring, and if we find a nice way to add them all up, it might lead us to an understanding of the full circle's area.  
+我们只关注那些同心圆环中的一个，将其半径记为$r$，  
+该数值会在$0$和 $1$之间。  
+如果我们能找到表示这样一个圆环面积的简洁公式，  
+并且能找到一种将所有圆环的面积相加的简便方法，  
+或许就能帮助我们理解整个圆的面积。
 
 <Figure image="$lesson/figure-2.39.svg">
-  This figure highlights a band of area formed from dividing the circle into
-  concentric rings.
+  This figure highlights a band of area formed from dividing the circle into concentric rings.  
+  该图突出了将圆划分为同心环后形成的区域带。
 </Figure>
 
-In the spirit of using what will come to be standard calculus notations, let's call the thickness of one of these rings "$dr$", which you can read as meaning "the tiny difference in radius from one ring to the next". In the drawing above, for example, $dr = 0.1$.
+In the spirit of using what will come to be standard calculus notations, let's call the thickness of one of these rings "$dr$", which you can read as meaning "the tiny difference in radius from one ring to the next". In the drawing above, for example, $dr = 0.1$.  
+为了遵循即将成为标准的高等数学符号惯例，我们称这些环中某一层的厚度为 “$dr$” ​，  
+其含义可理解为“相邻两环之间半径的微小差值”​。例如在上面的图中，$dr = 0.1$。
 
-You should know that some people, perhaps even most people, would object to our using the notation $dr$ to represent a specific not-infinitely-small size like this, suggesting instead we use some other notation, like $\Delta r$. Well, it's my house and my rules, and I have my reasons, which we'll get into later. For now, I want you to think about $dr$ as simply being some number without worrying about what phrases like "infinitely small" would mean.
+You should know that some people, perhaps even most people, would object to our using the notation $dr$ to represent a specific not-infinitely-small size like this, suggesting instead we use some other notation, like $\Delta r$. Well, it's my house and my rules, and I have my reasons, which we'll get into later. For now, I want you to think about $dr$ as simply being some number without worrying about what phrases like "infinitely small" would mean.  
+你应该知道，有些人——甚至可能是大多数人——会反对我们用 $dr$ 来表示这种非无限小的量，  
+建议改用其他符号，比如$\Delta r$。  
+不过这是我的课堂，我有权制定规则，而且我有我的理由，稍后会详细说明。  
+目前，我希望你们把 $dr$ 简单看作一个数字，不必去考虑“无限小”之类的表述意味着什么。
 
 <Question
-  question="Which of the following is closest to the area of one of these rings with inner radius $r$ and thickness $dr$?"
+  question="Which of the following is closest to the area of one of these rings with inner radius $r$ and thickness $dr$?  
+  下列哪个选项最接近内半径为$r$、厚度为$dr$的这样一个环的面积？​"
   choice1="$\pi r^2 \cdot dr$"
   choice2="$2 \pi r^2 \cdot dr$"
   choice3="$2 \pi r \cdot dr$"
@@ -83,71 +124,112 @@ You should know that some people, perhaps even most people, would object to our 
   answer={3}
 >
 
-The area of the ring can be approximated as the area of a rectangle with a length of $2 \pi r$ and a height of $dr$.
+The area of the ring can be approximated as the area of a rectangle with a length of $2 \pi r$ and a height of $dr$.  
+该环的面积可近似为长为$2 \pi r$、高为$dr$的矩形的面积。
 
 </Question>
 
-You might imagine straightening out this ring, into a shape whose width is the inner circumference of the ring, which is $2 \pi r$. This is the very definition of $\pi$, relating the circumference of a circle to its diameter, or radius. The thickness of this unwrapped shape would be $dr$.
+You might imagine straightening out this ring, into a shape whose width is the inner circumference of the ring, which is $2 \pi r$. This is the very definition of $\pi$, relating the circumference of a circle to its diameter, or radius. The thickness of this unwrapped shape would be $dr$.  
+    你可以想象将这个环展平，变成一个宽度为环的内周长、即$2\pi r$的形状。  
+    这正是$\pi$的定义，它反映了圆的周长与其直径或半径之间的关系。  
+    而这个展平后形状的厚度则为$dr$。
 
 <Figure image="$lesson/figure-3.04.svg">
-  This figure illustrates a concentric ring with radius $r$ straightened out.
+  This figure illustrates a concentric ring with radius $r$ straightened out.  
+  该图展示了一个半径为$r$的同心圆环被展平后的形状。
 </Figure>
 
-If this unwrapped shape is meant to perfectly match the area of the ring, it will be approximately, but not exactly, a rectangle. Because the outer circumference of the ring will be slightly larger than the inner circumference, the bottom of our unwrapped shape will be slightly wider than the top [^3]. However, if we're comfortable beginning the exploration by only approximating the area of each small piece, we could consider this to be approximately a rectangle with a width of $2 \pi r$ and a height of $dr$.
+If this unwrapped shape is meant to perfectly match the area of the ring, it will be approximately, but not exactly, a rectangle. Because the outer circumference of the ring will be slightly larger than the inner circumference, the bottom of our unwrapped shape will be slightly wider than the top [^3]. However, if we're comfortable beginning the exploration by only approximating the area of each small piece, we could consider this to be approximately a rectangle with a width of $2 \pi r$ and a height of $dr$.  
+如果要将这个展开后的形状与环的面积完全匹配，它将近似为矩形，但并非严格意义上的矩形。  
+由于环的外周长略大于内周长，因此展开后形状的底部会比顶部稍宽[^3]​。  
+不过，如果我们愿意先通过近似计算每小块的面积来开始探索，  
+那么可以认为它近似为一个宽度为$2 \pi r$、高度为$dr$的矩形。
 
 [^3]:
-    You might hypothesize that the appropriate shape would be a trapezoid, but how would you be sure that those small diagonal edges are straight lines? It's not hard to intuitively justify but to make it rigorous you end up running into awkward questions about what we even mean by "area" in the first place.
+    You might hypothesize that the appropriate shape would be a trapezoid, but how would you be sure that those small diagonal edges are straight lines? It's not hard to intuitively justify but to make it rigorous you end up running into awkward questions about what we even mean by "area" in the first place.  
+    你可能会假设合适的形状是梯形，但如何确定那些小的对角边是直线呢？  
+    用直觉来解释并不难，但要使其严谨的话，最终就会遇到一些棘手的问题，  
+    比如我们究竟该如何定义“面积”​。
 
-    The kind of rectangular approximations this article is leading to, and the general tools like integration that emerge from it, end up being one path to rigorously defining what we mean by area.
+    The kind of rectangular approximations this article is leading to, and the general tools like integration that emerge from it, end up being one path to rigorously defining what we mean by area.  
+    本文所指向的那种矩形近似，以及由此衍生出的积分等通用工具，最终成为严格定义“面积”含义的一条路径。
 
-The difference between the true area of the ring and the area of the rectangular approximation introduces some small error.
+The difference between the true area of the ring and the area of the rectangular approximation introduces some small error.  
+圆环的真实面积与矩形近似面积之间的差值会带来一定的微小误差。
 
 <Figure image="$lesson/figure-3.17-3.41-rings.svg">
-  This figure illustrates how approximating a ring's area as a rectangle gets
-  better and better for smaller choices of $dr$.
+  This figure illustrates how approximating a ring's area as a rectangle gets better and better for smaller choices of $dr$.  
+  该图说明了，随着 $dr$ 取值越来越小，将环的面积近似为矩形的结果会越来越准确。
 </Figure>
 
-However, and this will be a key idea, _this error becomes tiny compared to the overall area when $dr$ is small_. In other words, approximating the area of each ring as $2 \pi r \cdot dr$ is wrong, but as we chop up the circle into finer and finer rings, it becomes less and less wrong [^4].
+However, and this will be a key idea, _this error becomes tiny compared to the overall area when $dr$ is small_. In other words, approximating the area of each ring as $2 \pi r \cdot dr$ is wrong, but as we chop up the circle into finer and finer rings, it becomes less and less wrong [^4].  
+然而，这也是一个关键点：_当 $dr$ 较小时，这一误差与整体面积相比就变得微不足道_。  
+换句话说，将每个环的面积近似为 $2 \pi r \cdot dr$ 是错误的，  
+但当我们把圆分割成越来越细的环时，这种误差就会越来越小[^4]​。
 
 [^4]:
-    The astute among you may worry about whether the errors in our approximations accumulate too much. You might say "Sure, sure, the difference between the true area of a ring as $2 \pi r \cdot dr$ is only a small percentage of the area of that ring, and it only gets smaller as $dr$ approaches $0$, I get that. But how do we know that the sum of all these errors doesn't remain significant as $dr$ approaches $0$?"
+    The astute among you may worry about whether the errors in our approximations accumulate too much. You might say "Sure, sure, the difference between the true area of a ring as $2 \pi r \cdot dr$ is only a small percentage of the area of that ring, and it only gets smaller as $dr$ approaches $0$, I get that. But how do we know that the sum of all these errors doesn't remain significant as $dr$ approaches $0$?"  
+    你们当中细心的人可能会担心，我们近似计算中产生的误差是否会累积得太多。  
+    你可能会说：​“当然，环的真正面积是$2 \pi r \cdot dr$，  
+    这一数值仅占该环面积的一小部分，而且当$dr$趋近于0时这一比例还会更小，我明白这一点。  
+    但我们要怎么知道，当$dr$趋近于0时，所有这些误差的总和不会仍然很大呢？​”
 
-    If you wanted to be more precise and rigorous, you would show that the size of this error for each ring is bounded by some constant times $(dr)^2$, while the total number of rings is about $\frac{R}{dr}$, so the total size of the aggregate error is bounded by some constant times $\frac{R}{dr} (dr)^2 = R \cdot dr$. So as $dr$ goes to zero, the full aggregate error will indeed go to zero with it.
+    If you wanted to be more precise and rigorous, you would show that the size of this error for each ring is bounded by some constant times $(dr)^2$, while the total number of rings is about $\frac{R}{dr}$, so the total size of the aggregate error is bounded by some constant times $\frac{R}{dr} (dr)^2 = R \cdot dr$. So as $dr$ goes to zero, the full aggregate error will indeed go to zero with it.  
+    如果你想更加精确和严谨，就需要证明每个环的误差大小都受某个常数乘以$(dr)^2$的限制，  
+    而环的总数约为$\frac{R}{dr}$，  
+    因此总误差的大小也受某个常数乘以$\frac{R}{dr} (dr)^2 = R \cdot dr$的限制。  
+    所以当$dr$趋近于零时，总误差确实也会随之趋近于零。
 
 <Figure image="$lesson/figure-3.17-3.41-circles.svg">
-  This figure illustrates small and smaller choices of $dr$ when dividing the
-  circle into rings.
+  This figure illustrates small and smaller choices of $dr$ when dividing the circle into rings.  
+  该图展示了将圆划分为同心环时，$dr$ 取值从小到更小的几种情况。
 </Figure>
 
 </section>
 
 <section>
 
-## Think to Graph
+## Think to Graph 由思维绘成图表
 
-So you've broken up the area of this circle into all these rings, and you're approximating the area of each one as $2 \pi \cdot r \cdot dr$. You might think that actually adding all those areas together will be a nightmare, especially if you're seeking more accurate approximations with finer and finer divisions of the circle. However, being the bold mathematician that you are, you might have a hunch that taking this process to the utmost extreme may actually make things easier rather than harder.
+So you've broken up the area of this circle into all these rings, and you're approximating the area of each one as $2 \pi \cdot r \cdot dr$. You might think that actually adding all those areas together will be a nightmare, especially if you're seeking more accurate approximations with finer and finer divisions of the circle. However, being the bold mathematician that you are, you might have a hunch that taking this process to the utmost extreme may actually make things easier rather than harder.  
+所以你将这个圆的面积分割成了所有这些环状区域，  
+并将每个区域的面积近似为$2 \pi \cdot r \cdot dr$。  
+你可能会觉得，要把所有这些面积加总起来简直是个噩梦，  
+尤其是当你需要通过越来越细的划分来获得更精确的近似值时。  
+但作为一位大胆的数学家，你或许会直觉地认为，  
+将这一过程进行到极致反而会让事情变得更简单而非更复杂。
 
-The size of that inner radius for the rings ranges from $0$ for the smallest ring up to $1$ for the largest, spaced out by whatever thickness we chose for $dr$, like $0.1$. Or rather, they range from $0$ up to $1 - dr$, but as $dr$ gets smaller that upper bound looks more and more like $1$.
+The size of that inner radius for the rings ranges from $0$ for the smallest ring up to $1$ for the largest, spaced out by whatever thickness we chose for $dr$, like $0.1$. Or rather, they range from $0$ up to $1 - dr$, but as $dr$ gets smaller that upper bound looks more and more like $1$.  
+这些环的内半径大小从最小环的 $0$ 开始，到最大环的 $1$ 结束，  
+其间隔为所选的$dr$值，比如$0.1$。  
+或者更准确地说，内半径范围是从 $0$ 到 $1 - dr$ ，但随着 $dr$ 逐渐变小，这个上限就越发接近 $1$。
 
 <Figure image="$lesson/figure-4.18.svg" video="$lesson/figure-4.08-4.18.mp4">
-  This figure shows how the area of the circle is equal to the sum of rings'
-  areas, where the area of each ring is given by $2 \pi \cdot r \cdot dr$.
+  This figure shows how the area of the circle is equal to the sum of rings' areas, where the area of each ring is given by $2 \pi \cdot r \cdot dr$.  
+  该图展示了圆的面积如何等于各环形区域面积之和，  
+  其中每个环形区域的面积由公式 $2 \pi \cdot r \cdot dr$ 给出。
 </Figure>
 
-To help draw what adding those areas looks like, think about adding together your rectangular approximations. A nice way to visualize this is to fit all those rectangles upright, side-by-side standing on a horizontal axis. We can think of this horizontal axis as representing all the values of $r$ ranging from $0$ up to $1$.
+To help draw what adding those areas looks like, think about adding together your rectangular approximations. A nice way to visualize this is to fit all those rectangles upright, side-by-side standing on a horizontal axis. We can think of this horizontal axis as representing all the values of $r$ ranging from $0$ up to $1$.  
+为了帮助想象将这些面积相加后的样子，可以试着把那些矩形近似值加总起来。  
+一个很好的可视化方法是将所有这些矩形竖着排列，并并排放在水平轴上。  
+我们可以把这条水平轴看作代表从0到1的所有$r$值。
 
-Each rectangle has a thickness of $dr$, which is also the spacing between different values of $r$, which is why they fit so snugly right together. The height of any rectangle above a value of $r$, is exactly $2 \pi \cdot r$. This is the circumference of the corresponding ring.
+Each rectangle has a thickness of $dr$, which is also the spacing between different values of $r$, which is why they fit so snugly right together. The height of any rectangle above a value of $r$, is exactly $2 \pi \cdot r$. This is the circumference of the corresponding ring.  
+每个矩形的厚度为$dr$，这也是不同$r$值之间的间隔，正因如此它们才能如此紧密地排列在一起。  
+对于任意$r$值而言，其上方矩形的高度恰好为$2\pi\cdot r$，这正是对应环形的周长。
 
 <Figure
   image="$lesson/figure-4.14-4.57.svg"
   video="$lesson/figure-4.18-5.08-trimmed.mp4"
 >
-  This figure plots the radius of each of the circle's rings on a numberline,
-  where the spacing between each radius is equal to $dr$.
+  This figure plots the radius of each of the circle's rings on a numberline, where the spacing between each radius is equal to $dr$.  
+  该图将圆的各同心圆半径绘制在数轴上，其中各半径之间的间距均为 $dr$。
 </Figure>
 
 <Question
-  question="What is the height of the rectangle whose left corner touches $r=0.3$? **Note:** This is the rectangle highlighted in the still figure above."
+  question="What is the height of the rectangle whose left corner touches $r=0.3$? **Note:** This is the rectangle highlighted in the still figure above.  
+  左角与$r=0.3$相切的矩形的高度是多少？**注意：**这就是上图中被标出的矩形。"
   choice1="$6 \pi$"
   choice2="$\frac{3}{10} \pi$"
   choice3="$2 \pi$"
@@ -155,29 +237,46 @@ Each rectangle has a thickness of $dr$, which is also the spacing between differ
   answer={4}
 >
 
-Substituting the value of the inner radius $0.3$ into the formula for the circumference of a circle $2 \pi r$ calculates the height of the rectangle to be $\frac{3}{5} \pi$.
+Substituting the value of the inner radius $0.3$ into the formula for the circumference of a circle $2 \pi r$ calculates the height of the rectangle to be $\frac{3}{5} \pi$.  
+将内半径的值$0.3$代入圆的周长公式$2 \pi r$中，可算出矩形的高为$\frac{3}{5} \pi$。
 
 </Question>
 
-A nice way to think of this setup is to draw the graph of $2 \pi r$, which is this straight line with a slope of $2 \pi$. Each of these rectangles extends up to the point where it just barely touches the graph.
+A nice way to think of this setup is to draw the graph of $2 \pi r$, which is this straight line with a slope of $2 \pi$. Each of these rectangles extends up to the point where it just barely touches the graph.  
+理解这一情形的一个好方法就是绘制 $2\pi r$ 的图像，  
+它是一条斜率为 $2\pi$的直线。每个矩形都会延伸到刚好与这条直线相切的点为止。
 
 <Figure image="$lesson/figure-5.35.svg">
-  The unraveled rings under the graph of $2 \pi r$.
+  The unraveled rings under the graph of $2 \pi r$.  
+  $2\pi r$ 图像下那些散开的环。
 </Figure>
 
-Again, we're being approximate here. Each of those rectangles only approximates the area of their corresponding ring from the circle. But remember, the approximation of $2 \pi \cdot r \cdot dr$ for the area of each ring will get less and less wrong as the size of $dr$ gets smaller and smaller.
+Again, we're being approximate here. Each of those rectangles only approximates the area of their corresponding ring from the circle. But remember, the approximation of $2 \pi \cdot r \cdot dr$ for the area of each ring will get less and less wrong as the size of $dr$ gets smaller and smaller.  
+同样，这里我们采用的是近似方法。每个矩形仅能近似表示圆中对应环形的面积。  
+但请记住，随着$dr$的数值越来越小，  
+用$2\pi \cdot r \cdot dr$来近似每个环形的面积时，其误差也会越来越小。
 
-Again, concretely adding up the areas of all these rectangles would be a royal pain, but that's when you get a crazy thought: Maybe, just maybe, asking what this sum _approaches_ as the choice of $dr$ gets smaller will be easier than ever actually computing the sum for any specific value of $dr$.
+Again, concretely adding up the areas of all these rectangles would be a royal pain, but that's when you get a crazy thought: Maybe, just maybe, asking what this sum _approaches_ as the choice of $dr$ gets smaller will be easier than ever actually computing the sum for any specific value of $dr$.  
+同样，要具体地把所有这些矩形的面积加总起来是一件极其麻烦的事，  
+但这时一个惊人的想法出现了：  
+也许，仅仅是也许，研究当 $dr$ 的取值越来越小时这个总和会趋近于什么，  
+会比实际为任意特定的 $dr$ 值计算该总和要容易得多。
 
 <Figure image="$lesson/figure-5.58,6.00,6.03.svg">
-  The unraveled rings under the graph of $2 \pi r$.
+  The unraveled rings under the graph of $2 \pi r$.  
+  $2\pi r$ 图像下那些散开的环。
 </Figure>
 
-This has a very beautiful meaning when looking at the sum of the areas of all these rectangles. For smaller and smaller choices of $dr$, notice how all their area in aggregate simply looks like the area under this graph. The smaller this value $dr$ is, the closer that aggregate area of the rectangles is to being precisely the area under the graph.
+This has a very beautiful meaning when looking at the sum of the areas of all these rectangles. For smaller and smaller choices of $dr$, notice how all their area in aggregate simply looks like the area under this graph. The smaller this value $dr$ is, the closer that aggregate area of the rectangles is to being precisely the area under the graph.  
+当考虑所有这些矩形面积之和时，这具有非常美好的意义。  
+随着 $dr$ 的取值越来越小，可以发现所有矩形的总面积就逐渐变成了该曲线下的面积。  
+$dr$ 的值越小，这些矩形总面积就越接近于曲线下的精确面积。
 
 <Figure image="$lesson/figure-6.34.svg" />
 
-This portion under the graph is a triangle, whose base is $1$, and whose height is $2 \pi \cdot 1$. So the area, which is ½ base times height, comes out to be $\pi \cdot 1^2$.
+This portion under the graph is a triangle, whose base is $1$, and whose height is $2 \pi \cdot 1$. So the area, which is ½ base times height, comes out to be $\pi \cdot 1^2$.  
+图下的这一部分是一个三角形，其底边为1，高为2π·1。  
+因此，面积等于底边乘以高的一半，即π·1²。
 
 $$
 \begin{aligned}
@@ -187,7 +286,8 @@ $$
 \end{aligned}
 $$
 
-Or, if the radius of our original circle had been some other value, capital $R$, that area would be $\frac{1}{2} \cdot R \cdot 2 \pi R$.
+Or, if the radius of our original circle had been some other value, capital $R$, that area would be $\frac{1}{2} \cdot R \cdot 2 \pi R$.  
+或者，如果我们原始圆的半径是另一个值，即大写$R$，那么该面积将为$\frac{1}{2} \cdot R \cdot 2 \pi R$。
 
 <Figure image="$lesson/figure-6.40.svg" />
 
@@ -199,23 +299,44 @@ $$
 \end{aligned}
 $$
 
-This is the formula for the area of a circle. It doesn't matter who you are or what you typically think of math; that right there is beautiful.
+This is the formula for the area of a circle. It doesn't matter who you are or what you typically think of math; that right there is beautiful.  
+这是圆的面积公式。无论你是谁，也无论你对数学有何看法，这个公式都是美妙的。
 
 </section>
 
 <section>
 
-## Generalizing the Approach
+## Generalizing the Approach 推广这一方法 
 
-Being the mathematician that you are, you don't just care about finding the answer, you care about developing general problem-solving tools and techniques. So take a moment to meditate on what just happened, and why that worked, because the way we transitioned from something approximate to something precise is actually pretty subtle, and cuts deep to what calculus is all about.
+Being the mathematician that you are, you don't just care about finding the answer, you care about developing general problem-solving tools and techniques. So take a moment to meditate on what just happened, and why that worked, because the way we transitioned from something approximate to something precise is actually pretty subtle, and cuts deep to what calculus is all about.  
+作为一位数学家，你不仅关心找到答案，更注重开发通用的问题解决工具与方法。  
+因此，请花点时间思考一下刚刚发生了什么以及为何那样做有效，  
+因为我们从近似值过渡到精确值的方式其实相当微妙，而这恰恰触及了微积分的核心要义。
 
-You had a problem that could be approximated with the sum of many small numbers, each of which looked like $2\pi \cdot r \cdot dr$ for values of $r$ ranging between $0$ and $1$. Each of those approximates the area of one of these thin rings.
+You had a problem that could be approximated with the sum of many small numbers, each of which looked like $2\pi \cdot r \cdot dr$ for values of $r$ ranging between $0$ and $1$. Each of those approximates the area of one of these thin rings.  
+你面临的一个问题可以通过许多小数值的求和来近似求解，  
+这些小数值在$r$介于$0$和$1$之间时都表现为$2\pi \cdot r \cdot dr$的形式。  
+每一个这样的值都近似表示其中一个细环的面积。
 
-The small number $dr$ represents our choice for the thickness of each ring, for example $0.1$, and there are two important things to note. First, not only is $dr$ a factor in the quantity we're adding up, $2\pi \cdot r \cdot dr$, it also gives the spacing between the different values of $r$. The smaller the choice of $dr$, the better the approximation.
+The small number $dr$ represents our choice for the thickness of each ring, for example $0.1$, and there are two important things to note. First, not only is $dr$ a factor in the quantity we're adding up, $2\pi \cdot r \cdot dr$, it also gives the spacing between the different values of $r$. The smaller the choice of $dr$, the better the approximation.  
+微小数值 $dr$ 代表我们所选择的每个环的厚度，例如 $0.1$ 。这里有两点需要注意。  
+首先， $dr$ 不仅出现在我们要求和的量 $2\pi \cdot r \cdot dr$ 中，还决定了不同 $r$ 值之间的间隔。  
+$dr$ 取的值越小，近似效果就越好。
 
-Adding all those numbers could be seen in a different clever way as adding up the areas of many thin rectangles sitting under a graph; in this example that graph was of the function $2 \pi \cdot r$.
+Adding all those numbers could be seen in a different clever way as adding up the areas of many thin rectangles sitting under a graph; in this example that graph was of the function $2 \pi \cdot r$.  
+将所有这些数值相加，还可以用另一种巧妙的方法来理解：  
+即计算曲线下方众多细长矩形面积的总和；  
+在这个例子中，该曲线就是函数$2 \pi \cdot r$的图像。
 
-So on the one hand the sum of the areas of these slices approaches the area of the circle for smaller and smaller choices of $dr$. But on the other hand, that sum also approaches the area under this graph. This is how we concluded that our original hard problem had an answer equal to the area under a certain graph; not just approximately equal, but _precisely_ equal. I'll emphasize again what a big theme in calculus this is: The purpose of approximating a question by subdividing it like this is not that we don't care about precision, it's that the approximation using many smaller pieces gives us the flexibility to reframe our original hard question into something simpler.
+So on the one hand the sum of the areas of these slices approaches the area of the circle for smaller and smaller choices of $dr$. But on the other hand, that sum also approaches the area under this graph. This is how we concluded that our original hard problem had an answer equal to the area under a certain graph; not just approximately equal, but _precisely_ equal. I'll emphasize again what a big theme in calculus this is: The purpose of approximating a question by subdividing it like this is not that we don't care about precision, it's that the approximation using many smaller pieces gives us the flexibility to reframe our original hard question into something simpler.  
+因此，一方面，当$dr$的取值越来越小时，这些薄片面积之和会逐渐趋近于圆的面积。  
+但另一方面，这个总和也会趋近于该函数曲线下的面积。  
+正是由此我们得出结论：  
+原本那个复杂的问题的解恰好等于某条曲线下的面积——并非仅近似相等，而是完全相等。  
+我还要再次强调，这在微积分中是一个非常重要的主题：  
+通过这种细分方式来近似问题，并非因为我们不在乎精确度，  
+而是因为利用许多更小的部分进行近似，  
+能让我们有办法将原本复杂的难题转化为更简单的问题。
 
 <Figure image="$lesson/figure-8.29.svg" />
 
@@ -223,42 +344,69 @@ So on the one hand the sum of the areas of these slices approaches the area of t
 
 <section>
 
-## Integrals
+## Integrals  积分
 
-A lot of other hard problems in math and science can be broken down and approximated as the sum of many small quantities. For example if you want to figure out how far a car has gone based on its velocity at each point in time, you might range through many many points in time, and multiply the velocity at each time $t$ by some tiny change in time $dt$ to get the corresponding bit of distance traveled in the little time.
+A lot of other hard problems in math and science can be broken down and approximated as the sum of many small quantities. For example if you want to figure out how far a car has gone based on its velocity at each point in time, you might range through many many points in time, and multiply the velocity at each time $t$ by some tiny change in time $dt$ to get the corresponding bit of distance traveled in the little time.  
+数学和科学中的许多其他难题都可以被分解并近似为许多微小量的总和。  
+例如，如果你想根据汽车在每个时间点的速度来计算它行驶的距离，  
+你可以遍历大量的时间点，将每个时间点 $t$ 处的速度乘以一个极小的时间增量 $dt$ ，  
+从而得到该短时间内的行驶距离。
 
 <Figure
   image="$lesson/figure-9.08.jpg"
   video="$lesson/figure-8.49-9.08-trimmed.mp4"
 />
 
-I'll talk through the details of examples like this later in the series, but at a high level, many of these types of problems turn out to be equivalent to finding the area under some graph, in much the same way that our circle problem did.
+I'll talk through the details of examples like this later in the series, but at a high level, many of these types of problems turn out to be equivalent to finding the area under some graph, in much the same way that our circle problem did.  
+在系列内容的后面部分，我会详细讲解这类例题的细节，  
+但总体而言，许多这类问题实际上都等同于求某个图形的面积，  
+就像我们之前的圆的问题一样。
 
-This happens whenever the quantities that you're adding up, the ones whose sum approximates your original problem, can be thought of as the area of many thin rectangles sitting side-by-side like this. If finer and finer approximations of your original problem correspond to thinner and thinner rectangles, the original problem will be equivalent to finding the area under some graph.
+This happens whenever the quantities that you're adding up, the ones whose sum approximates your original problem, can be thought of as the area of many thin rectangles sitting side-by-side like this. If finer and finer approximations of your original problem correspond to thinner and thinner rectangles, the original problem will be equivalent to finding the area under some graph.  
+每当那些需要相加的量——即其总和能够近似表示原问题中的量——  
+可以被看作是许多并排排列的细长矩形的面积时，就会出现这种情况。  
+如果对原问题的越来越精确的近似对应着越来越薄的矩形，  
+那么原问题就等价于求某个图形的面积。
 
 <Question
-  question="In the same way velocity measures the change in position over the change in time, acceleration measures the change in velocity over the change in time. Can the velocity of a car be modeled as the area under the graph of acceleration?"
+  question="In the same way velocity measures the change in position over the change in time, acceleration measures the change in velocity over the change in time. Can the velocity of a car be modeled as the area under the graph of acceleration?  
+  正如速度表示位置随时间的变化率一样，加速度则表示速度随时间的变化率。  
+  那么，汽车的行驶速度能否用加速度曲线下的面积来表示呢？​"
   choice1="Yes"
   choice2="No"
   answer={1}
 >
-  In physics, position, velocity and acceleration are all related together.
-  Position can be modeled as the area under the graph of velocity and velocity
-  can be modeled as the area under the graph of acceleration.
+  In physics, position, velocity and acceleration are all related together. Position can be modeled as the area under the graph of velocity and velocity can be modeled as the area under the graph of acceleration.  
+  在物理学中，位置、速度和加速度是相互关联的。  
+  位置可以表示为速度曲线下的面积，而速度可以表示为加速度曲线下的面积。
+  
 </Question>
 
-Again, notice that the purpose of the small approximations is not that we intend to use them directly, per se, but that the two separate ways to think about what these approximations approach lets us reframe the question of how far the car has traveled into the question of finding the area under a certain curve.
+Again, notice that the purpose of the small approximations is not that we intend to use them directly, per se, but that the two separate ways to think about what these approximations approach lets us reframe the question of how far the car has traveled into the question of finding the area under a certain curve.  
+同样需要注意的是，使用这些近似值的目的并非是为了直接应用它们，  
+而是通过两种不同的思路来理解这些近似值所趋近的结果，  
+从而将“汽车行驶了多远”这一问题转化为“求某条曲线下的面积”这一问题。
 
-We'll see this idea in more detail later in the series, so don't worry if it's not 100% clear right now. The point is that you, as the mathematician having just solved a problem by reframing it as an area under a graph, might start thinking about how to find the area under other graphs.
+We'll see this idea in more detail later in the series, so don't worry if it's not 100% clear right now. The point is that you, as the mathematician having just solved a problem by reframing it as an area under a graph, might start thinking about how to find the area under other graphs.  
+      在后续的系列内容中，我们会更详细地探讨这个概念，所以如果现在还不完全明白也没关系。  
+      关键在于，作为刚刚通过将问题转化为图形下的面积来解决问题的数学家，  
+      你可能会开始思考如何求其他图形下的面积。
 
-We were lucky in our circle problem that the relevant area turned out to be a triangle, but imagine instead something like a parabola, the graph of the function $x^2$. What's the area under this curve, say between the values of $x=0$ and $x=3$? It's hard to think about, isn't it?
+We were lucky in our circle problem that the relevant area turned out to be a triangle, but imagine instead something like a parabola, the graph of the function $x^2$. What's the area under this curve, say between the values of $x=0$ and $x=3$? It's hard to think about, isn't it?  
+在圆的面积问题中，我们很幸运，相关的面积恰好是一个三角形。  
+但试想一下如果是像抛物线这样的函数，也就是 $x^2$ 的图像呢？  
+那么在 $x=0$ 和 $x=3$ 这两个数值之间，这条曲线下的面积是多少呢？  
+这很难想象，对吧？
 
 <Figure
   image="$lesson/figure-10.17.jpg"
   video="$lesson/figure-10.01-10.09.mp4"
 />
 
-Let me frame that question a different way: Fix that left endpoint in place at $0$, and let that right endpoint vary: Can you find a function, $A(x)$, that gives you the area under this parabola between $0$ and $x$?
+Let me frame that question a different way: Fix that left endpoint in place at $0$, and let that right endpoint vary: Can you find a function, $A(x)$, that gives you the area under this parabola between $0$ and $x$?  
+让我用另一种方式来提出这个问题：  
+将左端点固定在 $0$ 处，让右端点变化——能否找到一个函数 $A(x)$ ，  
+用来计算从 $0$ 到 $x$ 之间这条抛物线下的面积？
 
 <Figure
   image="$lesson/figure-11.26.jpg"
@@ -266,117 +414,223 @@ Let me frame that question a different way: Fix that left endpoint in place at $
   show="video"
 />
 
-In calculus, you might call this function $A(x)$ an "integral" of $x^2$. Well, more precisely we'd say this is the integral of $x^2$ from $0$ up to $x$. Or rather, to disambiguate whether $x$ represents the variable for the function, or if it represents the right endpoint, it would be even better to describe this area as the integral of the function $f(t) = t^2$ between the values $0$ and $x$. In the lingo, you'd see it written like this:
+In calculus, you might call this function $A(x)$ an "integral" of $x^2$. Well, more precisely we'd say this is the integral of $x^2$ from $0$ up to $x$. Or rather, to disambiguate whether $x$ represents the variable for the function, or if it represents the right endpoint, it would be even better to describe this area as the integral of the function $f(t) = t^2$ between the values $0$ and $x$. In the lingo, you'd see it written like this:  
+在微积分中，你可能会将这个函数$A(x)$称为$x^2$的“积分”​。  
+更准确地说，这是从$0$到$x$的$x^2$的积分。  
+或者，为避免混淆——不确定$x$是函数的变量还是右端点——  
+更好的说法是将这块面积描述为函数$f(t) = t^2$在$0$和$x$这两个值之间的积分。  
+用专业术语表示的话，就是这样写的：
 
 $$
 A(x) = \int_0^x t^2 dt
 $$
 
-But here we're getting ahead of ourselves. All that matters now is that you, as the mathematician, find yourself wondering about this mystery function $A(x)$ which gives the area under the graph of $x^2$ between some fixed left point, and some variable right point. If you can find a way to compute this explicitly, you will be inventing a big part of calculus.
+But here we're getting ahead of ourselves. All that matters now is that you, as the mathematician, find yourself wondering about this mystery function $A(x)$ which gives the area under the graph of $x^2$ between some fixed left point, and some variable right point. If you can find a way to compute this explicitly, you will be inventing a big part of calculus.  不过我们现在有点操之过急了。  
+现在重要的是，作为数学家的你，要开始思考这个神秘的函数 $A(x)$ ——  
+它能够给出从某个固定的左端点到一个变化的右端点之间$x^2$函数图像下的面积。  
+如果你能找到一种方法来明确计算出它的值，那你就相当于创造了微积分中的重要部分。
 
-Again, the reason we care about this kind of question is not just for the sake of asking hard geometry questions; it's because many practical problems that can be approximated by adding up a large number of small things can be reframed as a question about the area under a certain curve.
+Again, the reason we care about this kind of question is not just for the sake of asking hard geometry questions; it's because many practical problems that can be approximated by adding up a large number of small things can be reframed as a question about the area under a certain curve.  
+同样，我们关注这类问题的原因并非仅仅为了提出复杂的几何问题；  
+而是因为许多可以通过累加大量微小部分来近似处理的实际问题，  
+都可以被转化为关于某条曲线下方面积的问题。
 
 </section>
 
 <section>
 
-## Derivatives
+## Derivatives 导数
 
-Finding the area represented by this integral function is genuinely hard. And whenever you come across a genuinely hard question in math, a good policy is to not try too hard to get to the answer directly, since you often just end up banging your head against a wall.
+Finding the area represented by this integral function is genuinely hard. And whenever you come across a genuinely hard question in math, a good policy is to not try too hard to get to the answer directly, since you often just end up banging your head against a wall.  
+求出这个积分函数所表示的面积确实非常困难。  
+而每当遇到数学中真正棘手的问题时，  
+一个好的策略就是不要试图直接强行找到答案，因为那样往往只会让自己碰壁。
 
-Instead, play around with this idea. Build up some familiarity with the interplay between the function defining a graph, in this case $x^2$, and the function giving the area, our unknown function $A(x)$, and see if there are any other questions you can ask about the setup.
+Instead, play around with this idea. Build up some familiarity with the interplay between the function defining a graph, in this case $x^2$, and the function giving the area, our unknown function $A(x)$, and see if there are any other questions you can ask about the setup.  
+相反，试着探索这个思路。  
+先熟悉定义图形的函数——即这里的 $x^2$ ——与表示面积的函数——  
+也就是我们未知的函数$A(x)$——之间的相互作用，  
+看看关于这一设定你还能提出哪些问题。
 
-In that playful spirit, if you're lucky, here's something you might notice. When you slightly increase $x$ by some tiny nudge, $dx$, look at the resulting change in area, represented by this sliver which I'm going to call $dA$, for a tiny difference in area.
+In that playful spirit, if you're lucky, here's something you might notice. When you slightly increase $x$ by some tiny nudge, $dx$, look at the resulting change in area, represented by this sliver which I'm going to call $dA$, for a tiny difference in area.  
+本着这种探索的精神，如果运气好的话，你可能会注意到这样一点：   
+当 $x$ 稍微增加一个极小的量 $dx$ 时，对应的面积变化就可以用这个小片段来表示，  
+我将其称为 $dA$ ，也就是微小的面积差。
 
 <Figure
   image="$lesson/figure-12.08.jpg"
   video="$lesson/figure-11.49-12.19.mp4"
 />
 
-That sliver can be pretty well approximated with a rectangle, one whose height is $x^2$ and whose width is $dx$. Well, for larger choices of $dx$ the approximation may not be that good, but for smaller and smaller choices of $dx$ the error between the area of that sliver and the area of the approximating rectangle will become tiny compared to the area of the rectangle.
+That sliver can be pretty well approximated with a rectangle, one whose height is $x^2$ and whose width is $dx$. Well, for larger choices of $dx$ the approximation may not be that good, but for smaller and smaller choices of $dx$ the error between the area of that sliver and the area of the approximating rectangle will become tiny compared to the area of the rectangle.  
+那块狭长区域可以很好地用一个矩形来近似，该矩形的高为 $x^2$ ，宽为 $dx$。  
+当然，如果 $dx$ 取得较大，这种近似效果可能不佳；  
+但当 $dx$ 越来越小时，  
+该狭长区域的面积与近似矩形面积之间的误差相比矩形的面积来说就会变得极其微小。
 
-This may prompt you to think about how $A(x)$ is related to $x^2$ in a pretty fun way. A change to the output of $A$, this little $dA$, is about equal to the height of the rectangle times its width.
+This may prompt you to think about how $A(x)$ is related to $x^2$ in a pretty fun way. A change to the output of $A$, this little $dA$, is about equal to the height of the rectangle times its width.  
+这可能会让你以一种相当有趣的方式思考 $A(x)$ 与 $x^2$ 之间的关系。  
+$A$ 的输出变化量，也就是这个小小的 $dA$ ，大致等于矩形的高度乘以其宽度。
 
 $$
 d A \approx x^{2} d x
 $$
 
-Here, $x$ is the input where you started and $dx$ is the size of the little nudge the input that caused $A$ to change.
+Here, $x$ is the input where you started and $dx$ is the size of the little nudge the input that caused $A$ to change.  
+这里， $x$ 是你开始时的输入值，而 $dx$ 是导致 $A$ 发生变化的输入值的微小变化量。
 
-We could also rearrange that slightly:
+We could also rearrange that slightly:  
+我们也可以稍微重新排列一下：
 
 $$
 \frac{d A}{d x} \approx x^{2}
 $$
 
-This says the ratio of a tiny change in $A$ to the tiny change in $x$ that caused it equals the height of our graph, $x^2$, at that point. Or rather, this is only approximately true, but it's an approximation that should get better and better for smaller choices of $dx$.
+This says the ratio of a tiny change in $A$ to the tiny change in $x$ that caused it equals the height of our graph, $x^2$, at that point. Or rather, this is only approximately true, but it's an approximation that should get better and better for smaller choices of $dx$.  
+这意味着，导致微小变化的$x$所对应的 $A$ 的微小变化率，等于该点处函数图 $x^2$ 的函数值。  
+或者说，这只是一个近似关系，但当 $dx$ 取更小的值时，这一近似会越来越准确。
 
 <Figure image="$lesson/figure-13.08.jpg" />
 
-For example, think about two nearby inputs, like $3$ and $3.001$. The change to $x$, then, is $dx = 0.001$. The change $dA$ would be the difference between the mystery function evaluated at $3.001$ and evaluated at $3$. Even though we don't know what that mystery function is, we do know something about this change{/* TODO: Reference formula number from above here */}, namely that this change divided by $dx = 0.001$ is approximately $3^2$.
+For example, think about two nearby inputs, like $3$ and $3.001$. The change to $x$, then, is $dx = 0.001$. The change $dA$ would be the difference between the mystery function evaluated at $3.001$ and evaluated at $3$. Even though we don't know what that mystery function is, we do know something about this change{/* TODO: Reference formula number from above here */}, namely that this change divided by $dx = 0.001$ is approximately $3^2$.  
+例如，考虑两个相近的输入值，比如 $3$ 和 $3.001$ 。  
+此时x的变化量为dx=0.001，而 $dA$ 则是该未知函数在 $3.001$ 处的值与在 $3$ 处的值之差。  
+尽管我们不知道这个未知函数的具体形式，但我们知道关于这个变化量的一些信息——即该变化量除以 $dx=0.001$ 的结果近似等于 $3^2$。
 
 $$
 \frac{A(3.001)-A(3)}{0.001} \approx 3^{2}
 $$
 
-And this relationship between tiny changes to the mystery function and the value of $x^2$ is true at all inputs, not just $3$. For example, we can see the same relationship at the point $x=2$ on the graph of $x^2$.
+And this relationship between tiny changes to the mystery function and the value of $x^2$ is true at all inputs, not just $3$. For example, we can see the same relationship at the point $x=2$ on the graph of $x^2$.  
+而且，神秘函数微小变化与 $x^2$ 值之间的这种关系在所有输入值下都成立，而不仅仅是在 $3$ 处。  
+例如，在 $x^2$ 的图像中 $x=2$ 这一点上，我们也能看到同样的关系。
 
 <Figure image="$lesson/figure-13.41.jpg" />
 
-That doesn't immediately tell us how to find $A(x)$, but it provides a very strong clue to work with. And there's nothing special about the graph $x^2$ here. For any function $f(x)$, if we call the area under its graph $A(x)$, then this area function has the property that $dA/dx \approx f(x)$, a slight nudge to the output of $A$ divided by a slight nudge to the input that caused it is about equal to the height of the graph at that point, $f(x)$. Again, that's an approximation that gets better and better for smaller choices of $dx$.
+That doesn't immediately tell us how to find $A(x)$, but it provides a very strong clue to work with. And there's nothing special about the graph $x^2$ here. For any function $f(x)$, if we call the area under its graph $A(x)$, then this area function has the property that $dA/dx \approx f(x)$, a slight nudge to the output of $A$ divided by a slight nudge to the input that caused it is about equal to the height of the graph at that point, $f(x)$. Again, that's an approximation that gets better and better for smaller choices of $dx$.  
+这虽然不能直接告诉我们如何求出 $A(x)$ ，但却为我们提供了非常重要的线索。  
+而这里的 $x^2$ 图像其实并无特别之处。  
+对于任何函数  $f(x)$ ，如果我们将其图像下的面积记为 $A(x)$ ，  
+那么这个面积函数具有这样的性质： $dA/dx\approx f(x)$， 
+即对 $A$ 的输出所做的微小改变除以导致该改变的输入的微小改变，  
+大约等于该点处图像的高度 $f(x)$。  
+当然，这是一种近似值，当$dx$取得更小时，其精度会越来越高。
 
 <Figure image="$lesson/figure-14.17.jpg">
-  This figure illustrates the property of $\frac{dA}
-  {dx}$ for a more general function $f(x)$.
+  This figure illustrates the property of $\frac{dA} {dx}$ for a more general function $f(x)$.  
+  该图说明了对于一个更一般的函数 $f(x)$，$\frac{dA} {dx}$ 的性质。
 </Figure>
 
-Here we're stumbling onto another big idea from calculus: Derivatives. This ratio $\frac{dA}{dx}$ is called the "derivative of $A$". Or, more technically, the derivative is whatever value this ratio approaches as $dx$ gets smaller and smaller.
+Here we're stumbling onto another big idea from calculus: Derivatives. This ratio $\frac{dA}{dx}$ is called the "derivative of $A$". Or, more technically, the derivative is whatever value this ratio approaches as $dx$ gets smaller and smaller.  
+在这里，我们遇到了微积分中的另一个重要概念：导数。  
+这个比值 $\frac{dA}{dx}$ 被称为 “A的导数”​。  
+或者更严格地说，当 $dx$ 越来越小时，这个比值所趋近的值就是导数。
 
-You and I will dive more deeply into the idea of a derivative <LessonLink id="derivatives">next chapter</LessonLink>, but loosely speaking it's a measure of how sensitive a function is to small changes in its input. You'll see as the series goes on that there are many different ways to visualize a derivative, depending on what function you're looking at and how you think about tiny nudges to its output.
+You and I will dive more deeply into the idea of a derivative <LessonLink id="derivatives">next chapter</LessonLink>, but loosely speaking it's a measure of how sensitive a function is to small changes in its input. You'll see as the series goes on that there are many different ways to visualize a derivative, depending on what function you're looking at and how you think about tiny nudges to its output.  
+在下一章中，我们将更深入地探讨导数的概念。  
+简单来说，导数是衡量函数对其输入微小变化敏感程度的指标。  
+随着课程的推进，你会看到，  
+根据所研究的函数以及对其输出微小变动的理解方式不同，  
+有多种不同的方法可以用来直观表示导数。
 
 </section>
 
 <section>
 
-## Fundamental Theorem
+## Fundamental Theorem 基本定理
 
-We care about derivatives because they help us solve problems, and in our little exploration here we have a slight glimpse of one way they're used: They are the key to solving integral problems; problems that require finding an area under a curve. When you gain enough familiarity with computing derivatives, you'll be able to look at a situation like the one below, where you don't know what a function is, but you do know that its derivative should be $x^2$, and from that reverse engineer what the function must be.
+We care about derivatives because they help us solve problems, and in our little exploration here we have a slight glimpse of one way they're used: They are the key to solving integral problems; problems that require finding an area under a curve. When you gain enough familiarity with computing derivatives, you'll be able to look at a situation like the one below, where you don't know what a function is, but you do know that its derivative should be $x^2$, and from that reverse engineer what the function must be.  
+我们关注导数是因为它们能帮助我们解决问题。  
+在本次简单的探索中，我们初步了解了导数的一个用途：  
+它们是解决积分问题的关键，而积分问题就是要求计算曲线下的面积。  
+当你足够熟悉如何计算导数后，就能处理如下这类情况——  
+虽然不知道函数的具体形式，但知道它的导数应为 $x^2$，  
+由此就可以反推出该函数的具体表达式。
 
-This back and forth between integrals and derivatives, where the derivative of the function for an area under a graph gives you back the function defining the graph itself, is called the _fundamental theorem of calculus_. It ties together the two big ideas of integrals and derivatives, and shows how in some sense, each one is the inverse of the other.
+This back and forth between integrals and derivatives, where the derivative of the function for an area under a graph gives you back the function defining the graph itself, is called the _fundamental theorem of calculus_. It ties together the two big ideas of integrals and derivatives, and shows how in some sense, each one is the inverse of the other.  
+积分与导数之间的这种相互转换——即通过图形下方面积对应的函数导数，  
+反推出定义该图形的函数本身——被称为**微积分基本定理**。  
+它将积分与导数这两个重要概念联系在一起，  
+并表明从某种意义上说，二者互为逆运算。
 
 <Figure image="$lesson/figure-14.17.jpg">
-  This figure illustrates the property of $\frac{dA}
-  {dx}$ for a more general function $f(x)$.
+  This figure illustrates the property of $\frac{dA} {dx}$ for a more general function $f(x)$.  
+  该图说明了对于一个更一般的函数 $f(x)$，$\frac{dA} {dx}$ 的性质。
 </Figure>
 
-All of this is only a high level view. What follows in this series are the details for both these big ideas, and more. And let me reiterate, at all points in this series I want you to feel like you could have invented calculus yourself, that if you drew the right pictures and played with each idea in the right way, all of the formulas, rules, and constructs could pop out quite naturally.
+All of this is only a high level view. What follows in this series are the details for both these big ideas, and more. And let me reiterate, at all points in this series I want you to feel like you could have invented calculus yourself, that if you drew the right pictures and played with each idea in the right way, all of the formulas, rules, and constructs could pop out quite naturally.  
+     所有这些都只是高层次的概述。在本系列中，我们将详细介绍这两个核心概念以及更多内容。  
+     让我再强调一次：在整个系列中，我希望你们能感受到自己仿佛可以独立发明微积分——  
+     只要画出正确的图示，并以恰当的方式探讨每个概念，  
+     所有的公式、规则和结构都会自然而然地呈现出来。
 
 </section>
 
 <section>
 
-## Bonus section: So what is $dx$ anyway?
+## Bonus section: So what is $dx$ anyway? 
+## 增补部分：那么 $dx$ 到底是什么呢？
 
-Calculus is littered with expressions like $dA$, $dr$, $dx$, etc, which show up in the notation for both derivatives and integrals. Despite their front-and-center role, there is a surprising amount of ambiguity and conflicting instruction on what these terms really mean.
+Calculus is littered with expressions like $dA$, $dr$, $dx$, etc, which show up in the notation for both derivatives and integrals. Despite their front-and-center role, there is a surprising amount of ambiguity and conflicting instruction on what these terms really mean.  
+微积分中充斥着诸如 $dA$ 、 $dr$ 、 $dx$ 之类的符号，  
+它们既出现在导数的表示中，也出现在积分的表示中。  
+尽管这些符号极为重要，  
+但关于它们的真正含义，却存在着令人惊讶的诸多歧义和相互矛盾的解释。
 
-In this chapter I encouraged you to think of $dr$ as the difference in the radius of our circles from one to the next, prompting you to take a very literal interpretation and imagine an actual number, like $dr = 0.01$. Likewise, I encouraged you to think of $dA$ as an actual number, specifically the amount that the area under a graph changes as we nudge the right endpoint by $dx$, again an actual number. A more common convention would be to call these changes $\Delta r$, $\Delta A$, and $\Delta x$, reserving the $dx$ notation for changes that are "infinitely small".
+In this chapter I encouraged you to think of $dr$ as the difference in the radius of our circles from one to the next, prompting you to take a very literal interpretation and imagine an actual number, like $dr = 0.01$. Likewise, I encouraged you to think of $dA$ as an actual number, specifically the amount that the area under a graph changes as we nudge the right endpoint by $dx$, again an actual number. A more common convention would be to call these changes $\Delta r$, $\Delta A$, and $\Delta x$, reserving the $dx$ notation for changes that are "infinitely small".  
+在本章中，我建议将 $dr$ 视为相邻两个圆半径之差，  
+从而引导你采用字面意义进行理解，想象出一个具体的数值，比如 $dr = 0.01$。  
+同样，我也建议将 $dA$ 视为一个具体的数值，即当右端点移动 $dx$ 时曲线下面积的变化量，  
+这同样是一个具体数值。  
+更常见的做法是将这些变化量分别记为 $\Delta r$ 、 $\Delta A$ 和 $\Delta x$，  
+而将 $dx$ 这一符号保留给“无限小”的变化量。
 
-<PiCreature emotion="maybe">Infinitely small?</PiCreature>
+<PiCreature emotion="maybe">Infinitely small?  无限小? </PiCreature>
 
-The issue with this is that phrases like "infinitely small" and "infinitesimal" run the risk of, well, not actually making any sense. What is an infinitesimal change? Is it a number? If so, which number? It shouldn't be zero, but it also shouldn't be anything bigger than zero. If it's not a number then what is it, exactly?
+The issue with this is that phrases like "infinitely small" and "infinitesimal" run the risk of, well, not actually making any sense. What is an infinitesimal change? Is it a number? If so, which number? It shouldn't be zero, but it also shouldn't be anything bigger than zero. If it's not a number then what is it, exactly?  
+      问题在于，​“无限小”和“无穷小”这样的表述有可能根本就毫无意义。  
+      什么是无穷小的变化？它是一个数字吗？如果是，又是哪个数字？  
+      它不应该是零，但也不应大于零。  
+      如果它不是数字，那它到底是什么呢？
 
-In acknowledgment of this conundrum, one common sentiment is to encourage students not to take this notation too seriously. The typical dictum is that derivatives, despite being written as $\frac{df}{dx}$, are not really fractions, and that integrals, written as $\displaystyle \int f(x) dx$, are not really sums, despite the fact that the symbol $\int$ literally derives from the letter "S" for "Sum". Instead, the student is told, each of these constructs has a separate more complicated definition. But! If a student wishes for loose intuition before stepping up their game to a real analysis class, they might find it helpful to think of $dx$ as an infinitely small change in $x$, even if that phrase doesn't _quite_ make sense. It is, after all, only intuition.
+In acknowledgment of this conundrum, one common sentiment is to encourage students not to take this notation too seriously. The typical dictum is that derivatives, despite being written as $\frac{df}{dx}$, are not really fractions, and that integrals, written as $\displaystyle \int f(x) dx$, are not really sums, despite the fact that the symbol $\int$ literally derives from the letter "S" for "Sum". Instead, the student is told, each of these constructs has a separate more complicated definition. But! If a student wishes for loose intuition before stepping up their game to a real analysis class, they might find it helpful to think of $dx$ as an infinitely small change in $x$, even if that phrase doesn't _quite_ make sense. It is, after all, only intuition.  
+为了解决这一难题，一种常见的做法是告诫学生不要过分认真对待这些符号表示。  
+通常的观点是，尽管导数被写成 $\frac{df}{dx}$ ，但实际上并非分数；  
+积分虽然被写成 $\displaystyle \int f(x) dx$ ，也并非真正的求和——  
+尽管积分符号“∫”确实源自表示“求和”的字母“S”​。  
+相反，学生会被告知，这些概念其实都有各自更为复杂的定义。  
+不过！如果学生在进入实分析课程之前希望先建立一些大致的直觉，  
+那么将 $dx$ 视为 $x$ 的无限小变化或许会有所帮助，即便这个说法并不完全准确。  
+毕竟，那只是直觉而已。
 
-To my taste, this sentiment is well-intentioned but ultimately misleading. The rigorous underpinnings of calculus only ever involve real, finitely sized numbers, often followed by questions of what happens as these values get closer to 0. The proposal of this series is that when we interpret the notation of calculus, we can do so in a way which maps closely to this rigorous underpinning. If you're anything like I am, this actually makes calculus much more tangible and understandable than any "intuition" resting on the idea of an infinitesimal.
+To my taste, this sentiment is well-intentioned but ultimately misleading. The rigorous underpinnings of calculus only ever involve real, finitely sized numbers, often followed by questions of what happens as these values get closer to 0. The proposal of this series is that when we interpret the notation of calculus, we can do so in a way which maps closely to this rigorous underpinning. If you're anything like I am, this actually makes calculus much more tangible and understandable than any "intuition" resting on the idea of an infinitesimal.  
+在我看来，这种观点虽出于好意，但最终具有误导性。  
+微积分的严格基础仅涉及实数且数值有限，随后往往会探讨这些数值趋近于0时的情况。  
+本文提出的观点是，  
+在解读微积分符号时，我们可以采用一种与这一严格基础紧密对应的方式来理解它们。  
+如果你和我一样，这种方式实际上  
+会比任何基于无穷小概念的“直觉”更能让微积分变得具体且易于理解。
 
-In a nutshell, here's the philosophy for this series: When you see expressions with terms like $dx$, think of those terms as representing actual small numbers, say $dx = 0.001$. When you do this, the equations you write will become wrong, but they get less wrong as the choice for $dx$ approaches $0$. Think of the circular rings from earlier in this chapter. If you thought of $dr$ as an actual number, say $dr = 0.001$, none of these rings actually had an area of $2\pi r dr$. However, the percent error between the true area and $2\pi r \cdot dr$ gets smaller and smaller as the choice for $dr$ does as well.
+In a nutshell, here's the philosophy for this series: When you see expressions with terms like $dx$, think of those terms as representing actual small numbers, say $dx = 0.001$. When you do this, the equations you write will become wrong, but they get less wrong as the choice for $dx$ approaches $0$. Think of the circular rings from earlier in this chapter. If you thought of $dr$ as an actual number, say $dr = 0.001$, none of these rings actually had an area of $2\pi r dr$. However, the percent error between the true area and $2\pi r \cdot dr$ gets smaller and smaller as the choice for $dr$ does as well.  
+简而言之，这套方法的理念是这样的：  
+当你看到包含 $dx$ 这类项的表达式时，可以把它们视为实际的小数值，比如 $dx = 0.001$。   
+这样一来，你列出的方程就会出错，但当$dx$的取值越接近0时，误差就会越小。  
+可以想想本章前面提到的圆形环面——如果把 $dr$ 视为一个实际数值，比如 $dr = 0.001$，  
+那么这些环面的面积实际上并不会是 $2\pi r dr$。  
+不过，随着 $dr$ 取值越来越接近0，真实面积与 $2\pi r \cdot dr$ 之间的百分比误差也会越来越小。
 
 <Figure image="$lesson/figure-3.04.svg" />
 
-There are more details and rules of thumb for _how_ you replace terms like $df$ and $dx$ with small numbers, and we'll address them as the series unfolds, but that's the main idea.
+There are more details and rules of thumb for _how_ you replace terms like $df$ and $dx$ with small numbers, and we'll address them as the series unfolds, but that's the main idea.  
+关于如何将 $df$ 和 $dx$ 这类符号替换为小数值，还有更多细节和经验法则，  
+我们会在系列内容中逐步介绍，但核心思想就是如此。
 
-I mention all this now so that you know this is not the universal convention; again finite changes are more typically written with the greek letter $\Delta$, as in an expression like $\Delta x = 0.001$. I also want to assure you that the spirit of this notational philosophy is not to compromise rigor for intuition, but to do the exact opposite.
+I mention all this now so that you know this is not the universal convention; again finite changes are more typically written with the greek letter $\Delta$, as in an expression like $\Delta x = 0.001$. I also want to assure you that the spirit of this notational philosophy is not to compromise rigor for intuition, but to do the exact opposite.  
+我现在提到这些，是为了让你们明白这并非通用惯例；  
+通常，有限的变化量更常用希腊字母  $\Delta$ 来表示，比如在 $\Delta x = 0.001$ 这样的表达式中。  
+同时我也想向大家保证，这种符号使用方式的理念并非为了追求直观而牺牲严谨性，恰恰相反。
 
-And now, without further philosophical delay, let's dive into what exactly a derivative is.
+And now, without further philosophical delay, let's dive into what exactly a derivative is.  
+那么，不再浪费时间做哲学探讨，让我们直接了解导数究竟是什么
 
 </section>

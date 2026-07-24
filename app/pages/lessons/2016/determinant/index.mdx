@@ -1,12 +1,12 @@
 ---
-title: The determinant
-description: The determinant has a very natural visual intuition, even though it's formula can make it seem more complicated than it really is.
+title: The determinant 行列式
+description: The determinant has a very natural visual intuition, even though it's formula can make it seem more complicated than it really is. 行列式具有非常直观的视觉理解，尽管其公式可能让人觉得它比实际更复杂。
 date: 2016-08-10
 chapter: 6
 video: Ip3X9LOh2dk
 source: _2016/eola/chapter5.py
 credits:
-  - Lesson by Grant Sanderson
+  - Lesson by Grant Sanderson 格兰特·桑德森的课程
   - Text Adaption by River Way
 ---
 
@@ -16,66 +16,91 @@ import Question from "~/components/Question";
 
 <section>
 
-> The purpose of computation is insight, not numbers.
+> The purpose of computation is insight, not numbers.  
+计算的目的是洞察，而非数字。
 >
-> $\qquad$— Richard Hamming
+> $\qquad$— Richard Hamming 理查德·哈明
 
 </section>
 
 <section>
 
-## Scaling Area
+## Scaling Area 面积缩放
 
-One thing that turns out to be surprisingly useful for understanding a given transformation is to measure exactly how much a given transformation stretches and squishes things. More specifically, to measure the factor by which the area of a given region increases or decreases.
+One thing that turns out to be surprisingly useful for understanding a given transformation is to measure exactly how much a given transformation stretches and squishes things. More specifically, to measure the factor by which the area of a given region increases or decreases.  
+事实证明，要理解某种特定的变换，  
+一个非常有用的方法就是精确测量该变换使物体发生多大的拉伸或压缩。  
+更具体地说，就是测量某个区域的面积增加或减少的倍数。
 
 <Figure
   image="$lesson/figures/scale_areas.svg"
   video="$lesson/figures/scale_areas.mp4"
 />
 
-For example, the matrix $\begin{bmatrix}3&0\\0&2\end{bmatrix}$ scales $\hat i$ by a factor of $3$, and scales $\hat j$ by a factor of $2$. How can we tell the factor by which space gets stretched? Focus your attention on the $1\times 1$ square whose bottom sits on $\hat i$, and whose left side sits on $\hat j$. After the transformation, this turns into a $2\times 3$ rectangle.
+For example, the matrix $\begin{bmatrix}3&0\\0&2\end{bmatrix}$ scales $\hat i$ by a factor of $3$, and scales $\hat j$ by a factor of $2$. How can we tell the factor by which space gets stretched? Focus your attention on the $1\times 1$ square whose bottom sits on $\hat i$, and whose left side sits on $\hat j$. After the transformation, this turns into a $2\times 3$ rectangle.  
+例如，矩阵$\begin{bmatrix}3&0\\0&2\end{bmatrix}$会将$\hat i$放大3倍，将$\hat j$放大2倍。  
+我们如何判断空间被拉伸的倍数呢？  
+请关注那个底边在$\hat i$上、左边在$\hat j$上的$1\times 1$正方形。  
+经过变换后，它会变成一个$2\times 3$的矩形。
 
 <Figure
   image="$lesson/figures/scale_rectangle.svg"
   video="$lesson/figures/scale_rectangle.mp4"
 />
 
-Since this region started with area $1$, and ended up with area $2\times 3=6$, we can say the linear transformation has scaled its area by a factor of $6$.
+Since this region started with area $1$, and ended up with area $2\times 3=6$, we can say the linear transformation has scaled its area by a factor of $6$.  
+由于该区域的面积从$1$开始，最终变为$2\times 3=6$，  
+因此可以说该线性变换将其面积放大了$6$倍。
 
 <Figure
   image="$lesson/figures/shear_rectangle.svg"
   video="$lesson/figures/shear_rectangle.mp4"
 />
 
-So even though this transformation smooshes things about, it seems to leave areas unchanged. Actually, though, if you know how much the area of that one unit square changes, it tells you how the area of _any_ region in space changes. For starters, notice that whatever happens to one square in the grid happens to any other square in the grid, no matter the size of that other square. This is because grid lines remain parallel and evenly spaced.
+So even though this transformation smooshes things about, it seems to leave areas unchanged. Actually, though, if you know how much the area of that one unit square changes, it tells you how the area of _any_ region in space changes. For starters, notice that whatever happens to one square in the grid happens to any other square in the grid, no matter the size of that other square. This is because grid lines remain parallel and evenly spaced.  
+所以，尽管这种变换会改变一些东西，但似乎也有某些区域保持不变。  
+实际上，如果你知道那个单位正方形的面积变化了多少，  
+就能由此推断出空间中任意区域的面积变化情况。  
+首先，请注意：网格中一个正方形发生的变化，也会发生在网格中的其他正方形上，  
+无论那些正方形的大小如何。这是因为网格线始终保持平行且等距分布。
 
 <Figure
   image="$lesson/figures/any_square.svg"
   video="$lesson/figures/any_square.mp4"
 />
 
-Then, any shape that's _not_ a grid square can be approximated by grid squares, with arbitrarily good approximations if you use small enough grid squares. So since the areas of all those tiny grid squares are being scaled by a certain amount, the area of the blob as a whole will be scaled by that amount.
+Then, any shape that's _not_ a grid square can be approximated by grid squares, with arbitrarily good approximations if you use small enough grid squares. So since the areas of all those tiny grid squares are being scaled by a certain amount, the area of the blob as a whole will be scaled by that amount.  
+因此，任何非网格正方形的形状都可以用网格正方形来近似，  
+只要使用足够小的网格正方形，就能得到任意精确的近似结果。  
+由于所有这些微小网格正方形的面积都会按某个比例缩放，  
+所以整个形状的面积也会按该比例缩放。
 
 <Figure
   image="$lesson/figures/arbitrary_shape.svg"
   video="$lesson/figures/arbitrary_shape.mp4"
 />
 
-This special scaling factor, the factor by which a linear transformation changes areas, is called the "determinant" of that transformation.
+This special scaling factor, the factor by which a linear transformation changes areas, is called the "determinant" of that transformation.  
+这个特殊的缩放因子，即线性变换改变面积的倍数，被称为该变换的“行列式”​。
 
 <Figure image="$lesson/figures/determinant_6.svg" />
 
-I'll show how to compute the determinant of transformation using its matrix later on in this video, but understanding what it represents is much more important than the computation.
+I'll show how to compute the determinant of transformation using its matrix later on in this video, but understanding what it represents is much more important than the computation.  
+在这段视频的后面，我会展示如何通过矩阵来计算变换的行列式，  
+但理解它的含义比计算本身更为重要。
 
-For example, the determinant of a transformation would be $3$ if that transformation increases the area of a region by a factor of 3.
+For example, the determinant of a transformation would be $3$ if that transformation increases the area of a region by a factor of 3.  
+例如，如果某个变换使某个区域的面积扩大了3倍，那么该变换的行列式就是3。
 
 <Figure image="$lesson/figures/determinant_3.svg" />
 
-The determinant of a transformation is $\frac12$ if it squishes down all areas by a factor of 1/2.
+The determinant of a transformation is $\frac12$ if it squishes down all areas by a factor of 1/2.  
+如果某个变换将所有区域的面积都压缩为原来的1/2倍，那么该变换的行列式为$\frac12$。
 
 <Figure image="$lesson/figures/determinant_0.5.svg" />
 
-**What is the determinant of the following transformation?**
+**What is the determinant of the following transformation?  
+  以下变换的行列式是什么？**
 
 <Figure image="$lesson/figures/determinant_scale_question.svg" />
 
@@ -87,25 +112,34 @@ The determinant of a transformation is $\frac12$ if it squishes down all areas b
   choice4="$8$"
   answer={3} >
 
-This parallelogram has a height of $2$ and a width of $2$, so the unit square was scaled by
+This parallelogram has a height of $2$ and a width of $2$, so the unit square was scaled by  
+这个平行四边形的高为$2$，宽也为$2$，因此单位正方形被按比例缩放了.
 
 $2\times 2=4$.
 
 </Question>
 
-The determinant of a 2D transformation is $0$ if it squishes all of space onto a line, or even onto a single point, since the area of every region would then become 0.
+The determinant of a 2D transformation is $0$ if it squishes all of space onto a line, or even onto a single point, since the area of every region would then become 0.  
+如果二维变换将整个空间压缩到一条直线上，甚至一个点上，  
+那么它的行列式为$0$，因为此时所有区域的面积都会变为0。
 
 <Figure image="$lesson/figures/determinant_0.svg" />
 
-That last one is especially important; checking if the determinant of a given matrix is $0$ will give a way of computing whether or not the transformation associated with a matrix squishes everything into a smaller dimension. You'll see in the next few chapters why this is a useful thing to think about. For now I just want to lay down the visual intuition, which in and of itself is a beautiful thing to think about.
+That last one is especially important; checking if the determinant of a given matrix is $0$ will give a way of computing whether or not the transformation associated with a matrix squishes everything into a smaller dimension. You'll see in the next few chapters why this is a useful thing to think about. For now I just want to lay down the visual intuition, which in and of itself is a beautiful thing to think about.  
+最后一点尤为重要；通过判断给定矩阵的行列式是否为0，  
+就可以确定与该矩阵相关的变换是否会将所有空间压缩到更低维度中。  
+在接下来的几章中，你会明白为什么这是一个值得思考的重要问题。  
+目前我只想先阐述一下这种直观理解，其本身就已经是一件很美妙的事情。
 
 </section>
 
 <section>
 
-## Negative determinant
+## Negative determinant 负行列式
 
-Actually, what I've said so far is not quite right. The full concept of the determinant allows for negative values, but what does the idea of scaling an area by a negative amount mean?
+Actually, what I've said so far is not quite right. The full concept of the determinant allows for negative values, but what does the idea of scaling an area by a negative amount mean?  
+实际上，我刚才所说的并不完全正确。  
+行列式的完整概念允许出现负值，但用负数来缩放面积又意味着什么呢？
 
 $$
 \det\left(
@@ -118,15 +152,21 @@ $$
 \color{orange}-2
 $$
 
-This has to do with the idea of orientation. For example, notice how normally $\hat j$ is to the left of $\hat i$.
+This has to do with the idea of orientation. For example, notice how normally $\hat j$ is to the left of $\hat i$.  
+这与方向的概念有关。例如，注意通常情况下$\hat j$位于$\hat i$的左侧。
 
 <Figure image="$lesson/figures/j_left_of_i.svg" />
 
-However, after this transformation now $L(\hat j)$ is on the right of $L(\hat i)$.
+However, after this transformation now $L(\hat j)$ is on the right of $L(\hat i)$.  
+然而，经过这次变换后，$L(\hat j)$ 位于 $L(\hat i)$ 的右侧。
 
 <Figure image="$lesson/figures/j_right_of_i.svg" />
 
-If you thought of 2D space as a sheet of paper, a transformation like that one seems to turn over that sheet to the other side. Any transformations that do this are said to "invert the orientation of space". Whenever this happens, the determinant will be negative. The absolute value of the determinant still tells you the factor by which areas have been scaled.
+If you thought of 2D space as a sheet of paper, a transformation like that one seems to turn over that sheet to the other side. Any transformations that do this are said to "invert the orientation of space". Whenever this happens, the determinant will be negative. The absolute value of the determinant still tells you the factor by which areas have been scaled.  
+如果将二维空间视为一张纸，那么这样的变换就相当于把这张纸翻到另一面。  
+所有能做到这一点的变换都被称为“反转空间的方向”​。  
+每当出现这种情况时，行列式的值就会是负数。  
+不过行列式的绝对值仍然可以告诉你面积被放大了多少倍。
 
 $$
 \det\left(
@@ -139,15 +179,22 @@ $$
 -5
 $$
 
-**What does the determinant of the matrix** $\begin{bmatrix}1&2\\3&4\end{bmatrix}$ **tell us about the space?**
-
+**What does the determinant of the matrix** $\begin{bmatrix}1&2\\3&4\end{bmatrix}$ **tell us about the space?**  
+**矩阵$\begin{bmatrix}1&2\\3&4\end{bmatrix}$的行列式能告诉我们关于该空间的什么信息？**
 <FreeResponse>
 
-Since $\det\left(\begin{bmatrix}1 &2 \\3 &4\end{bmatrix}\right)=-2$, we know this transformation flips space and doubles the area.
+Since $\det\left(\begin{bmatrix}1 &2 \\3 &4\end{bmatrix}\right)=-2$, we know this transformation flips space and doubles the area.  
+由于$\det\left(\begin{bmatrix}1 &2 \\3 &4\end{bmatrix}\right)=-2$，我们知道该变换会翻转空间并将面积放大为原来的两倍。
 
 </FreeResponse>
 
-Why would the idea of negative area be a natural way to describe orientation flipping? Well, think about the series of transformations you get by slowly letting $\hat i$ get closer and closer to $\hat j$. As $\hat i$ gets closer, all of the areas in space are getting squished more and more, meaning the determinant approaches $0$. Once $\hat i$ lines up with $\hat j$, the determinant is $0$. Then if $\hat i$ continues the way it was going, doesn't it feel kind of natural for the determinant to keep decreasing into negative numbers?
+Why would the idea of negative area be a natural way to describe orientation flipping? Well, think about the series of transformations you get by slowly letting $\hat i$ get closer and closer to $\hat j$. As $\hat i$ gets closer, all of the areas in space are getting squished more and more, meaning the determinant approaches $0$. Once $\hat i$ lines up with $\hat j$, the determinant is $0$. Then if $\hat i$ continues the way it was going, doesn't it feel kind of natural for the determinant to keep decreasing into negative numbers?  
+为什么“负面积”这一概念会是描述方向翻转的自然方式呢？  
+其实，可以考虑这样一种变换过程：让单位向量$\hat i$逐渐靠近单位向量$\hat j$。  
+随着$\hat i$越来越接近，空间中的所有区域都会被挤压得越来越小，  
+这意味着行列式的值会逐渐趋近于$0$。  
+一旦$\hat i$与$\hat j$完全重合，行列式的值就是$0$。  
+那么如果$\hat i$继续沿原来的方向移动，行列式的值不断减小并变为负数，这难道不是一种很自然的现象吗？
 
 <Figure video="$lesson/figures/determinant_graph.mp4" />
 
@@ -155,19 +202,29 @@ Why would the idea of negative area be a natural way to describe orientation fli
 
 <section>
 
-## In Three Dimensions
+## In Three Dimensions  三维空间中
 
-Okay, so that's the understanding of the determinant in two-dimensions, what do you think it should mean for three dimensions? It also tells you how much the transformation scales things, but this time, it tells you how much _volumes_ get scaled.
+Okay, so that's the understanding of the determinant in two-dimensions, what do you think it should mean for three dimensions? It also tells you how much the transformation scales things, but this time, it tells you how much _volumes_ get scaled.  
+好的，这就是对二维中行列式的理解。那么你认为在三维中它应该代表什么意义呢？  
+它同样能告诉你变换会如何缩放数值，但这次它是用来表示体积会被缩放多少的。
 
-Just as in two dimensions, where this is easiest to think about by focusing on one particular square with area $1$, and watching only what happens to it. In three dimensions it helps to focus your attention on the specific $1\times 1\times 1$ cube whose edges are resting on the basis vectors $\hat i$, $\hat j$ and $\hat k$.
+Just as in two dimensions, where this is easiest to think about by focusing on one particular square with area $1$, and watching only what happens to it. In three dimensions it helps to focus your attention on the specific $1\times 1\times 1$ cube whose edges are resting on the basis vectors $\hat i$, $\hat j$ and $\hat k$.  
+与二维情况类似，在二维中我们可以通过关注面积为$1$的特定正方形，  
+并观察它发生的变化来最直观地理解这一概念。  
+在三维中，不妨将注意力集中在那个边长为$1$、且各边分别位于基向量$\hat i$、$\hat j$和$\hat k$上的立方体上。
 
 <Figure image="$lesson/figures/unit_cube.svg" />
 
-After the transformation, that cube might get warped into a slanty cube. That shape has the best name ever: _parallelepiped_. A name made even more delightful when your professor has a thick Russian accent[^1].
+After the transformation, that cube might get warped into a slanty cube. That shape has the best name ever: _parallelepiped_. A name made even more delightful when your professor has a thick Russian accent[^1].  
+经过变换后，那个立方体可能会变形为一个斜立方体。  
+这种形状有个非常贴切的名字：_平行六面体_。  
+当你的教授带着浓重的俄罗斯口音时，这个名字就更有趣了[^1]​。
 
 <Figure image="$lesson/figures/parallelepiped.svg" />
 
-Since this cube starts with a volume of $1$, and the determinant gives the factor by which _any_ volume is scaled, you can think of the determinant as simply being the volume of the parallelepiped that this cube turns into.
+Since this cube starts with a volume of $1$, and the determinant gives the factor by which _any_ volume is scaled, you can think of the determinant as simply being the volume of the parallelepiped that this cube turns into.  
+由于这个立方体的初始体积为$1$，而行列式表示的是任意体积被缩放的倍数，  
+因此你可以将行列式简单地视为该立方体变成的平行六面体的体积。
 
 $$
 \det\left(
@@ -184,11 +241,14 @@ $$
 \end{matrix}
 $$
 
-A determinant of zero would mean that all of space is squished onto something with zero volume, meaning a flat plane, a line, or in the most extreme case into a single point at the origin.
+A determinant of zero would mean that all of space is squished onto something with zero volume, meaning a flat plane, a line, or in the most extreme case into a single point at the origin.  
+行列式为零意味着整个空间会被压缩到体积为零的物体上，  
+也就是一个平面、一条直线，或者在最极端的情形下压缩到原点处的单个点上。
 
 <Figure image="$lesson/figures/flat_parallelepiped.svg" />
 
-The above unit cube transforms into a flat parallelepiped, also known as a parallelogram.
+The above unit cube transforms into a flat parallelepiped, also known as a parallelogram.  
+上述单位立方体会变成一个扁平的平行六面体，也即平行四边形。
 
 $$
 \det\left(
@@ -202,29 +262,40 @@ $$
 0
 $$
 
-### Negative determinants in 3D
+### Negative determinants in 3D   三维中的负决定因子
 
-What about negative determinants in three dimensions, what would that mean?
+What about negative determinants in three dimensions, what would that mean?  
+那么在三维空间中负的行列式又意味着什么呢？
 
-One way to describe orientation in three-dimensions is with the right-hand rule: Point the forefinger of your right hand in the direction of $\hat i$, stick out your middle finger in the direction of $\hat j$, and notice how when you point up your thumb, it is in the direction of $\hat k$.
+One way to describe orientation in three-dimensions is with the right-hand rule: Point the forefinger of your right hand in the direction of $\hat i$, stick out your middle finger in the direction of $\hat j$, and notice how when you point up your thumb, it is in the direction of $\hat k$.  
+描述三维空间中方向的一种方法是使用右手定则：  
+将右手的食指指向$\hat i$的方向，中指指向$\hat j$的方向，  
+然后你会发现，当拇指向上伸时，它所处的方向就是$\hat k$的方向。
 
 <Figure image="$lesson/figures/hand_basis.svg" />
 
-If you can still do this after the transformation, orientation has not changed, and the determinant is positive. Otherwise, if after the transformation it only makes sense to do that with your left hand, orientation has been flipped, and the determinant is negative.
+If you can still do this after the transformation, orientation has not changed, and the determinant is positive. Otherwise, if after the transformation it only makes sense to do that with your left hand, orientation has been flipped, and the determinant is negative.  
+如果在变换后仍然能够用右手完成这个动作，说明方向没有改变，且行列式的值为正。  
+否则，如果变换后只能用左手来完成，说明方向发生了反转，此时行列式的值为负。
 
 <Figure image="$lesson/figures/hands.svg" />
 
-**What is the sign of the determinant for the following transformation?**
+**What is the sign of the determinant for the following transformation?**  
+**以下变换的行列式符号是什么？**
 
 <Figure image="$lesson/figures/question_parallelepiped.svg" />
 
 <Question
   question=" "
-  choice1="Positive"
-  choice2="Negative"
+  choice1="Positive 正"
+  choice2="Negative 负"
   answer={2} >
 
-Point your left index finger towards yourself. This finger represents the green arrow $\hat i$. Stick out your left middle finger halfway. This finger represents the red arrow $\hat j$. Your left thumb will naturally point in the direction of the blue arrow $\hat k$. Since this works with your left hand, the determinant must be negative.
+Point your left index finger towards yourself. This finger represents the green arrow $\hat i$. Stick out your left middle finger halfway. This finger represents the red arrow $\hat j$. Your left thumb will naturally point in the direction of the blue arrow $\hat k$. Since this works with your left hand, the determinant must be negative.  
+将你的左食指指向自己。这根手指代表绿色箭头$\hat i$。  
+将左中指伸出一半长度。这根手指代表红色箭头$\hat j$。  
+你的左拇指会自然地指向蓝色箭头$\hat k$的方向。  
+由于这是用左手完成的，因此行列式的值必定为负。
 
 </Question>
 
@@ -232,13 +303,15 @@ Point your left index finger towards yourself. This finger represents the green 
 
 <section>
 
-## Computation
+## Computation 计算
 
-How do you actually compute one of these determinants?
+How do you actually compute one of these determinants?  
+实际上要如何计算这些行列式之一呢？
 
-### Two Dimensions
+### Two Dimensions 二维情况
 
-This is the formula for a $2\times 2$ matrix:
+This is the formula for a $2\times 2$ matrix:  
+这是$2\times 2$矩阵的公式：
 
 $$
 \det\left(
@@ -253,23 +326,40 @@ $$
 \color{red}b\color{green}c
 $$
 
-Here's part of an intuition for this formula. Let's say the terms $\color{red}b$ and $\color{green}c$ were zero. Then the term $\color{green}a$ tells you how much $\hat i$ is stretched in the $x$-direction, and the term $\color{red}d$ tells you how much $\hat j$ is stretched in the $y$-direction. So if the other terms were zero, it should make sense that $\color{green}a\color{black}\cdot\color{red}d$ gives the area of the rectangle that our favorite unit square turns into, like the $\begin{bmatrix}3&0\\0&2\end{bmatrix}$ example from earlier.
+Here's part of an intuition for this formula. Let's say the terms $\color{red}b$ and $\color{green}c$ were zero. Then the term $\color{green}a$ tells you how much $\hat i$ is stretched in the $x$-direction, and the term $\color{red}d$ tells you how much $\hat j$ is stretched in the $y$-direction. So if the other terms were zero, it should make sense that $\color{green}a\color{black}\cdot\color{red}d$ gives the area of the rectangle that our favorite unit square turns into, like the $\begin{bmatrix}3&0\\0&2\end{bmatrix}$ example from earlier.  
+以下是关于该公式的部分直观理解。假设$\color{red}b$和$\color{green}c$的值为零，  
+那$\color{green}a$表示$\hat i$在$x$方向上的拉伸程度，  
+而$\color{red}d$则表示$\hat j$在$y$方向上的拉伸程度。  
+因此，如果其他项均为零，  
+那么$\color{green}a\color{black}\cdot\color{red}d$应该就能给出我们最常用的单位正方形变形后所得矩形的面积，  
+就像之前举的$\begin{bmatrix}3&0\\0&2\end{bmatrix}$这个例子一样。
 
 <Figure image="$lesson/figures/scale_determinant.svg" />
 
-Even if only one of $b$ or $c$ are zero, you'll have a parallelogram with base $a$ and height $d$, so the area will still be $\color{green}a\color{black}\cdot\color{red}d$.
+Even if only one of $b$ or $c$ are zero, you'll have a parallelogram with base $a$ and height $d$, so the area will still be $\color{green}a\color{black}\cdot\color{red}d$.  
+即使只有$b$或$c$中的一个为零，也会得到一个以$a$为底、$d$为高的平行四边形，  
+因此其面积依然为$\color{green}a\color{black}\cdot\color{red}d$。
 
 <Figure image="$lesson/figures/shear_determinant.svg" />
 
-Loosely speaking, if both $b$ and $c$ are nonzero, the term $\color{red}b\color{black}\cdot\color{green}c$ tells you how much this rectangle is stretched or squished in the diagonal direction. It shows how much $\hat i$ is changed in the $y$-direction, and how much $\hat j$ is changed in the $x$-direction. Here is a more precise justification of this term $\color{red}b\color{black}\cdot\color{green}c$ shown as a helpful diagram.
+Loosely speaking, if both $b$ and $c$ are nonzero, the term $\color{red}b\color{black}\cdot\color{green}c$ tells you how much this rectangle is stretched or squished in the diagonal direction. It shows how much $\hat i$ is changed in the $y$-direction, and how much $\hat j$ is changed in the $x$-direction. Here is a more precise justification of this term $\color{red}b\color{black}\cdot\color{green}c$ shown as a helpful diagram.  
+粗略地说，如果$b$和$c$都不为零，那么项$\color{red}b\color{black}\cdot\color{green}c$可以表示该矩形在对角线方向上的拉伸或压缩程度。  
+它反映了$\hat i$在$y$方向上的变化量，以及$\hat j$在$x$方向上的变化量。  
+下图通过一个直观的示意图，对这一项$\color{red}b\color{black}\cdot\color{green}c$进行了更精确的解释。
 
 <Figure image="$lesson/figures/determinant_diagram.svg" />
 
-If you feel like computing determinants by hand is something you need to know, then the only way to get it down is to just practice it with a few matrices, there's not much I can say or show you that will drill in the computation.
+If you feel like computing determinants by hand is something you need to know, then the only way to get it down is to just practice it with a few matrices, there's not much I can say or show you that will drill in the computation.  
+如果你觉得需要掌握手工计算行列式的方法，那么唯一的办法就是通过几组矩阵来练习，  
+我实在没有什么别的办法或示例能够帮助你熟练掌握这一计算。
 
-### Three Dimensions
+### Three Dimensions 三维空间
 
-This is all triply true for the three dimensional determinant. There is a formula, and if you feel like that's something you need to know how to do, you should just practice on a few matrices, or, you know, go watch [Sal Khan](https://www.youtube.com/watch?v=v4MenooI1J0) work through a few.
+This is all triply true for the three dimensional determinant. There is a formula, and if you feel like that's something you need to know how to do, you should just practice on a few matrices, or, you know, go watch [Sal Khan](https://www.youtube.com/watch?v=v4MenooI1J0) work through a few.  
+对于三维行列式来说，这一点同样完全成立。  
+有一个相应的公式，如果你觉得需要掌握如何使用它，  
+那就试着用几个矩阵来练习，  
+或者去看看[萨尔·可汗](https://www.youtube.com/watch?v=v4MenooI1J0)是如何演示的。
 
 $$
 \begin{align*}
@@ -307,14 +397,18 @@ $$
 \end{align*}
 $$
 
-Honestly, I don't think those computations fall into the essence of linear algebra, but I _definitely_ think that understanding what the determinant represents falls within that essence.
+Honestly, I don't think those computations fall into the essence of linear algebra, but I _definitely_ think that understanding what the determinant represents falls within that essence.  
+老实说，我不认为那些计算属于线性代数的核心内容，
+但我 _确实_ 认为理解行列式的含义属于其核心范畴。
 
 </section>
 
 <section>
-## Matrix Multiplication
+## Matrix Multiplication 矩阵乘法
 
-Here's a kind of fun question to think about: If you multiply two matrices together, the determinant of the resulting matrix is the same as the product of the determinants of the original two matrices.
+Here's a kind of fun question to think about: If you multiply two matrices together, the determinant of the resulting matrix is the same as the product of the determinants of the original two matrices.  
+这里有一个有趣的思考题：  
+如果你将两个矩阵相乘，所得矩阵的行列式等于这两个原始矩阵的行列式之积。
 
 $$
 \det(
@@ -327,13 +421,20 @@ $$
 \color{black})
 $$
 
-If you tried to justify this numerically, it would be a horrible mess. **But can you explain why in just one sentence?**
-
+If you tried to justify this numerically, it would be a horrible mess. **But can you explain why in just one sentence?**  
+如果你试图用数字来证明这一点，那将会是一团糟。  
+**但你能用一句话解释原因吗？**
 <FreeResponse>
 
-The determinant shows how much area scales after the matrix's linear transformation.
+The determinant shows how much area scales after the matrix's linear transformation.  
+行列式反映了矩阵线性变换后面积的缩放程度
 
-Since applying two matrices sequentially leads to a new linear transformation, it doesn't matter if we first apply $M_2$ which scales space by $\det(M_2)\cdot A$ and then apply $M_1$ which scales space by $\det(M_1)\cdot\det(M_2)\cdot A$ or if we apply both of them which scales space by $\det(M_1M_2)\cdot A$.
+Since applying two matrices sequentially leads to a new linear transformation, it doesn't matter if we first apply $M_2$ which scales space by $\det(M_2)\cdot A$ and then apply $M_1$ which scales space by $\det(M_1)\cdot\det(M_2)\cdot A$ or if we apply both of them which scales space by $\det(M_1M_2)\cdot A$.  
+
+由于依次应用两个矩阵会得到一个新的线性变换，  
+因此无论我们是先应用将空间按$\det(M_2)\cdot A$比例缩放的$M_2$，  
+再应用将空间按$\det(M_1)\cdot\det(M_2)\cdot A$比例缩放的$M_1$，  
+还是同时应用这两个矩阵将空间按$\det(M_1M_2)\cdot A$比例缩放，结果都是一样的。
 
 <Figure video="$lesson/figures/determinant_explanation.mp4" />
 

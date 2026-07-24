@@ -1,15 +1,16 @@
 ---
-title: Linear combinations, span, and basis vectors
-description: "Some foundational ideas in linear algebra: Span, linear combinations, and linear dependence."
+title: Linear combinations, span, and basis vectors 线性组合、张成与基向量 
+description: "Some foundational ideas in linear algebra: Span, linear combinations, and linear dependence.
+              线性代数的一些基础概念：向量组张成、线性组合与线性相关性。​"
 date: 2016-08-06
 chapter: 2
 video: k7RM-ot2NWY
 source: _2016/eola/chapter2.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
-  - Text adaptation by James Schloss
-  - Text adaptation by River Way
+  - Lesson by Grant Sanderson 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
+  - Text adaptation by James Schloss 詹姆斯·施洛斯
+  - Text adaptation by River Way 
 ---
 
 import Figure from "~/components/Figure";
@@ -19,11 +20,14 @@ import Question from "~/components/Question";
 
 <section>
 
-> Mathematics requires a small dose, not of genius, but of an imaginative freedom which, in a larger dose, would be insanity.
+> Mathematics requires a small dose, not of genius, but of an imaginative freedom which, in a larger dose, would be insanity.  
+数学需要一点点,并非天赋，而是一种适度的自由想象力——这种自由若过多，反而会变成疯狂。
 >
-> \- Angus K. Rodgers
+> \- Angus K. Rodgers 安格斯·K·罗杰斯
 
-In the last chapter, along with the ideas of vector addition and scalar multiplication, we described vector coordinates, where there's this back-and-forth between pairs of numbers and two-dimensional vectors.
+In the last chapter, along with the ideas of vector addition and scalar multiplication, we described vector coordinates, where there's this back-and-forth between pairs of numbers and two-dimensional vectors.  
+在上一章中，我们结合向量加法和标量乘法的概念, 介绍了向量坐标，  
+其中涉及数字对与二维向量之间的相互转换。
 
 </section>
 
@@ -31,41 +35,66 @@ In the last chapter, along with the ideas of vector addition and scalar multipli
 
 <Figure image="$lesson/figures/introduction/VectorRecap.svg" />
 
-Now it's possible that vector coordinates were already familiar to many of you, but there's another interesting way to think about these coordinates, which is central to linear algebra. When you have a pair of numbers meant to describe a vector, like $(3, -2)$, think of each coordinate as a scalar, meaning think about how each one stretches or squishes vectors.
+Now it's possible that vector coordinates were already familiar to many of you, but there's another interesting way to think about these coordinates, which is central to linear algebra. When you have a pair of numbers meant to describe a vector, like $(3, -2)$, think of each coordinate as a scalar, meaning think about how each one stretches or squishes vectors.  
+现在，向量坐标可能对你们中的许多人来说已经很熟悉了，  
+但还有一种思考这些坐标的有趣方式，它在线性代数中起着核心作用。  
+当有一对数字用于描述一个向量，比如$(3, -2)$时，可以把每个坐标视为一个标量，  
+也就是说要思考它们分别是如何拉伸或压缩向量的。
 
 <Figure image="$lesson/figures/introduction/VectorCoordinatesAsScalars.svg" />
 
-In the $xy$-coordinate system, there are two special vectors. The one pointing to the right with length $1$, commonly called "i hat" $\hat{\imath}$ or "the unit vector in the $x$-direction". The other one is pointing straight up with length $1$, commonly called "j hat" $\hat{\jmath}$ or "the unit vector in the $y$-direction".
+In the $xy$-coordinate system, there are two special vectors. The one pointing to the right with length $1$, commonly called "i hat" $\hat{\imath}$ or "the unit vector in the $x$-direction". The other one is pointing straight up with length $1$, commonly called "j hat" $\hat{\jmath}$ or "the unit vector in the $y$-direction".  
+在$xy$坐标系中，有两个特殊的向量。  
+其中一个指向正右侧且长度为$1$，通常被称为"i hat" $\hat{\imath}$ 或“$x$方向上的单位向量”​。  
+另一个则指向正上方且长度为$1$，通常被称为“j hat” $\hat{\jmath}$ 或“$y$方向上的单位向量”​。
 
 <Figure image="$lesson/figures/introduction/UnitVectors.svg" />
 
-Now, think of the $x$-coordinate as a scalar that scales $\hat{\imath}$, stretching it by a factor of $3$, and the $y$-coordinate as a scalar that scales $\hat{\jmath}$, flipping it and stretching it by a factor of $2$. In this sense, the vector that these coordinates describe is the sum of two scaled vectors.
+Now, think of the $x$-coordinate as a scalar that scales $\hat{\imath}$, stretching it by a factor of $3$, and the $y$-coordinate as a scalar that scales $\hat{\jmath}$, flipping it and stretching it by a factor of $2$. In this sense, the vector that these coordinates describe is the sum of two scaled vectors.  
+现在，可以将$x$坐标视为一个标量，它用来缩放$\hat{\imath}$，使其长度变为原来的3倍；  
+而$y$坐标则视为另一个标量，它用来缩放$\hat{\jmath}$，同时改变其方向并使其长度变为原来的2倍。  
+从这个意义上说，这些坐标所描述的向量就是两个经过缩放的向量的和。
 
 <Figure image="$lesson/figures/introduction/VectorCoordinatesAsScalarsOfUnitVectors.svg" />
 
-This idea of adding together two scaled vectors is a surprisingly important concept. Those two vectors $\hat{\imath}$ and $\hat{\jmath}$ have a special name: Together they are called the "basis" of the coordinate system. What this means is that when you think about coordinates as scalars, the basis vectors are what those scalars actually scale.
+This idea of adding together two scaled vectors is a surprisingly important concept. Those two vectors $\hat{\imath}$ and $\hat{\jmath}$ have a special name: Together they are called the "basis" of the coordinate system. What this means is that when you think about coordinates as scalars, the basis vectors are what those scalars actually scale.  
+将两个经过缩放的向量相加这一概念其实非常重要。  
+这两个向量$\hat{\imath}$和$\hat{\jmath}$有一个特殊的名称：它们合起来被称为坐标系的“基向量”​。  
+这意味着，当把坐标视为标量时，基向量正是这些标量实际所作用的对象。
 
 <Figure image="$lesson/figures/introduction/CoordinatesAsScalarsOfBasisVectors.svg" />
 
-There's also a more technical definition of basis, but we'll get to that later. Framing our familiar coordinate system in terms of these two special basis vectors raises an interesting and subtle point: We could choose a different pair of basis vectors and get a perfectly reasonable _new_ coordinate system.
+There's also a more technical definition of basis, but we'll get to that later. Framing our familiar coordinate system in terms of these two special basis vectors raises an interesting and subtle point: We could choose a different pair of basis vectors and get a perfectly reasonable _new_ coordinate system.  
+关于“基”的定义还有更技术性的说法，但我们稍后再谈。  
+用这两组特殊的基向量来构建我们熟悉的坐标系，引出了一个有趣且微妙的观点：  
+我们可以选择另一组基向量，从而得到一个完全合理的“新”坐标系。
 
 </section>
 
 <section>
 
-## Choosing Different Basis Vectors
+## Choosing Different Basis Vectors 选择不同的基向量
 
-For example, take some vector pointing up and to the right, along with a vector pointing down and to the right.
+For example, take some vector pointing up and to the right, along with a vector pointing down and to the right.  
+例如，取一个指向右上方和右下方的向量。
 
 <Figure image="$lesson/figures/different-basis-vectors/DifferentBasisVectors.svg" />
 
-Take a moment to think about all the different vectors you can get by choosing two scalars, using each to scale one of the vectors, then adding them. Which two-dimensional vectors can you reach by altering your choice of scalars?
+Take a moment to think about all the different vectors you can get by choosing two scalars, using each to scale one of the vectors, then adding them. Which two-dimensional vectors can you reach by altering your choice of scalars?  
+花点时间思考一下：  
+通过选择两个标量，用每个标量分别缩放其中一个向量，然后再将它们相加，  
+可以得到哪些不同的向量？  
+通过改变所选的标量，又能得到哪些二维向量？
 
 <Figure image="$lesson/figures/different-basis-vectors/DifferentBasisSpanExample1.svg" />
 
 <Figure image="$lesson/figures/different-basis-vectors/DifferentBasisSpanExample2.svg" />
 
-The answer is, for these two vectors, you can describe _every_ possible two-dimensional vector this way, and it's a good puzzle to contemplate why. A new pair of basis vectors like this still gives you a way to go back and forth between pairs of numbers and two-dimensional vectors, but the association is definitely different from the version you get using the standard basis of $\hat{\imath}$ and $\hat{\jmath}$.
+The answer is, for these two vectors, you can describe _every_ possible two-dimensional vector this way, and it's a good puzzle to contemplate why. A new pair of basis vectors like this still gives you a way to go back and forth between pairs of numbers and two-dimensional vectors, but the association is definitely different from the version you get using the standard basis of $\hat{\imath}$ and $\hat{\jmath}$.  
+答案是，对于这两个向量，你可以用这种方式表示出所有可能的二维向量，  
+思考其中的原因是个不错的谜题。  
+像这样的一对新的基向量依然能让你在数值对与二维向量之间相互转换，  
+但这种对应关系显然与使用标准基$\hat{\imath}$和$\hat{\jmath}$时有所不同。
 
 <Figure image="$lesson/figures/different-basis-vectors/DifferentBasisSpanExample3.svg">
   $\left[\begin{array}
@@ -73,52 +102,73 @@ The answer is, for these two vectors, you can describe _every_ possible two-dime
   {c}3.1 \\ -2.9\end{array}\right]$
 </Figure>
 
-We'll go into much more detail on this point in a <LessonLink id="change-of-basis">later chapter</LessonLink>, describing the relationship between different coordinate systems, but for now we just want you to appreciate that any way to describe vectors numerically depends on your choice of basis vectors.
+We'll go into much more detail on this point in a <LessonLink id="change-of-basis">later chapter</LessonLink>, describing the relationship between different coordinate systems, but for now we just want you to appreciate that any way to describe vectors numerically depends on your choice of basis vectors.  
+在后面的章节中，我们会更详细地探讨这一点，说明不同坐标系之间的关系，  
+但目前我们只想让你明白：任何用数值表示向量的方法都取决于你所选择的基向量。
 
 </section>
 
 <section>
 
-## Linear Combinations
+## Linear Combinations 线性组合
 
-Any time you're scaling two vectors and adding them like this, it's called a "linear combination" of those two vectors.
+Any time you're scaling two vectors and adding them like this, it's called a "linear combination" of those two vectors.  
+每当像这样对两个向量进行缩放后再将它们相加时，这就被称为这两个向量的“线性组合”​。
 
 <Figure image="$lesson/figures/linear-combination/LinearCombinationWithDescription.svg" />
 
-Where does the word "linear" come from here? What does this have to do with lines? Well, when you multiply a scalar by a vector, it changes the magnitude of that vector. Multiplying every real number by the vector produces an infinite line that passes through the origin and the point defined by the vector.
+Where does the word "linear" come from here? What does this have to do with lines? Well, when you multiply a scalar by a vector, it changes the magnitude of that vector. Multiplying every real number by the vector produces an infinite line that passes through the origin and the point defined by the vector.  
+这里的“线性”一词从何而来？它与直线有什么关系呢？  
+其实，当用标量乘以向量时，会改变该向量的大小。  
+用所有的实数去乘这个向量，就会得到一条通过原点以及该向量所定义点的无限直线。
 
 <Figure image="$lesson/figures/linear-combination/LinearCombinationVectorsAndLines.svg" />
 
-So a linear combination of two vectors is a method of combining these two lines. For most pairs of vectors, if you let both scalars range freely and consider every possible vector you could get, you will be able to reach every possible point on the plane. Every two-dimensional vector is within your grasp.
+So a linear combination of two vectors is a method of combining these two lines. For most pairs of vectors, if you let both scalars range freely and consider every possible vector you could get, you will be able to reach every possible point on the plane. Every two-dimensional vector is within your grasp.  
+因此，两个向量的线性组合是一种将这两条直线结合起来的方法。  
+对于大多数向量对而言，如果让两个标量自由变化，并考虑所有可能得到的向量，  
+就能够覆盖平面上的每一个点。  
+所有的二维向量都在你的掌控之中。
 
 <Figure
   image="$lesson/figures/linear-combination/LinearCombinationScalarsRangeFree.svg"
   video="$lesson/figures/linear-combination/LinearCombinationScalarsRangeFree.mp4"
 />
 
-However, if your two original vectors happen to line up, the lines produced by the scalar multiplication will be the same line, so adding them together can't yield a vector outside of that line.
+However, if your two original vectors happen to line up, the lines produced by the scalar multiplication will be the same line, so adding them together can't yield a vector outside of that line.  
+然而，如果你的两个原始向量恰好共线，那么标量乘法得到的直线也会是同一条直线，
+因此将它们相加无法得到该直线之外的向量。
 
 <Figure
   image="$lesson/figures/linear-combination/LinearCombinationLinearlyDependent.svg"
   video="$lesson/figures/linear-combination/LinearCombinationLinearlyDependent.mp4"
 />
 
-There's a third possibility too: Both your vectors could be the $0$ vector, in which case you'll just be stuck at the origin.
+There's a third possibility too: Both your vectors could be the $0$ vector, in which case you'll just be stuck at the origin.  
+还有第三种可能：你的两个向量都可能是$0$向量，这种情况下你就只能停留在原点处。
 
 </section>
 
 <section>
 
-## Span
+## Span 张成空间
 
-The set of all possible vectors you can reach with linear combinations of a given pair of vectors is called the "span" of those two vectors. Restating what we just saw in this lingo, the span of most pairs of 2D vectors is all vectors in 2D space, but when they line up, their span is all vectors whose tip sit on a certain line.
+The set of all possible vectors you can reach with linear combinations of a given pair of vectors is called the "span" of those two vectors. Restating what we just saw in this lingo, the span of most pairs of 2D vectors is all vectors in 2D space, but when they line up, their span is all vectors whose tip sit on a certain line.  
+用给定的一对向量通过线性组合所能得到的所有可能向量的集合，被称为这两条向量的“张成空间”​。  
+用这种术语重新表述我们刚才的内容：  
+大多数二维向量对的张成空间是二维空间中的所有向量，  
+而当这些向量共线时，它们的张成空间则是所有终点位于某条直线上的向量。
 
 <Figure image="$lesson/figures/span/SpanOfLinearCombination.svg" />
 
-Remember how we said linear algebra revolves around vector addition and scalar multiplication? The span of two vectors is basically a way of asking what are all the possible vectors you can reach using these two by only using those fundamental operations of vector addition and scalar multiplication.
+Remember how we said linear algebra revolves around vector addition and scalar multiplication? The span of two vectors is basically a way of asking what are all the possible vectors you can reach using these two by only using those fundamental operations of vector addition and scalar multiplication.  
+还记得我们说过线性代数是以向量加法和标量乘法为核心的吗？  
+两个向量的张成，本质上就是一种询问：  
+仅通过向量加法和标量乘法这两种基本运算，利用这两个向量能够得到哪些向量的一种方式。
 
 <Question
-  question="What two vectors that make up the linear combination $a\vec{\mathbf{v}} + b\vec{\mathbf{w}}$ will only produce vectors that lie on a single line?"
+  question="What two vectors that make up the linear combination $a\vec{\mathbf{v}} + b\vec{\mathbf{w}}$ will only produce vectors that lie on a single line?   
+ ​“哪两个向量构成的线性组合$a\vec{\mathbf{v}} +b\vec{\mathbf{w}}$，其结果向量只会落在同一条直线上？​"
   choice1="$\vec{\mathbf{v}} = \left[\begin{array}{c}2 \\ 3\end{array}\right]$ and $\vec{\mathbf{w}} = \left[\begin{array}{c}-1 \\ -1.5\end{array}\right]$"
   choice2="$\vec{\mathbf{v}} = \left[\begin{array}{c}2 \\ 3\end{array}\right]$and $\vec{\mathbf{w}} = \left[\begin{array}{c}3 \\ 2\end{array}\right]$"
   choice3="$\vec{\mathbf{v}} = \left[\begin{array}{c}2 \\ 3\end{array}\right]$and $\vec{\mathbf{w}} = \left[\begin{array}{c}-3 \\ 2\end{array}\right]$"
@@ -126,20 +176,25 @@ Remember how we said linear algebra revolves around vector addition and scalar m
   answer={1}
 >
 
-Of all the answers, $\vec{\mathbf{v}} = \left[\begin{array}{c}2 \\ 3\end{array}\right]$ and $\vec{\mathbf{w}} = \left[\begin{array}{c}-1 \\ -1.5\end{array}\right]$ are the only two vectors which lie on the same line as eachother.
-
+Of all the answers, $\vec{\mathbf{v}} = \left[\begin{array}{c}2 \\ 3\end{array}\right]$ and $\vec{\mathbf{w}} = \left[\begin{array}{c}-1 \\ -1.5\end{array}\right]$ are the only two vectors which lie on the same line as eachother.  
+在所有答案中，只有 $\vec{\mathbf{v}} = \left[\begin{array}{c}2 \\ 3\end{array}\right]$ 和 $\vec{\mathbf{w}} = \left[\begin{array}{c}-1 \\ -1.5\end{array}\right]$ 这两个向量位于同一条直线上。
 <Figure image="$lesson/figures/span/Question1.svg" />
 
 </Question>
 
 <Question
-  question="What is the span of $\begin{bmatrix}3\\ -2\end{bmatrix}$ and $\begin{bmatrix}-6\\ 4\end{bmatrix}$?"
+  question="What is the span of $\begin{bmatrix}3\\ -2\end{bmatrix}$ and $\begin{bmatrix}-6\\ 4\end{bmatrix}$?  
+  $\begin{bmatrix}3\\ -2\end{bmatrix}$和$\begin{bmatrix}-6\\4\end{bmatrix}$的张成空间是什么？​"
   choice1="A point"
   choice2="A line"
   choice3="The full 2d plane"
   answer={2}>
 
-These two vectors line up because $\begin{bmatrix}-6\\ 4\end{bmatrix}=-2\begin{bmatrix}3\\ -2\end{bmatrix}$, meaning their span is the line going through the origin and the tips of the vectors. If the two vectors did not lie on the same line, their span would be the full 2d plane. Alternatively, if both vectors were the zero vector their span would be the point at the origin.
+These two vectors line up because $\begin{bmatrix}-6\\ 4\end{bmatrix}=-2\begin{bmatrix}3\\ -2\end{bmatrix}$, meaning their span is the line going through the origin and the tips of the vectors. If the two vectors did not lie on the same line, their span would be the full 2d plane. Alternatively, if both vectors were the zero vector their span would be the point at the origin.  
+这两个向量共线，因为$\begin{bmatrix}-6\\ 4\end{bmatrix}=-2\begin{bmatrix}3\\ -2\end{bmatrix}$，  
+这意味着它们的张成空间是经过原点以及这两个向量端点的直线。  
+如果这两个向量不在同一直线上，它们的张成空间将是整个二维平面。  
+另外，如果两个向量都是零向量，它们的张成空间就是原点所在的点。
 
 </Question>
 
@@ -147,104 +202,146 @@ These two vectors line up because $\begin{bmatrix}-6\\ 4\end{bmatrix}=-2\begin{b
 
 <section>
 
-## Vectors vs Points
+## Vectors vs Points 向量与点
 
-This is a good time to talk about how people commonly think about vectors as points. It gets very crowded to think about a whole collection of vectors sitting on a line, and more crowded still to think about all two-dimensional vectors all at once, filling up the plane.
+This is a good time to talk about how people commonly think about vectors as points. It gets very crowded to think about a whole collection of vectors sitting on a line, and more crowded still to think about all two-dimensional vectors all at once, filling up the plane.  
+现在是讨论人们为何常将向量视为点的好时机。  
+要想象一整组位于直线上的向量会让人感到十分复杂，  
+而要同时想象所有填满平面的二维向量，则更为复杂。
 
 <Figure
   image="$lesson/figures/vectors-vs-points/arrow.jpg"
   video="$lesson/figures/vectors-vs-points/arrow.mp4"
 />
 
-So when dealing with collections of vectors like this, it's common to represent each one just with a point in space, the point at the tip of this vector. That way, if you want to think about every possible vector whose tip sits on a certain line, just think about that line itself.
+So when dealing with collections of vectors like this, it's common to represent each one just with a point in space, the point at the tip of this vector. That way, if you want to think about every possible vector whose tip sits on a certain line, just think about that line itself.  
+因此，在处理这样的向量集合时，通常用空间中的一个点来表示每个向量，也就是该向量的终点。  
+这样一来，如果想要考虑所有终点位于某条直线上的向量，只需考虑那条直线本身即可。
 
 <Figure
   image="$lesson/figures/vectors-vs-points/point_line.jpg"
   video="$lesson/figures/vectors-vs-points/point_line.mp4"
 />
 
-Likewise, to think about all possible two-dimensional vectors, conceptualize each one as the point where its tip sits. Then to think about all of them all at once, you can just think about the infinite flat sheet that is two-dimensional space, leaving the arrows out of it.
+Likewise, to think about all possible two-dimensional vectors, conceptualize each one as the point where its tip sits. Then to think about all of them all at once, you can just think about the infinite flat sheet that is two-dimensional space, leaving the arrows out of it.  
+同样地，要考虑所有可能的二维向量，可以将每一个向量想象为其箭头所指的点。  
+而要同时考虑所有这些向量，只需想象那个作为二维空间的无限平面，无需再考虑其中的箭头。
 
 <Figure
   image="$lesson/figures/vectors-vs-points/point_space.jpg"
   video="$lesson/figures/vectors-vs-points/point_space.mp4"
 />
 
-In general, if you're thinking of a vector on its own, think of it as an arrow, and if you're thinking of a collection, it's convenient to think of them as points.
+In general, if you're thinking of a vector on its own, think of it as an arrow, and if you're thinking of a collection, it's convenient to think of them as points.  
+一般来说，如果你单独考虑一个向量，可以将其想象成一支箭；  
+而如果考虑一组向量，将它们想象成点会更为方便。
 
 </section>
 
 <section>
 
-## Span in 3D
+## Span in 3D 三维空间中的张成空间
 
-The idea of span gets more interesting if we start thinking about vectors in three-dimensional space. For example, if you take two vectors in three-dimensional space that are not pointing in the same direction, what does it mean to take their span?
+The idea of span gets more interesting if we start thinking about vectors in three-dimensional space. For example, if you take two vectors in three-dimensional space that are not pointing in the same direction, what does it mean to take their span?  
+如果我们开始考虑三维空间中的向量，那么“span”的概念就会变得更加有趣。  
+例如，如果在三维空间中取两个方向不同的向量，那么求它们的span又意味着什么呢？
 
 <Figure image="$lesson/figures/span-in-3d/SpanOfTwoVectorsIn3dNoPlane.svg" />
 
-Well, their span is the collection of all possible linear combinations of those two vectors, meaning all possible vectors you get by scaling each of the two you start with in some way, then adding them together.
+Well, their span is the collection of all possible linear combinations of those two vectors, meaning all possible vectors you get by scaling each of the two you start with in some way, then adding them together.  
+嗯，它们的张成空间就是这两个向量所有可能的线性组合的集合，  
+也就是说，通过以某种方式对这两个初始向量进行缩放后再将它们相加，  
+所能得到的所有可能向量。
 
 <Figure image="$lesson/figures/span-in-3d/LinearCombination3d.svg" />
 
-You can imagine turning two knobs to change the two scalars defining the linear combination, adding the scaled vectors and following the tip of the resulting vector. That tip traces out some kind of flat sheet cutting through the origin of three-dimensional space.
+You can imagine turning two knobs to change the two scalars defining the linear combination, adding the scaled vectors and following the tip of the resulting vector. That tip traces out some kind of flat sheet cutting through the origin of three-dimensional space.  
+你可以想象通过转动两个旋钮来改变决定线性组合的两个标量，  
+将缩放后的向量相加，然后沿着所得向量的方向移动。  
+该方向的终点会划出一条穿过三维空间原点的平面。
 
 <Figure
   image="$lesson/figures/span-in-3d/SpanOfTwoVectorsIn3d.svg"
   video="$lesson/figures/span-in-3d/SpanOfTwoVectorsIn3d.mp4"
 />
 
-This flat sheet is the span of the two vectors. Or more precisely, the set of all possible vectors whose tips sit on this flat sheet is the span of your two vectors. Isn't that a beautiful mental image?
+This flat sheet is the span of the two vectors. Or more precisely, the set of all possible vectors whose tips sit on this flat sheet is the span of your two vectors. Isn't that a beautiful mental image?  
+这张平面就是这两个向量的张成空间。  
+或者更准确地说，所有端点位于这张平面上的向量所构成的集合，就是这两个向量的张成空间。  
+这难道不是一幅美丽的脑海画面吗？
 
-What happens if you add on a third vector, and consider the span of all three vectors? A linear combination of three vectors is defined pretty much the same way as for two: Choose three scalars, use them to scale each of your vectors, then add them all together. And again, the span of these vectors is the set of all possible linear combinations.
+What happens if you add on a third vector, and consider the span of all three vectors? A linear combination of three vectors is defined pretty much the same way as for two: Choose three scalars, use them to scale each of your vectors, then add them all together. And again, the span of these vectors is the set of all possible linear combinations.  
+如果再加入第三个向量，考虑这三个向量的张成空间会怎样？  
+三个向量的线性组合的定义与两个向量时基本相同：  
+选择三个标量，用它们分别缩放每个向量，然后再将它们全部相加。  
+同样地，这些向量的张成空间就是所有可能的线性组合的集合。
 
 <Figure image="$lesson/figures/span-in-3d/LinearCombinationOfThreeVectorsWithLines.svg">
   The linear combination of $\vec{\mathbf{v}}$, $\vec{\mathbf{w}}$, and $\vec{\mathbf{u}}$: $a\vec{\mathbf{v}} + b\vec{\mathbf{w}} + c\vec{\mathbf{u}}$
 </Figure>
 
-Two things can happen when we add a third vector:
+Two things can happen when we add a third vector:  
+当我们加入第三个向量时，可能会出现两种情况：
 
-1. If your third vector happens to be sitting on the span of the first two, then the span doesn't change, you're sort of trapped on that same flat sheet. In other words, adding a scaled version of the third vector to linear combinations of the first two doesn't give you access to any new vectors.
+1. If your third vector happens to be sitting on the span of the first two, then the span doesn't change, you're sort of trapped on that same flat sheet. In other words, adding a scaled version of the third vector to linear combinations of the first two doesn't give you access to any new vectors.  
+如果第三个向量恰好位于前两个向量的张成空间内，  
+那么该张成空间就不会发生变化，你仍会停留在同一个“平面”上。  
+换句话说，将第三个向量的缩放版本加到前两个向量的线性组合中，无法得到任何新的向量。
 
 <Figure
   image="$lesson/figures/span-in-3d/ThirdVectorIsInSpan.svg"
   video="$lesson/figures/span-in-3d/ThirdVectorIsInSpan.mp4"
 />
 
-2. If you just randomly choose a third vector, it's almost certainly not sitting on the span of the first. Since it's then pointing in a separate direction, it unlocks access to every possible three-dimensional vector! The way to think about this is that as you scale the new third vector, it moves around the span of the first two to sweep it through all of space.
+2. If you just randomly choose a third vector, it's almost certainly not sitting on the span of the first. Since it's then pointing in a separate direction, it unlocks access to every possible three-dimensional vector! The way to think about this is that as you scale the new third vector, it moves around the span of the first two to sweep it through all of space.  
+如果随机选择第三个向量，它几乎可以肯定不会位于第一个向量张成的空间内。  
+由于它会指向一个不同的方向，因此就能用来表示所有可能的三维向量！  
+可以这样理解：当你调整这个新的第三个向量的大小时，  
+它就会在前两个向量张成的空间周围移动，从而遍历整个空间。
 
 <Figure
   image="$lesson/figures/span-in-3d/ThirdVectorIsNotInSpan.svg"
   video="$lesson/figures/span-in-3d/ThirdVectorIsNotInSpan.mp4"
 />
 
-It's kind of like you're making full use of the three freely-changing scalars that you have at your disposal to access the full three dimensions of space.
+It's kind of like you're making full use of the three freely-changing scalars that you have at your disposal to access the full three dimensions of space.  
+这有点像是在充分利用你手头可用的三个可自由变化的标量，从而探索空间的全部三维结构。
 
-In the case where the third vector was sitting on the span of the first two, or the case where two vectors happen to line up, we want some terminology to describe the fact that at least one of these vectors is redundant, not adding anything to our span. Whenever this happens, where you have multiple vectors, and you could remove one without reducing their span, the relevant terminology is to say they are "linearly dependent".
+In the case where the third vector was sitting on the span of the first two, or the case where two vectors happen to line up, we want some terminology to describe the fact that at least one of these vectors is redundant, not adding anything to our span. Whenever this happens, where you have multiple vectors, and you could remove one without reducing their span, the relevant terminology is to say they are "linearly dependent".  
+如果第三个向量位于前两个向量的张成空间内，或者有两个向量恰好共线，  
+那么我们需要一些术语来描述至少有一个向量是多余的、无法为该张成空间增添任何信息这一情况。  
+每当出现多个向量且可以移除其中一个而不改变其张成空间时，相关的术语就是称它们为“线性相关”​。
 
 <Figure image="$lesson/figures/span-in-3d/LinearlyDependent.svg" />
 
-Another way of phrasing this would be to say that one of the vectors can be expressed as a linear combination of the others. That is, it's already in the span of the other two.
+Another way of phrasing this would be to say that one of the vectors can be expressed as a linear combination of the others. That is, it's already in the span of the other two.  
+另一种表述方式是，其中一个向量可以表示为其他向量的线性组合。  
+也就是说，它已经包含在另外两个向量的张成空间中。
 
 <Figure image="$lesson/figures/span-in-3d/LinearlyDependent3d.svg" />
 
-On the other hand, if each vector really does add another dimension to the span, they are said to be "linearly independent".
+On the other hand, if each vector really does add another dimension to the span, they are said to be "linearly independent".  
+另一方面，如果每个向量确实为该张成空间增添了新的维度，那么它们就被称为“线性无关”的。
 
 <Figure image="$lesson/figures/span-in-3d/LinearlyIndependent3d.svg" />
 
-In the next chapter we'll get into <LessonLink id="linear-transformations">matrices and transforming space</LessonLink>. See you there!
+In the next chapter we'll get into <LessonLink id="linear-transformations">matrices and transforming space</LessonLink>. See you there!  
+在下一章中，我们将探讨矩阵与空间变换。到时候见！
 
 </section>
 
 <section>
 
-## Questions
+## Questions 提问
 
-**Given the span of two vectors $\left[\begin{array}{c}  0  \\  3  \\  2  \end{array}\right]$ and $\left[\begin{array}{c}  0  \\  1  \\  -2  \end{array}\right]$ illustrated below:**
+**Given the span of two vectors $\left[\begin{array}{c}  0  \\  3  \\  2  \end{array}\right]$ and $\left[\begin{array}{c}  0  \\  1  \\  -2  \end{array}\right]$ illustrated below:**  
+如图所示，给定两个向量 $\left[\begin{array}{c} 0 \\ 3 \\ 2\end{array}\right]$ 和 $\left[\begin{array}{c} 0 \\ 1 \\ -2\end{array}\right]$
 
 <Figure image="$lesson/figures/questions/IndepentOrDependent3d.svg" />
 
 <Question
-  question="Which of the following vectors is linearly dependent of the vectors $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$?"
+  question="Which of the following vectors is linearly dependent of the vectors $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$?  
+  下列哪个向量与向量$\vec{\mathbf{v}}$和$\vec{\mathbf{w}}$线性相关？​"
   choice1="$\left[\begin{array}{c}  1  \\  0  \\  4  \end{array}\right]$"
   choice2="$\left[\begin{array}{c}  -2  \\  4  \\  0  \end{array}\right]$"
   choice3="$\left[\begin{array}{c}  1  \\  2  \\  3  \end{array}\right]$"
@@ -252,30 +349,38 @@ In the next chapter we'll get into <LessonLink id="linear-transformations">matri
   answer={4}
 >
 
-The vector $\vec{\mathbf{u}} = \left[\begin{array}{c}  0  \\  -2  \\  4  \end{array}\right]$ is the only vector that can be expressed using just $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, because both of the vectors lie in the $yz$-plane.
-
+The vector $\vec{\mathbf{u}} = \left[\begin{array}{c}  0  \\  -2  \\  4  \end{array}\right]$ is the only vector that can be expressed using just $\vec{\mathbf{v}}$ and $\vec{\mathbf{w}}$, because both of the vectors lie in the $yz$-plane.  
+向量 $\vec{\mathbf{u}} = \left[\begin{array}{c} 0 \\ -2 \\ 4\end{array}\right]$ 是唯一一个仅能用 $\vec{\mathbf{v}}$ 和 $\vec{\mathbf{w}}$ 表示的向量，因为这两个向量都位于 $yz$ 平面内。
 </Question>
 
-**The technical definition for the "basis" of a space is a set of linearly independent vectors that span that space. Given how we described a basis earlier, and given your understanding of the words "span" and "linearly independent", why does this definition make sense?**
+**The technical definition for the "basis" of a space is a set of linearly independent vectors that span that space. Given how we described a basis earlier, and given your understanding of the words "span" and "linearly independent", why does this definition make sense?**  
+**空间“基”的技术定义是一组能够张成该空间的线性无关向量。结合我们之前对基的描述，以及你对“张成”和“线性无关”这两个概念的理解，为什么这个定义是合理的？**
 
 <FreeResponse>
 
-Earlier we learned that any pair of vectors could form a new basis as long as they are linearly independent, meaning that their linear combination can span the entire 2D plane.
+Earlier we learned that any pair of vectors could form a new basis as long as they are linearly independent, meaning that their linear combination can span the entire 2D plane.  
+之前我们了解到，只要两向量线性无关，它们就能构成一个新的基，  
+这意味着它们的线性组合可以张成整个二维平面。
 
 <Figure image="$lesson/figures/questions/AnyOldBasis.svg" />
 
-If instead, the two vectors are linearly dependent, then they lay on the same line as eachother and their linear combination only yields vectors which lay on the same line.
+If instead, the two vectors are linearly dependent, then they lay on the same line as eachother and their linear combination only yields vectors which lay on the same line.  
+如果这两个向量线性相关，那么它们会共线，  
+且它们的线性组合只能产生也共线的向量。
 
 <Figure image="$lesson/figures/questions/IndependentOrDependent.svg" />
 
 </FreeResponse>
 
-**Given the linear combination of the two vectors illustrated below:**
+**Given the linear combination of the two vectors illustrated below:**  
+**给定下图所示的两个向量的线性组合：**
 
 <Figure image="$lesson/figures/questions/OrthogonalBasis.svg" />
 
 <Question
-  question="What are the two scalar values for $a$ and $b$ which form the vector $\left[\begin{array}{c} 7 \\ 4 \end{array}\right]$?"
+  question="What are the two scalar values for $a$ and $b$ which form the vector $\left[\begin{array}{c} 7 \\ 4 \end{array}\right]$?  
+  构成向量$\left[\begin{array}{c} 7 \\ 4 \end{array}\right]$的$a$和$b$这两个标量值分别是多少？​"
+  
   choice1="$a=1,b=-2$"
   choice2="$a=-1,b=2$"
   choice3="$a=2,b=-1$"
@@ -283,13 +388,15 @@ If instead, the two vectors are linearly dependent, then they lay on the same li
   answer={3}
 >
 
-Start by writing down the coordinates of the vectors.
+Start by writing down the coordinates of the vectors.  
+首先写下这些向量的坐标。
 
 $$
 \vec{\mathbf{v}}=\left[\begin{array}{l}2 \\ 3\end{array}\right] \quad \vec{\mathbf{w}}=\left[\begin{array}{c}-3 \\ 2\end{array}\right]
 $$
 
-Set up the linear combination of the two vectors.
+Set up the linear combination of the two vectors.  
+建立这两个向量的线性组合。
 
 $$
 a\left[\begin{array}{l}
@@ -304,7 +411,8 @@ a\left[\begin{array}{l}
 \end{array}\right]
 $$
 
-Equate the components of the vectors to get a linear system of equations.
+Equate the components of the vectors to get a linear system of equations.  
+将向量的各分量相等，得到一个线性方程组。
 
 $$
 \begin{aligned}
@@ -313,7 +421,8 @@ $$
 \end{aligned}
 $$
 
-Solve for $b$ in terms of $a$.
+Solve for $b$ in terms of $a$.  
+用$a$表示$b$的解。
 
 $$
 \begin{aligned}
@@ -323,7 +432,8 @@ b & =\frac{4-3 a}{2}
 \end{aligned}
 $$
 
-Substitute $b$ into the first equation and solve for $a$.
+Substitute $b$ into the first equation and solve for $a$.  
+将$b$代入第一个方程，然后求解$a$。
 
 $$
 \begin{aligned}
@@ -335,7 +445,8 @@ a & =2
 \end{aligned}
 $$
 
-Substitute the value for $a$ into the expression for $b$.
+Substitute the value for $a$ into the expression for $b$.  
+将$a$的值代入$b$的表达式中。
 
 $$
 \begin{aligned}
@@ -346,7 +457,9 @@ $$
 \end{aligned}
 $$
 
-The two scalars which make up the linear combination $a\left[\begin{array}{l}2 \\ 3\end{array}\right]+b\left[\begin{array}{c}-3 \\ 2\end{array}\right]=\left[\begin{array}{l}7 \\ 4\end{array}\right]$ are $a=2$ and $b=-1$. We can double check our work by drawing the corresponding visual, which confirms our answer.
+The two scalars which make up the linear combination $a\left[\begin{array}{l}2 \\ 3\end{array}\right]+b\left[\begin{array}{c}-3 \\ 2\end{array}\right]=\left[\begin{array}{l}7 \\ 4\end{array}\right]$ are $a=2$ and $b=-1$. We can double check our work by drawing the corresponding visual, which confirms our answer.  
+构成线性组合$a\left[\begin{array}{l}2 \\3\end{array}\right]+b\left[\begin{array}{c}-3 \\2\end{array}\right]=\left[\begin{array}{l}7 \\ 4\end{array}\right]$的两个标量分别是$a=2$和$b=-1$。  
+我们可以通过绘制相应的图形来再次验证我们的结果，这确实证实了我们的答案是正确的。
 
 <Figure image="$lesson/figures/questions/LinearCombinationQuestion.svg" />
 

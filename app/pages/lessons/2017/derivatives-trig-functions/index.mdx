@@ -1,13 +1,13 @@
 ---
-title: Trig Derivatives through geometry
-description: Introduction to the derivatives trigonometric functions thought about geometrically and intuitively.
+title: Trig Derivatives through geometry 通过几何学理解三角函数导数
+description: Introduction to the derivatives trigonometric functions thought about geometrically and intuitively. 从几何和直观的角度介绍三角函数的导数。
 thumbnail: $lesson/thumbnail.jpg
 date: 2017-04-30
 chapter: 4
 source: _2017/eoc/chapter3.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Collapsible from "~/components/Collapsible";
@@ -16,28 +16,44 @@ import LessonLink from "~/components/LessonLink";
 
 <section>
 
-Let's try to reason through what the derivatives of the functions sine and cosine should be. For background, you should be comfortable with how to think about both of these functions using the unit circle; that is, the circle with radius $1$ centered at the origin[^1].
+Let's try to reason through what the derivatives of the functions sine and cosine should be. For background, you should be comfortable with how to think about both of these functions using the unit circle; that is, the circle with radius $1$ centered at the origin[^1].  
+让我们试着推理一下正弦函数和余弦函数的导数应该是什么。  
+作为背景知识，你应该已经熟悉如何利用单位圆来思考这两个函数；  
+也就是说，以原点为圆心、半径为$1$的圆[^1]​。
 
-[^1]: To get up to speed on the unit circle or for a quick refresher see [this article](https://wumbo.net/concepts/unit-circle/).
+[^1]: To get up to speed on the unit circle or for a quick refresher see [this article](https://wumbo.net/concepts/unit-circle/).  
+[^1]​：如需快速了解单位圆或温故相关知识，请参阅[这篇文章](https://wumbo.net/concepts/unit-circle/)。
 
 For example, how would you interpret the value $\sin(0.8)$ if the value $\theta = 0.8$ is understood to be in radians?
-You might imagine walking around a circle with a radius of $1$, starting from the rightmost point, until you've traversed the distance $0.8$ in arc length.
-This is the same thing as saying you've traversed an _angle_ of $0.8$ radians. Then $\sin(\theta)$ is your height above the $x$-axis at this point.
+You might imagine walking around a circle with a radius of $1$, starting from the rightmost point, until you've traversed the distance $0.8$ in arc length.  
+例如，如果将角度$\theta = 0.8$理解为弧度，那么如何理解$\sin(0.8)$这个值呢？  
+你可以想象沿着半径为$1$的圆周行走，从最右侧的点开始，直到走过弧长为$0.8$的距离。
+This is the same thing as saying you've traversed an _angle_ of $0.8$ radians. Then $\sin(\theta)$ is your height above the $x$-axis at this point.  
+这等同于说你走了$0.8$弧度的_角度_。  
+此时，$\sin(\theta)$就是该点处相对于$x$轴的高度。
 
 <Figure
   image="$lesson/figures/13.16.svg"
   video="$lesson/figures/12.51-13.16.mp4"
 />
 
-As theta increases, and you walk around the circle, your height bobs up and down and up and down.
-So the graph of $\sin(\theta)$ vs. $\theta$, which plots this height as a function of arc length, is a wave pattern. This is the _quintessential_ wave pattern.
+As theta increases, and you walk around the circle, your height bobs up and down and up and down.  
+随着θ值增大，当你绕圆周行走时，你的高度会上下起
+
+So the graph of $\sin(\theta)$ vs. $\theta$, which plots this height as a function of arc length, is a wave pattern. This is the _quintessential_ wave pattern.  
+因此，将高度作为弧长函数绘制的$\sin(\theta)$与$\theta$的图像呈波浪状。这就是最典型的波浪形态。
 
 <Figure
   image="$lesson/figures/13.44.svg"
   video="$lesson/figures/13.22-13.38.mp4"
 />
 
-Just from looking at this graph, we can get a feel for the shape of the derivative function. The slope at $0$ is something positive, then as $\sin(\theta)$ approaches its peak, the slope goes down to $0$. Then the slope is negative for a little while before coming back up to $0$ as the $\sin(\theta)$ graph levels out. If you're familiar with the graphs of trig functions, you might guess that this derivative graph should be exactly $\cos(\theta)$, whose graph is just a shifted-back copy of the sine graph.
+Just from looking at this graph, we can get a feel for the shape of the derivative function. The slope at $0$ is something positive, then as $\sin(\theta)$ approaches its peak, the slope goes down to $0$. Then the slope is negative for a little while before coming back up to $0$ as the $\sin(\theta)$ graph levels out. If you're familiar with the graphs of trig functions, you might guess that this derivative graph should be exactly $\cos(\theta)$, whose graph is just a shifted-back copy of the sine graph.  
+仅通过观察这张图，我们就能大致了解导数函数的形状。  
+在$0$处的斜率为正数，当$\sin(\theta)$接近峰值时，斜率下降至$0$。  
+随后斜率会保持负值一段时间，直到$\sin(\theta)$的图像趋于平稳后再次上升至$0$。  
+如果你熟悉三角函数的图像，可能会猜到这个导数图像应该就是$\cos(\theta)$，  
+因为它的图像不过是正弦函数图像向左平移后的版本而已。
 
 <Figure
   image="$lesson/figures/13.44-cosine.svg"
@@ -45,74 +61,123 @@ Just from looking at this graph, we can get a feel for the shape of the derivati
   show="video"
 />
 
-But all this tells us is that the peaks and valleys of the derivative graph seem to line up with the graph of cosine. How could we know that this derivative actually _is_ the cosine of theta, and not just some new function that looks similar to it? As with the previous examples of this video, a more exact understanding of the derivative requires looking at what the function itself represents, rather than the graph of the function.
+But all this tells us is that the peaks and valleys of the derivative graph seem to line up with the graph of cosine. How could we know that this derivative actually _is_ the cosine of theta, and not just some new function that looks similar to it? As with the previous examples of this video, a more exact understanding of the derivative requires looking at what the function itself represents, rather than the graph of the function.  
+但这一切只能说明，导数图的峰谷似乎与余弦函数的图像相对应。  
+我们如何才能确定这个导数确实就是θ的余弦函数，而不是某个与之外观相似的新函数呢？  
+与本视频之前的例子一样，要更准确地理解导数，  
+就需要了解函数本身所代表的含义，而非函数的图像。
 
-Think back to the walk around the unit circle, having traversed an arc length of $\theta$, where $\sin(\theta)$ is the height of this point. Consider a slight nudge of $d$-theta along the circumference of the circle; a tiny step in your walk around the unit circle. How much does this change $\sin(\theta)$? How much does that step change your _height_ above the x-axis? This is best observed by zooming in on the point where you are on the circle.
+Think back to the walk around the unit circle, having traversed an arc length of $\theta$, where $\sin(\theta)$ is the height of this point. Consider a slight nudge of $d$-theta along the circumference of the circle; a tiny step in your walk around the unit circle. How much does this  change $\sin(\theta)$? How much does that step change your _height_ above the x-axis? This is best observed by zooming in on the point where you are on the circle.  
+回想一下在单位圆上的行走过程，我们走了弧长为$\theta$的路径，  
+此时$\sin(\theta)$就是该点的高度。  
+现在假设沿着圆的周长再移动一个微小的$d\theta$距离，也就是在单位圆上再走一小步。  
+这会改变$\sin(\theta)$的值多少？  
+这一步又会改变你相对于x轴的“高度”多少？  
+最直观的方法是放大圆上当前所在的那一点来观察。
 
 <Figure image="$lesson/figures/15.57.svg" />
 
 Zoomed in close enough the circle basically looks like a straight line in this neighborhood.
-Consider the right triangle pictured below, where the hypotenuse represents a straight-line approximation of the nudge $d \theta$ along the circumference, and this left side represents the change in height; the resulting tiny nudge to $\sin(\theta)$.
+Consider the right triangle pictured below, where the hypotenuse represents a straight-line approximation of the nudge $d \theta$ along the circumference, and this left side represents the change in height; the resulting tiny nudge to $\sin(\theta)$.  
+放大到足够近时，在这一小范围内圆基本上看起来就像一条直线。  
+考虑下图中的直角三角形，其中斜边代表了沿圆周的微小偏移量$d\theta$的直线近似值，  
+而左侧则代表高度的变化；进而导致$\sin(\theta)$产生微小的偏移。
 
 <Figure image="$lesson/figures/16.00.svg" />
 
 This tiny triangle is actually similar to this larger triangle with the defining angle theta, and whose hypotenuse is the radius of the circle with length $1$.
-Specifically, the angle between its height $d(\sin(\theta))$ and its hypotenuse $d\theta$ is precisely equal to $\theta$.
-
+Specifically, the angle between its height $d(\sin(\theta))$ and its hypotenuse $d\theta$ is precisely equal to $\theta$.  
+      这个小三角形实际上与那个以角度θ为顶角、斜边长度为1的圆的半径的较大三角形相似。  
+      具体而言，其高 $d(\sin(\theta))$ 与斜边 $d\theta$ 之间的夹角恰好等于 $\theta$。
+      
 <Figure image="$lesson/figures/similar-triangles.svg" />
 
 <Collapsible title="Similar triangle explanation">
 
-We know these right triangles must be similar by doing some angle-chasing geometry. Start by drawing a line parallel to the $x$-axis. From geometry, we know that the angle formed between the radius and this parallel line is equal to theta.
+We know these right triangles must be similar by doing some angle-chasing geometry. Start by drawing a line parallel to the $x$-axis. From geometry, we know that the angle formed between the radius and this parallel line is equal to theta.  
+通过一些角度推导的几何分析，我们知道这些直角三角形必定是相似的。  
+首先画一条与$x$轴平行的直线。根据几何知识，半径与该平行线所形成的角度等于$\theta$。
 
 <Figure image="$lesson/figures/similar-triangles-line-parallel-to-x-axis.svg" />
 
-Then we can draw a line tangent to the point formed by theta as shown below. Because the line is tangent, we know that the angle formed between the radius and the tangent line is perpendicular, so we can calculate the right-most angle of this tiny triangle formed by $d\theta$ to be $\pi/2 - \theta$.
+Then we can draw a line tangent to the point formed by theta as shown below. Because the line is tangent, we know that the angle formed between the radius and the tangent line is perpendicular, so we can calculate the right-most angle of this tiny triangle formed by $d\theta$ to be $\pi/2 - \theta$.  
+然后我们可以如下图所示，画一条与θ所确定的点相切的直线。  
+由于该直线是切线，因此半径与切线之间的夹角为直角，  
+所以我们可以得出由$d\theta$构成的这个小三角形中最右侧的角为$\pi/2 - \theta$。
 
 <Figure image="$lesson/figures/similar-triangles-tangent-line.svg" />
 
-Finally, we know that the angles of a triangle sum to a half-rotation ($\pi$ radians or $180 \degree$), so the top angle must be equal to $\theta$.
+Finally, we know that the angles of a triangle sum to a half-rotation ($\pi$ radians or $180 \degree$), so the top angle must be equal to $\theta$.  
+最后，我们知道三角形的三个内角之和等于半周角（$\pi$ 弧度或$180^\circ$）​，因此顶角必定等于$\theta$。
 
 <Figure image="$lesson/figures/similar-triangles-180-sum.svg" />
 
-Since these two triangles share the same angles, they must be similar triangles, which allows us to continue forward and find the derivative of the trigonometric function.
+Since these two triangles share the same angles, they must be similar triangles, which allows us to continue forward and find the derivative of the trigonometric function.  
+由于这两个三角形拥有相同的角，因此它们必定是相似三角形，这让我们能够继续推导出三角函数的导数。
 
 </Collapsible>
 
-Think about what the derivative of sine is supposed to mean. It's the ratio between that $d\left(\sin(\theta)\right)$, the tiny change to the output of sine, divided by $d \theta$, the tiny change to the input of the function. From the picture, that's the ratio between the length of the side adjacent to this little right triangle divided by the hypotenuse. Well, let's see, adjacent divided by hypotenuse; that's exactly what $\cos(\theta)$ means!
+Think about what the derivative of sine is supposed to mean. It's the ratio between that $d\left(\sin(\theta)\right)$, the tiny change to the output of sine, divided by $d \theta$, the tiny change to the input of the function. From the picture, that's the ratio between the length of the side adjacent to this little right triangle divided by the hypotenuse. Well, let's see, adjacent divided by hypotenuse; that's exactly what $\cos(\theta)$ means!  
+思考一下正弦函数的导数应该代表什么。  
+它就是$d\left(\sin(\theta)\right)$——即正弦函数输出值的那微小变化——  
+__________与$d\theta$——即函数输入值的那微小变化——的比值。  
+从图中可以看出，这其实就是这个小直角三角形邻边长度与斜边长度的比值。  
+嗯，让我们看看，邻边除以斜边；这不正是$\cos(\theta)$的含义吗！
 
 <Figure image="$lesson/figures/16.01.svg" />
 
-Notice, by considering the slope of the graph, we can get a quick intuitive feel for the rough shape that the derivative of $\sin(\theta)$ should have, which is enough to make an educated guess. But to more to understand why this derivative is _precisely_ $\cos(\theta)$, we had to begin our line of reasoning with the defining features of $\sin(\theta)$.
+Notice, by considering the slope of the graph, we can get a quick intuitive feel for the rough shape that the derivative of $\sin(\theta)$ should have, which is enough to make an educated guess. But to more to understand why this derivative is _precisely_ $\cos(\theta)$, we had to begin our line of reasoning with the defining features of $\sin(\theta)$.  
+请注意，通过观察函数的斜率，  
+我们可以快速直观地了解$\sin(\theta)$的导数应具有的大致形状，这足以让我们做出合理的猜测。  
+但要更深入地理解为何这个导数恰好是$\cos(\theta)$，  
+我们就必须从$\sin(\theta)$的定义特征出发来推导。
 
-For those of you who enjoy pausing and pondering, take a moment to find a similar line of reasoning that explains what the derivative of $\cos(\theta)$ should be.
+For those of you who enjoy pausing and pondering, take a moment to find a similar line of reasoning that explains what the derivative of $\cos(\theta)$ should be.  
+对于那些喜欢停下来思考的人，请花点时间找出类似的推理方式，  
+来解释$\cos(\theta)$的导数应该是什么。
 
 <Collapsible title="Derivative of Cosine">
 
-To find the derivative of the cosine function, let's look at the unit circle definition of cosine. Imagine walking around the unit circle starting from the right-most point to an arc-length distance of $\theta$ (theta) unit. The cosine function returns the distance from the $y$-axis and the end-point corresponding the angle.
+To find the derivative of the cosine function, let's look at the unit circle definition of cosine. Imagine walking around the unit circle starting from the right-most point to an arc-length distance of $\theta$ (theta) unit. The cosine function returns the distance from the $y$-axis and the end-point corresponding the angle.  
+要求余弦函数的导数，我们先来看看余弦函数在单位圆上的定义。  
+想象从单位圆最右侧的点出发，沿弧线行走 $\theta$ 单位的距离。  
+余弦函数给出的值就是该角度对应的终点到 $y$ 轴的距离。
 
 <Figure image="$lesson/figures/cosine-unit-circle.svg" />
 
-For example, given the angle $\theta = 0.8$ the cosine function returns the distance from the $y$-axis and the point corresponding to the angle which is about equal to $0.697...$
+For example, given the angle $\theta = 0.8$ the cosine function returns the distance from the $y$-axis and the point corresponding to the angle which is about equal to $0.697...$  
+例如，给定角度$\theta = 0.8$时，  
+余弦函数给出的值即为该角度对应的点与$y$轴之间的距离，  
+其数值约为$0.697...$
 
 <Figure image="$lesson/figures/cosine-unit-circle-example.svg" />
 
-Just as with sine, imagine nudging the input $\theta$ some small amount $d\theta$. This gives us the change in cosine $d(\cos (\theta))$ labeled on the diagram below.
+Just as with sine, imagine nudging the input $\theta$ some small amount $d\theta$. This gives us the change in cosine $d(\cos (\theta))$ labeled on the diagram below.  
+与正弦函数类似，想象将输入值$\theta$稍微改变一个微小量$d\theta$。  
+这样就能得到余弦函数的变化量$d(\cos (\theta))$，如下图所示。
 
 <Figure image="$lesson/figures/cosine-d-theta.svg">
-  For angles in the first quadrant a small nudge $d\theta$ **decreases** the
-  output of cosine, so this length is negative.
+  For angles in the first quadrant a small nudge $d\theta$ **decreases** the output of cosine, so this length is negative.  
+  对于第一象限内的角度，微小的偏移量 $d\theta$   
+  会使余弦函数的输出值 **减小**，因此该长度为负值。
 </Figure>
 
-Just as before, we can observe that this nudge forms a _similar_ right triangle with a hypotenuse of length $d \theta$.
+Just as before, we can observe that this nudge forms a _similar_ right triangle with a hypotenuse of length $d \theta$.  
+与之前一样，我们可以观察到这个微调会形成一个斜边长度为$d\theta$的_相似_直角三角形。
 
 <Figure image="$lesson/figures/cosine-d-theta-similar-triangle.svg" />
 
-Applying the definition of the sine function to this right triangle, we know that the length of the opposite side is equal to $d\theta \cdot \sin(\theta)$. However, we need to be careful to observe that this small nudge $d\theta$ that we introduced **decreases** the length of cosine on the unit circle, so this value is negative.
+Applying the definition of the sine function to this right triangle, we know that the length of the opposite side is equal to $d\theta \cdot \sin(\theta)$. However, we need to be careful to observe that this small nudge $d\theta$ that we introduced **decreases** the length of cosine on the unit circle, so this value is negative.  
+将正弦函数的定义应用到这个直角三角形中，  
+我们可以知道对边的长度等于$d\theta \cdot \sin(\theta)$。  
+不过需要注意的是，我们所引入的这个小增量$d\theta$  
+会**减小**单位圆上余弦函数的值，因此这个数值是负的。
 
 <Figure image="$lesson/figures/cosine-d-theta-similar-triangle-side-length.svg" />
 
-This gives us the change of the function as $d(\cos (\theta)) = d \theta \cdot(-\sin (\theta))$ which we can rearrange to find the derivative.
+This gives us the change of the function as $d(\cos (\theta)) = d \theta \cdot(-\sin (\theta))$ which we can rearrange to find the derivative.  
+这就给出了函数的变化量 $d(\cos (\theta)) = d \theta \cdot(-\sin (\theta))$，  
+我们可以通过重新排列来求出导数。
 
 $$
 \frac{d(\cos (\theta))}{d\theta} = -\sin (\theta)
@@ -124,6 +189,8 @@ $$
 
 <section>
 
-In the <LessonLink id="chain-rule-and-product-rule">next lesson</LessonLink> we'll figure out the derivatives of functions that combine simple functions like these, either as sums, products, or functions compositions. Similar to this lesson, we'll try to understand each rule geometrically, in a way that makes it intuitively reasonable and memorable.
+In the <LessonLink id="chain-rule-and-product-rule">next lesson</LessonLink> we'll figure out the derivatives of functions that combine simple functions like these, either as sums, products, or functions compositions. Similar to this lesson, we'll try to understand each rule geometrically, in a way that makes it intuitively reasonable and memorable.  
+在下一课中，我们将研究由这类简单函数通过求和、乘积或复合方式组合而成的函数的导数。  
+与本课类似，我们会尝试从几何角度来理解每条规则，使其具有直观的合理性且易于记忆。
 
 </section>

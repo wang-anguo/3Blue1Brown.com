@@ -1,13 +1,13 @@
 ---
-title: Integration and the fundamental theorem of calculus
-description: What is integration?  Why is it computed as the opposite of differentiation?  What is the fundamental theorem of calculus?
+title: Integration and the fundamental theorem of calculus  积分与微积分基本定理
+description: What is integration?  Why is it computed as the opposite of differentiation?  What is the fundamental theorem of calculus?什么是积分？为何将其计算为微分的逆运算？什么是微积分基本定理？
 date: 2017-05-05
 chapter: 11
 video: rfG8ce4nNh0
 source: _2017/eoc/chapter8.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson  - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 库尔特·布伦斯
 ---
 
 import Figure from "~/components/Figure";
@@ -16,21 +16,32 @@ import Quote from "~/components/Quote";
 
 <section>
 
-<Quote name="Alexander Grothendieck">
-  One should never try to prove anything that is not almost obvious
+<Quote name="Alexander Grothendieck 亚历山大·格罗滕迪克">
+  One should never try to prove anything that is not almost obvious  
+  永远不要试图去证明那些几乎显而易见的事情。
 </Quote>
 
-This guy, Grothendieck, is somewhat of a mathematical idol to me. And I just love this quote, don't you? Too often in math we just dive into showing that a certain fact is true with long series of formulas before stepping back and making sure that it feels reasonable, and preferably obvious, at least on an intuitive level.
+This guy, Grothendieck, is somewhat of a mathematical idol to me. And I just love this quote, don't you? Too often in math we just dive into showing that a certain fact is true with long series of formulas before stepping back and making sure that it feels reasonable, and preferably obvious, at least on an intuitive level.  
+格罗滕迪克这个人，对我而言算是一种数学偶像。  
+我特别喜欢这句话，你不觉得吗？  
+在数学研究中，我们常常急于用一长串公式来证明某个事实是正确的，  
+却很少停下来思考一下，确保其合理性——至少在直觉层面上是显而易见的。
 
-In this article, I want to talk about integrals, and the thing that I want to become "almost obvious" is that they are an inverse of derivatives. We'll focus just on one example, which is kind of dual to the example of a moving car that I talked about in chapter 2 of the series, introducing derivatives. Then in the next lesson, we'll see how the idea generalizes into some other contexts.
+In this article, I want to talk about integrals, and the thing that I want to become "almost obvious" is that they are an inverse of derivatives. We'll focus just on one example, which is kind of dual to the example of a moving car that I talked about in chapter 2 of the series, introducing derivatives. Then in the next lesson, we'll see how the idea generalizes into some other contexts.  
+在这篇文章中，我想谈谈积分，而我希望让读者“几乎不费力就能理解”的一点是：  
+积分其实是导数的逆运算。  
+我们只看一个例子，它与我在介绍导数的系列文章第二章中提到的移动汽车例子有某种对应关系。  
+在下一课中，我们将探讨这一概念如何推广到其他情境中。
 
 </section>
 
 <section>
 
-## Velocity
+## Velocity  速度
 
-Imagine you're sitting in a car, and you can't see out the window; all you see is the speedometer. At some point, the car starts moving, speeds up, then slows back down to a stop, all over 8 seconds.
+Imagine you're sitting in a car, and you can't see out the window; all you see is the speedometer. At some point, the car starts moving, speeds up, then slows back down to a stop, all over 8 seconds.  
+想象你坐在一辆车里，无法透过窗户看到外面，只能看到速度表。  
+在8秒钟的时间里，车子开始移动，加速，然后又减速直至停止。
 
 <Figure
   video="$lesson/figures/velocity-car-moving.mp4"
@@ -38,11 +49,15 @@ Imagine you're sitting in a car, and you can't see out the window; all you see i
   show="video"
 />
 
-Is there a nice way to figure out how far you've traveled during that time, based only on your view of the speedometer? Or better yet, find a distance function $s(t)$ that tells you how far you've traveled after any given amount of time, $t$, between 0 and 8 seconds. {/* TODO: possibly split and insert s(t) that we are going for */} Let's say you take note of the velocity at each second, and make a plot over time like this.
+Is there a nice way to figure out how far you've traveled during that time, based only on your view of the speedometer? Or better yet, find a distance function $s(t)$ that tells you how far you've traveled after any given amount of time, $t$, between 0 and 8 seconds. {/* TODO: possibly split and insert s(t) that we are going for */} Let's say you take note of the velocity at each second, and make a plot over time like this.  
+有没有一种简单的方法，仅通过观察速度表就能算出在这段时间内行驶了多远的距离？  
+或者更好的是，找到一个距离函数$s(t)$，它能告诉你在0到8秒之间的任意时间$t$后已经行驶了多远。  
+假设你记录下每一秒的速度，然后像这样绘制出随时间变化的图表。
 
 <Figure image="$lesson/figures/velocity-speedometer-readings.svg" />
 
-And maybe you find that a nice function to model your velocity over time, in meters per second, is $v(t) = t(8-t)$.
+And maybe you find that a nice function to model your velocity over time, in meters per second, is $v(t) = t(8-t)$.  
+也许你会发现，用来描述速度随时间变化的合适函数（单位：米/秒）是 $v(t)= t(8-t)$。
 
 <Figure image="$lesson/figures/velocity-nice-function.svg" />
 
@@ -50,153 +65,271 @@ And maybe you find that a nice function to model your velocity over time, in met
 
 <section>
 
-## Relationship between velocity and distance
+## Relationship between velocity and distance  速度与距离的关系
 
-You might remember, in chapter 2 of this series, we were looking at the opposite situation, where you know a distance function, $s(t)$, and you want to figure out a velocity function from that. I showed how the derivative of your distance vs. time function gives you a velocity vs. time function.
+You might remember, in chapter 2 of this series, we were looking at the opposite situation, where you know a distance function, $s(t)$, and you want to figure out a velocity function from that. I showed how the derivative of your distance vs. time function gives you a velocity vs. time function.  
+你可能还记得，在本系列的第2章中，我们研究的是相反的情况：  
+已知距离函数$s(t)$，想要从中求出速度函数。  
+我讲解过如何通过距离与时间函数的导数来得到速度与时间函数。
 
 <Figure image="$lesson/figures/velocity-and-distance-derivative-callback.svg" />
 
-So in our current situation, where all we know is the velocity function, it should make sense that finding a distance vs. time function $s(t)$ comes down to asking what function has a derivative $-t^2 + 8t$. This is often described as finding the antiderivative of a function.
+So in our current situation, where all we know is the velocity function, it should make sense that finding a distance vs. time function $s(t)$ comes down to asking what function has a derivative $-t^2 + 8t$. This is often described as finding the antiderivative of a function.  
+因此，在当前这种情况下，我们只知道速度函数，  
+那么要找到距离随时间变化的函数$s(t)$，  
+其实就等同于寻找一个其导数为$-t^2 + 8t$的函数。  
+这通常被称为求一个函数的原函数。
 
 <Figure image="$lesson/figures/derivative-antiderivative-example.dark.svg" />
 
-And indeed, that's what we'll end up doing, and you could even pause and try that right now for the function $v(t)=-t^2 + 8t$.
+And indeed, that's what we'll end up doing, and you could even pause and try that right now for the function $v(t)=-t^2 + 8t$.   
+确实，这正是我们最终要做的，你现在甚至可以暂停，试着对函数$v(t)=-t^2+ 8t$来做一下。
+
 
 <Figure image="$lesson/figures/derivative-antiderivative.dark.svg" />
 
-But first, I want to spend the bulk of this article showing how this question is related to finding an area bounded by the velocity graph, because that helps to build an intuition for a whole class of what are called "integral problems" in math and science.
+But first, I want to spend the bulk of this article showing how this question is related to finding an area bounded by the velocity graph, because that helps to build an intuition for a whole class of what are called "integral problems" in math and science.  
+但首先，我想在这篇文章中主要讲解这个问题如何与求速度图像所围区域的面积相关联，  
+因为这有助于建立对数学和科学中一类被称为“积分问题”的直观理解。
 
 <Figure image="$lesson/figures/velocity.svg">
   This figure highlights the area bounded under the curve formed by the function
   $v(t)=-t^2+8 t$. The vertical axis represents velocity measured in meters per
-  second and the horizontal axis represents time.
+  second and the horizontal axis represents time.  
+  该图展示了函数 $v(t)=-t^2+8 t$ 所形成的曲线下方所围成的区域。  
+  纵轴表示速度，单位为米每秒；横轴表示时间。
 </Figure>
 
-To start off, notice this question would be much easier if the car was moving with a constant velocity, right? In that case, you could just multiply the velocity, in meters per second, by the amount of time passed, in seconds, and that gives you the number of meters traveled.
+To start off, notice this question would be much easier if the car was moving with a constant velocity, right? In that case, you could just multiply the velocity, in meters per second, by the amount of time passed, in seconds, and that gives you the number of meters traveled.  
+首先，请注意，如果汽车以恒定速度行驶，这个问题就会简单得多，对吧？  
+在这种情况下，只需将速度（单位：米/秒）乘以经过的时间（单位：秒）​，就能得到行驶的距离。
 
 <Figure image="$lesson/figures/velocity-constant.svg" />
 
-Notice that you can visualize that distance as an area, and if visualizing distance as an area seems weird, I'm right there with you. It's just that on this plot, where the horizontal direction has units of seconds and the vertical direction has units of meters/second, units of area very naturally correspond to meters. But what makes our situation hard is that the velocity is not constant, it's incessantly changing at every instant.
+Notice that you can visualize that distance as an area, and if visualizing distance as an area seems weird, I'm right there with you. It's just that on this plot, where the horizontal direction has units of seconds and the vertical direction has units of meters/second, units of area very naturally correspond to meters. But what makes our situation hard is that the velocity is not constant, it's incessantly changing at every instant.  
+        请注意，你可以将距离想象成一个面积。  
+        如果把距离视为面积听起来很奇怪，我完全理解你的感受。 
+        只是在这个坐标图中，横轴的单位是秒，纵轴的单位是米/秒，因此面积的单位很自然地就对应着米。  
+        但让我们面临困难的是，速度并非恒定，而是在每一瞬间都在不断变化。
 
-It would even be a lot easier if it only ever changed at a handful of points, maybe staying static for the first second, then suddenly discontinuously jumping to a constant 7 meters per second for the next second, and so on, with discontinuous jumps to portions of constant velocity.
+It would even be a lot easier if it only ever changed at a handful of points, maybe staying static for the first second, then suddenly discontinuously jumping to a constant 7 meters per second for the next second, and so on, with discontinuous jumps to portions of constant velocity.  
+如果速度只在少数几个点发生变化，那就简单多了——  
+也许第一秒保持不变，第二秒突然不连续地跳变为每秒7米，  
+以此类推，通过不连续的跳跃进入不同的恒定速度阶段。
 
 <Figure image="$lesson/figures/velocity-approximation-every-second.svg" />
 
-That might make it very uncomfortable for the driver, in fact, it's physically impossible, but it would make your calculations a lot more straightforward. You could compute the distance traveled on each interval by multiplying the constant velocity on that interval by the change in time. Then just add them all up.
+That might make it very uncomfortable for the driver, in fact, it's physically impossible, but it would make your calculations a lot more straightforward. You could compute the distance traveled on each interval by multiplying the constant velocity on that interval by the change in time. Then just add them all up.  
+     那样可能会让驾驶员感到非常不适，  
+     实际上这是物理上不可能的，但会让你的计算变得简单得多。  
+     你可以通过将该时间段内的恒定速度乘以时间差来计算该段时间内行驶的距离，  
+     然后再把所有这些距离加起来即可。
 
 <Figure image="$lesson/figures/velocity-approximate-area-as-rectangles.svg" />
 
-So what we'll do is just approximate our velocity function as if it was constant on a bunch of different intervals. Then, as is common in calculus, we'll see how refining that approximation leads us to something precise.
+So what we'll do is just approximate our velocity function as if it was constant on a bunch of different intervals. Then, as is common in calculus, we'll see how refining that approximation leads us to something precise.  
+因此，我们的做法就是将速度函数在许多不同的区间上近似为恒定的。  
+然后，就像微积分中常见的那样，我们会看看如何通过不断优化这种近似来得到更精确的结果。
 
 <Figure image="$lesson/figures/velocity-refining-approximations.svg">
   Notice as the we choose more and more sub-divisions that these approximations
-  start to approach the true shape of the area bounded by the curve.
+  start to approach the true shape of the area bounded by the curve.  
+  请注意，随着我们选择的分区越来越多，这些近似值开始逐渐接近曲线所围成的区域的真实形状。
 </Figure>
 
-Here, let's make this more concrete with some numbers. Chop up the time axis between 0 and 8 into many small intervals, each with some little width $dt$, like 0.25 seconds. Consider one of these intervals, like the one between $t=1$, and $1.25$. In reality, the car speeds up from 7 m/s to about 8.4 m/s during that time, which you can find by plugging in $t = 1$ and 1.25 to the equation for velocity.
+Here, let's make this more concrete with some numbers. Chop up the time axis between 0 and 8 into many small intervals, each with some little width $dt$, like 0.25 seconds. Consider one of these intervals, like the one between $t=1$, and $1.25$. In reality, the car speeds up from 7 m/s to about 8.4 m/s during that time, which you can find by plugging in $t = 1$ and 1.25 to the equation for velocity.  
+在这里，我们用一些具体数字来使其更明确。  
+将0到8之间的时间轴划分为许多小间隔，每个间隔的宽度为$dt$，比如0.25秒。  
+以其中一个间隔为例，即$t=1$到1.25之间的区间。  
+实际上，在这段时间内，汽车的速度会从7米/秒上升至约8.4米/秒，  
+这一数值可以通过将$t=1$和1.25代入速度公式计算得出。
 
 <Figure image="$lesson/figures/velocity-approximate-interval-example.svg" />
 
-We want to approximate the car's motion as if its velocity was constant on this interval. Again, the reason for doing that is that we don't really know how to handle anything other than constant velocity situations[^1]. You could choose this constant to be anything between $7$ and $8.4$, it doesn't really matter.
+We want to approximate the car's motion as if its velocity was constant on this interval. Again, the reason for doing that is that we don't really know how to handle anything other than constant velocity situations[^1]. You could choose this constant to be anything between $7$ and $8.4$, it doesn't really matter.  
+我们希望将汽车的运动近似为在该时间间隔内速度保持恒定。  
+之所以这样做，是因为我们实际上并不知道如何处理非恒速情况[^1]​。  
+你可以将这个恒定值选在7到8.4之间的任意数值，这并不重要。
 
-[^1]: Now, you may notice a couple improvements of this approximation right away like averaging the two points, using the right point, or even a trapezoid. (if the constant breaking problem is used above, then some note about how the different approximation method doesn't matter in the end
+[^1]: Now, you may notice a couple improvements of this approximation right away like averaging the two points, using the right point, or even a trapezoid. (if the constant breaking problem is used above, then some note about how the different approximation method doesn't matter in the end  
+[^1]​：现在，你可能会立刻注意到这种近似方法有几处改进，  
+比如对两个点取平均值、使用右侧的点，甚至是梯形法。  
+​（如果上面使用了恒定加速度模型，那么还需要说明不同近似方法最终并无差异）
 
-All that matters is that our sequence of approximations, whatever they are, gets better and better as $dt$ gets smaller and smaller. Treating this car's journey as a bunch of discontinuous jumps in speed between small portions of constant velocity becomes a less wrong reflection of reality as we decrease the time between those jumps.
+All that matters is that our sequence of approximations, whatever they are, gets better and better as $dt$ gets smaller and smaller. Treating this car's journey as a bunch of discontinuous jumps in speed between small portions of constant velocity becomes a less wrong reflection of reality as we decrease the time between those jumps.  
+重要的是，无论我们的近似序列是什么，只要$dt$越来越小，它们的精度就会越来越高。  
+当我们缩短这些速度变化间隔时，  
+将这辆车的行驶过程视为在短时间内的恒速段之间的一系列不连续速度跳跃，  
+就能更准确地反映现实情况。
 
-So, for convenience, let's just approximate the speed on each interval with whatever the true car's velocity is at the start of the interval; the height of the graph above the left side, which in this case is 7.
+So, for convenience, let's just approximate the speed on each interval with whatever the true car's velocity is at the start of the interval; the height of the graph above the left side, which in this case is 7. 
+因此，为方便起见，  
+我们只需用每个时间间隔开始时汽车的实际速度来近似表示该间隔内的速度；  
+即图中左侧上方的数值，在此例中为7。
 
 <Figure image="$lesson/figures/velocity-approximate-interval-example-result.svg" />
 
-So on this example interval, according to our approximation, the car moves $(7,\text{m/s})\cdot(0.25,\text{s})$. That's $1.75$ meters, nicely visualized as the area of this thin rectangle. This is a little under the real distance traveled, but not by much. And the same goes for every other interval: The approximated distance is $v(t) \cdot dt$, it's just that you plug in a different value of $t$ for each one, giving a different height for each rectangle.
+So on this example interval, according to our approximation, the car moves $(7,\text{m/s})\cdot(0.25,\text{s})$. That's $1.75$ meters, nicely visualized as the area of this thin rectangle. This is a little under the real distance traveled, but not by much. And the same goes for every other interval: The approximated distance is $v(t) \cdot dt$, it's just that you plug in a different value of $t$ for each one, giving a different height for each rectangle.  
+因此，在这个示例区间内，根据我们的近似方法，  
+汽车移动的距离为$(7,\text{m/s})\cdot(0.25,\text{s})$，即1.75米，  
+这一数值可以很好地通过该细长矩形的面积来表示。  
+这个数值略小于汽车实际行驶的距离，但差距不大。  
+其他区间也是如此：近似距离仍为$v(t) \cdot dt$，  
+只不过需要为每个区间代入不同的$t$值，从而使得每个矩形的高度不同。
 
 </section>
 
 <section>
 
-## Integral Notation
+## Integral Notation  积分符号
 
-I'm going to write out an expression for the sum of the areas of all these rectangles in kind of a funny way. Take this symbol $\int$, which looks like a stretched "S" for sum, then put a $0$ at its bottom and an $8$ at its top to indicate that we're ranging over time steps between $0$ and $8$ seconds.
+I'm going to write out an expression for the sum of the areas of all these rectangles in kind of a funny way. Take this symbol $\int$, which looks like a stretched "S" for sum, then put a $0$ at its bottom and an $8$ at its top to indicate that we're ranging over time steps between $0$ and $8$ seconds.  
+我要用一种有趣的方式来写出所有这些矩形面积之和的表达式。  
+先取这个符号∫，它看起来就像一个拉长的“S”形，代表求和；  
+然后在它的底部写上0，在顶部写上8，以此表示我们考虑的时间范围是0到8秒之间。
 
 <Figure image="$lesson/figures/integral-notation-annotated.svg" />
 
-The amount we're adding up at each time step is $v(t) \cdot dt$ which, for each step, can be visualized as the rectangle of area on the graph.
+The amount we're adding up at each time step is $v(t) \cdot dt$ which, for each step, can be visualized as the rectangle of area on the graph.  
+在每个时间步长上我们要累加的量是$v(t) \cdot dt$，  
+在图中，每一时间步长对应的都可以看作是一个面积矩形。
 
 <Figure image="$lesson/figures/integral-notation-sum-of-areas.svg" />
 
-Two things are implicit in this notation: First, the value $dt$ plays two roles: not only is it a factor in each quantity we're adding up, it also indicates the spacing between each sampled time step. So when you make $dt$ smaller, even though it decreases the area of each rectangle, it increases the total number of rectangles whose areas we're adding up, because if they are thinner it takes more of them to fill up that space. And second, the reason we don't use the usual sigma notation $\sum$ to indicate a sum is that this expression is technically not any particular sum for any particular choice of $dt$; it's meant to express whatever that sum approaches as $dt$ approaches 0.
+Two things are implicit in this notation: First, the value $dt$ plays two roles: not only is it a factor in each quantity we're adding up, it also indicates the spacing between each sampled time step. So when you make $dt$ smaller, even though it decreases the area of each rectangle, it increases the total number of rectangles whose areas we're adding up, because if they are thinner it takes more of them to fill up that space. And second, the reason we don't use the usual sigma notation $\sum$ to indicate a sum is that this expression is technically not any particular sum for any particular choice of $dt$; it's meant to express whatever that sum approaches as $dt$ approaches 0.  
+这种表示法中隐含了两点：  
+首先，$dt$具有双重作用——它不仅是我们相加的每个量中的因子，  
+还表示各个采样时间步之间的间隔。  
+因此，当$dt$变小时，虽然每个矩形的面积会减小，  
+但我们需要相加的矩形总数会增加，  
+因为要填满同样的空间就需要更多的矩形。  
+其次，我们不使用常规的求和符号$\sum$来表示这个和，  
+是因为从技术上讲，对于任意给定的$dt$值，  
+该表达式并不代表某个特定的求和；  
+它的意义在于表示当$dt$趋近于0时，该求和所趋近的值。
 
 <Figure image="$lesson/figures/integral-notation-sum-approaches-bounded-area.svg">
   As $dt$ approaches $0$ the area of the rectangle approaches the area bounded
-  by the curve and the horizontal axis.
+  by the curve and the horizontal axis.  
+  当 $dt$ 趋近于 $0$ 时，该矩形的面积趋近于由该曲线与横轴所围成的区域的面积。
 </Figure>
 
-Remember, smaller choices of $dt$ indicate closer approximations for our original question, _how far does the car go_? So this limiting value for the sum, the area under this curve, gives the precise answer to the question, in full unapproximated precision.
+Remember, smaller choices of $dt$ indicate closer approximations for our original question, _how far does the car go_? So this limiting value for the sum, the area under this curve, gives the precise answer to the question, in full unapproximated precision.  
+请记住，较小的$dt$取值能更精确地逼近我们最初的问题——汽车行驶了多远？  
+因此，该求和的极限值，也就是这条曲线下的面积，能够以完全精确的方式给出问题的准确答案。
 
 <Figure image="$lesson/figures/integral-notation-area-under-a-curve.svg">
-  Area under the curve is equal to the distance traveled.
+  Area under the curve is equal to the distance traveled.  
+  曲线下的面积等于汽车行驶的距离。
 </Figure>
 
-Now tell me that's not surprising. We have this pretty complicated idea of approximations that can involve adding up a huge number of very tiny things, and yet the value those approximations approach can be described so simply, as the area under a curve.
+Now tell me that's not surprising. We have this pretty complicated idea of approximations that can involve adding up a huge number of very tiny things, and yet the value those approximations approach can be described so simply, as the area under a curve.  
+现在告诉我这并不奇怪吧。  
+我们有一种相当复杂的近似概念，它涉及将大量极微小的数值相加，  
+然而这些近似值所趋近的数值却能被如此简单地描述——即曲线下的面积。
 
 $$
 \underbrace{\int_0^8 v(t) d t}_{d t \rightarrow 0}
 $$
 
-This expression is called an "integral" of $v(t)$, since it brings all of its values together, it integrates them.
+This expression is called an "integral" of $v(t)$, since it brings all of its values together, it integrates them.  
+这个表达式被称为$v(t)$的“积分”​，因为它将$v(t)$的所有值汇集在一起，即对它们进行了积分。
 
 </section>
 
 <section>
 
-## Area Under Graphs
+## Area Under Graphs  图形下的面积
 
 {/* Fundamental theorem of calculus */}
 {/* Why talk about area at all */}
 
-Now you could say, "How does this help!? You've just reframed one hard question, finding how far the car has traveled, into another equally hard problem, finding the area between this graph and the horizontal axis?" And...you'd be right! If the velocity/distance duo was all we cared about, most of this video with all this area under a curve nonsense would be a waste of time. We could just skip straight ahead to figuring out an antiderivative.
+Now you could say, "How does this help!? You've just reframed one hard question, finding how far the car has traveled, into another equally hard problem, finding the area between this graph and the horizontal axis?" And...you'd be right! If the velocity/distance duo was all we cared about, most of this video with all this area under a curve nonsense would be a waste of time. We could just skip straight ahead to figuring out an antiderivative.  
+现在你可能会说：​“这有什么用呢？  
+你只不过是把一个难题——计算汽车行驶的距离——  
+转换成了另一个同样棘手的难题——计算该曲线与横轴之间的面积而已。​”  
+没错……你是对的！  
+如果我们只关心速度和距离这两者，  
+那么这段视频里关于曲线下面积的所有内容就都是浪费时间，  
+我们大可以直接跳过，去研究原函数。
 
-But finding the area between a function's graph and the horizontal axis is somewhat of a common language for many disparate problems that can be broken down and approximated as the sum of a large number of small things. You'll see more next lesson, but for now I'll just say in the abstract that understanding how to interpret and compute the area under a graph is a very general problem-solving tool.
+But finding the area between a function's graph and the horizontal axis is somewhat of a common language for many disparate problems that can be broken down and approximated as the sum of a large number of small things. You'll see more next lesson, but for now I'll just say in the abstract that understanding how to interpret and compute the area under a graph is a very general problem-solving tool.  
+不过，求函数图像与横轴之间的面积在很多不同的问题中都是一种通用方法——  
+这类问题都可以被拆解为大量微小部分的总和来近似处理。  
+在下一课中你会看到更多例子，  
+目前我只想简单地说，掌握如何解读和计算图像下的面积是一种非常通用的问题解决工具。
 
-In fact, the first video of this series already covered the basics of how this works, but now that we have more of a background with derivatives, we can actually take the idea to its completion.
+In fact, the first video of this series already covered the basics of how this works, but now that we have more of a background with derivatives, we can actually take the idea to its completion.  
+实际上，本系列的第一个视频已经介绍了其运作原理的基础知识，  
+但现在我们已对导数有了更多了解，便能够真正将这一理念彻底贯彻下去。
 
-### Derivative of area function is the function
+### Derivative of area function is the function 面积函数的导数就是该函数本身
 
-For our velocity example, think of this right endpoint as a variable, capital $T$.
+For our velocity example, think of this right endpoint as a variable, capital $T$.  
+   对于我们的速度示例，可以将这个右端点视为一个变量，记作大写$T$。
 
 <Figure image="$lesson/figures/derivative-of-area-function-integral.svg" />
 
-So we're thinking of this integral of the velocity function between $0$ and $T$, the area under this curve between those two inputs, as a function, where that upper bound is the variable. That area represents the distance the car has traveled after $T$ seconds, right? So this is really a distance vs. time function $s(T)$.
+So we're thinking of this integral of the velocity function between $0$ and $T$, the area under this curve between those two inputs, as a function, where that upper bound is the variable. That area represents the distance the car has traveled after $T$ seconds, right? So this is really a distance vs. time function $s(T)$.  
+因此，我们将速度函数在$0$和$T$之间的积分，  
+也就是这两点之间曲线下的面积，视为一个以上限为变量的函数。  
+那个面积代表的就是$T$秒后汽车行驶的距离，对吧？  
+所以这实际上就是一个距离与时间的函数$s(T)$。
 
 <Figure image="$lesson/figures/derivative-of-area-function-integral-is-distance-function.svg" />
 
-Now ask yourself: What is the derivative of that function? On the one hand, a tiny change in distance over a tiny change in time is velocity; that's what velocity means. But there's another way to see it purely in terms of this graph and this area, which generalizes better to other integral problems.
+Now ask yourself: What is the derivative of that function? On the one hand, a tiny change in distance over a tiny change in time is velocity; that's what velocity means. But there's another way to see it purely in terms of this graph and this area, which generalizes better to other integral problems.  
+现在问自己：这个函数的导数是什么？  
+一方面，距离在极短时间内的变化量就是速度；这就是速度的含义。  
+但还有另一种仅从这条曲线和这块面积出发来理解的方式，  
+它更能推广到其他积分问题中。
 
 <Figure image="$lesson/figures/derivative-of-area-function-ds.svg" />
 
-A slight nudge of $dT$ to the input causes that area to increase, some little $ds$ represented by the area of this sliver. The height of that sliver is the height of the graph at that point, $v(T)$, and its width is $dT$. And for small enough $dT$, we can basically consider that sliver to be a rectangle. So the area of that sliver, $ds$, is approximately equal to $v(T) \cdot dT$.
+A slight nudge of $dT$ to the input causes that area to increase, some little $ds$ represented by the area of this sliver. The height of that sliver is the height of the graph at that point, $v(T)$, and its width is $dT$. And for small enough $dT$, we can basically consider that sliver to be a rectangle. So the area of that sliver, $ds$, is approximately equal to $v(T) \cdot dT$.  
+对输入量施加微小的$dT$变化，会导致该区域增大，  
+这一增量由这块小片区域的面积来表示，记为$ds$。  
+这块小片区域的高度就是该点处曲线的函数值$v(T)$，而其宽度则为$dT$。  
+当$dT$足够小时，我们基本上可以将这块小片区域视为一个矩形。  
+因此，该小片区域的面积$ds$大致等于$v(T) \cdot dT$。
 
-Because this approximation gets better and better for smaller $dT$, the derivative of the area function $ds/dT$ at this point equals $v(T)$, the value of the velocity function at whatever time we started on.
+Because this approximation gets better and better for smaller $dT$, the derivative of the area function $ds/dT$ at this point equals $v(T)$, the value of the velocity function at whatever time we started on.  
+由于当 $dT$ 越小时这种近似效果越好，  
+因此面积函数在这一点上的导数 $ds/dT$ 等于 $v(T)$，  
+也就是我们开始计算时速度函数的值。
 
 <Figure image="$lesson/figures/derivative-of-area-function-is-the-function.svg" />
 
-And that's super general, the derivative of any function giving the area under a graph like this is equal to the function for the graph itself.
+And that's super general, the derivative of any function giving the area under a graph like this is equal to the function for the graph itself.  
+这非常普遍，任何表示此类图形下方面积的函数的导数，都等于该图形本身的函数。
 
 <Figure image="$lesson/figures/derivative-of-area-function-generic-case.svg" />
 
 ### Find the antiderivative
 
-So if our velocity function here is $t(8-t)$, what should $s$ be? What function of $t$ has a derivative $t(8-t)$? This is where we actually have to roll up our sleeves and do some math.
+So if our velocity function here is $t(8-t)$, what should $s$ be? What function of $t$ has a derivative $t(8-t)$? This is where we actually have to roll up our sleeves and do some math.  
+那么，如果这里的速度函数是$t(8-t)$，那么$s$应该是什么？  
+哪个关于$t$的函数的导数是$t(8-t)$呢？这就是我们需要动手计算一番的地方。
 
 <Figure image="$lesson/figures/find-the-antiderivative-setup.svg" />
 
-It's easier to see if we expand this out as $8t - t^2$. Take each part here one at a time: What function has a derivative $8t$? Well, we know that the derivative of $t^2$ is $2t$, so if we just scale that up by $4$, we see that the derivative of $4t^2$ is $8t$.
+It's easier to see if we expand this out as $8t - t^2$. Take each part here one at a time: What function has a derivative $8t$? Well, we know that the derivative of $t^2$ is $2t$, so if we just scale that up by $4$, we see that the derivative of $4t^2$ is $8t$.  
+如果我们将其展开为$8t - t^2$，就会更容易理解了。  
+我们逐一来看每一项：哪个函数的导数是$8t$？我们知道$t^2$的导数是$2t$，  
+因此只要将这个结果乘以$4$，就能得到$4t^2$的导数是$8t$。
 
-And for that second part, what kind of function might have $-t^2$ as its derivative? Using the power rule again, we know that the derivative of a cubic term, $t^3$, gives a squared term, $3t^2$, so if we scale that down by a third, the derivative of $(\frac{1}{3})t^3$ is exactly $t^2$, and making that negative we see that $-(\frac{1}{3})t^3$ has a derivative of $-t^2$.
+And for that second part, what kind of function might have $-t^2$ as its derivative? Using the power rule again, we know that the derivative of a cubic term, $t^3$, gives a squared term, $3t^2$, so if we scale that down by a third, the derivative of $(\frac{1}{3})t^3$ is exactly $t^2$, and making that negative we see that $-(\frac{1}{3})t^3$ has a derivative of $-t^2$.  
+至于第二部分，哪种函数的导数可能是$-t^2$呢？  
+再次运用幂函数求导法则，我们知道三次项$t^3$的导数是二次项$3t^2$，  
+因此将其系数缩小为三分之一，$(\frac{1}{3})t^3$的导数恰好就是$t^2$；  
+再将它取负，就能得到$-(\frac{1}{3})t^3$的导数为$-t^2$。
 
-Therefore, the antiderivative of our function $8t - t^2$ is $4t^2 - \frac{1}{3}t^3$.
+Therefore, the antiderivative of our function $8t - t^2$ is $4t^2 - \frac{1}{3}t^3$.  
+     因此，函数$8t - t^2$的原函数为$4t^2 - \frac{1}{3}t^3$。
 
 <Question
-  question="What is the antiderivative of the function $3x^2 + 5$?"
+  question="What is the antiderivative of the function $3x^2 + 5$?  
+  函数$x + 2$的原函数是什么？"
   choice1="$3x^3 + 5x$"
   choice2="$x^3 + 5x$"
   choice3="$x^2 + 5x$"
@@ -207,7 +340,8 @@ Therefore, the antiderivative of our function $8t - t^2$ is $4t^2 - \frac{1}{3}t
 </Question>
 
 <Question
-  question="What is the antiderivative of the function $x + 2$?"
+  question="What is the antiderivative of the function $x + 2$?  
+  函数$x + 2$的原函数是什么？"
   choice1="$\frac{1}{2}x^2 + 2x$"
   choice2="$2x^2 + 2$"
   choice3="$x^2 + 2x$"
@@ -217,30 +351,50 @@ Therefore, the antiderivative of our function $8t - t^2$ is $4t^2 - \frac{1}{3}t
 
 </Question>
 
-### The +C issue
+### The +C issue  +C问题
 
-But there's a slight issue here: we could add any constant to this function, and its derivative would still be $8t - t^2$. The derivative of a constant is always 0. And if we graph $s(t)$, you can think of this in the sense that moving a graph of a distance function up and down does nothing to affect its slope above each input. So there are actually infinitely many different possible antiderivative functions, all of which look like $4t^2 - (\frac{1}{3})t^3 + C$ for some constant $C$.
+But there's a slight issue here: we could add any constant to this function, and its derivative would still be $8t - t^2$. The derivative of a constant is always 0. And if we graph $s(t)$, you can think of this in the sense that moving a graph of a distance function up and down does nothing to affect its slope above each input. So there are actually infinitely many different possible antiderivative functions, all of which look like $4t^2 - (\frac{1}{3})t^3 + C$ for some constant $C$.  
+但这里有个小问题：我们可以给这个函数加上任意常数，它的导数依然会是$8t - t^2$。  
+常数的导数始终为0。  
+如果我们绘制$s(t)$的图像，可以这样理解：  
+将一个距离函数的图像上下移动并不会影响其在每个输入值对应的斜率。  
+因此实际上存在无数种不同的原函数，它们都形如$4t^2 - (\frac{1}{3})t^3 +C$，  
+其中$C$为某个常数。
 
 <Figure image="$lesson/figures/plus-constant-issue.svg" />
 
-But there is one piece of information we haven't used yet that lets us zero in on which antiderivative to use: The lower bound on the integral. This integral must be zero when we drag that right endpoint all the way to the left endpoint, right?
+But there is one piece of information we haven't used yet that lets us zero in on which antiderivative to use: The lower bound on the integral. This integral must be zero when we drag that right endpoint all the way to the left endpoint, right?  
+不过还有一项我们尚未使用过的信息，它能帮助我们确定该用哪个原函数：积分的下限。  
+当我们将右端点完全移到左端点时，这个积分的值必定为零，对吧？ 
 
 <Figure image="$lesson/figures/plus-constant-issue-lower-bound.svg" />
 
-The distance traveled by the car between 0 seconds and 0 seconds is zero. So as we found, this area as a function of capital $T$ is an antiderivative for the stuff inside, and to choose what constant to add, subtract off the value of that antiderivative function at the lower bound. If you think about it for a moment, that ensures that the integral from the lower bound to itself will indeed be 0.
+The distance traveled by the car between 0 seconds and 0 seconds is zero. So as we found, this area as a function of capital $T$ is an antiderivative for the stuff inside, and to choose what constant to add, subtract off the value of that antiderivative function at the lower bound. If you think about it for a moment, that ensures that the integral from the lower bound to itself will indeed be 0.  
+汽车在0秒到0秒之间行驶的距离为零。  
+因此正如我们所发现的，以大写$T$表示的这个面积函数就是内部表达式的原函数，  
+而要确定该加多少常数或减多少常数，就需要用到该原函数在下限处的值。  
+稍加思考就会明白，这样做确实能确保从下限到自身的积分等于0。
 
 $$
 \int_0^T t(8-t) d t=\underbrace{\left(4 T^2-\frac{1}{3} T^3\right)-\left(4(0)^2-\frac{1}{3}(0)^3\right)}_{\text {Cancels when } T=0}
 $$
 
-As it so happens, when you evaluate the function we have here at $t=0$, you get zero, so in this specific case you don't actually need to subtract off anything. For example, the total distance traveled during the 8 seconds is this expression evaluated at $T=8$, which is $85.33$, minus 0 which is the answer to our original question! But a more typical example would be something like this integral between $1$ and $7$. That's the area pictured here, and it represents the distance traveled between 1 second and 7 seconds.
+As it so happens, when you evaluate the function we have here at $t=0$, you get zero, so in this specific case you don't actually need to subtract off anything. For example, the total distance traveled during the 8 seconds is this expression evaluated at $T=8$, which is $85.33$, minus 0 which is the answer to our original question! But a more typical example would be something like this integral between $1$ and $7$. That's the area pictured here, and it represents the distance traveled between 1 second and 7 seconds.  
+恰好，当在$t=0$时计算这里的函数值时，结果为零，因此在这种特定情况下实际上无需进行任何减法运算。  
+例如，8秒内行驶的总距离就是该表达式在$T=8$时的值，即$85.33$，再减去0，  
+这就是我们最初问题的答案！  
+但更典型的例子则是像$1$到$7$之间的这个积分。  
+它表示此处所示的面积，也就是1秒到7秒之间行驶的距离。
 
 <Figure image="$lesson/figures/plus-constant-issue-area-between-1-and-7.svg" />
 
-What you'd do is evaluate the antiderivative we found at the top bound, $7$, and subtract off its value at the bottom bound, $1$. Notice, it doesn't matter what antiderivative we choose here; if for some reason it had a constant added to it, like $5$, that constant would cancel out.
+What you'd do is evaluate the antiderivative we found at the top bound, $7$, and subtract off its value at the bottom bound, $1$. Notice, it doesn't matter what antiderivative we choose here; if for some reason it had a constant added to it, like $5$, that constant would cancel out.  
+     你需要做的是在上限$7$处计算我们找到的原函数值，再减去下限$1$处的值。  
+     注意，这里选择哪个原函数并不重要；如果它加上了某个常数，比如$5$，那个常数也会被抵消掉。
 
 <Question
-  question="What is the distance traveled by a car between $0$ and $8$ seconds whose velocity is modeled by the function $v(t) = -\frac{5}{2}t + 20$? This car starts at a speed of 20 meters per second and slows down at a constant rate."
+  question="What is the distance traveled by a car between $0$ and $8$ seconds whose velocity is modeled by the function $v(t) = -\frac{5}{2}t + 20$? This car starts at a speed of 20 meters per second and slows down at a constant rate.  
+  一辆汽车的速度由函数 $v(t) = -\frac{5}{2}t + 20$ 描述，从 $0$ 秒到$8$ 秒间行驶的距离是多少？该汽车初始速度为每秒20米，并以恒定速率减速。"
   choice1="$160$ meters"
   choice2="$90$ meters"
   choice3="$60$ meters"
@@ -251,7 +405,8 @@ What you'd do is evaluate the antiderivative we found at the top bound, $7$, and
 </Question>
 
 <Question
-  question="What is the distance traveled by a car between $2$ and $6$ seconds whose velocity is modeled by the function $v(t) = -t(t-10)$?"
+  question="What is the distance traveled by a car between $2$ and $6$ seconds whose velocity is modeled by the function $v(t) = -t(t-10)$?  
+  当汽车的速度由函数 $v(t) = -t(t-10)$ 描述时，它在2秒到6秒之间行驶的距离是多少？​”"
   choice1="$166.66\bar{6}$ meters"
   choice2="$108$ meters"
   choice3="$90.66\bar{6}$ meters"
@@ -265,56 +420,96 @@ What you'd do is evaluate the antiderivative we found at the top bound, $7$, and
 
 <section>
 
-## Fundamental theorem
+## Fundamental theorem  基本定理
 
 <Figure image="$lesson/figures/fundamental-theorem-subdivisions.svg" />
 
-More generally, anytime you want to integrate some function - and remember you think of as adding up the values $f(x) \cdot dx$ for inputs in a certain range then asking what that sum approaches as $dx$ approaches $0$ - the first step to evaluating that integral is to find an antiderivative, some other function, "capital $F(x)$", whose derivative is the thing inside the integral. Then the integral equals this antiderivative evaluated at the top bound, minus its value at the bottom bound. This fact is called the "fundamental theorem of calculus".
+More generally, anytime you want to integrate some function - and remember you think of as adding up the values $f(x) \cdot dx$ for inputs in a certain range then asking what that sum approaches as $dx$ approaches $0$ - the first step to evaluating that integral is to find an antiderivative, some other function, "capital $F(x)$", whose derivative is the thing inside the integral. Then the integral equals this antiderivative evaluated at the top bound, minus its value at the bottom bound. This fact is called the "fundamental theorem of calculus".  
+更一般地，每当你想要对某个函数进行积分时——  
+请记住，积分就是将特定区间内各点处的$f(x) \cdot dx$值相加，然后再研究当$dx$趋近于$0$时这个总和的极限——  
+计算该积分的第一步是找到一个原函数，也就是另一个函数“大写$F(x)$”​，  
+其导数恰好就是积分号内的表达式。  
+此时，该积分的值等于该原函数在上限处的取值减去在下限处的取值。  
+这一原理被称为“微积分基本定理”​。
 
 <Figure image="$lesson/figures/fundamental-theorem.svg" />
 
-Here's what's crazy about this fact: The integral, the limiting value for the sum of all these thin rectangles, takes into account every single input on the continuum from the lower bound to the upper bound, that's why we use the word "integrate"; it brings them together. And yet, to actually compute it using the antiderivative, you look at only two inputs: the top bound and the bottom bound. It almost feels like cheating! Finding the antiderivative implicitly accounts for all the information needed to add up all the values between the lower bound and upper bound.
+Here's what's crazy about this fact: The integral, the limiting value for the sum of all these thin rectangles, takes into account every single input on the continuum from the lower bound to the upper bound, that's why we use the word "integrate"; it brings them together. And yet, to actually compute it using the antiderivative, you look at only two inputs: the top bound and the bottom bound. It almost feels like cheating! Finding the antiderivative implicitly accounts for all the information needed to add up all the values between the lower bound and upper bound.  
+这个事实的奇妙之处在于：  
+用于计算所有这些细长矩形面积之和的极限值，  
+会考虑连续区间内从下限到上限的每一个数值，  
+正因如此我们才使用“积分”这个词——它意味着将所有数值整合在一起。  
+然而，实际上利用原函数来计算时，却只需考虑两个数值：上限和下限。  
+这几乎就像是在作弊！  
+因为找到原函数就隐含地包含了将下限到上限之间的所有数值相加所需的所有信息。
 
 </section>
 
 <section>
 
-## Quick recap
+## Quick recap  快速回顾
 
-There's kind of a lot packed into this whole concept, so let's recap everything that just happened. We wanted to figure out how far a car goes just by looking at the speedometer, and what makes that hard is that the velocity was always changing.
+There's kind of a lot packed into this whole concept, so let's recap everything that just happened. We wanted to figure out how far a car goes just by looking at the speedometer, and what makes that hard is that the velocity was always changing.  
+这个概念里包含了相当多的内容，所以我们来回顾一下刚刚发生的一切。  
+我们想通过观察速度表来判断汽车能行驶多远，而难点在于速度一直在变化。
 
 <Figure image="$lesson/figures/quick-recap-velocity.svg" />
 
-If you approximate it to be constant on multiple different intervals, you can figure out how far the car goes on each interval just with multiplication, then add them all up. Adding up those products can be visualized as the sum of the areas of many thin rectangles like this.
+If you approximate it to be constant on multiple different intervals, you can figure out how far the car goes on each interval just with multiplication, then add them all up. Adding up those products can be visualized as the sum of the areas of many thin rectangles like this.  
+如果你将速度在多个不同区间内近似为恒定值，  
+那么只需通过乘法就能算出每个区间内汽车行驶的距离，  
+再将这些距离相加即可。  
+把这些乘积相加的过程，可以想象成许多类似这样的细长矩形面积的总和。
 
 <Figure image="$lesson/figures/quick-recap-sum-of-areas.svg" />
 
-Better and better approximations of the original problem correspond to collections of rectangles whose aggregate area is closer and closer to being the area under this curve between the start time and end time, so that area under the curve is the precise distance traveled for the true, nowhere-constant velocity function.
+Better and better approximations of the original problem correspond to collections of rectangles whose aggregate area is closer and closer to being the area under this curve between the start time and end time, so that area under the curve is the precise distance traveled for the true, nowhere-constant velocity function.  
+对原问题越来越好的近似，对应的是由一系列矩形组成的集合，   
+这些矩形的总面积会越来越接近于起始时间与结束时间之间该曲线下的面积；  
+而该曲线下的面积，正是对于真正的、非恒定速度函数而言的实际行驶距离。
 
 <Figure image="$lesson/figures/quick-recap-better-approximations.svg">
   As dt approaches 0 the aggregate area is closer and closer to being the area
   under this curve which is the precise distance traveled between the start and
-  end time
+  end time  
+  随着 dt 趋近于 0，总面积越来越接近该曲线下的面积，  
+  而该面积正是起始时间与结束时间之间所经过的确切距离。
 </Figure>
 
-If you think of this area as function, with a variable right end point, you can deduce that the derivative of that area function must equal the height of the graph at each point.
+If you think of this area as function, with a variable right end point, you can deduce that the derivative of that area function must equal the height of the graph at each point.  
+如果你将这个区域视为一个函数，且其右端点是一个变量，  
+那么可以推断出该面积函数的导数必定等于图形在每一点上的高度。
 
 <Figure image="$lesson/figures/quick-recap-derivative-of-area-function-is-the-function.svg" />
 
-That's the key! So to find a function giving this area, you ask what function has $v(t)$ as its derivative.
+That's the key! So to find a function giving this area, you ask what function has $v(t)$ as its derivative.  
+这就是关键！所以要找到一个能表示该面积的函数，就要思考哪个函数的导数是$v(t)$。
 
-There are actually infinitely many antiderivatives of a given function, since you can always just add some constant without affecting the derivative, so you account for that by subtracting off the value of whatever antiderivative function you choose at the bottom bound.
+There are actually infinitely many antiderivatives of a given function, since you can always just add some constant without affecting the derivative, so you account for that by subtracting off the value of whatever antiderivative function you choose at the bottom bound.  
+实际上，给定函数有无限多个原函数，  
+因为总是可以加上某个常数而不会影响其导数，  
+因此需要通过从所选原函数在下限处的值中减去该常数来加以修正。
 
-### Negative area
+### Negative area  负面积
 
-By the way, one important thing to bring up before leaving is the idea of negative area. What if our velocity function was negative at some point? Meaning the car is going backwards. It's still true that the tiny distance traveled $ds$ on a little time interval is about equal to the velocity times the tiny change in time, it's just that the number you'd plug in for velocity would be negative, so that tiny change in distance is negative.
+By the way, one important thing to bring up before leaving is the idea of negative area. What if our velocity function was negative at some point? Meaning the car is going backwards. It's still true that the tiny distance traveled $ds$ on a little time interval is about equal to the velocity times the tiny change in time, it's just that the number you'd plug in for velocity would be negative, so that tiny change in distance is negative.  
+顺便提一下，在离开之前需要提及的一个重要概念就是“负面积”​。  
+如果我们的速度函数在某一点为负值会怎样？也就是说汽车正在倒退。  
+尽管在极短的时间间隔内行驶的微小距离$ds$仍然大约等于速度乘以时间的一小段变化量，  
+只不过用来表示速度的数值会是负数，因此对应的距离变化量也是负数。
 
 <Figure image="$lesson/figures/negative-area.jpg" />
 
-In terms of our thin rectangles, if the rectangle goes below the horizontal axis like this, its area represents a bit of distance traveled backwards, so if what you want is to find the distance between the car's start point and end point, you'd want to subtract it. And this is generally true of integrals: Whenever a graph dips below the horizontal axis, that area underneath is counted as negative. What you'll commonly hear is that integrals measure the "signed" area between a graph and the horizontal axis.
+In terms of our thin rectangles, if the rectangle goes below the horizontal axis like this, its area represents a bit of distance traveled backwards, so if what you want is to find the distance between the car's start point and end point, you'd want to subtract it. And this is generally true of integrals: Whenever a graph dips below the horizontal axis, that area underneath is counted as negative. What you'll commonly hear is that integrals measure the "signed" area between a graph and the horizontal axis.  
+就我们用的这些细长矩形而言，如果矩形像这样位于水平轴下方，  
+那么它的面积就代表向后移动的一小段距离。  
+因此，如果你想计算汽车起点与终点之间的距离，就需要将这部分距离减去。  
+积分也遵循这一规律：只要曲线低于水平轴，其下方的面积就被视为负值。  
+通常人们会说，积分衡量的是曲线与水平轴之间“带符号”的面积。
 
 <Question
-  question="A car starts driving backwards, slows down then starts driving forward with a velocity modeled by the function $v(t) = 2 t^3-2 t^2$. At what point in time has the car reached the position it started from?"
+  question="A car starts driving backwards, slows down then starts driving forward with a velocity modeled by the function $v(t) = 2 t^3-2 t^2$. At what point in time has the car reached the position it started from?  
+  一辆汽车开始倒车，然后减速，接着以函数$v(t) = 2t^3 - 2t^2$所描述的速率向前行驶。它在何时会回到出发的位置？​"
   choice1="$t = 1$"
   choice2="$t = \frac{4}{3}$"
   choice3="$t = \frac{3}{2}$"
@@ -322,17 +517,21 @@ In terms of our thin rectangles, if the rectangle goes below the horizontal axis
   answer={2}
 >
 
-If we graph the function $v(t) = 2 t^3-2 t^2$ we can see that the car travels backwards some unknown distance from $0$ to $1$ where it then startings going forward.
+If we graph the function $v(t) = 2 t^3-2 t^2$ we can see that the car travels backwards some unknown distance from $0$ to $1$ where it then startings going forward.  
+如果我们绘制函数$v(t) = 2t^3 - 2t^2$的图像，  
+就可以看到汽车在从0到1的过程中会向后行驶一段未知的距离，之后才开始向前行驶。
 
 <Figure image="$lesson/figures/negative-area-practice-problem-2-framing.svg" />
 
-This is essentially asking the question: at what point in time $T$ in the future does the integral equal $0$?
+This is essentially asking the question: at what point in time $T$ in the future does the integral equal $0$?  
+这实际上是在问：在未来的哪个时间点$T$，积分值会等于0？
 
 $$
 0 = \int_0^T \left(  2 t^3-2 t^2 \right)dt
 $$
 
-And this is a problem that we can solve!
+And this is a problem that we can solve!  
+这是一个我们可以解决的问题！
 
 $$
 \begin{aligned}
@@ -346,7 +545,9 @@ T &= \frac{4}{3} \\
 \end{aligned}
 $$
 
-If we plot the antiderivative $s(t)=\frac{1}{2} t^4-\frac{2}{3} t^3$ alongside the original function we can see that it is indeed equal to zero at the time $T = \frac{4}{3}$ seconds.
+If we plot the antiderivative $s(t)=\frac{1}{2} t^4-\frac{2}{3} t^3$ alongside the original function we can see that it is indeed equal to zero at the time $T = \frac{4}{3}$ seconds.  
+如果我们将原函数的积分 $s(t)=\frac{1}{2} t^4-\frac{2}{3} t^3$ 与原函数一起绘制出来，  
+就可以发现当 $T = \frac{4}{3}$ 秒时，它的值确实为零。
 
 <Figure image="$lesson/figures/negative-area-practice-problem-2.svg" />
 
@@ -356,8 +557,9 @@ If we plot the antiderivative $s(t)=\frac{1}{2} t^4-\frac{2}{3} t^3$ alongside t
 
 <section>
 
-## Next video
+## Next video 下一个视频
 
-Next up I'll bring up more contexts where this idea of an integral and the area under curves comes up, along with some other intuitions for the fundamental theorem of calculus.
+Next up I'll bring up more contexts where this idea of an integral and the area under curves comes up, along with some other intuitions for the fundamental theorem of calculus.  
+接下来，我将介绍更多出现积分与曲线下面积这一概念的情境，以及关于微积分基本定理的一些其他直观理解。
 
 </section>

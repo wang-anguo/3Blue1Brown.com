@@ -1,13 +1,13 @@
 ---
-title: A quick trick for computing eigenvalues
-description: A quick way to compute eigenvalues of a 2x2 matrix
+title: A quick trick for computing eigenvalues 计算特征值的一个快捷技巧
+description: A quick way to compute eigenvalues of a $2x2$ matrix 计算 $2×2$ 矩阵特征值的快速方法
 date: 2021-05-07
 chapter: 15
 video: e50Bj7jn9IQ
 source: _2021/quick_eigen.py
 credits:
-  - Lesson by Grant Sanderson
-  - Text adaptation by Kurt Bruns
+  - Lesson by Grant Sanderson - 格兰特·桑德森的课程
+  - Text adaptation by Kurt Bruns 
 ---
 
 import Figure from "~/components/Figure";
@@ -16,18 +16,30 @@ import Question from "~/components/Question";
 
 <section>
 
-This is a video for anyone who already knows what eigenvalues and eigenvectors are, and who might enjoy a quick way to compute them in the case of 2x2 matrices. If you're unfamiliar with eigenvalues, take a look at the <LessonLink id="eigenvalues"> previous chapter</LessonLink> which introduces them.
+This is a video for anyone who already knows what eigenvalues and eigenvectors are, and who might enjoy a quick way to compute them in the case of 2x2 matrices. If you're unfamiliar with eigenvalues, take a look at the <LessonLink id="eigenvalues"> previous chapter</LessonLink> which introduces them.  
+   这是一个为那些已经了解特征值和特征向量是什么，  
+   并且希望找到一种快速计算 $2x2$ 矩阵特征值和特征向量方法的人准备的视频。  
+   如果您还不熟悉特征值，请先阅读前面介绍它们的章节。
 
-You can skip ahead if you just want to see the trick, but if possible we'd like you to rediscover it for yourself, so let's lay down a little background.
+You can skip ahead if you just want to see the trick, but if possible we'd like you to rediscover it for yourself, so let's lay down a little background.  
+如果您只想看看技巧，可以直接跳过，  
+但若有可能，我们希望您能自己重新发现它，因此让我们先介绍一些背景知识。
 
-As a quick reminder, if the effect of a linear transformation on a given vector is to scale it by some constant, we call that vector an eigenvector of the transformation, and we call the relevant scaling factor the corresponding eigenvalue, often denoted with the letter lambda, $\lambda$.
+As a quick reminder, if the effect of a linear transformation on a given vector is to scale it by some constant, we call that vector an eigenvector of the transformation, and we call the relevant scaling factor the corresponding eigenvalue, often denoted with the letter lambda, $\lambda$.  
+简单回顾一下：如果线性变换对某个向量的作用是将其按某个常数进行缩放，  
+那么我们称该向量为该变换的特征向量，  
+而相应的缩放因子则称为特征值，通常用字母λ表示。
 
 <Figure
   image="$lesson/figures/introduction/QuickReviewLinearTransformation.light.svg"
   video="$lesson/figures/introduction/QuickReviewLinearTransformation.light.mp4"
 />
 
-When you write this as an equation and rearrange a little, what you see is that if a number $\lambda$ is an eigenvalue of a matrix $A$, then the matrix $(A - \lambda I)$ must send some nonzero vector, namely the corresponding eigenvector, to the zero vector, which in turn means the determinant of this modified matrix must be $0$.
+When you write this as an equation and rearrange a little, what you see is that if a number $\lambda$ is an eigenvalue of a matrix $A$, then the matrix $(A - \lambda I)$ must send some nonzero vector, namely the corresponding eigenvector, to the zero vector, which in turn means the determinant of this modified matrix must be $0$.  
+当你将此写成方程并稍作变形后，就会发现：  
+如果某个数 $\lambda$ 是矩阵 $A$ 的特征值，  
+那么矩阵 $(A - \lambda I)$ 必定会将某个非零向量——即对应的特征向量——映射为零向量，  
+而这也就意味着该变换后矩阵的行列式必须为$0$。
 
 $$
 \begin{aligned}
@@ -38,9 +50,13 @@ A \vec{\mathbf{v}}-\lambda I \vec{\mathbf{v}} & =\vec{\mathbf{0}} \\ \rule{0pt}{
 \end{aligned}
 $$
 
-That's a bit of a mouthful, but again, we're assuming this is review for anyone reading.
+That's a bit of a mouthful, but again, we're assuming this is review for anyone reading.  
+这话说起来有点长，不过我们还是假设这是为所有读者准备的评论。
 
-The usual way to compute eigenvalues and how most students are taught to carry it out, is to subtract a variable lambda off the diagonals of a matrix and solve for when the determinant equals $0$. For example, when finding the eigenvalues of the matrix $\left[\begin{array}{ll} 3 & 1 \\ 4 & 1 \end{array}\right]$ this looks like:
+The usual way to compute eigenvalues and how most students are taught to carry it out, is to subtract a variable lambda off the diagonals of a matrix and solve for when the determinant equals $0$. For example, when finding the eigenvalues of the matrix $\left[\begin{array}{ll} 3 & 1 \\ 4 & 1 \end{array}\right]$ this looks like:  
+计算特征值的常规方法，也是大多数学生所学的做题方式，  
+就是从矩阵的对角线上减去一个变量λ，然后求解行列式等于0时的值。  
+例如，在求矩阵$\left[\begin{array}{ll} 3 & 1 \\ 4 & 1 \end{array}\right]$的特征值时，操作步骤如下：
 
 $$
 \operatorname{det}\left(\left[\begin{array}{cc}
@@ -49,7 +65,11 @@ $$
 \end{array}\right]\right)=(3-\lambda)(1-\lambda)-(1)(4) = 0
 $$
 
-This always involves a few steps to expand this and simplify it to get a clean quadratic polynomial, known as the "characteristic polynomial" of the matrix. The eigenvalues are the roots of this polynomial, so to find them you apply the quadratic formula, which typically requires one or two more steps of simplification.
+This always involves a few steps to expand this and simplify it to get a clean quadratic polynomial, known as the "characteristic polynomial" of the matrix. The eigenvalues are the roots of this polynomial, so to find them you apply the quadratic formula, which typically requires one or two more steps of simplification.  
+这通常需要经过几步操作来展开并简化表达式，  
+从而得到一个简洁的二次多项式，即该矩阵的“特征多项式”​。  
+特征值就是这个多项式的根，  
+因此要找到它们就需要运用二次公式，而这通常还需要再经过一两步简化。
 
 $$
 \begin{aligned}
@@ -63,55 +83,76 @@ $$
 \end{aligned}
 $$
 
-This process isn't _terrible_, but at least for 2x2 matrices, there's a much more direct way to get at this answer. If you want to rediscover this trick, there are three relevant facts you'll need to know, each of which is worth knowing in its own right and can help with other problem-solving.
+This process isn't _terrible_, but at least for 2x2 matrices, there's a much more direct way to get at this answer. If you want to rediscover this trick, there are three relevant facts you'll need to know, each of which is worth knowing in its own right and can help with other problem-solving.  
+这个方法并不算_糟糕_，但至少对于 $2x2$ 矩阵来说，有更直接的方法可以得到答案。  
+如果你想重新发现这一技巧，需要了解三个相关的事实，  
+每一个事实本身都很有价值，而且还能帮助解决其他问题。
 
-1. The trace of a matrix, which is the sum of these two diagonal entries, is equal to the sum of the eigenvalues.
+1. The trace of a matrix, which is the sum of these two diagonal entries, is equal to the sum of the eigenvalues.  
+   矩阵的迹，即这两条对角线元素之和，等于其特征值之和。
 
    $$
    \operatorname{tr}\left(\left[\begin{array}{cc}a & b \\ c & d\end{array}\right]\right)=a+d=\lambda_1+\lambda_2
    $$
 
-   Or another way to phrase it, more useful for our purposes, is that the mean of the two eigenvalues is the same as the mean of these two diagonal entries.
+   Or another way to phrase it, more useful for our purposes, is that the mean of the two eigenvalues is the same as the mean of these two diagonal entries.  
+   或者用另一种更符合我们需求的表述方式来说，  
+   这两个特征值的平均值等于这两个对角线元素的平均值。
+
 
    $$
    \frac{1}{2} \operatorname{tr}\left(\left[\begin{array}{cc}a & b \\ c & d\end{array}\right]\right)=\frac{a+d}{2}=\frac{\lambda_1+\lambda_2}{2}
    $$
 
-2. The determinant of a matrix, our usual $ad-bc$ formula, equals the product of the two eigenvalues.
+2. The determinant of a matrix, our usual $ad-bc$ formula, equals the product of the two eigenvalues.  
+   矩阵的行列式，也就是我们常用的$ad-bc$公式，等于其两个特征值的乘积。
 
    $$
    \operatorname{det}\left(\left[\begin{array}{ll}a & b \\ c & d\end{array}\right]\right)=a d-b c=\lambda_1 \lambda_2
    $$
 
-   This should make sense if you understand that an eigenvalue describes how much an operator stretches space in a particular direction and that the determinant describes how much an operator scales areas (or volumes).
+   This should make sense if you understand that an eigenvalue describes how much an operator stretches space in a particular direction and that the determinant describes how much an operator scales areas (or volumes).  
+   如果你明白特征值描述的是算子在某个特定方向上拉伸空间的程度，  
+   而行列式描述的是算子缩放面积（或体积）的程度，那么这一点就容易理解了。
 
 3. (We'll get to this...)
 
-Before getting to the third fact, notice how you can essentially read these first two values out of the matrix. Take this matrix $\left[\begin{array}{ll}8 & 4 \\ 2 & 6\end{array}\right]$ as an example. Straight away you can know that the mean of the eigenvalues is the same as the mean of $8$ and $6$, which is $7$.
+Before getting to the third fact, notice how you can essentially read these first two values out of the matrix. Take this matrix $\left[\begin{array}{ll}8 & 4 \\ 2 & 6\end{array}\right]$ as an example. Straight away you can know that the mean of the eigenvalues is the same as the mean of $8$ and $6$, which is $7$.  
+在讨论第三个事实之前，请注意其实可以从矩阵中直接读出前两个数值。  
+以矩阵$\left[\begin{array}{ll}8 & 4 \\ 2 & 6\end{array}\right]$为例，立刻就能知道特征值的平均值与$8$和$6$的平均值相同，即为$7$。
 
 $$
 m = \frac{\lambda_1 + \lambda_2}{2} = 7
 $$
 
-Likewise, most linear algebra students are well-practiced at finding the determinant, which in this case is $8 \cdot 6 - 4 \cdot 2 = 48 - 8$, so you know the product of our two eigenvalues is $40$.
+Likewise, most linear algebra students are well-practiced at finding the determinant, which in this case is $8 \cdot 6 - 4 \cdot 2 = 48 - 8$, so you know the product of our two eigenvalues is $40$.  
+同样，大多数线性代数专业的学生都很擅长计算行列式，  
+在这个例子中即为 $8\cdot 6 - 4 \cdot 2 = 48 - 8$，因此可知我们两个特征值的乘积为$40$。
 
 $$
 p = \lambda_1 \lambda_2= 40
 $$
 
-Take a moment to see how you can derive what will be our third relevant fact, which is how to recover two numbers when you know their mean and product.
+Take a moment to see how you can derive what will be our third relevant fact, which is how to recover two numbers when you know their mean and product.  
+花点时间看看如何推导出我们的第三个相关结论，即：  
+已知两个数的均值和乘积时，如何求出这两个数。
 
-Focus on this example. You know the two values are evenly spaced around $7$, so they look like $7$ plus or minus something; let's call it $d$ for distance.
+Focus on this example. You know the two values are evenly spaced around $7$, so they look like $7$ plus or minus something; let's call it $d$ for distance.  
+重点看这个例子。你知道这两个数值在7的周围均匀分布，  
+所以它们可以表示为7加上或减去某个数；  
+我们把这个数称为距离d。
 
 <Figure image="$lesson/figures/introduction/MeanProductSetup.light.svg" />
 
-You also know that the product of these two numbers is $40$.
+You also know that the product of these two numbers is $40$.  
+你也知道这两个数的乘积是40。
 
 $$
 40 = (7+d)(7-d)
 $$
 
-To find $d$, notice how this product expands nicely as a difference of squares. This lets you cleanly solve for $d$:
+To find $d$, notice how this product expands nicely as a difference of squares. This lets you cleanly solve for $d$:  
+  要找到$d$，注意这个乘积可以很好地展开为平方差形式。这样就能轻松解出$d$了：
 
 $$
 \begin{aligned}
@@ -123,17 +164,25 @@ d & =3
 \end{aligned}
 $$
 
-In other words, the two values for this very specific example work out to be $4$ and $10$.
+In other words, the two values for this very specific example work out to be $4$ and $10$.  
+换句话说，这个非常具体的例子中，两个数值分别是$4$和$10$。
 
 <Figure image="$lesson/figures/introduction/MeanProductSpecific.light.svg" />
 
-But our goal is a quick trick and you wouldn't want to think through this each time, so let's wrap up what we just did in a general formula.
+But our goal is a quick trick and you wouldn't want to think through this each time, so let's wrap up what we just did in a general formula.  
+但我们的目标是快速解决这个问题，而且你也不想每次都仔细思考，  
+所以让我们把刚才的做法用一个通用公式概括一下。
 
-For any mean, $m$, and product, $p$, the distance squared is always going to be $m^2 - p$. This gives the third key fact, which is that when two numbers have a mean and a product, you can write those two numbers as $m \pm \sqrt{m^2 - p}$.
+For any mean, $m$, and product, $p$, the distance squared is always going to be $m^2 - p$. This gives the third key fact, which is that when two numbers have a mean and a product, you can write those two numbers as $m \pm \sqrt{m^2 - p}$.  
+对于任意的均值$m$和乘积$p$，距离的平方始终为$m^2 - p$。  
+这就得出了第三个关键事实：当两个数有均值和乘积时，可以将这两个数表示为$m \pm\sqrt{m^2 - p}$。
 
 <Figure image="$lesson/figures/introduction/MeanProductFormula.light.svg" />
 
-This is decently fast to rederive on the fly if you ever forget it and it's essentially just a rephrasing of the difference of squares formula, but even still it's a fact worth memorizing. In fact, Tim from Acapella Science wrote us a quick jingle to make it a little more memorable.
+This is decently fast to rederive on the fly if you ever forget it and it's essentially just a rephrasing of the difference of squares formula, but even still it's a fact worth memorizing. In fact, Tim from Acapella Science wrote us a quick jingle to make it a little more memorable.  
+如果你忘记了，可以很快地重新推导出来，  
+它本质上只是平方差公式的另一种表述，但依然是一个值得记住的结论。  
+事实上，Acapella Science的Tim为我们写了一首简短的顺口溜，让它更易记。
 
 <Figure video="$lesson/figures/introduction/jingle.mp4" />
 
@@ -141,44 +190,58 @@ This is decently fast to rederive on the fly if you ever forget it and it's esse
 
 <section>
 
-## Examples
+## Examples 示例
 
-Let me show you how this works, say for the matrix $\left[\begin{array}{cc}3 & 1 \\ 4 & 1\end{array}\right]$. You start by thinking of the formula, stating it all in your head.
+Let me show you how this works, say for the matrix $\left[\begin{array}{cc}3 & 1 \\ 4 & 1\end{array}\right]$. You start by thinking of the formula, stating it all in your head.  
+让我来演示一下这是如何运作的，以矩阵$\left[\begin{array}{cc}3 & 1 \\ 4 &1\end{array}\right]$为例。  
+首先在脑海中想出公式，然后将其完整地说出来。
 
 <Figure image="$lesson/figures/examples/ThinkingOfTheFormula.light.svg" />
 
-But as you write it down, you fill in the appropriate values of $m$ and $p$ as you go. Here, the mean of the eigenvalues is the same as the mean of $3$ and $1$, which is $2$, so you start by writing:
+But as you write it down, you fill in the appropriate values of $m$ and $p$ as you go. Here, the mean of the eigenvalues is the same as the mean of $3$ and $1$, which is $2$, so you start by writing:  
+ 但当你把它写下来时，需要一边填写一边确定$m$和$p$的适当值。  
+ 这里，特征值的平均值与3和1的平均值相同，均为2，因此你首先这样写：
 
 $$
 \lambda_1, \lambda_2 = 2 \pm \sqrt{2^2 - …}
 $$
 
-The product of the eigenvalues is the determinant, which in this example is $3 \cdot 1 - 1 \cdot 4 = -1$, so that's the final thing you fill in.
+The product of the eigenvalues is the determinant, which in this example is $3 \cdot 1 - 1 \cdot 4 = -1$, so that's the final thing you fill in.  
+特征值的乘积即为行列式，在这个例子中为$3 \cdot 1 - 1 \cdot 4 = -1$，  
+这就是你需要填写的最终结果。
 
 $$
 \lambda_1, \lambda_2 = 2 \pm \sqrt{2^2 - (-1)}
 $$
 
-So the eigenvalues are $2 \pm \sqrt{5}$. You may noticed this is the same matrix we were using at the start, but notice how much more directly we can get at the answer compared to the characteristic polynomial route.
+So the eigenvalues are $2 \pm \sqrt{5}$. You may noticed this is the same matrix we were using at the start, but notice how much more directly we can get at the answer compared to the characteristic polynomial route.  
+因此，特征值为$2 \pm \sqrt{5}$。你可能会注意到，这正是我们最开始使用的那个矩阵，  
+但与通过特征多项式的方法相比，我们现在能更直接地得到答案。
 
 <Figure image="$lesson/figures/examples/MoreDirect.light.svg" />
 
-Here, let's try another one using the matrix $\left[\begin{array}{ll}2 & 7 \\ 1 & 8\end{array}\right]$. This time the mean of the eigenvalues is the same as the mean of $2$ and $8$, which is $5$. So again, start writing out the formula, but writing $5$ in place of $m$:
+Here, let's try another one using the matrix $\left[\begin{array}{ll}2 & 7 \\ 1 & 8\end{array}\right]$. This time the mean of the eigenvalues is the same as the mean of $2$ and $8$, which is $5$. So again, start writing out the formula, but writing $5$ in place of $m$:  
+这里，我们用矩阵$\left[\begin{array}{ll}2 & 7 \\ 1 & 8\end{array}\right]$再试一个。  
+这次特征值的平均值与2和8的平均值相同，都是5。因此，同样先写出公式，但将$m$替换为5：
 
 $$
 \lambda_1, \lambda_2 =  5 \pm \sqrt{5^2 - …}
 $$
 
-The determinant is $2 \cdot 8 - 7 \cdot 1 = 9$. So in this example, the eigenvalues look like $5 ± \sqrt{16}$, which gives us $9$ and $1$.
+The determinant is $2 \cdot 8 - 7 \cdot 1 = 9$. So in this example, the eigenvalues look like $5 ± \sqrt{16}$, which gives us $9$ and $1$.  
+行列式的值为 $2 \cdot 8 - 7 \cdot 1 = 9$。  
+因此在这个例子中，特征值表现为$5 \pm \sqrt{16}$，从而得到 $9$ 和 $1$。
 
 $$
 \lambda_1, \lambda_2 =  5 \pm \sqrt{5^2 - 9} = 9, 1
 $$
 
-You see what we mean about how you can basically just write down the eigenvalues while staring at the matrix? It's typically just the tiniest bit of simplifying at the end.
+You see what we mean about how you can basically just write down the eigenvalues while staring at the matrix? It's typically just the tiniest bit of simplifying at the end.  
+你看，我们说的就是：看着矩阵基本上可以直接写出特征值，通常最后只需进行极少的简化步骤即可。
 
 <Question
-  question="What are the eigenvalue(s) of the matrix $\left[\begin{array}{ll}2 & 3 \\ 2 & 4\end{array}\right]$?"
+  question="What are the eigenvalue(s) of the matrix $\left[\begin{array}{ll}2 & 3 \\ 2 & 4\end{array}\right]$?  
+  矩阵$\left[\begin{array}{ll}2 & 3 \\ 2 & 4\end{array}\right]$的特征值是什么？​"
   choice1="$3 \pm \sqrt{11}$"
   choice2="$3 \pm \sqrt{7}$"
   choice3="$3 \pm \sqrt{2}$"
@@ -201,49 +264,87 @@ $$
 
 </Question>
 
-This trick is especially useful when you need to read off the eigenvalues from small examples without losing the main line of thought by getting bogged down in calculations.[^1]
+This trick is especially useful when you need to read off the eigenvalues from small examples without losing the main line of thought by getting bogged down in calculations.[^1]  
+  当需要从简单的例子中读取特征值，同时又不想因陷入计算而偏离主要思路时，这个技巧尤其有用。​[^1]
 
-[^1]: For example, this trick was used while making the video: <a href="https://www.youtube.com/watch?v=O85OWBJ2ayo?">How (and why) to raise e to the power of a matrix</a>
+[^1]: For example, this trick was used while making the video: <a href="https://www.youtube.com/watch?v=O85OWBJ2ayo?">How (and why) to raise e to the power of a matrix</a>  
+[^1]​：例如，在制作视频《如何（以及为何）对矩阵求e的幂》时就运用了这一技巧。
 
-For more practice, let's try this out on a common set of matrices which pop up in quantum mechanics, known as the Pauli spin matrices.
+For more practice, let's try this out on a common set of matrices which pop up in quantum mechanics, known as the Pauli spin matrices.  
+为了更多练习，让我们在量子力学中常见的矩阵——即泡利自旋矩阵上试一试。
 
 <Figure image="$lesson/figures/examples/PauliSpinMatrices.light.svg" />
 
-If you know quantum mechanics, you'll know the eigenvalues of these are highly relevant to the physics they describe, and if you don't then let this just be a little glimpse of how these computations are actually relevant to real applications.
+If you know quantum mechanics, you'll know the eigenvalues of these are highly relevant to the physics they describe, and if you don't then let this just be a little glimpse of how these computations are actually relevant to real applications.  
+如果你了解量子力学，就会知道这些矩阵的本征值与它们所描述的物理现象密切相关；  
+而如果你不了解，那么就把它当作是了解这类计算如何真正应用于实际场景的一个小小示例吧。
 
-The mean of the diagonal in all three cases is $0$, so the mean of the eigenvalues in all cases is $0$, making our formula look especially simple.
+The mean of the diagonal in all three cases is $0$, so the mean of the eigenvalues in all cases is $0$, making our formula look especially simple.  
+在所有三种情况下，对角线的平均值均为$0$，因此所有情况下特征值的平均值也为$0$，  
+这让我们的公式显得格外简单。
 
 <Figure image="$lesson/figures/examples/PauliSpinMatricesMean.light.svg" />
 
-What about the products of the eigenvalues, the determinants? For the first one, it's $0 - 1$ or $-1$. The second also looks like $0 - 1$, though it takes a moment more to see because of the complex numbers. And the final one looks like $-1 - 0$. So in all three cases, the eigenvalues are $±1$.
+What about the products of the eigenvalues, the determinants? For the first one, it's $0 - 1$ or $-1$. The second also looks like $0 - 1$, though it takes a moment more to see because of the complex numbers. And the final one looks like $-1 - 0$. So in all three cases, the eigenvalues are $±1$.  
+那特征值的乘积，也就是行列式呢？第一种情况是$0 - 1$，即$-1$。  
+第二种情况看起来也是$0 - 1$，不过由于存在复数，需要稍作思考才能看出来。  
+最后一种情况则是$-1 - 0$。因此在这三种情况下，特征值都是$±1$。
 
 <Figure image="$lesson/figures/examples/PauliSpinMatricesEigenvalues.light.svg" />
 
-Although in this case you don't even really need the formula to find two values evenly spaced around zero whose product is $-1$.
+Although in this case you don't even really need the formula to find two values evenly spaced around zero whose product is $-1$.  
+     虽然在这种情况下，你甚至根本不需要公式就能找到两个关于零对称且乘积为$-1$的数值。
 
-If you're curious, in the context of quantum mechanics, these matrices correspond with observations you might make about the spin of a particle in the $x$, $y$ or $z$-direction, and the fact that these eigenvalues are $±1$ corresponds with the idea that the values for the spin you would observe would be entirely in one direction or entirely in another, as opposed to something continuously ranging in between.
+If you're curious, in the context of quantum mechanics, these matrices correspond with observations you might make about the spin of a particle in the $x$, $y$ or $z$-direction, and the fact that these eigenvalues are $±1$ corresponds with the idea that the values for the spin you would observe would be entirely in one direction or entirely in another, as opposed to something continuously ranging in between.  
+如果你感兴趣的话，在量子力学的背景下，  
+这些矩阵对应于你可以对粒子在 $x$ 、 $y$ 或 $z$ 方向上的自旋所进行的观测，   
+而其本征值为 $±1$ 这一事实  
+则意味着你所观测到的自旋值会完全处于一个方向或完全处于另一个方向，  
+而非在两者之间连续变化。
 
-Maybe you'd wonder how exactly this works, and why you'd use 2x2 matrices with complex numbers to describe spin in three dimensions. Those would be valid questions, just beyond the scope of what we're talking about here.
+Maybe you'd wonder how exactly this works, and why you'd use 2x2 matrices with complex numbers to describe spin in three dimensions. Those would be valid questions, just beyond the scope of what we're talking about here.  
+      你或许会好奇这究竟是如何运作的，以及为何要用复数的2×2矩阵来描述三维空间中的自旋。  
+      这些都是合理的问题，只是超出了我们此处讨论的范围。
 
-You know it's funny, this section is supposed to be about a case where 2x2 matrices are not just toy examples or homework problems, but actually come up in practice, and quantum mechanics is great for that. However, the example kind of undercuts the whole point we're trying to make. For these specific matrices, if you use the traditional method with characteristic polynomials, it's essentially just as fast, and might actually faster.
+You know it's funny, this section is supposed to be about a case where 2x2 matrices are not just toy examples or homework problems, but actually come up in practice, and quantum mechanics is great for that. However, the example kind of undercuts the whole point we're trying to make. For these specific matrices, if you use the traditional method with characteristic polynomials, it's essentially just as fast, and might actually faster.  
+你知道很有趣，这一节本应探讨这样一个案例：  
+$2×2$ 矩阵并非仅仅是示例或作业题，而是在实际中确实会出现，  
+而量子力学在这方面表现得非常出色。  
+然而，这个例子反而削弱了我们试图表达的核心观点。  
+对于这些特定的矩阵，如果使用带有特征多项式的传统方法，  
+计算速度基本上差不多，甚至可能更快。
 
-For the first matrix, the relevant determinant directly gives you a characteristic polynomial of $\lambda^2 - 1$, which clearly has roots of plus and minus $1$. Same answer for the second matrix. And for the last, forget about doing any computations, traditional or otherwise, it's already a diagonal matrix, so those diagonal entries are the eigenvalues!
+For the first matrix, the relevant determinant directly gives you a characteristic polynomial of $\lambda^2 - 1$, which clearly has roots of plus and minus $1$. Same answer for the second matrix. And for the last, forget about doing any computations, traditional or otherwise, it's already a diagonal matrix, so those diagonal entries are the eigenvalues!  
+对于第一个矩阵，相关的行列式可直接给出特征多项式$\lambda^2 - 1$，  
+显然其根为$1$和$-1$。  
+第二个矩阵的结果也是如此。  
+至于最后一个矩阵，无需进行任何计算——无论是传统方法还是其他方式——  
+因为它本身就是对角矩阵，那些对角线上的元素就是特征值！
 
 <Figure image="$lesson/figures/examples/PauliSpinMatricesCharacteristicPolynomial.light.svg" />
 
-However, the example is not totally lost on our cause, where you would actually feel the speed up is the more general case where you take a linear combination of these matrices and then try to compute the eigenvalues.
+However, the example is not totally lost on our cause, where you would actually feel the speed up is the more general case where you take a linear combination of these matrices and then try to compute the eigenvalues.  
+不过，这个例子对我们的研究并非毫无意义，  
+在那种情况下你实际上会感受到速度的提升，  
+而更一般的情况则是对这些矩阵进行线性组合，然后再尝试计算特征值。
 
 <Figure image="$lesson/figures/examples/PauliSpinMatricesGeneralCase.light.svg" />
 
-We might write this as $a$ times the first one, plus $b$ times the second, plus $c$ times the third. In physics, this would describe spin observations in the direction of a vector $\left[\begin{array}{c} a \\ b \\ c \end{array}\right]$.
+We might write this as $a$ times the first one, plus $b$ times the second, plus $c$ times the third. In physics, this would describe spin observations in the direction of a vector $\left[\begin{array}{c} a \\ b \\ c \end{array}\right]$.  
+我们可以将其表示为第一个的$a$倍，加上第二个的$b$倍，再加上第三个的$c$倍。  
+在物理学中，这可以用来描述沿向量$\left[\begin{array}{c} a \\ b \\ c\end{array}\right]$方向的自旋观测。
 
 <Figure image="$lesson/figures/examples/PauliSpinMatricesGeneralDirection.light.svg" />
 
-More specifically, you should assume this vector is normalized, meaning $a^2 + b^2 + c^2 = 1$. When you look at this new matrix, it's immediate to see that the mean of the eigenvalues here is still zero, and you may enjoy pausing for a brief moment to confirm that the product of those eigenvalues is still $-1$, and from there concluding what the eigenvalues must be.
+More specifically, you should assume this vector is normalized, meaning $a^2 + b^2 + c^2 = 1$. When you look at this new matrix, it's immediate to see that the mean of the eigenvalues here is still zero, and you may enjoy pausing for a brief moment to confirm that the product of those eigenvalues is still $-1$, and from there concluding what the eigenvalues must be.  
+更具体地说，你应该假设这个向量是归一化的，即$a^2 + b^2 + c^2 = 1$。  
+观察这个新的矩阵，可以立刻发现其特征值的平均值仍然为零；  
+你可以稍作停顿来确认这些特征值的乘积依然为$-1$，进而推断出这些特征值的具体数值。
 
 <Figure image="$lesson/figures/examples/PauliSpinMatricesGeneralDirectionPauseAndConfirm.light.svg" />
 
-The characteristic polynomial approach, on the other hand, is now actually more cumbersome to do in your head.
+The characteristic polynomial approach, on the other hand, is now actually more cumbersome to do in your head.  
+另一方面，用特征多项式的方法在心中计算实际上更为繁琐。
 
 <Figure image="$lesson/figures/examples/PauliSpinMatricesGeneralCaseCharacteristicPolynomial.light.svg" />
 
@@ -251,28 +352,41 @@ The characteristic polynomial approach, on the other hand, is now actually more 
 
 <section>
 
-## Relation to the quadratic formula
+## Relation to the quadratic formula 与二次公式的关系
 
-To be clear, using the mean-product formula is the same thing as finding roots of the characteristic polynomial; it has to be. In fact, this formula is a nice way to think about solving quadratics in general and some viewers of the channel may recognize this.
+To be clear, using the mean-product formula is the same thing as finding roots of the characteristic polynomial; it has to be. In fact, this formula is a nice way to think about solving quadratics in general and some viewers of the channel may recognize this.  
+需要明确的是，使用均值积公式实际上等同于求解特征多项式的根；事实也确实如此。  
+实际上，这个公式是思考一般二次方程解法的一种好方法，该频道的某些观众可能已经认识到了这一点。
 
 <Figure image="$lesson/figures/relation-to-quadratic-formula/QuadraticExample.light.svg" />
 
-If you're trying to find the roots of a quadratic given its coefficients, you can think of that as a puzzle where you know the sum of two values, and you know their product, and you're trying to recover the original two values.
+If you're trying to find the roots of a quadratic given its coefficients, you can think of that as a puzzle where you know the sum of two values, and you know their product, and you're trying to recover the original two values.  
+如果你想根据二次方程的系数求出其根，可以将其视为一道谜题：  
+已知两个数的和与它们的乘积，试图找出这两个数本身。
 
 <Figure image="$lesson/figures/relation-to-quadratic-formula/QuadraticExampleWithEquations.light.svg" />
 
-Specifically, if the polynomial is normalized so that the leading coefficient is $1$, then the mean of the roots is $-1/2$ times the linear coefficient, for the example on screen that would be $5$, and the product of the roots is even easier, it's just the constant term. From there, you'd apply the mean product formula to find the roots.
+Specifically, if the polynomial is normalized so that the leading coefficient is $1$, then the mean of the roots is $-1/2$ times the linear coefficient, for the example on screen that would be $5$, and the product of the roots is even easier, it's just the constant term. From there, you'd apply the mean product formula to find the roots.  
+具体来说，如果将多项式标准化，使其首项系数为1，  
+那么根的平均值就是一次项系数的$-1/2$倍，屏幕上的例子中即为5；  
+而根的乘积则更简单，直接就是常数项。之后就可以运用均值乘积公式来求出根。
 
 <Figure image="$lesson/figures/relation-to-quadratic-formula/ApplyMeanProductFormula.light.svg" />
 
-Now, you could think of the mean product formula as being a lighter-weight reframing of the traditional quadratic formula. But the real advantage is that the terms have more meaning to them.
+Now, you could think of the mean product formula as being a lighter-weight reframing of the traditional quadratic formula. But the real advantage is that the terms have more meaning to them.  
+现在，你可以将均值乘积公式视为传统二次公式的简化版本。  
+但其真正的优势在于各项具有更明确的含义。
 
-The whole point of this eigenvalue trick is that because you can read out the mean and product directly from the matrix, you can jump straight to writing down the roots without thinking about what the characteristic polynomial looks like. But to do that, we need a version of the quadratic formula where the terms carry some kind of meaning.
+The whole point of this eigenvalue trick is that because you can read out the mean and product directly from the matrix, you can jump straight to writing down the roots without thinking about what the characteristic polynomial looks like. But to do that, we need a version of the quadratic formula where the terms carry some kind of meaning.  
+这个特征值技巧的精髓在于：由于可以直接从矩阵中读出均值和乘积，  
+因此无需考虑特征多项式的形式，就能直接写出根的表达式。  
+但要做到这一点，我们需要一个各项都带有某种意义的二次公式版本。
 
 <Figure image="$lesson/figures/relation-to-quadratic-formula/SkipCharacteristicPolynomial.light.svg" />
 
 <Question
-  question="What are the eigenvalue(s) of the matrix $\left[\begin{array}{ll}3 & 1 \\ 5 & 7\end{array}\right]$?"
+  question="What are the eigenvalue(s) of the matrix $\left[\begin{array}{ll}3 & 1 \\ 5 & 7\end{array}\right]$?  
+  矩阵$\left[\begin{array}{ll}3 & 1 \\ 5 & 7\end{array}\right]$的特征值是什么？​"
   choice1="$5$"
   choice2="$3$ and $7$"
   choice3="$2$ and $8$"
@@ -292,7 +406,8 @@ $$
 </Question>
 
 <Question
-  question="What are the eigenvalue(s) of the matrix $\left[\begin{array}{ll}8 & 4 \\ 2 & 6\end{array}\right]$?"
+  question="What are the eigenvalue(s) of the matrix $\left[\begin{array}{ll}8 & 4 \\ 2 & 6\end{array}\right]$?  
+  矩阵$\left[\begin{array}{ll}8 & 4 \\ 2 & 6\end{array}\right]$的特征值是什么？​"
   choice1="$7$"
   choice2="$6$ and $8$"
   choice3="$3$ and $11$"
@@ -315,16 +430,23 @@ $$
 
 <section>
 
-## Last thoughts
+## Last thoughts  最后的思考
 
-The hope is that it's not just one more thing to memorize, but that the framing reinforces other nice facts worth knowing, like how the trace and determinant relate to eigenvalues. If you want to prove these facts, by the way, take a moment to expand out the characteristic polynomial for a general matrix, and think hard about the meaning of each coefficient.
+The hope is that it's not just one more thing to memorize, but that the framing reinforces other nice facts worth knowing, like how the trace and determinant relate to eigenvalues. If you want to prove these facts, by the way, take a moment to expand out the characteristic polynomial for a general matrix, and think hard about the meaning of each coefficient.  
+希望这不仅仅是一项需要记忆的内容，而是通过这样的框架能够强化其他值得了解的有趣事实，  
+比如迹与行列式如何与特征值相关联。  
+顺便说一下，如果想证明这些事实，  
+不妨花点时间展开一般矩阵的特征多项式，并仔细思考每个系数的含义。
 
 <Figure image="$lesson/figures/last-thoughts/ThinkAboutTheseCoefficients.light.svg" />
 
-Many thanks to Tim, for ensuring that the mean-product formula will stay stuck in all of our heads for at least a few months.
+Many thanks to Tim, for ensuring that the mean-product formula will stay stuck in all of our heads for at least a few months.  
+非常感谢Tim，让他让均值-乘积公式至少在我们所有人的脑海中停留几个月。
 
 <Figure video="$lesson/figures/introduction/jingle.mp4" />
 
-If you don't know about [his channel](https://www.youtube.com/@acapellascience), do check it out. The [Molecular Shape of You](https://www.youtube.com/watch?v=f8FAJXPBdOg), in particular, is one of the greatest things on the internet.
+If you don't know about [his channel](https://www.youtube.com/@acapellascience), do check it out. The [Molecular Shape of You](https://www.youtube.com/watch?v=f8FAJXPBdOg), in particular, is one of the greatest things on the internet.  
+如果你还不知道[他的频道](https://www.youtube.com/@acapellascience)，一定要去看看。  
+尤其是[​《你的分子形态》​](https://www.youtube.com/watch?v=f8FAJXPBdOg)，堪称互联网上最精彩的视频之一。
 
 </section>
